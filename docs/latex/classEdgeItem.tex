@@ -1,0 +1,156 @@
+\hypertarget{classEdgeItem}{}\doxysection{Edge\+Item Class Reference}
+\label{classEdgeItem}\index{EdgeItem@{EdgeItem}}
+
+
+{\ttfamily \#include $<$edgeitem.\+h$>$}
+
+
+
+Inheritance diagram for Edge\+Item\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classEdgeItem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Edge\+Item\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{classEdgeItem__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEdgeItem_aef22a1190cf1b7acd137f23c0cf22ef3}{Edge\+Item}} (\mbox{\hyperlink{classEdge}{Edge}} $\ast$\mbox{\hyperlink{classEdgeItem_aa14527a1d41d7c229ccfd01eff7adb0b}{edge}})
+\item 
+void \mbox{\hyperlink{classEdgeItem_ac664c20208fbe563aeaa146c7b2d65fa}{read\+Pos}} ()
+\item 
+void \mbox{\hyperlink{classEdgeItem_acbac3fd92e71d88b511719fa773e721e}{paint}} (QPainter $\ast$painter, const QStyle\+Option\+Graphics\+Item $\ast$, QWidget $\ast$) override
+\item 
+QRectF \mbox{\hyperlink{classEdgeItem_a8d42d01d1af9920ba78b9e3bfdd5e10c}{bounding\+Rect}} () const override
+\item 
+QPainter\+Path \mbox{\hyperlink{classEdgeItem_acbb3b8f7e3c17a200b264a6a1a192f29}{shape}} () const override
+\item 
+\mbox{\hyperlink{classEdge}{Edge}} $\ast$ \mbox{\hyperlink{classEdgeItem_aa14527a1d41d7c229ccfd01eff7adb0b}{edge}} () const
+\item 
+QGraphics\+Ellipse\+Item $\ast$ \mbox{\hyperlink{classEdgeItem_a80d72c6749b157426f004c08b6c2fbfd}{cp1\+Item}} () const
+\item 
+QGraphics\+Ellipse\+Item $\ast$ \mbox{\hyperlink{classEdgeItem_af8cfe2bbdad5dc96a707bf99bd4a1fea}{cp2\+Item}} () const
+\item 
+QPainter\+Path \mbox{\hyperlink{classEdgeItem_a0064329deb3a628abf719972cd543463}{path}} () const
+\item 
+void \mbox{\hyperlink{classEdgeItem_af51ac41f9fab9b280d925005f069b5a3}{set\+Path}} (const QPainter\+Path \&\mbox{\hyperlink{classEdgeItem_a0064329deb3a628abf719972cd543463}{path}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A QGraphics\+Item that handles drawing a single edge. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEdgeItem_aef22a1190cf1b7acd137f23c0cf22ef3}\label{classEdgeItem_aef22a1190cf1b7acd137f23c0cf22ef3}} 
+\index{EdgeItem@{EdgeItem}!EdgeItem@{EdgeItem}}
+\index{EdgeItem@{EdgeItem}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{EdgeItem()}{EdgeItem()}}
+{\footnotesize\ttfamily Edge\+Item\+::\+Edge\+Item (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classEdge}{Edge}} $\ast$}]{edge }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdgeItem_aef22a1190cf1b7acd137f23c0cf22ef3_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEdgeItem_a8d42d01d1af9920ba78b9e3bfdd5e10c}\label{classEdgeItem_a8d42d01d1af9920ba78b9e3bfdd5e10c}} 
+\index{EdgeItem@{EdgeItem}!boundingRect@{boundingRect}}
+\index{boundingRect@{boundingRect}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{boundingRect()}{boundingRect()}}
+{\footnotesize\ttfamily QRectF Edge\+Item\+::bounding\+Rect (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classEdgeItem_a80d72c6749b157426f004c08b6c2fbfd}\label{classEdgeItem_a80d72c6749b157426f004c08b6c2fbfd}} 
+\index{EdgeItem@{EdgeItem}!cp1Item@{cp1Item}}
+\index{cp1Item@{cp1Item}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{cp1Item()}{cp1Item()}}
+{\footnotesize\ttfamily QGraphics\+Ellipse\+Item $\ast$ Edge\+Item\+::cp1\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdgeItem_af8cfe2bbdad5dc96a707bf99bd4a1fea}\label{classEdgeItem_af8cfe2bbdad5dc96a707bf99bd4a1fea}} 
+\index{EdgeItem@{EdgeItem}!cp2Item@{cp2Item}}
+\index{cp2Item@{cp2Item}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{cp2Item()}{cp2Item()}}
+{\footnotesize\ttfamily QGraphics\+Ellipse\+Item $\ast$ Edge\+Item\+::cp2\+Item (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdgeItem_aa14527a1d41d7c229ccfd01eff7adb0b}\label{classEdgeItem_aa14527a1d41d7c229ccfd01eff7adb0b}} 
+\index{EdgeItem@{EdgeItem}!edge@{edge}}
+\index{edge@{edge}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{edge()}{edge()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classEdge}{Edge}} $\ast$ Edge\+Item\+::edge (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdgeItem_acbac3fd92e71d88b511719fa773e721e}\label{classEdgeItem_acbac3fd92e71d88b511719fa773e721e}} 
+\index{EdgeItem@{EdgeItem}!paint@{paint}}
+\index{paint@{paint}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{paint()}{paint()}}
+{\footnotesize\ttfamily void Edge\+Item\+::paint (\begin{DoxyParamCaption}\item[{QPainter $\ast$}]{painter,  }\item[{const QStyle\+Option\+Graphics\+Item $\ast$}]{,  }\item[{QWidget $\ast$}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdgeItem_acbac3fd92e71d88b511719fa773e721e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdgeItem_a0064329deb3a628abf719972cd543463}\label{classEdgeItem_a0064329deb3a628abf719972cd543463}} 
+\index{EdgeItem@{EdgeItem}!path@{path}}
+\index{path@{path}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily QPainter\+Path Edge\+Item\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdgeItem_ac664c20208fbe563aeaa146c7b2d65fa}\label{classEdgeItem_ac664c20208fbe563aeaa146c7b2d65fa}} 
+\index{EdgeItem@{EdgeItem}!readPos@{readPos}}
+\index{readPos@{readPos}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{readPos()}{readPos()}}
+{\footnotesize\ttfamily void Edge\+Item\+::read\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdgeItem_ac664c20208fbe563aeaa146c7b2d65fa_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdgeItem_af51ac41f9fab9b280d925005f069b5a3}\label{classEdgeItem_af51ac41f9fab9b280d925005f069b5a3}} 
+\index{EdgeItem@{EdgeItem}!setPath@{setPath}}
+\index{setPath@{setPath}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{setPath()}{setPath()}}
+{\footnotesize\ttfamily void Edge\+Item\+::set\+Path (\begin{DoxyParamCaption}\item[{const QPainter\+Path \&}]{path }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{classEdgeItem_af51ac41f9fab9b280d925005f069b5a3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdgeItem_acbb3b8f7e3c17a200b264a6a1a192f29}\label{classEdgeItem_acbb3b8f7e3c17a200b264a6a1a192f29}} 
+\index{EdgeItem@{EdgeItem}!shape@{shape}}
+\index{shape@{shape}!EdgeItem@{EdgeItem}}
+\doxysubsubsection{\texorpdfstring{shape()}{shape()}}
+{\footnotesize\ttfamily QPainter\+Path Edge\+Item\+::shape (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{edgeitem_8h}{edgeitem.\+h}}\item 
+src/gui/\mbox{\hyperlink{edgeitem_8cpp}{edgeitem.\+cpp}}\end{DoxyCompactItemize}

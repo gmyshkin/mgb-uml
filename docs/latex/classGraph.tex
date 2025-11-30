@@ -1,0 +1,447 @@
+\hypertarget{classGraph}{}\doxysection{Graph Class Reference}
+\label{classGraph}\index{Graph@{Graph}}
+
+
+{\ttfamily \#include $<$graph.\+h$>$}
+
+
+
+Inheritance diagram for Graph\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classGraph__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Graph\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classGraph__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGraph_a06ce095b373b2d70d4b6db0220bc7b49}{Graph}} (QObject $\ast$parent=0)
+\item 
+\mbox{\hyperlink{classGraph_a902c5b3eacb66d60752525ab23297a95}{$\sim$\+Graph}} ()
+\item 
+void \mbox{\hyperlink{classGraph_a2d5acf76aeecd3f6e31301e76c94f30f}{add\+Node}} (\mbox{\hyperlink{classNode}{Node}} $\ast$n)
+\item 
+void \mbox{\hyperlink{classGraph_ad5a46c040fa1fcb7b0275d996b0115d4}{add\+Node}} (\mbox{\hyperlink{classNode}{Node}} $\ast$n, int index)
+\item 
+void \mbox{\hyperlink{classGraph_a87cab4143ece4080113a5bf0e6a97c59}{remove\+Node}} (\mbox{\hyperlink{classNode}{Node}} $\ast$n)
+\item 
+void \mbox{\hyperlink{classGraph_a081da710f7aaefdf1549fee3d3c41339}{add\+Edge}} (\mbox{\hyperlink{classEdge}{Edge}} $\ast$e)
+\item 
+void \mbox{\hyperlink{classGraph_ae0509f45f23d9e824b681812ff37bfed}{add\+Edge}} (\mbox{\hyperlink{classEdge}{Edge}} $\ast$e, int index)
+\item 
+void \mbox{\hyperlink{classGraph_a8436c1f36ed094f392bb7e5cd7c06adc}{remove\+Edge}} (\mbox{\hyperlink{classEdge}{Edge}} $\ast$e)
+\item 
+void \mbox{\hyperlink{classGraph_a24ec1a96dc477ef12ca0cea97f1859f7}{add\+Path}} (\mbox{\hyperlink{classPath}{Path}} $\ast$p)
+\item 
+void \mbox{\hyperlink{classGraph_a093e96d0a2977d9b71f9678daf894782}{remove\+Path}} (\mbox{\hyperlink{classPath}{Path}} $\ast$p)
+\item 
+int \mbox{\hyperlink{classGraph_aa4e7049577c238885b5f65fa12224356}{max\+Int\+Name}} ()
+\item 
+void \mbox{\hyperlink{classGraph_ad56f12172cd5144267a507c632b84097}{reorder\+Nodes}} (const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&new\+Order)
+\item 
+void \mbox{\hyperlink{classGraph_aaf1009abf1f31f76b0f04a47398617f9}{reorder\+Edges}} (const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&new\+Order)
+\item 
+QRectF \mbox{\hyperlink{classGraph_a9abe738e3388c594d6184fd3ce331384}{bounds\+For\+Nodes}} (QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ ns)
+\item 
+QString \mbox{\hyperlink{classGraph_ae5c8e126085cbe54f13adeac2be45382}{fresh\+Node\+Name}} ()
+\item 
+void \mbox{\hyperlink{classGraph_a9c099a24efe730b48cbc21b486382204}{rename\+Apart}} (\mbox{\hyperlink{classGraph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em rename\+Apart assigns fresh names to all of the nodes in \char`\"{}this\char`\"{}, with respect to the given graph \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classGraph_a423ab554c69571722e42a37debfc8780}{data}} () const
+\item 
+void \mbox{\hyperlink{classGraph_a5b1a418601bc0a44bb147f99a543b2bb}{set\+Data}} (\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$\mbox{\hyperlink{classGraph_a423ab554c69571722e42a37debfc8780}{data}})
+\item 
+const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \& \mbox{\hyperlink{classGraph_a2f24b55c50d8d44a330e3af107515c21}{nodes}} ()
+\item 
+const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \& \mbox{\hyperlink{classGraph_abf683e0de28374a105289e1dccbcfb76}{edges}} ()
+\item 
+const QVector$<$ \mbox{\hyperlink{classPath}{Path}} $\ast$ $>$ \& \mbox{\hyperlink{classGraph_a857218f1b33352d293198da25f181ebd}{paths}} ()
+\item 
+QRectF \mbox{\hyperlink{classGraph_a8e6d9daac118e05cf9d96cacdaaa7d93}{bbox}} () const
+\item 
+void \mbox{\hyperlink{classGraph_a88e4820477a4b3fb1f73fc664ba8a00b}{set\+Bbox}} (const QRectF \&\mbox{\hyperlink{classGraph_a8e6d9daac118e05cf9d96cacdaaa7d93}{bbox}})
+\item 
+bool \mbox{\hyperlink{classGraph_a6854bbfc01facd64278a1a738fe6e6b1}{has\+Bbox}} ()
+\item 
+void \mbox{\hyperlink{classGraph_ae3b4e4b0c29f6d4e21cf9ed5ff9b6fe9}{clear\+Bbox}} ()
+\item 
+QRectF \mbox{\hyperlink{classGraph_a981e3f969bb5cfff0a712131fa1d4710}{real\+Bbox}} ()
+\begin{DoxyCompactList}\small\item\em real\+Bbox computes the union of the user-\/defined bounding box, and the bounding boxes of the graph\textquotesingle{}s contents. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classGraph_a58b358a01da87d0e775b8e3b8e6c7673}{tikz}} ()
+\item 
+\mbox{\hyperlink{classGraph}{Graph}} $\ast$ \mbox{\hyperlink{classGraph_a7ba11e45f9d1de134b12b2a884e4ce49}{copy\+Of\+Subgraph\+With\+Nodes}} (QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ nds)
+\begin{DoxyCompactList}\small\item\em copy\+Of\+Subgraph\+With\+Nodes produces a copy of the full subgraph with the given nodes. Used for cutting and copying to clipboard. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGraph_a6febe65fd41e4e2d2c79e7b65d02c25c}{insert\+Graph}} (\mbox{\hyperlink{classGraph}{Graph}} $\ast$graph)
+\begin{DoxyCompactList}\small\item\em insert\+Graph inserts the given graph into \char`\"{}this\char`\"{}. Prior to calling this method, the node names in the given graph should be made fresh via \char`\"{}rename\+Apart\char`\"{}. Note that the parameter \char`\"{}graph\char`\"{} relinquishes ownership of its nodes and edges, so it should be not be allowed to exist longer than \char`\"{}this\char`\"{}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGraph_afba2eb2f1b67e4059fc2c758f9a176c0}{reflect\+Nodes}} (QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ nds, bool horizontal)
+\begin{DoxyCompactList}\small\item\em reflect\+Nodes flips the given set of nodes horizontally or vertically, depending on the value of the second parameter. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classGraph_abf1e284943e63358893fabc5c3651ce1}{rotate\+Nodes}} (QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ nds, bool clockwise)
+\begin{DoxyCompactList}\small\item\em rotate\+Nodes rotates the given set of nodes clockwise or counter-\/clockwise, depending on the value of the second parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A graph defined by tikz code. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGraph_a06ce095b373b2d70d4b6db0220bc7b49}\label{classGraph_a06ce095b373b2d70d4b6db0220bc7b49}} 
+\index{Graph@{Graph}!Graph@{Graph}}
+\index{Graph@{Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{Graph()}{Graph()}}
+{\footnotesize\ttfamily Graph\+::\+Graph (\begin{DoxyParamCaption}\item[{QObject $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classGraph_a902c5b3eacb66d60752525ab23297a95}\label{classGraph_a902c5b3eacb66d60752525ab23297a95}} 
+\index{Graph@{Graph}!````~Graph@{$\sim$Graph}}
+\index{````~Graph@{$\sim$Graph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{$\sim$Graph()}{~Graph()}}
+{\footnotesize\ttfamily Graph\+::$\sim$\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGraph_a081da710f7aaefdf1549fee3d3c41339}\label{classGraph_a081da710f7aaefdf1549fee3d3c41339}} 
+\index{Graph@{Graph}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Graph\+::add\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classEdge}{Edge}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_ae0509f45f23d9e824b681812ff37bfed}\label{classGraph_ae0509f45f23d9e824b681812ff37bfed}} 
+\index{Graph@{Graph}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Graph\+::add\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classEdge}{Edge}} $\ast$}]{e,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a2d5acf76aeecd3f6e31301e76c94f30f}\label{classGraph_a2d5acf76aeecd3f6e31301e76c94f30f}} 
+\index{Graph@{Graph}!addNode@{addNode}}
+\index{addNode@{addNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Graph\+::add\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_ad5a46c040fa1fcb7b0275d996b0115d4}\label{classGraph_ad5a46c040fa1fcb7b0275d996b0115d4}} 
+\index{Graph@{Graph}!addNode@{addNode}}
+\index{addNode@{addNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addNode()}{addNode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Graph\+::add\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{n,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a24ec1a96dc477ef12ca0cea97f1859f7}\label{classGraph_a24ec1a96dc477ef12ca0cea97f1859f7}} 
+\index{Graph@{Graph}!addPath@{addPath}}
+\index{addPath@{addPath}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{addPath()}{addPath()}}
+{\footnotesize\ttfamily void Graph\+::add\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPath}{Path}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a8e6d9daac118e05cf9d96cacdaaa7d93}\label{classGraph_a8e6d9daac118e05cf9d96cacdaaa7d93}} 
+\index{Graph@{Graph}!bbox@{bbox}}
+\index{bbox@{bbox}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{bbox()}{bbox()}}
+{\footnotesize\ttfamily QRectF Graph\+::bbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGraph_a9abe738e3388c594d6184fd3ce331384}\label{classGraph_a9abe738e3388c594d6184fd3ce331384}} 
+\index{Graph@{Graph}!boundsForNodes@{boundsForNodes}}
+\index{boundsForNodes@{boundsForNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{boundsForNodes()}{boundsForNodes()}}
+{\footnotesize\ttfamily QRectF Graph\+::bounds\+For\+Nodes (\begin{DoxyParamCaption}\item[{QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$}]{ns }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{classGraph_a9abe738e3388c594d6184fd3ce331384_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_ae3b4e4b0c29f6d4e21cf9ed5ff9b6fe9}\label{classGraph_ae3b4e4b0c29f6d4e21cf9ed5ff9b6fe9}} 
+\index{Graph@{Graph}!clearBbox@{clearBbox}}
+\index{clearBbox@{clearBbox}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{clearBbox()}{clearBbox()}}
+{\footnotesize\ttfamily void Graph\+::clear\+Bbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a7ba11e45f9d1de134b12b2a884e4ce49}\label{classGraph_a7ba11e45f9d1de134b12b2a884e4ce49}} 
+\index{Graph@{Graph}!copyOfSubgraphWithNodes@{copyOfSubgraphWithNodes}}
+\index{copyOfSubgraphWithNodes@{copyOfSubgraphWithNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{copyOfSubgraphWithNodes()}{copyOfSubgraphWithNodes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraph}{Graph}} $\ast$ Graph\+::copy\+Of\+Subgraph\+With\+Nodes (\begin{DoxyParamCaption}\item[{QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$}]{nds }\end{DoxyParamCaption})}
+
+
+
+copy\+Of\+Subgraph\+With\+Nodes produces a copy of the full subgraph with the given nodes. Used for cutting and copying to clipboard. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nds} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraph_a7ba11e45f9d1de134b12b2a884e4ce49_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a423ab554c69571722e42a37debfc8780}\label{classGraph_a423ab554c69571722e42a37debfc8780}} 
+\index{Graph@{Graph}!data@{data}}
+\index{data@{data}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Graph\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGraph_abf683e0de28374a105289e1dccbcfb76}\label{classGraph_abf683e0de28374a105289e1dccbcfb76}} 
+\index{Graph@{Graph}!edges@{edges}}
+\index{edges@{edges}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{edges()}{edges()}}
+{\footnotesize\ttfamily const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \& Graph\+::edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_ae5c8e126085cbe54f13adeac2be45382}\label{classGraph_ae5c8e126085cbe54f13adeac2be45382}} 
+\index{Graph@{Graph}!freshNodeName@{freshNodeName}}
+\index{freshNodeName@{freshNodeName}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{freshNodeName()}{freshNodeName()}}
+{\footnotesize\ttfamily QString Graph\+::fresh\+Node\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraph_ae5c8e126085cbe54f13adeac2be45382_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a6854bbfc01facd64278a1a738fe6e6b1}\label{classGraph_a6854bbfc01facd64278a1a738fe6e6b1}} 
+\index{Graph@{Graph}!hasBbox@{hasBbox}}
+\index{hasBbox@{hasBbox}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{hasBbox()}{hasBbox()}}
+{\footnotesize\ttfamily bool Graph\+::has\+Bbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a6febe65fd41e4e2d2c79e7b65d02c25c}\label{classGraph_a6febe65fd41e4e2d2c79e7b65d02c25c}} 
+\index{Graph@{Graph}!insertGraph@{insertGraph}}
+\index{insertGraph@{insertGraph}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{insertGraph()}{insertGraph()}}
+{\footnotesize\ttfamily void Graph\+::insert\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})}
+
+
+
+insert\+Graph inserts the given graph into \char`\"{}this\char`\"{}. Prior to calling this method, the node names in the given graph should be made fresh via \char`\"{}rename\+Apart\char`\"{}. Note that the parameter \char`\"{}graph\char`\"{} relinquishes ownership of its nodes and edges, so it should be not be allowed to exist longer than \char`\"{}this\char`\"{}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{classGraph_a6febe65fd41e4e2d2c79e7b65d02c25c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_aa4e7049577c238885b5f65fa12224356}\label{classGraph_aa4e7049577c238885b5f65fa12224356}} 
+\index{Graph@{Graph}!maxIntName@{maxIntName}}
+\index{maxIntName@{maxIntName}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{maxIntName()}{maxIntName()}}
+{\footnotesize\ttfamily int Graph\+::max\+Int\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{classGraph_aa4e7049577c238885b5f65fa12224356_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a2f24b55c50d8d44a330e3af107515c21}\label{classGraph_a2f24b55c50d8d44a330e3af107515c21}} 
+\index{Graph@{Graph}!nodes@{nodes}}
+\index{nodes@{nodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{nodes()}{nodes()}}
+{\footnotesize\ttfamily const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \& Graph\+::nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a857218f1b33352d293198da25f181ebd}\label{classGraph_a857218f1b33352d293198da25f181ebd}} 
+\index{Graph@{Graph}!paths@{paths}}
+\index{paths@{paths}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{paths()}{paths()}}
+{\footnotesize\ttfamily const QVector$<$ \mbox{\hyperlink{classPath}{Path}} $\ast$ $>$ \& Graph\+::paths (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a981e3f969bb5cfff0a712131fa1d4710}\label{classGraph_a981e3f969bb5cfff0a712131fa1d4710}} 
+\index{Graph@{Graph}!realBbox@{realBbox}}
+\index{realBbox@{realBbox}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{realBbox()}{realBbox()}}
+{\footnotesize\ttfamily QRectF Graph\+::real\+Bbox (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+real\+Bbox computes the union of the user-\/defined bounding box, and the bounding boxes of the graph\textquotesingle{}s contents. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{classGraph_a981e3f969bb5cfff0a712131fa1d4710_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_afba2eb2f1b67e4059fc2c758f9a176c0}\label{classGraph_afba2eb2f1b67e4059fc2c758f9a176c0}} 
+\index{Graph@{Graph}!reflectNodes@{reflectNodes}}
+\index{reflectNodes@{reflectNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{reflectNodes()}{reflectNodes()}}
+{\footnotesize\ttfamily void Graph\+::reflect\+Nodes (\begin{DoxyParamCaption}\item[{QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$}]{nds,  }\item[{bool}]{horizontal }\end{DoxyParamCaption})}
+
+
+
+reflect\+Nodes flips the given set of nodes horizontally or vertically, depending on the value of the second parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nds} & a set of nodes to flip \\
+\hline
+{\em horizontal} & a boolean determining whether to flip horizontally or vertically \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraph_afba2eb2f1b67e4059fc2c758f9a176c0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a8436c1f36ed094f392bb7e5cd7c06adc}\label{classGraph_a8436c1f36ed094f392bb7e5cd7c06adc}} 
+\index{Graph@{Graph}!removeEdge@{removeEdge}}
+\index{removeEdge@{removeEdge}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{removeEdge()}{removeEdge()}}
+{\footnotesize\ttfamily void Graph\+::remove\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classEdge}{Edge}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a87cab4143ece4080113a5bf0e6a97c59}\label{classGraph_a87cab4143ece4080113a5bf0e6a97c59}} 
+\index{Graph@{Graph}!removeNode@{removeNode}}
+\index{removeNode@{removeNode}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{removeNode()}{removeNode()}}
+{\footnotesize\ttfamily void Graph\+::remove\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a093e96d0a2977d9b71f9678daf894782}\label{classGraph_a093e96d0a2977d9b71f9678daf894782}} 
+\index{Graph@{Graph}!removePath@{removePath}}
+\index{removePath@{removePath}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{removePath()}{removePath()}}
+{\footnotesize\ttfamily void Graph\+::remove\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPath}{Path}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_a9c099a24efe730b48cbc21b486382204}\label{classGraph_a9c099a24efe730b48cbc21b486382204}} 
+\index{Graph@{Graph}!renameApart@{renameApart}}
+\index{renameApart@{renameApart}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{renameApart()}{renameApart()}}
+{\footnotesize\ttfamily void Graph\+::rename\+Apart (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})}
+
+
+
+rename\+Apart assigns fresh names to all of the nodes in \char`\"{}this\char`\"{}, with respect to the given graph 
+
+
+\begin{DoxyParams}{Parameters}
+{\em graph} & \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraph_a9c099a24efe730b48cbc21b486382204_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_aaf1009abf1f31f76b0f04a47398617f9}\label{classGraph_aaf1009abf1f31f76b0f04a47398617f9}} 
+\index{Graph@{Graph}!reorderEdges@{reorderEdges}}
+\index{reorderEdges@{reorderEdges}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{reorderEdges()}{reorderEdges()}}
+{\footnotesize\ttfamily void Graph\+::reorder\+Edges (\begin{DoxyParamCaption}\item[{const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&}]{new\+Order }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_ad56f12172cd5144267a507c632b84097}\label{classGraph_ad56f12172cd5144267a507c632b84097}} 
+\index{Graph@{Graph}!reorderNodes@{reorderNodes}}
+\index{reorderNodes@{reorderNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{reorderNodes()}{reorderNodes()}}
+{\footnotesize\ttfamily void Graph\+::reorder\+Nodes (\begin{DoxyParamCaption}\item[{const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&}]{new\+Order }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraph_abf1e284943e63358893fabc5c3651ce1}\label{classGraph_abf1e284943e63358893fabc5c3651ce1}} 
+\index{Graph@{Graph}!rotateNodes@{rotateNodes}}
+\index{rotateNodes@{rotateNodes}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{rotateNodes()}{rotateNodes()}}
+{\footnotesize\ttfamily void Graph\+::rotate\+Nodes (\begin{DoxyParamCaption}\item[{QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$}]{nds,  }\item[{bool}]{clockwise }\end{DoxyParamCaption})}
+
+
+
+rotate\+Nodes rotates the given set of nodes clockwise or counter-\/clockwise, depending on the value of the second parameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nds} & a set of nodes to flip \\
+\hline
+{\em clockwose} & a boolean determining whether to rotate clockwise or counter-\/clockwise \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraph_abf1e284943e63358893fabc5c3651ce1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a88e4820477a4b3fb1f73fc664ba8a00b}\label{classGraph_a88e4820477a4b3fb1f73fc664ba8a00b}} 
+\index{Graph@{Graph}!setBbox@{setBbox}}
+\index{setBbox@{setBbox}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{setBbox()}{setBbox()}}
+{\footnotesize\ttfamily void Graph\+::set\+Bbox (\begin{DoxyParamCaption}\item[{const QRectF \&}]{bbox }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{classGraph_a88e4820477a4b3fb1f73fc664ba8a00b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a5b1a418601bc0a44bb147f99a543b2bb}\label{classGraph_a5b1a418601bc0a44bb147f99a543b2bb}} 
+\index{Graph@{Graph}!setData@{setData}}
+\index{setData@{setData}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily void Graph\+::set\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$}]{data }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{classGraph_a5b1a418601bc0a44bb147f99a543b2bb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraph_a58b358a01da87d0e775b8e3b8e6c7673}\label{classGraph_a58b358a01da87d0e775b8e3b8e6c7673}} 
+\index{Graph@{Graph}!tikz@{tikz}}
+\index{tikz@{tikz}!Graph@{Graph}}
+\doxysubsubsection{\texorpdfstring{tikz()}{tikz()}}
+{\footnotesize\ttfamily QString Graph\+::tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraph_a58b358a01da87d0e775b8e3b8e6c7673_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{graph_8h}{graph.\+h}}\item 
+src/data/\mbox{\hyperlink{graph_8cpp}{graph.\+cpp}}\end{DoxyCompactItemize}

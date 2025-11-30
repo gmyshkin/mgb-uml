@@ -1,0 +1,114 @@
+\hypertarget{classTikzView}{}\doxysection{Tikz\+View Class Reference}
+\label{classTikzView}\index{TikzView@{TikzView}}
+
+
+{\ttfamily \#include $<$tikzview.\+h$>$}
+
+
+
+Inheritance diagram for Tikz\+View\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classTikzView__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tikz\+View\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classTikzView__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTikzView_a409d698d5e15df1ab9b12e838e88241b}{zoom\+In}} ()
+\item 
+void \mbox{\hyperlink{classTikzView_a1c81778045f41beb5054aea64a65f8c1}{zoom\+Out}} ()
+\item 
+void \mbox{\hyperlink{classTikzView_ad746c5aaa5ee9925f2aaa9b6f557231b}{set\+Scene}} (QGraphics\+Scene $\ast$scene)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTikzView_ac111335ea85f77a42086286dd89e1171}{Tikz\+View}} (QWidget $\ast$parent=0)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTikzView_ae0db813c32437c0c90973b7500c93a35}{draw\+Background}} (QPainter $\ast$painter, const QRectF \&rect) override
+\item 
+void \mbox{\hyperlink{classTikzView_a8167c0a0ac402e5772f5bd41e94ef669}{wheel\+Event}} (QWheel\+Event $\ast$event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Display a \mbox{\hyperlink{classGraph}{Graph}}, and manage any user input that purely changes the view (e.\+g. Zoom). This serves as the view in the MVC (\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}}, \mbox{\hyperlink{classTikzView}{Tikz\+View}}, \mbox{\hyperlink{classTikzScene}{Tikz\+Scene}}). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTikzView_ac111335ea85f77a42086286dd89e1171}\label{classTikzView_ac111335ea85f77a42086286dd89e1171}} 
+\index{TikzView@{TikzView}!TikzView@{TikzView}}
+\index{TikzView@{TikzView}!TikzView@{TikzView}}
+\doxysubsubsection{\texorpdfstring{TikzView()}{TikzView()}}
+{\footnotesize\ttfamily Tikz\+View\+::\+Tikz\+View (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTikzView_ae0db813c32437c0c90973b7500c93a35}\label{classTikzView_ae0db813c32437c0c90973b7500c93a35}} 
+\index{TikzView@{TikzView}!drawBackground@{drawBackground}}
+\index{drawBackground@{drawBackground}!TikzView@{TikzView}}
+\doxysubsubsection{\texorpdfstring{drawBackground()}{drawBackground()}}
+{\footnotesize\ttfamily void Tikz\+View\+::draw\+Background (\begin{DoxyParamCaption}\item[{QPainter $\ast$}]{painter,  }\item[{const QRectF \&}]{rect }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzView_ae0db813c32437c0c90973b7500c93a35_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzView_ad746c5aaa5ee9925f2aaa9b6f557231b}\label{classTikzView_ad746c5aaa5ee9925f2aaa9b6f557231b}} 
+\index{TikzView@{TikzView}!setScene@{setScene}}
+\index{setScene@{setScene}!TikzView@{TikzView}}
+\doxysubsubsection{\texorpdfstring{setScene}{setScene}}
+{\footnotesize\ttfamily void Tikz\+View\+::set\+Scene (\begin{DoxyParamCaption}\item[{QGraphics\+Scene $\ast$}]{scene }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{classTikzView_a8167c0a0ac402e5772f5bd41e94ef669}\label{classTikzView_a8167c0a0ac402e5772f5bd41e94ef669}} 
+\index{TikzView@{TikzView}!wheelEvent@{wheelEvent}}
+\index{wheelEvent@{wheelEvent}!TikzView@{TikzView}}
+\doxysubsubsection{\texorpdfstring{wheelEvent()}{wheelEvent()}}
+{\footnotesize\ttfamily void Tikz\+View\+::wheel\+Event (\begin{DoxyParamCaption}\item[{QWheel\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=349pt]{classTikzView_a8167c0a0ac402e5772f5bd41e94ef669_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzView_a409d698d5e15df1ab9b12e838e88241b}\label{classTikzView_a409d698d5e15df1ab9b12e838e88241b}} 
+\index{TikzView@{TikzView}!zoomIn@{zoomIn}}
+\index{zoomIn@{zoomIn}!TikzView@{TikzView}}
+\doxysubsubsection{\texorpdfstring{zoomIn}{zoomIn}}
+{\footnotesize\ttfamily void Tikz\+View\+::zoom\+In (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{classTikzView_a1c81778045f41beb5054aea64a65f8c1}\label{classTikzView_a1c81778045f41beb5054aea64a65f8c1}} 
+\index{TikzView@{TikzView}!zoomOut@{zoomOut}}
+\index{zoomOut@{zoomOut}!TikzView@{TikzView}}
+\doxysubsubsection{\texorpdfstring{zoomOut}{zoomOut}}
+{\footnotesize\ttfamily void Tikz\+View\+::zoom\+Out (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{tikzview_8h}{tikzview.\+h}}\item 
+src/gui/\mbox{\hyperlink{tikzview_8cpp}{tikzview.\+cpp}}\end{DoxyCompactItemize}

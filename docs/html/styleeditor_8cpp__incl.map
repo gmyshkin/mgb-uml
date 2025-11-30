@@ -1,0 +1,52 @@
+<map id="src/gui/styleeditor.cpp" name="src/gui/styleeditor.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1257,5,1423,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="827,80,935,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="960,80,1035,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1059,80,1173,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="1197,80,1283,107"/>
+<area shape="rect" id="node6" href="$tikzit_8h.html" title=" " alt="" coords="1307,80,1373,107"/>
+<area shape="rect" id="node30" href="$styleeditor_8h.html" title=" " alt="" coords="1899,155,2002,181"/>
+<area shape="rect" id="node46" href="$delimitedstringvalidator_8h.html" title=" " alt="" coords="2343,155,2534,181"/>
+<area shape="rect" id="node48" title=" " alt="" coords="1693,80,1816,107"/>
+<area shape="rect" id="node49" href="$delimitedstringitemdelegate_8h.html" title=" " alt="" coords="1449,80,1669,107"/>
+<area shape="rect" id="node7" href="$mainwindow_8h.html" title=" " alt="" coords="811,155,927,181"/>
+<area shape="rect" id="node12" title=" " alt="" coords="843,528,917,555"/>
+<area shape="rect" id="node13" title=" " alt="" coords="1613,453,1688,480"/>
+<area shape="rect" id="node15" href="$toolpalette_8h.html" title=" " alt="" coords="465,304,570,331"/>
+<area shape="rect" id="node19" href="$stylepalette_8h.html" title=" " alt="" coords="1193,304,1305,331"/>
+<area shape="rect" id="node25" href="$mainmenu_8h.html" title=" " alt="" coords="275,229,379,256"/>
+<area shape="rect" id="node26" title=" " alt="" coords="203,304,325,331"/>
+<area shape="rect" id="node27" title=" " alt="" coords="349,304,440,331"/>
+<area shape="rect" id="node28" title=" " alt="" coords="1094,229,1210,256"/>
+<area shape="rect" id="node32" title=" " alt="" coords="2147,453,2213,480"/>
+<area shape="rect" id="node33" href="$tikzstyles_8h.html" title=" " alt="" coords="2081,229,2178,256"/>
+<area shape="rect" id="node36" href="$propertypalette_8h.html" title=" " alt="" coords="43,304,178,331"/>
+<area shape="rect" id="node37" href="$latexprocess_8h.html" title=" " alt="" coords="1595,155,1712,181"/>
+<area shape="rect" id="node38" href="$previewwindow_8h.html" title=" " alt="" coords="1689,229,1823,256"/>
+<area shape="rect" id="node42" title=" " alt="" coords="1096,155,1189,181"/>
+<area shape="rect" id="node43" title=" " alt="" coords="1214,155,1287,181"/>
+<area shape="rect" id="node44" title=" " alt="" coords="1311,155,1371,181"/>
+<area shape="rect" id="node45" title=" " alt="" coords="1395,155,1519,181"/>
+<area shape="rect" id="node8" href="$tikzscene_8h.html" title=" " alt="" coords="821,229,917,256"/>
+<area shape="rect" id="node9" href="$graph_8h.html" title=" " alt="" coords="1073,379,1143,405"/>
+<area shape="rect" id="node14" href="$tikzdocument_8h.html" title=" " alt="" coords="1047,304,1169,331"/>
+<area shape="rect" id="node23" href="$tikzview_8h.html" title=" " alt="" coords="709,229,797,256"/>
+<area shape="rect" id="node24" title=" " alt="" coords="594,304,715,331"/>
+<area shape="rect" id="node29" title=" " alt="" coords="606,229,685,256"/>
+<area shape="rect" id="node22" title=" " alt="" coords="842,304,921,331"/>
+<area shape="rect" id="node10" href="$graphelementdata_8h.html" title=" " alt="" coords="1811,453,1965,480"/>
+<area shape="rect" id="node11" title=" " alt="" coords="1853,528,1923,555"/>
+<area shape="rect" id="node16" title=" " alt="" coords="316,379,396,405"/>
+<area shape="rect" id="node17" title=" " alt="" coords="421,379,494,405"/>
+<area shape="rect" id="node18" title=" " alt="" coords="519,379,631,405"/>
+<area shape="rect" id="node20" title=" " alt="" coords="655,379,766,405"/>
+<area shape="rect" id="node21" title=" " alt="" coords="1739,379,1899,405"/>
+<area shape="rect" id="node31" href="$style_8h.html" title=" " alt="" coords="2055,379,2121,405"/>
+<area shape="rect" id="node35" title=" " alt="" coords="1949,229,2056,256"/>
+<area shape="rect" id="node34" href="$stylelist_8h.html" title=" " alt="" coords="2075,304,2162,331"/>
+<area shape="rect" id="node39" title=" " alt="" coords="1466,304,1582,331"/>
+<area shape="rect" id="node40" title=" " alt="" coords="1531,229,1613,256"/>
+<area shape="rect" id="node41" title=" " alt="" coords="1336,229,1456,256"/>
+<area shape="rect" id="node47" title=" " alt="" coords="2440,229,2531,256"/>
+<area shape="rect" id="node50" title=" " alt="" coords="2198,155,2319,181"/>
+</map>

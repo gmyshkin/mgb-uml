@@ -1,0 +1,216 @@
+\hypertarget{classGraphElementProperty}{}\doxysection{Graph\+Element\+Property Class Reference}
+\label{classGraphElementProperty}\index{GraphElementProperty@{GraphElementProperty}}
+
+
+{\ttfamily \#include $<$graphelementproperty.\+h$>$}
+
+
+
+Collaboration diagram for Graph\+Element\+Property\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classGraphElementProperty__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGraphElementProperty_a7e18d8ab579e36b7f58eb8f94d1f29d5}{Graph\+Element\+Property}} ()
+\item 
+\mbox{\hyperlink{classGraphElementProperty_a5d3cd8eb8deeac734dcd17ffaf9a966d}{Graph\+Element\+Property}} (QString \mbox{\hyperlink{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}{key}}, QString \mbox{\hyperlink{classGraphElementProperty_a4483212c6dcf78f552715894f0e8d885}{value}}, bool \mbox{\hyperlink{classGraphElementProperty_a2bc44d48d4d1f71f4e95f087015d3a03}{atom}})
+\item 
+\mbox{\hyperlink{classGraphElementProperty_a97f779f70215b7b7a6980bf723869a02}{Graph\+Element\+Property}} (QString \mbox{\hyperlink{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}{key}}, QString \mbox{\hyperlink{classGraphElementProperty_a4483212c6dcf78f552715894f0e8d885}{value}})
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} constructs a proper property with the given key/value. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classGraphElementProperty_adb4345f9ebc8f98a3d32f6c251f6dd1d}{Graph\+Element\+Property}} (QString \mbox{\hyperlink{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}{key}})
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} constructs an atom with the given key. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}{key}} () const
+\item 
+void \mbox{\hyperlink{classGraphElementProperty_ad24266bc44fd3b84ae1106ea6312cd70}{set\+Key}} (const QString \&\mbox{\hyperlink{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}{key}})
+\item 
+QString \mbox{\hyperlink{classGraphElementProperty_a4483212c6dcf78f552715894f0e8d885}{value}} () const
+\item 
+void \mbox{\hyperlink{classGraphElementProperty_a387c726a29ae764a39711fc7bd43385c}{set\+Value}} (const QString \&\mbox{\hyperlink{classGraphElementProperty_a4483212c6dcf78f552715894f0e8d885}{value}})
+\item 
+bool \mbox{\hyperlink{classGraphElementProperty_a2bc44d48d4d1f71f4e95f087015d3a03}{atom}} () const
+\item 
+bool \mbox{\hyperlink{classGraphElementProperty_af78b8681e00a87a7bfe987c8f59b2205}{operator==}} (const \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} \&p)
+\begin{DoxyCompactList}\small\item\em operator == returns true for atoms if the keys match and for properties if the keys and values match. Note a property is never equal to an atom. \end{DoxyCompactList}\item 
+QString \mbox{\hyperlink{classGraphElementProperty_a00b4d8d3d11abb76432abe44c8279706}{tikz}} ()
+\begin{DoxyCompactList}\small\item\em tikz escapes the key/value of a propery or atom and outputs it as \char`\"{}key=value\char`\"{} for properties and \char`\"{}key\char`\"{} for atoms. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static QString \mbox{\hyperlink{classGraphElementProperty_a23b8f149115595f022316b9f1b38f5dd}{tikz\+Escape}} (QString str)
+\begin{DoxyCompactList}\small\item\em tikz\+Escape prepares a property key or value for export to tikz code. If the property only contains numbers, letters, whitespace, or the characters ($<$,$>$,-\/) this method does nothing. Otherwise, wrap the property in curly braces. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A class which holds either a single key/value pair (i.\+e. a proper property) or simply a key with no value (i.\+e. an atom). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGraphElementProperty_a7e18d8ab579e36b7f58eb8f94d1f29d5}\label{classGraphElementProperty_a7e18d8ab579e36b7f58eb8f94d1f29d5}} 
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{GraphElementProperty()}{GraphElementProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Graph\+Element\+Property\+::\+Graph\+Element\+Property (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraphElementProperty_a5d3cd8eb8deeac734dcd17ffaf9a966d}\label{classGraphElementProperty_a5d3cd8eb8deeac734dcd17ffaf9a966d}} 
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{GraphElementProperty()}{GraphElementProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Graph\+Element\+Property\+::\+Graph\+Element\+Property (\begin{DoxyParamCaption}\item[{QString}]{key,  }\item[{QString}]{value,  }\item[{bool}]{atom }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraphElementProperty_a97f779f70215b7b7a6980bf723869a02}\label{classGraphElementProperty_a97f779f70215b7b7a6980bf723869a02}} 
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{GraphElementProperty()}{GraphElementProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Graph\+Element\+Property\+::\+Graph\+Element\+Property (\begin{DoxyParamCaption}\item[{QString}]{key,  }\item[{QString}]{value }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} constructs a proper property with the given key/value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & \\
+\hline
+{\em value} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classGraphElementProperty_adb4345f9ebc8f98a3d32f6c251f6dd1d}\label{classGraphElementProperty_adb4345f9ebc8f98a3d32f6c251f6dd1d}} 
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\index{GraphElementProperty@{GraphElementProperty}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{GraphElementProperty()}{GraphElementProperty()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Graph\+Element\+Property\+::\+Graph\+Element\+Property (\begin{DoxyParamCaption}\item[{QString}]{key }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} constructs an atom with the given key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em key} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGraphElementProperty_a2bc44d48d4d1f71f4e95f087015d3a03}\label{classGraphElementProperty_a2bc44d48d4d1f71f4e95f087015d3a03}} 
+\index{GraphElementProperty@{GraphElementProperty}!atom@{atom}}
+\index{atom@{atom}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{atom()}{atom()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Property\+::atom (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}\label{classGraphElementProperty_ac13dfdd059359edab4f19d2adcb95b9d}} 
+\index{GraphElementProperty@{GraphElementProperty}!key@{key}}
+\index{key@{key}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{key()}{key()}}
+{\footnotesize\ttfamily QString Graph\+Element\+Property\+::key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGraphElementProperty_af78b8681e00a87a7bfe987c8f59b2205}\label{classGraphElementProperty_af78b8681e00a87a7bfe987c8f59b2205}} 
+\index{GraphElementProperty@{GraphElementProperty}!operator==@{operator==}}
+\index{operator==@{operator==}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Property\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} \&}]{p }\end{DoxyParamCaption})}
+
+
+
+operator == returns true for atoms if the keys match and for properties if the keys and values match. Note a property is never equal to an atom. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementProperty_af78b8681e00a87a7bfe987c8f59b2205_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementProperty_ad24266bc44fd3b84ae1106ea6312cd70}\label{classGraphElementProperty_ad24266bc44fd3b84ae1106ea6312cd70}} 
+\index{GraphElementProperty@{GraphElementProperty}!setKey@{setKey}}
+\index{setKey@{setKey}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{setKey()}{setKey()}}
+{\footnotesize\ttfamily void Graph\+Element\+Property\+::set\+Key (\begin{DoxyParamCaption}\item[{const QString \&}]{key }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementProperty_ad24266bc44fd3b84ae1106ea6312cd70_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementProperty_a387c726a29ae764a39711fc7bd43385c}\label{classGraphElementProperty_a387c726a29ae764a39711fc7bd43385c}} 
+\index{GraphElementProperty@{GraphElementProperty}!setValue@{setValue}}
+\index{setValue@{setValue}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{setValue()}{setValue()}}
+{\footnotesize\ttfamily void Graph\+Element\+Property\+::set\+Value (\begin{DoxyParamCaption}\item[{const QString \&}]{value }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementProperty_a387c726a29ae764a39711fc7bd43385c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementProperty_a00b4d8d3d11abb76432abe44c8279706}\label{classGraphElementProperty_a00b4d8d3d11abb76432abe44c8279706}} 
+\index{GraphElementProperty@{GraphElementProperty}!tikz@{tikz}}
+\index{tikz@{tikz}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{tikz()}{tikz()}}
+{\footnotesize\ttfamily QString Graph\+Element\+Property\+::tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+tikz escapes the key/value of a propery or atom and outputs it as \char`\"{}key=value\char`\"{} for properties and \char`\"{}key\char`\"{} for atoms. 
+
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementProperty_a00b4d8d3d11abb76432abe44c8279706_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementProperty_a23b8f149115595f022316b9f1b38f5dd}\label{classGraphElementProperty_a23b8f149115595f022316b9f1b38f5dd}} 
+\index{GraphElementProperty@{GraphElementProperty}!tikzEscape@{tikzEscape}}
+\index{tikzEscape@{tikzEscape}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{tikzEscape()}{tikzEscape()}}
+{\footnotesize\ttfamily QString Graph\+Element\+Property\+::tikz\+Escape (\begin{DoxyParamCaption}\item[{QString}]{str }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+tikz\+Escape prepares a property key or value for export to tikz code. If the property only contains numbers, letters, whitespace, or the characters ($<$,$>$,-\/) this method does nothing. Otherwise, wrap the property in curly braces. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em str} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classGraphElementProperty_a4483212c6dcf78f552715894f0e8d885}\label{classGraphElementProperty_a4483212c6dcf78f552715894f0e8d885}} 
+\index{GraphElementProperty@{GraphElementProperty}!value@{value}}
+\index{value@{value}!GraphElementProperty@{GraphElementProperty}}
+\doxysubsubsection{\texorpdfstring{value()}{value()}}
+{\footnotesize\ttfamily QString Graph\+Element\+Property\+::value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{graphelementproperty_8h}{graphelementproperty.\+h}}\item 
+src/data/\mbox{\hyperlink{graphelementproperty_8cpp}{graphelementproperty.\+cpp}}\end{DoxyCompactItemize}

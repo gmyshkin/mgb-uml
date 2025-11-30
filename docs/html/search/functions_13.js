@@ -1,0 +1,16 @@
+var searchData=
+[
+  ['undo_1599',['undo',['../classMoveCommand.html#a9642ca9275818575124633a8846b1b4f',1,'MoveCommand::undo()'],['../classSplitPathCommand.html#a0eba01a5855aa45dbe9d75570b30bc42',1,'SplitPathCommand::undo()'],['../classMakePathCommand.html#aa853215ad5de8595c0e921054b6ca603',1,'MakePathCommand::undo()'],['../classReorderCommand.html#af5a98af80f5ae4a4fd126347273f19d9',1,'ReorderCommand::undo()'],['../classRotateNodesCommand.html#a4f4c77e7a34cc2987e66ee9bcebb1e0e',1,'RotateNodesCommand::undo()'],['../classReflectNodesCommand.html#ab43b06c98ff8387fbb10eb50732887a6',1,'ReflectNodesCommand::undo()'],['../classReplaceGraphCommand.html#a6eeeae2efee9b5fca2b4066182997c4d',1,'ReplaceGraphCommand::undo()'],['../classChangeLabelCommand.html#a802559a502d43efb99d08458bfe0b79b',1,'ChangeLabelCommand::undo()'],['../classPasteCommand.html#aeb619329bd2d4c6884e6e19cf01933ed',1,'PasteCommand::undo()'],['../classApplyStyleToNodesCommand.html#ae5a1ae210cd57f7f8b365dfd171ff25a',1,'ApplyStyleToNodesCommand::undo()'],['../classChangeEdgeModeCommand.html#aacc44dadd2e05b8bd16dd227b4b32d3b',1,'ChangeEdgeModeCommand::undo()'],['../classAddEdgeCommand.html#a3df24f798780386115d3fcfe44b4ee91',1,'AddEdgeCommand::undo()'],['../classAddNodeCommand.html#a0744b462156ad08d360309125eb4e98b',1,'AddNodeCommand::undo()'],['../classDeleteCommand.html#a47635943ba3b9343777f6b386dc70d58',1,'DeleteCommand::undo()'],['../classReverseEdgesCommand.html#a916b609b28188fd2b377e93cc3c5aaa6',1,'ReverseEdgesCommand::undo()'],['../classEdgeBendCommand.html#aebe1d9b98474a56fc32eba2346fa2e09',1,'EdgeBendCommand::undo()'],['../classGraphUpdateCommand.html#a059ac61adf2712b1ebb2bc6ad0662b09',1,'GraphUpdateCommand::undo()'],['../classApplyStyleToEdgesCommand.html#af566294db5e4d632d9d39186939c174f',1,'ApplyStyleToEdgesCommand::undo()']]],
+  ['undostack_1600',['undoStack',['../classTikzDocument.html#a862fc9522e63f9902e6c33416de92043',1,'TikzDocument']]],
+  ['unsetatom_1601',['unsetAtom',['../classGraphElementData.html#a0be9efd4872d7a5074c0757e5174e95d',1,'GraphElementData']]],
+  ['unsetproperty_1602',['unsetProperty',['../classGraphElementData.html#ae3c7c23cef4a7d27cb47c9c4f60b4c7f',1,'GraphElementData']]],
+  ['updateauto_1603',['updateAuto',['../classTikzit.html#a1a969509d91a1f3ec0132d1650d7354e',1,'Tikzit']]],
+  ['updatebounds_1604',['updateBounds',['../classNodeItem.html#a2b56432a6a87708336a3d1b61145edc5',1,'NodeItem']]],
+  ['updatecontrols_1605',['updateControls',['../classEdge.html#a26636a67c58b35168fb74e928c7b8608',1,'Edge']]],
+  ['updatedata_1606',['updateData',['../classEdge.html#a8d412b3ca575e30b143f530faec6a87c',1,'Edge']]],
+  ['updatefilename_1607',['updateFileName',['../classMainWindow.html#a8ac741058964d6c5dd88b81ce6d0b6a2',1,'MainWindow']]],
+  ['updatemanual_1608',['updateManual',['../classTikzit.html#a3375cbe721ef274920261f943d11050c',1,'Tikzit']]],
+  ['updaterecentfiles_1609',['updateRecentFiles',['../classMainMenu.html#a4a531c3499164781cc29d7c9faae6f86',1,'MainMenu::updateRecentFiles()'],['../classTikzit.html#a9d2aaaf2c60de49f9543e9566dd612ff',1,'Tikzit::updateRecentFiles()']]],
+  ['updatereply_1610',['updateReply',['../classTikzit.html#ad600aca5e2b0afafb48c319baf2cc713',1,'Tikzit']]],
+  ['updatesaction_1611',['updatesAction',['../classMainMenu.html#a7e0a9a24090effd15dce93088b15e578',1,'MainMenu']]]
+];

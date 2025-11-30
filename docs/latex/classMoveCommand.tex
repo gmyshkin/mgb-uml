@@ -1,0 +1,82 @@
+\hypertarget{classMoveCommand}{}\doxysection{Move\+Command Class Reference}
+\label{classMoveCommand}\index{MoveCommand@{MoveCommand}}
+
+
+{\ttfamily \#include $<$undocommands.\+h$>$}
+
+
+
+Inheritance diagram for Move\+Command\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{classMoveCommand__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Move\+Command\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classMoveCommand__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMoveCommand_a53b480d88c4554522940ce2487bedefd}{Move\+Command}} (\mbox{\hyperlink{classTikzScene}{Tikz\+Scene}} $\ast$scene, QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, QPointF $>$ old\+Node\+Positions, QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, QPointF $>$ new\+Node\+Positions, QUndo\+Command $\ast$parent=nullptr)
+\item 
+void \mbox{\hyperlink{classMoveCommand_a9642ca9275818575124633a8846b1b4f}{undo}} () override
+\item 
+void \mbox{\hyperlink{classMoveCommand_acefc4ae376155271f2b1c53836c16933}{redo}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMoveCommand_a53b480d88c4554522940ce2487bedefd}\label{classMoveCommand_a53b480d88c4554522940ce2487bedefd}} 
+\index{MoveCommand@{MoveCommand}!MoveCommand@{MoveCommand}}
+\index{MoveCommand@{MoveCommand}!MoveCommand@{MoveCommand}}
+\doxysubsubsection{\texorpdfstring{MoveCommand()}{MoveCommand()}}
+{\footnotesize\ttfamily Move\+Command\+::\+Move\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTikzScene}{Tikz\+Scene}} $\ast$}]{scene,  }\item[{QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, QPointF $>$}]{old\+Node\+Positions,  }\item[{QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, QPointF $>$}]{new\+Node\+Positions,  }\item[{QUndo\+Command $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMoveCommand_acefc4ae376155271f2b1c53836c16933}\label{classMoveCommand_acefc4ae376155271f2b1c53836c16933}} 
+\index{MoveCommand@{MoveCommand}!redo@{redo}}
+\index{redo@{redo}!MoveCommand@{MoveCommand}}
+\doxysubsubsection{\texorpdfstring{redo()}{redo()}}
+{\footnotesize\ttfamily void Move\+Command\+::redo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMoveCommand_acefc4ae376155271f2b1c53836c16933_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMoveCommand_a9642ca9275818575124633a8846b1b4f}\label{classMoveCommand_a9642ca9275818575124633a8846b1b4f}} 
+\index{MoveCommand@{MoveCommand}!undo@{undo}}
+\index{undo@{undo}!MoveCommand@{MoveCommand}}
+\doxysubsubsection{\texorpdfstring{undo()}{undo()}}
+{\footnotesize\ttfamily void Move\+Command\+::undo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMoveCommand_a9642ca9275818575124633a8846b1b4f_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{undocommands_8h}{undocommands.\+h}}\item 
+src/gui/\mbox{\hyperlink{undocommands_8cpp}{undocommands.\+cpp}}\end{DoxyCompactItemize}

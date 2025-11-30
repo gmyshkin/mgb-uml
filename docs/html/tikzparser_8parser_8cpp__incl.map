@@ -1,0 +1,36 @@
+<map id="src/data/tikzparser.parser.cpp" name="src/data/tikzparser.parser.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="685,5,899,32"/>
+<area shape="rect" id="node2" href="$tikzparserdefs_8h.html" title=" " alt="" coords="379,80,506,107"/>
+<area shape="rect" id="node3" href="$graphelementproperty_8h.html" title=" " alt="" coords="5,677,184,704"/>
+<area shape="rect" id="node5" href="$graphelementdata_8h.html" title=" " alt="" coords="213,603,368,629"/>
+<area shape="rect" id="node11" href="$node_8h.html" title=" " alt="" coords="992,453,1059,480"/>
+<area shape="rect" id="node19" href="$tikzassembler_8h.html" title=" " alt="" coords="840,155,965,181"/>
+<area shape="rect" id="node21" href="$edge_8h.html" title=" " alt="" coords="868,379,935,405"/>
+<area shape="rect" id="node32" href="$tikzparser_8parser_8hpp.html" title=" " alt="" coords="881,80,1039,107"/>
+<area shape="rect" id="node33" title=" " alt="" coords="1063,80,1153,107"/>
+<area shape="rect" id="node34" title=" " alt="" coords="1177,80,1247,107"/>
+<area shape="rect" id="node7" title=" " alt="" coords="623,677,694,704"/>
+<area shape="rect" id="node24" title=" " alt="" coords="635,304,704,331"/>
+<area shape="rect" id="node31" title=" " alt="" coords="443,155,517,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="1173,752,1248,779"/>
+<area shape="rect" id="node6" title=" " alt="" coords="443,677,599,704"/>
+<area shape="rect" id="node8" title=" " alt="" coords="209,677,287,704"/>
+<area shape="rect" id="node9" title=" " alt="" coords="311,677,419,704"/>
+<area shape="rect" id="node10" title=" " alt="" coords="1274,677,1347,704"/>
+<area shape="rect" id="node12" href="$style_8h.html" title=" " alt="" coords="781,528,848,555"/>
+<area shape="rect" id="node18" title=" " alt="" coords="1094,528,1167,555"/>
+<area shape="rect" id="node13" title=" " alt="" coords="929,603,996,629"/>
+<area shape="rect" id="node14" title=" " alt="" coords="493,603,549,629"/>
+<area shape="rect" id="node15" title=" " alt="" coords="573,603,643,629"/>
+<area shape="rect" id="node16" title=" " alt="" coords="667,603,773,629"/>
+<area shape="rect" id="node17" title=" " alt="" coords="796,603,855,629"/>
+<area shape="rect" id="node20" href="$graph_8h.html" title=" " alt="" coords="997,229,1067,256"/>
+<area shape="rect" id="node26" href="$tikzstyles_8h.html" title=" " alt="" coords="418,379,515,405"/>
+<area shape="rect" id="node30" title=" " alt="" coords="881,229,946,256"/>
+<area shape="rect" id="node22" href="$path_8h.html" title=" " alt="" coords="931,304,994,331"/>
+<area shape="rect" id="node23" title=" " alt="" coords="1069,304,1168,331"/>
+<area shape="rect" id="node25" title=" " alt="" coords="1193,304,1253,331"/>
+<area shape="rect" id="node27" href="$stylelist_8h.html" title=" " alt="" coords="678,453,765,480"/>
+<area shape="rect" id="node29" title=" " alt="" coords="392,453,552,480"/>
+<area shape="rect" id="node28" title=" " alt="" coords="557,528,707,555"/>
+</map>

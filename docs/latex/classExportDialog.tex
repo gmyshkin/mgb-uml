@@ -1,0 +1,206 @@
+\hypertarget{classExportDialog}{}\doxysection{Export\+Dialog Class Reference}
+\label{classExportDialog}\index{ExportDialog@{ExportDialog}}
+
+
+{\ttfamily \#include $<$exportdialog.\+h$>$}
+
+
+
+Inheritance diagram for Export\+Dialog\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{classExportDialog__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Export\+Dialog\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{classExportDialog__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742}{Format}} \{ \mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a4e40f177d55751c553afd36f9bf93ddf}{PNG}} = 0
+, \mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a44de6f8c076e3a4d27f5cf05457c2458}{JPG}} = 1
+, \mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a1e99b2b8e4425d9aef0bfb72a8df7cef}{PDF}} = 2
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classExportDialog_a9d0a2c651af9e891b26f9a06c106fbfb}{accept}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classExportDialog_ac592e78d7ff90bbed812d0d4a091e6cb}{Export\+Dialog}} (QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{classExportDialog_a12cd48c18b0d0630738c3bb56c7e2fd6}{$\sim$\+Export\+Dialog}} () override
+\item 
+QString \mbox{\hyperlink{classExportDialog_af93a2742ab40a312c5e4fe070d7a23c7}{file\+Path}} ()
+\item 
+QSize \mbox{\hyperlink{classExportDialog_a344be959049fd5edb386a9073d84347d}{size}} ()
+\item 
+\mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742}{Format}} \mbox{\hyperlink{classExportDialog_a67edad5037afc50620003d7e9b0c172e}{file\+Format}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classExportDialog_a82998a41d2c4330578b1dc7cfd5ba9f4}{set\+Height\+From\+Width}} ()
+\item 
+void \mbox{\hyperlink{classExportDialog_ab3db3aa3d2d328a103d46e819d41f9f4}{set\+Width\+From\+Height}} ()
+\item 
+void \mbox{\hyperlink{classExportDialog_af3923e16bae2df951239a3d0b5996e85}{on\+\_\+keep\+Aspect\+\_\+state\+Changed}} (int state)
+\item 
+void \mbox{\hyperlink{classExportDialog_a7a3306a9925d3a6bf301af401b586646}{on\+\_\+browse\+Button\+\_\+clicked}} ()
+\item 
+void \mbox{\hyperlink{classExportDialog_a033a70e53ad987f41c7a300969acffb1}{on\+\_\+file\+Format\+\_\+current\+Index\+Changed}} (int f)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742}\label{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742}} 
+\index{ExportDialog@{ExportDialog}!Format@{Format}}
+\index{Format@{Format}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{Format}{Format}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742}{Export\+Dialog\+::\+Format}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PNG@{PNG}!ExportDialog@{ExportDialog}}\index{ExportDialog@{ExportDialog}!PNG@{PNG}}}\mbox{\Hypertarget{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a4e40f177d55751c553afd36f9bf93ddf}\label{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a4e40f177d55751c553afd36f9bf93ddf}} 
+PNG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{JPG@{JPG}!ExportDialog@{ExportDialog}}\index{ExportDialog@{ExportDialog}!JPG@{JPG}}}\mbox{\Hypertarget{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a44de6f8c076e3a4d27f5cf05457c2458}\label{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a44de6f8c076e3a4d27f5cf05457c2458}} 
+JPG&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PDF@{PDF}!ExportDialog@{ExportDialog}}\index{ExportDialog@{ExportDialog}!PDF@{PDF}}}\mbox{\Hypertarget{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a1e99b2b8e4425d9aef0bfb72a8df7cef}\label{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742a1e99b2b8e4425d9aef0bfb72a8df7cef}} 
+PDF&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classExportDialog_ac592e78d7ff90bbed812d0d4a091e6cb}\label{classExportDialog_ac592e78d7ff90bbed812d0d4a091e6cb}} 
+\index{ExportDialog@{ExportDialog}!ExportDialog@{ExportDialog}}
+\index{ExportDialog@{ExportDialog}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{ExportDialog()}{ExportDialog()}}
+{\footnotesize\ttfamily Export\+Dialog\+::\+Export\+Dialog (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classExportDialog_ac592e78d7ff90bbed812d0d4a091e6cb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classExportDialog_a12cd48c18b0d0630738c3bb56c7e2fd6}\label{classExportDialog_a12cd48c18b0d0630738c3bb56c7e2fd6}} 
+\index{ExportDialog@{ExportDialog}!````~ExportDialog@{$\sim$ExportDialog}}
+\index{````~ExportDialog@{$\sim$ExportDialog}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{$\sim$ExportDialog()}{~ExportDialog()}}
+{\footnotesize\ttfamily Export\+Dialog\+::$\sim$\+Export\+Dialog (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classExportDialog_a9d0a2c651af9e891b26f9a06c106fbfb}\label{classExportDialog_a9d0a2c651af9e891b26f9a06c106fbfb}} 
+\index{ExportDialog@{ExportDialog}!accept@{accept}}
+\index{accept@{accept}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{accept}{accept}}
+{\footnotesize\ttfamily void Export\+Dialog\+::accept (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classExportDialog_a9d0a2c651af9e891b26f9a06c106fbfb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classExportDialog_a67edad5037afc50620003d7e9b0c172e}\label{classExportDialog_a67edad5037afc50620003d7e9b0c172e}} 
+\index{ExportDialog@{ExportDialog}!fileFormat@{fileFormat}}
+\index{fileFormat@{fileFormat}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{fileFormat()}{fileFormat()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExportDialog_aa45b0cb9e87567cb6be0e3fb2f709742}{Export\+Dialog\+::\+Format}} Export\+Dialog\+::file\+Format (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classExportDialog_af93a2742ab40a312c5e4fe070d7a23c7}\label{classExportDialog_af93a2742ab40a312c5e4fe070d7a23c7}} 
+\index{ExportDialog@{ExportDialog}!filePath@{filePath}}
+\index{filePath@{filePath}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{filePath()}{filePath()}}
+{\footnotesize\ttfamily QString Export\+Dialog\+::file\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classExportDialog_a7a3306a9925d3a6bf301af401b586646}\label{classExportDialog_a7a3306a9925d3a6bf301af401b586646}} 
+\index{ExportDialog@{ExportDialog}!on\_browseButton\_clicked@{on\_browseButton\_clicked}}
+\index{on\_browseButton\_clicked@{on\_browseButton\_clicked}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{on\_browseButton\_clicked}{on\_browseButton\_clicked}}
+{\footnotesize\ttfamily void Export\+Dialog\+::on\+\_\+browse\+Button\+\_\+clicked (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+\mbox{\Hypertarget{classExportDialog_a033a70e53ad987f41c7a300969acffb1}\label{classExportDialog_a033a70e53ad987f41c7a300969acffb1}} 
+\index{ExportDialog@{ExportDialog}!on\_fileFormat\_currentIndexChanged@{on\_fileFormat\_currentIndexChanged}}
+\index{on\_fileFormat\_currentIndexChanged@{on\_fileFormat\_currentIndexChanged}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{on\_fileFormat\_currentIndexChanged}{on\_fileFormat\_currentIndexChanged}}
+{\footnotesize\ttfamily void Export\+Dialog\+::on\+\_\+file\+Format\+\_\+current\+Index\+Changed (\begin{DoxyParamCaption}\item[{int}]{f }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+\mbox{\Hypertarget{classExportDialog_af3923e16bae2df951239a3d0b5996e85}\label{classExportDialog_af3923e16bae2df951239a3d0b5996e85}} 
+\index{ExportDialog@{ExportDialog}!on\_keepAspect\_stateChanged@{on\_keepAspect\_stateChanged}}
+\index{on\_keepAspect\_stateChanged@{on\_keepAspect\_stateChanged}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{on\_keepAspect\_stateChanged}{on\_keepAspect\_stateChanged}}
+{\footnotesize\ttfamily void Export\+Dialog\+::on\+\_\+keep\+Aspect\+\_\+state\+Changed (\begin{DoxyParamCaption}\item[{int}]{state }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classExportDialog_af3923e16bae2df951239a3d0b5996e85_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classExportDialog_a82998a41d2c4330578b1dc7cfd5ba9f4}\label{classExportDialog_a82998a41d2c4330578b1dc7cfd5ba9f4}} 
+\index{ExportDialog@{ExportDialog}!setHeightFromWidth@{setHeightFromWidth}}
+\index{setHeightFromWidth@{setHeightFromWidth}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{setHeightFromWidth}{setHeightFromWidth}}
+{\footnotesize\ttfamily void Export\+Dialog\+::set\+Height\+From\+Width (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classExportDialog_a82998a41d2c4330578b1dc7cfd5ba9f4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classExportDialog_ab3db3aa3d2d328a103d46e819d41f9f4}\label{classExportDialog_ab3db3aa3d2d328a103d46e819d41f9f4}} 
+\index{ExportDialog@{ExportDialog}!setWidthFromHeight@{setWidthFromHeight}}
+\index{setWidthFromHeight@{setWidthFromHeight}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{setWidthFromHeight}{setWidthFromHeight}}
+{\footnotesize\ttfamily void Export\+Dialog\+::set\+Width\+From\+Height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classExportDialog_ab3db3aa3d2d328a103d46e819d41f9f4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classExportDialog_a344be959049fd5edb386a9073d84347d}\label{classExportDialog_a344be959049fd5edb386a9073d84347d}} 
+\index{ExportDialog@{ExportDialog}!size@{size}}
+\index{size@{size}!ExportDialog@{ExportDialog}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily QSize Export\+Dialog\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{exportdialog_8h}{exportdialog.\+h}}\item 
+src/gui/\mbox{\hyperlink{exportdialog_8cpp}{exportdialog.\+cpp}}\end{DoxyCompactItemize}

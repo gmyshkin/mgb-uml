@@ -1,0 +1,79 @@
+\hypertarget{classDelimitedStringValidator}{}\doxysection{Delimited\+String\+Validator Class Reference}
+\label{classDelimitedStringValidator}\index{DelimitedStringValidator@{DelimitedStringValidator}}
+
+
+{\ttfamily \#include $<$delimitedstringvalidator.\+h$>$}
+
+
+
+Inheritance diagram for Delimited\+String\+Validator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classDelimitedStringValidator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Delimited\+String\+Validator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classDelimitedStringValidator__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classDelimitedStringValidator_adf7b9fad6678e88c9e595c13a2fd6ac2}{Delimited\+String\+Validator}} (QObject $\ast$parent)
+\item 
+QValidator\+::\+State \mbox{\hyperlink{classDelimitedStringValidator_a425c950ce7f708428d980b44ecb82c84}{validate}} (QString \&input, int \&) const override
+\item 
+void \mbox{\hyperlink{classDelimitedStringValidator_a33d68a496e9fba5e54373f964d68b147}{fixup}} (QString \&input) const override
+\begin{DoxyCompactList}\small\item\em fixup adds curly braces until all braces are matched (if possible) \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A string validator which keeps curly braces matched. Used in various places to ensure the user doesn\textquotesingle{}t make non-\/parseable .tikz or .tikzstyles files.
+
+Its validation function will return Acceptable if all curly braces are matched properly, Intermediate if all braces are matched except for possibly some opening curly braces, and Invalid if there are unmatched closing curly braces. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classDelimitedStringValidator_adf7b9fad6678e88c9e595c13a2fd6ac2}\label{classDelimitedStringValidator_adf7b9fad6678e88c9e595c13a2fd6ac2}} 
+\index{DelimitedStringValidator@{DelimitedStringValidator}!DelimitedStringValidator@{DelimitedStringValidator}}
+\index{DelimitedStringValidator@{DelimitedStringValidator}!DelimitedStringValidator@{DelimitedStringValidator}}
+\doxysubsubsection{\texorpdfstring{DelimitedStringValidator()}{DelimitedStringValidator()}}
+{\footnotesize\ttfamily Delimited\+String\+Validator\+::\+Delimited\+String\+Validator (\begin{DoxyParamCaption}\item[{QObject $\ast$}]{parent }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classDelimitedStringValidator_a33d68a496e9fba5e54373f964d68b147}\label{classDelimitedStringValidator_a33d68a496e9fba5e54373f964d68b147}} 
+\index{DelimitedStringValidator@{DelimitedStringValidator}!fixup@{fixup}}
+\index{fixup@{fixup}!DelimitedStringValidator@{DelimitedStringValidator}}
+\doxysubsubsection{\texorpdfstring{fixup()}{fixup()}}
+{\footnotesize\ttfamily void Delimited\+String\+Validator\+::fixup (\begin{DoxyParamCaption}\item[{QString \&}]{input }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+fixup adds curly braces until all braces are matched (if possible) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em input} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classDelimitedStringValidator_a425c950ce7f708428d980b44ecb82c84}\label{classDelimitedStringValidator_a425c950ce7f708428d980b44ecb82c84}} 
+\index{DelimitedStringValidator@{DelimitedStringValidator}!validate@{validate}}
+\index{validate@{validate}!DelimitedStringValidator@{DelimitedStringValidator}}
+\doxysubsubsection{\texorpdfstring{validate()}{validate()}}
+{\footnotesize\ttfamily QValidator\+::\+State Delimited\+String\+Validator\+::validate (\begin{DoxyParamCaption}\item[{QString \&}]{input,  }\item[{int \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{delimitedstringvalidator_8h}{delimitedstringvalidator.\+h}}\item 
+src/data/\mbox{\hyperlink{delimitedstringvalidator_8cpp}{delimitedstringvalidator.\+cpp}}\end{DoxyCompactItemize}

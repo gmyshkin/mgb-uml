@@ -1,0 +1,82 @@
+\hypertarget{classReorderCommand}{}\doxysection{Reorder\+Command Class Reference}
+\label{classReorderCommand}\index{ReorderCommand@{ReorderCommand}}
+
+
+{\ttfamily \#include $<$undocommands.\+h$>$}
+
+
+
+Inheritance diagram for Reorder\+Command\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=230pt]{classReorderCommand__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Reorder\+Command\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classReorderCommand__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classReorderCommand_a8afdcd978b048d105f5a0321169a2389}{Reorder\+Command}} (\mbox{\hyperlink{classTikzScene}{Tikz\+Scene}} $\ast$scene, const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&old\+Node\+Order, const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&new\+Node\+Order, const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&old\+Edge\+Order, const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&new\+Edge\+Order, QUndo\+Command $\ast$parent=nullptr)
+\item 
+void \mbox{\hyperlink{classReorderCommand_af5a98af80f5ae4a4fd126347273f19d9}{undo}} () override
+\item 
+void \mbox{\hyperlink{classReorderCommand_af62de72178d5a2735b679bbc4e5c9e28}{redo}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classReorderCommand_a8afdcd978b048d105f5a0321169a2389}\label{classReorderCommand_a8afdcd978b048d105f5a0321169a2389}} 
+\index{ReorderCommand@{ReorderCommand}!ReorderCommand@{ReorderCommand}}
+\index{ReorderCommand@{ReorderCommand}!ReorderCommand@{ReorderCommand}}
+\doxysubsubsection{\texorpdfstring{ReorderCommand()}{ReorderCommand()}}
+{\footnotesize\ttfamily Reorder\+Command\+::\+Reorder\+Command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTikzScene}{Tikz\+Scene}} $\ast$}]{scene,  }\item[{const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&}]{old\+Node\+Order,  }\item[{const QVector$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&}]{new\+Node\+Order,  }\item[{const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&}]{old\+Edge\+Order,  }\item[{const QVector$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&}]{new\+Edge\+Order,  }\item[{QUndo\+Command $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classReorderCommand_af62de72178d5a2735b679bbc4e5c9e28}\label{classReorderCommand_af62de72178d5a2735b679bbc4e5c9e28}} 
+\index{ReorderCommand@{ReorderCommand}!redo@{redo}}
+\index{redo@{redo}!ReorderCommand@{ReorderCommand}}
+\doxysubsubsection{\texorpdfstring{redo()}{redo()}}
+{\footnotesize\ttfamily void Reorder\+Command\+::redo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classReorderCommand_af62de72178d5a2735b679bbc4e5c9e28_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classReorderCommand_af5a98af80f5ae4a4fd126347273f19d9}\label{classReorderCommand_af5a98af80f5ae4a4fd126347273f19d9}} 
+\index{ReorderCommand@{ReorderCommand}!undo@{undo}}
+\index{undo@{undo}!ReorderCommand@{ReorderCommand}}
+\doxysubsubsection{\texorpdfstring{undo()}{undo()}}
+{\footnotesize\ttfamily void Reorder\+Command\+::undo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classReorderCommand_af5a98af80f5ae4a4fd126347273f19d9_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{undocommands_8h}{undocommands.\+h}}\item 
+src/gui/\mbox{\hyperlink{undocommands_8cpp}{undocommands.\+cpp}}\end{DoxyCompactItemize}

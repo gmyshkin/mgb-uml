@@ -1,0 +1,455 @@
+\hypertarget{classStyle}{}\doxysection{Style Class Reference}
+\label{classStyle}\index{Style@{Style}}
+
+
+{\ttfamily \#include $<$style.\+h$>$}
+
+
+
+Inheritance diagram for Style\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{classStyle__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Style\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classStyle__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855b}{Arrow\+Tip\+Style}} \{ \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855bab829cdc787d9fafbfa533949eb2cb0fa}{Flat}}
+, \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855ba74b686796e033475fca34d54ee43ce2f}{Pointer}}
+, \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855ba3e72cd2c253bb5cf82d26a527ca6a308}{No\+Tip}}
+ \}
+\item 
+enum \mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402ce}{Draw\+Style}} \{ \mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea78c4c359d785ec9c1c6b2add36984a33}{Solid}}
+, \mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea2eb0db03e580d11c0d5c8ca570b0b8d2}{Dotted}}
+, \mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea6ab36d209d2edbad3f7dede17354888e}{Dashed}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classStyle_a914f187818eb30c0cebe3df5378bfa0a}{Style}} ()
+\item 
+\mbox{\hyperlink{classStyle_a22749f82b315651ea2aef5235cea5eb6}{Style}} (QString \mbox{\hyperlink{classStyle_a9dac14eabf7867581ba57bd1934df03f}{name}}, \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$\mbox{\hyperlink{classStyle_a815a5c49d6c00f7b5f71c9a676f5a910}{data}})
+\item 
+bool \mbox{\hyperlink{classStyle_af3ee785d78293e813fd0ae58ed9ee889}{is\+None}} () const
+\item 
+bool \mbox{\hyperlink{classStyle_a5e04c1974139e836cd1031d0da305a6f}{is\+Edge\+Style}} () const
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classStyle_a815a5c49d6c00f7b5f71c9a676f5a910}{data}} () const
+\item 
+QString \mbox{\hyperlink{classStyle_a9dac14eabf7867581ba57bd1934df03f}{name}} () const
+\item 
+QColor \mbox{\hyperlink{classStyle_ab9089a28d63db482b73c2111d7a45009}{stroke\+Color}} (bool tikzit\+Override=true) const
+\item 
+int \mbox{\hyperlink{classStyle_ac7b143852859425016a71fa68505397d}{stroke\+Thickness}} () const
+\item 
+QPen \mbox{\hyperlink{classStyle_a815c98f913f8cf2248ee38efd67c8757}{pen}} () const
+\item 
+QPainter\+Path \mbox{\hyperlink{classStyle_a2beec7031f1bda6903a3dd1732d2552b}{path}} () const
+\item 
+QIcon \mbox{\hyperlink{classStyle_afa240bffbb5e34f6fcb150a94d328591}{icon}} () const
+\item 
+void \mbox{\hyperlink{classStyle_a4d5b4d457de2956d8a8235510b32f0a4}{set\+Name}} (const QString \&\mbox{\hyperlink{classStyle_a9dac14eabf7867581ba57bd1934df03f}{name}})
+\item 
+QString \mbox{\hyperlink{classStyle_aac78a315b957fe36d79baaf33dd371f6}{property\+With\+Default}} (QString prop, QString def, bool tikzit\+Override=true) const
+\item 
+QString \mbox{\hyperlink{classStyle_a736a24634ab229f6146b382a83afeea7}{tikz}} () const
+\item 
+QColor \mbox{\hyperlink{classStyle_af8993aa805487c56854187aea449782a}{fill\+Color}} (bool tikzit\+Override=true) const
+\item 
+QBrush \mbox{\hyperlink{classStyle_ac20799fa2efb3d7006e43ac7c1de7846}{brush}} () const
+\item 
+bool \mbox{\hyperlink{classStyle_a594f1c933cf478b1d56ef730451d8161}{has\+Fill}} () const
+\item 
+bool \mbox{\hyperlink{classStyle_aadaadbc373cb4e97487d76ee7b9c9944}{has\+Stroke}} () const
+\item 
+QString \mbox{\hyperlink{classStyle_af7f167294c861ce859ec7d54f08e6d29}{shape}} (bool tikzit\+Override=true) const
+\item 
+QString \mbox{\hyperlink{classStyle_aa5d3ce8241751f3e9881988297e88b67}{category}} () const
+\item 
+\mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855b}{Style\+::\+Arrow\+Tip\+Style}} \mbox{\hyperlink{classStyle_ac801417dcbf16cf79489a1aa5545bca6}{arrow\+Head}} () const
+\item 
+\mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855b}{Style\+::\+Arrow\+Tip\+Style}} \mbox{\hyperlink{classStyle_a8e26987e6af67b866457ad16ee43b0ce}{arrow\+Tail}} () const
+\item 
+\mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402ce}{Style\+::\+Draw\+Style}} \mbox{\hyperlink{classStyle_a833f56fcb9e310508161b97b13f7f1bd}{draw\+Style}} () const
+\item 
+void \mbox{\hyperlink{classStyle_acd0cb9cb095c226c7416d0bcce582977}{set\+Arrow\+Atom}} (QString atom)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+QString \mbox{\hyperlink{classStyle_a9b41528e3ebe98c14cb18cf5bb86067e}{\+\_\+name}}
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classStyle_a3eff3f9d9c7d245a02f5d1c5af5d6a15}{\+\_\+data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classStyle_a2b96eba5c69e96ca72604c10ac41855b}\label{classStyle_a2b96eba5c69e96ca72604c10ac41855b}} 
+\index{Style@{Style}!ArrowTipStyle@{ArrowTipStyle}}
+\index{ArrowTipStyle@{ArrowTipStyle}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{ArrowTipStyle}{ArrowTipStyle}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855b}{Style\+::\+Arrow\+Tip\+Style}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Flat@{Flat}!Style@{Style}}\index{Style@{Style}!Flat@{Flat}}}\mbox{\Hypertarget{classStyle_a2b96eba5c69e96ca72604c10ac41855bab829cdc787d9fafbfa533949eb2cb0fa}\label{classStyle_a2b96eba5c69e96ca72604c10ac41855bab829cdc787d9fafbfa533949eb2cb0fa}} 
+Flat&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Pointer@{Pointer}!Style@{Style}}\index{Style@{Style}!Pointer@{Pointer}}}\mbox{\Hypertarget{classStyle_a2b96eba5c69e96ca72604c10ac41855ba74b686796e033475fca34d54ee43ce2f}\label{classStyle_a2b96eba5c69e96ca72604c10ac41855ba74b686796e033475fca34d54ee43ce2f}} 
+Pointer&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NoTip@{NoTip}!Style@{Style}}\index{Style@{Style}!NoTip@{NoTip}}}\mbox{\Hypertarget{classStyle_a2b96eba5c69e96ca72604c10ac41855ba3e72cd2c253bb5cf82d26a527ca6a308}\label{classStyle_a2b96eba5c69e96ca72604c10ac41855ba3e72cd2c253bb5cf82d26a527ca6a308}} 
+No\+Tip&\\
+\hline
+
+\end{DoxyEnumFields}
+\mbox{\Hypertarget{classStyle_a1f4b36b7bac455c1c68eb20af5f402ce}\label{classStyle_a1f4b36b7bac455c1c68eb20af5f402ce}} 
+\index{Style@{Style}!DrawStyle@{DrawStyle}}
+\index{DrawStyle@{DrawStyle}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{DrawStyle}{DrawStyle}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402ce}{Style\+::\+Draw\+Style}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Solid@{Solid}!Style@{Style}}\index{Style@{Style}!Solid@{Solid}}}\mbox{\Hypertarget{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea78c4c359d785ec9c1c6b2add36984a33}\label{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea78c4c359d785ec9c1c6b2add36984a33}} 
+Solid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dotted@{Dotted}!Style@{Style}}\index{Style@{Style}!Dotted@{Dotted}}}\mbox{\Hypertarget{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea2eb0db03e580d11c0d5c8ca570b0b8d2}\label{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea2eb0db03e580d11c0d5c8ca570b0b8d2}} 
+Dotted&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Dashed@{Dashed}!Style@{Style}}\index{Style@{Style}!Dashed@{Dashed}}}\mbox{\Hypertarget{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea6ab36d209d2edbad3f7dede17354888e}\label{classStyle_a1f4b36b7bac455c1c68eb20af5f402cea6ab36d209d2edbad3f7dede17354888e}} 
+Dashed&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classStyle_a914f187818eb30c0cebe3df5378bfa0a}\label{classStyle_a914f187818eb30c0cebe3df5378bfa0a}} 
+\index{Style@{Style}!Style@{Style}}
+\index{Style@{Style}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{Style()}{Style()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Style\+::\+Style (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classStyle_a22749f82b315651ea2aef5235cea5eb6}\label{classStyle_a22749f82b315651ea2aef5235cea5eb6}} 
+\index{Style@{Style}!Style@{Style}}
+\index{Style@{Style}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{Style()}{Style()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Style\+::\+Style (\begin{DoxyParamCaption}\item[{QString}]{name,  }\item[{\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$}]{data }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classStyle_ac801417dcbf16cf79489a1aa5545bca6}\label{classStyle_ac801417dcbf16cf79489a1aa5545bca6}} 
+\index{Style@{Style}!arrowHead@{arrowHead}}
+\index{arrowHead@{arrowHead}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{arrowHead()}{arrowHead()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855b}{Style\+::\+Arrow\+Tip\+Style}} Style\+::arrow\+Head (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_ac801417dcbf16cf79489a1aa5545bca6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_a8e26987e6af67b866457ad16ee43b0ce}\label{classStyle_a8e26987e6af67b866457ad16ee43b0ce}} 
+\index{Style@{Style}!arrowTail@{arrowTail}}
+\index{arrowTail@{arrowTail}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{arrowTail()}{arrowTail()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle_a2b96eba5c69e96ca72604c10ac41855b}{Style\+::\+Arrow\+Tip\+Style}} Style\+::arrow\+Tail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a8e26987e6af67b866457ad16ee43b0ce_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_ac20799fa2efb3d7006e43ac7c1de7846}\label{classStyle_ac20799fa2efb3d7006e43ac7c1de7846}} 
+\index{Style@{Style}!brush@{brush}}
+\index{brush@{brush}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{brush()}{brush()}}
+{\footnotesize\ttfamily QBrush Style\+::brush (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_ac20799fa2efb3d7006e43ac7c1de7846_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_aa5d3ce8241751f3e9881988297e88b67}\label{classStyle_aa5d3ce8241751f3e9881988297e88b67}} 
+\index{Style@{Style}!category@{category}}
+\index{category@{category}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{category()}{category()}}
+{\footnotesize\ttfamily QString Style\+::category (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_aa5d3ce8241751f3e9881988297e88b67_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_a815a5c49d6c00f7b5f71c9a676f5a910}\label{classStyle_a815a5c49d6c00f7b5f71c9a676f5a910}} 
+\index{Style@{Style}!data@{data}}
+\index{data@{data}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Style\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classStyle_a833f56fcb9e310508161b97b13f7f1bd}\label{classStyle_a833f56fcb9e310508161b97b13f7f1bd}} 
+\index{Style@{Style}!drawStyle@{drawStyle}}
+\index{drawStyle@{drawStyle}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{drawStyle()}{drawStyle()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle_a1f4b36b7bac455c1c68eb20af5f402ce}{Style\+::\+Draw\+Style}} Style\+::draw\+Style (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a833f56fcb9e310508161b97b13f7f1bd_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_af8993aa805487c56854187aea449782a}\label{classStyle_af8993aa805487c56854187aea449782a}} 
+\index{Style@{Style}!fillColor@{fillColor}}
+\index{fillColor@{fillColor}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{fillColor()}{fillColor()}}
+{\footnotesize\ttfamily QColor Style\+::fill\+Color (\begin{DoxyParamCaption}\item[{bool}]{tikzit\+Override = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_af8993aa805487c56854187aea449782a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_a594f1c933cf478b1d56ef730451d8161}\label{classStyle_a594f1c933cf478b1d56ef730451d8161}} 
+\index{Style@{Style}!hasFill@{hasFill}}
+\index{hasFill@{hasFill}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{hasFill()}{hasFill()}}
+{\footnotesize\ttfamily bool Style\+::has\+Fill (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a594f1c933cf478b1d56ef730451d8161_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_aadaadbc373cb4e97487d76ee7b9c9944}\label{classStyle_aadaadbc373cb4e97487d76ee7b9c9944}} 
+\index{Style@{Style}!hasStroke@{hasStroke}}
+\index{hasStroke@{hasStroke}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{hasStroke()}{hasStroke()}}
+{\footnotesize\ttfamily bool Style\+::has\+Stroke (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_aadaadbc373cb4e97487d76ee7b9c9944_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_afa240bffbb5e34f6fcb150a94d328591}\label{classStyle_afa240bffbb5e34f6fcb150a94d328591}} 
+\index{Style@{Style}!icon@{icon}}
+\index{icon@{icon}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{icon()}{icon()}}
+{\footnotesize\ttfamily QIcon Style\+::icon (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_afa240bffbb5e34f6fcb150a94d328591_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_a5e04c1974139e836cd1031d0da305a6f}\label{classStyle_a5e04c1974139e836cd1031d0da305a6f}} 
+\index{Style@{Style}!isEdgeStyle@{isEdgeStyle}}
+\index{isEdgeStyle@{isEdgeStyle}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{isEdgeStyle()}{isEdgeStyle()}}
+{\footnotesize\ttfamily bool Style\+::is\+Edge\+Style (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a5e04c1974139e836cd1031d0da305a6f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_af3ee785d78293e813fd0ae58ed9ee889}\label{classStyle_af3ee785d78293e813fd0ae58ed9ee889}} 
+\index{Style@{Style}!isNone@{isNone}}
+\index{isNone@{isNone}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{isNone()}{isNone()}}
+{\footnotesize\ttfamily bool Style\+::is\+None (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classStyle_a9dac14eabf7867581ba57bd1934df03f}\label{classStyle_a9dac14eabf7867581ba57bd1934df03f}} 
+\index{Style@{Style}!name@{name}}
+\index{name@{name}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily QString Style\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classStyle_a2beec7031f1bda6903a3dd1732d2552b}\label{classStyle_a2beec7031f1bda6903a3dd1732d2552b}} 
+\index{Style@{Style}!path@{path}}
+\index{path@{path}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily QPainter\+Path Style\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a2beec7031f1bda6903a3dd1732d2552b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_a815c98f913f8cf2248ee38efd67c8757}\label{classStyle_a815c98f913f8cf2248ee38efd67c8757}} 
+\index{Style@{Style}!pen@{pen}}
+\index{pen@{pen}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{pen()}{pen()}}
+{\footnotesize\ttfamily QPen Style\+::pen (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a815c98f913f8cf2248ee38efd67c8757_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_aac78a315b957fe36d79baaf33dd371f6}\label{classStyle_aac78a315b957fe36d79baaf33dd371f6}} 
+\index{Style@{Style}!propertyWithDefault@{propertyWithDefault}}
+\index{propertyWithDefault@{propertyWithDefault}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{propertyWithDefault()}{propertyWithDefault()}}
+{\footnotesize\ttfamily QString Style\+::property\+With\+Default (\begin{DoxyParamCaption}\item[{QString}]{prop,  }\item[{QString}]{def,  }\item[{bool}]{tikzit\+Override = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_aac78a315b957fe36d79baaf33dd371f6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_acd0cb9cb095c226c7416d0bcce582977}\label{classStyle_acd0cb9cb095c226c7416d0bcce582977}} 
+\index{Style@{Style}!setArrowAtom@{setArrowAtom}}
+\index{setArrowAtom@{setArrowAtom}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{setArrowAtom()}{setArrowAtom()}}
+{\footnotesize\ttfamily void Style\+::set\+Arrow\+Atom (\begin{DoxyParamCaption}\item[{QString}]{atom }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_acd0cb9cb095c226c7416d0bcce582977_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_a4d5b4d457de2956d8a8235510b32f0a4}\label{classStyle_a4d5b4d457de2956d8a8235510b32f0a4}} 
+\index{Style@{Style}!setName@{setName}}
+\index{setName@{setName}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{setName()}{setName()}}
+{\footnotesize\ttfamily void Style\+::set\+Name (\begin{DoxyParamCaption}\item[{const QString \&}]{name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=283pt]{classStyle_a4d5b4d457de2956d8a8235510b32f0a4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_af7f167294c861ce859ec7d54f08e6d29}\label{classStyle_af7f167294c861ce859ec7d54f08e6d29}} 
+\index{Style@{Style}!shape@{shape}}
+\index{shape@{shape}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{shape()}{shape()}}
+{\footnotesize\ttfamily QString Style\+::shape (\begin{DoxyParamCaption}\item[{bool}]{tikzit\+Override = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_af7f167294c861ce859ec7d54f08e6d29_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_ab9089a28d63db482b73c2111d7a45009}\label{classStyle_ab9089a28d63db482b73c2111d7a45009}} 
+\index{Style@{Style}!strokeColor@{strokeColor}}
+\index{strokeColor@{strokeColor}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{strokeColor()}{strokeColor()}}
+{\footnotesize\ttfamily QColor Style\+::stroke\+Color (\begin{DoxyParamCaption}\item[{bool}]{tikzit\+Override = {\ttfamily true} }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_ab9089a28d63db482b73c2111d7a45009_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyle_ac7b143852859425016a71fa68505397d}\label{classStyle_ac7b143852859425016a71fa68505397d}} 
+\index{Style@{Style}!strokeThickness@{strokeThickness}}
+\index{strokeThickness@{strokeThickness}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{strokeThickness()}{strokeThickness()}}
+{\footnotesize\ttfamily int Style\+::stroke\+Thickness (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classStyle_a736a24634ab229f6146b382a83afeea7}\label{classStyle_a736a24634ab229f6146b382a83afeea7}} 
+\index{Style@{Style}!tikz@{tikz}}
+\index{tikz@{tikz}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{tikz()}{tikz()}}
+{\footnotesize\ttfamily QString Style\+::tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyle_a736a24634ab229f6146b382a83afeea7_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classStyle_a3eff3f9d9c7d245a02f5d1c5af5d6a15}\label{classStyle_a3eff3f9d9c7d245a02f5d1c5af5d6a15}} 
+\index{Style@{Style}!\_data@{\_data}}
+\index{\_data@{\_data}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{\_data}{\_data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}}$\ast$ Style\+::\+\_\+data\hspace{0.3cm}{\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classStyle_a9b41528e3ebe98c14cb18cf5bb86067e}\label{classStyle_a9b41528e3ebe98c14cb18cf5bb86067e}} 
+\index{Style@{Style}!\_name@{\_name}}
+\index{\_name@{\_name}!Style@{Style}}
+\doxysubsubsection{\texorpdfstring{\_name}{\_name}}
+{\footnotesize\ttfamily QString Style\+::\+\_\+name\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{style_8h}{style.\+h}}\item 
+src/data/\mbox{\hyperlink{style_8cpp}{style.\+cpp}}\end{DoxyCompactItemize}

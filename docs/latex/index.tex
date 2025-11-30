@@ -1,0 +1,7 @@
+This is the source code documentation for Tik\+ZiT. The global entry point for the Tik\+ZiT executable is in \mbox{\hyperlink{main_8cpp}{main.\+cpp}}, whereas the class \mbox{\hyperlink{classTikzit}{Tikzit}} maintains the global application state.
+
+The TikZ parser is implemented in flex/bison in the files tikzlexer.\+l and tikzparser.\+y.
+
+Most of the interesting code for handling user input is in the class \mbox{\hyperlink{classTikzScene}{Tikz\+Scene}}. Anything that makes a change to the tikz file should be implemented as a QUndo\+Command. Currently, these are all in \mbox{\hyperlink{undocommands_8h}{undocommands.\+h}}.
+
+I\textquotesingle{}ve basically been adding documentation as I go. Other bits and pieces can be accessed by searching, or via the class list/class hierarchy links in the menu above. 

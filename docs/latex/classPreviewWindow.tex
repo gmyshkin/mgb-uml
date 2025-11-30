@@ -1,0 +1,286 @@
+\hypertarget{classPreviewWindow}{}\doxysection{Preview\+Window Class Reference}
+\label{classPreviewWindow}\index{PreviewWindow@{PreviewWindow}}
+
+
+{\ttfamily \#include $<$previewwindow.\+h$>$}
+
+
+
+Inheritance diagram for Preview\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classPreviewWindow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Preview\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{classPreviewWindow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7ca}{Status}} \{ \mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa53f03a162c21baf342c7b631c0847261}{Running}}
+, \mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa6fa49227122bf75be0d7f02ccccb14fe}{Success}}
+, \mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa4f06d5567ade6f429f6eccb4c72a3157}{Failed}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a03a3246754bb0f4cd23c4a769c9ae137}{render}} ()
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a824c26441787571b816b8777a0e1d426}{export\+Image}} ()
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a587185ba87f2de443aa3336d2bcd6e57}{copy\+Image\+To\+Clipboard}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPreviewWindow_ae8431bf49617639a150fdf55ddc31229}{Preview\+Window}} (QWidget $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{classPreviewWindow_a7dfbd89478643b65c91dae7f84a73762}{$\sim$\+Preview\+Window}} () override
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a6638acf2f2629b24ec4c5fa5d2e164a3}{restore\+Position}} ()
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a9d8ef1e4ea7a20f7e27d5443c1748d67}{set\+Pdf}} (QString file)
+\item 
+QString \mbox{\hyperlink{classPreviewWindow_a2cfe550a79ea3960c6c8fd3d0e8e0d60}{prepare\+Preview}} (QString tikz)
+\item 
+QPlain\+Text\+Edit $\ast$ \mbox{\hyperlink{classPreviewWindow_a3af4d7e8cf6d21acd2e1d1915c0af703}{output\+Text\+Edit}} ()
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a04b60a8ef3a398c0b26b7d26379bb8b0}{set\+Status}} (\mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7ca}{Status}} status)
+\item 
+\mbox{\hyperlink{classPdfDocument}{Pdf\+Document}} $\ast$ \mbox{\hyperlink{classPreviewWindow_ace842f0e217e6c9c64307761cdf62293}{doc}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a86018c83aaa281e4a04e904e8a2dede6}{change\+Event}} (QEvent $\ast$e) override
+\item 
+void \mbox{\hyperlink{classPreviewWindow_aa7b586e8f20a9315fec30e333f2c3ce5}{resize\+Event}} (QResize\+Event $\ast$e) override
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a4dd3e7aab09f96ea3c708faccd073242}{show\+Event}} (QShow\+Event $\ast$e) override
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a85d6e5a044b6727e72f724e837f54743}{close\+Event}} (QClose\+Event $\ast$e) override
+\item 
+void \mbox{\hyperlink{classPreviewWindow_a0ebafe13875c285630951afb60838087}{context\+Menu\+Event}} (QContext\+Menu\+Event $\ast$event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7ca}\label{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7ca}} 
+\index{PreviewWindow@{PreviewWindow}!Status@{Status}}
+\index{Status@{Status}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{Status}{Status}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7ca}{Preview\+Window\+::\+Status}}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Running@{Running}!PreviewWindow@{PreviewWindow}}\index{PreviewWindow@{PreviewWindow}!Running@{Running}}}\mbox{\Hypertarget{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa53f03a162c21baf342c7b631c0847261}\label{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa53f03a162c21baf342c7b631c0847261}} 
+Running&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Success@{Success}!PreviewWindow@{PreviewWindow}}\index{PreviewWindow@{PreviewWindow}!Success@{Success}}}\mbox{\Hypertarget{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa6fa49227122bf75be0d7f02ccccb14fe}\label{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa6fa49227122bf75be0d7f02ccccb14fe}} 
+Success&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{Failed@{Failed}!PreviewWindow@{PreviewWindow}}\index{PreviewWindow@{PreviewWindow}!Failed@{Failed}}}\mbox{\Hypertarget{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa4f06d5567ade6f429f6eccb4c72a3157}\label{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7caa4f06d5567ade6f429f6eccb4c72a3157}} 
+Failed&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPreviewWindow_ae8431bf49617639a150fdf55ddc31229}\label{classPreviewWindow_ae8431bf49617639a150fdf55ddc31229}} 
+\index{PreviewWindow@{PreviewWindow}!PreviewWindow@{PreviewWindow}}
+\index{PreviewWindow@{PreviewWindow}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{PreviewWindow()}{PreviewWindow()}}
+{\footnotesize\ttfamily Preview\+Window\+::\+Preview\+Window (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_ae8431bf49617639a150fdf55ddc31229_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a7dfbd89478643b65c91dae7f84a73762}\label{classPreviewWindow_a7dfbd89478643b65c91dae7f84a73762}} 
+\index{PreviewWindow@{PreviewWindow}!````~PreviewWindow@{$\sim$PreviewWindow}}
+\index{````~PreviewWindow@{$\sim$PreviewWindow}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{$\sim$PreviewWindow()}{~PreviewWindow()}}
+{\footnotesize\ttfamily Preview\+Window\+::$\sim$\+Preview\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPreviewWindow_a86018c83aaa281e4a04e904e8a2dede6}\label{classPreviewWindow_a86018c83aaa281e4a04e904e8a2dede6}} 
+\index{PreviewWindow@{PreviewWindow}!changeEvent@{changeEvent}}
+\index{changeEvent@{changeEvent}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{changeEvent()}{changeEvent()}}
+{\footnotesize\ttfamily void Preview\+Window\+::change\+Event (\begin{DoxyParamCaption}\item[{QEvent $\ast$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a86018c83aaa281e4a04e904e8a2dede6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a85d6e5a044b6727e72f724e837f54743}\label{classPreviewWindow_a85d6e5a044b6727e72f724e837f54743}} 
+\index{PreviewWindow@{PreviewWindow}!closeEvent@{closeEvent}}
+\index{closeEvent@{closeEvent}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{closeEvent()}{closeEvent()}}
+{\footnotesize\ttfamily void Preview\+Window\+::close\+Event (\begin{DoxyParamCaption}\item[{QClose\+Event $\ast$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a85d6e5a044b6727e72f724e837f54743_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a0ebafe13875c285630951afb60838087}\label{classPreviewWindow_a0ebafe13875c285630951afb60838087}} 
+\index{PreviewWindow@{PreviewWindow}!contextMenuEvent@{contextMenuEvent}}
+\index{contextMenuEvent@{contextMenuEvent}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{contextMenuEvent()}{contextMenuEvent()}}
+{\footnotesize\ttfamily void Preview\+Window\+::context\+Menu\+Event (\begin{DoxyParamCaption}\item[{QContext\+Menu\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a0ebafe13875c285630951afb60838087_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a587185ba87f2de443aa3336d2bcd6e57}\label{classPreviewWindow_a587185ba87f2de443aa3336d2bcd6e57}} 
+\index{PreviewWindow@{PreviewWindow}!copyImageToClipboard@{copyImageToClipboard}}
+\index{copyImageToClipboard@{copyImageToClipboard}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{copyImageToClipboard}{copyImageToClipboard}}
+{\footnotesize\ttfamily void Preview\+Window\+::copy\+Image\+To\+Clipboard (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a587185ba87f2de443aa3336d2bcd6e57_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_ace842f0e217e6c9c64307761cdf62293}\label{classPreviewWindow_ace842f0e217e6c9c64307761cdf62293}} 
+\index{PreviewWindow@{PreviewWindow}!doc@{doc}}
+\index{doc@{doc}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{doc()}{doc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPdfDocument}{Pdf\+Document}} $\ast$ Preview\+Window\+::doc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classPreviewWindow_a824c26441787571b816b8777a0e1d426}\label{classPreviewWindow_a824c26441787571b816b8777a0e1d426}} 
+\index{PreviewWindow@{PreviewWindow}!exportImage@{exportImage}}
+\index{exportImage@{exportImage}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{exportImage}{exportImage}}
+{\footnotesize\ttfamily void Preview\+Window\+::export\+Image (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a824c26441787571b816b8777a0e1d426_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a3af4d7e8cf6d21acd2e1d1915c0af703}\label{classPreviewWindow_a3af4d7e8cf6d21acd2e1d1915c0af703}} 
+\index{PreviewWindow@{PreviewWindow}!outputTextEdit@{outputTextEdit}}
+\index{outputTextEdit@{outputTextEdit}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{outputTextEdit()}{outputTextEdit()}}
+{\footnotesize\ttfamily QPlain\+Text\+Edit $\ast$ Preview\+Window\+::output\+Text\+Edit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classPreviewWindow_a2cfe550a79ea3960c6c8fd3d0e8e0d60}\label{classPreviewWindow_a2cfe550a79ea3960c6c8fd3d0e8e0d60}} 
+\index{PreviewWindow@{PreviewWindow}!preparePreview@{preparePreview}}
+\index{preparePreview@{preparePreview}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{preparePreview()}{preparePreview()}}
+{\footnotesize\ttfamily QString Preview\+Window\+::prepare\+Preview (\begin{DoxyParamCaption}\item[{QString}]{tikz }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classPreviewWindow_a03a3246754bb0f4cd23c4a769c9ae137}\label{classPreviewWindow_a03a3246754bb0f4cd23c4a769c9ae137}} 
+\index{PreviewWindow@{PreviewWindow}!render@{render}}
+\index{render@{render}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{render}{render}}
+{\footnotesize\ttfamily void Preview\+Window\+::render (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a03a3246754bb0f4cd23c4a769c9ae137_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_aa7b586e8f20a9315fec30e333f2c3ce5}\label{classPreviewWindow_aa7b586e8f20a9315fec30e333f2c3ce5}} 
+\index{PreviewWindow@{PreviewWindow}!resizeEvent@{resizeEvent}}
+\index{resizeEvent@{resizeEvent}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{resizeEvent()}{resizeEvent()}}
+{\footnotesize\ttfamily void Preview\+Window\+::resize\+Event (\begin{DoxyParamCaption}\item[{QResize\+Event $\ast$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_aa7b586e8f20a9315fec30e333f2c3ce5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a6638acf2f2629b24ec4c5fa5d2e164a3}\label{classPreviewWindow_a6638acf2f2629b24ec4c5fa5d2e164a3}} 
+\index{PreviewWindow@{PreviewWindow}!restorePosition@{restorePosition}}
+\index{restorePosition@{restorePosition}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{restorePosition()}{restorePosition()}}
+{\footnotesize\ttfamily void Preview\+Window\+::restore\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classPreviewWindow_a9d8ef1e4ea7a20f7e27d5443c1748d67}\label{classPreviewWindow_a9d8ef1e4ea7a20f7e27d5443c1748d67}} 
+\index{PreviewWindow@{PreviewWindow}!setPdf@{setPdf}}
+\index{setPdf@{setPdf}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{setPdf()}{setPdf()}}
+{\footnotesize\ttfamily void Preview\+Window\+::set\+Pdf (\begin{DoxyParamCaption}\item[{QString}]{file }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a9d8ef1e4ea7a20f7e27d5443c1748d67_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classPreviewWindow_a04b60a8ef3a398c0b26b7d26379bb8b0}\label{classPreviewWindow_a04b60a8ef3a398c0b26b7d26379bb8b0}} 
+\index{PreviewWindow@{PreviewWindow}!setStatus@{setStatus}}
+\index{setStatus@{setStatus}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{setStatus()}{setStatus()}}
+{\footnotesize\ttfamily void Preview\+Window\+::set\+Status (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPreviewWindow_a7774f6013abc9f13cd5fad5bfa0fa7ca}{Preview\+Window\+::\+Status}}}]{status }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classPreviewWindow_a4dd3e7aab09f96ea3c708faccd073242}\label{classPreviewWindow_a4dd3e7aab09f96ea3c708faccd073242}} 
+\index{PreviewWindow@{PreviewWindow}!showEvent@{showEvent}}
+\index{showEvent@{showEvent}!PreviewWindow@{PreviewWindow}}
+\doxysubsubsection{\texorpdfstring{showEvent()}{showEvent()}}
+{\footnotesize\ttfamily void Preview\+Window\+::show\+Event (\begin{DoxyParamCaption}\item[{QShow\+Event $\ast$}]{e }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPreviewWindow_a4dd3e7aab09f96ea3c708faccd073242_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{previewwindow_8h}{previewwindow.\+h}}\item 
+src/gui/\mbox{\hyperlink{previewwindow_8cpp}{previewwindow.\+cpp}}\end{DoxyCompactItemize}

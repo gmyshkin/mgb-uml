@@ -1,0 +1,162 @@
+\hypertarget{util_8h}{}\doxysection{src/util.h File Reference}
+\label{util_8h}\index{src/util.h@{src/util.h}}
+{\ttfamily \#include $<$QPoint$>$}\newline
+{\ttfamily \#include $<$QString$>$}\newline
+{\ttfamily \#include $<$QColor$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+Include dependency graph for util.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{util_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{util_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{util_8h_ae71449b1cc6e6250b91f539153a7a0d3}{M\+\_\+\+PI}}~3.\+14159265358979323846264338327950288
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+qreal \mbox{\hyperlink{util_8h_abb6fa9335bf02cf61ce9d6b4873627f4}{bezier\+Interpolate}} (qreal dist, qreal c0, qreal c1, qreal c2, qreal c3)
+\item 
+QPointF \mbox{\hyperlink{util_8h_a766a5fc3ca423d23f162e5338a37709b}{bezier\+Interpolate\+Full}} (qreal dist, QPointF c0, QPointF c1, QPointF c2, QPointF c3)
+\item 
+qreal \mbox{\hyperlink{util_8h_a802165fc00dc25754466e4b04785f016}{round\+To\+Nearest}} (qreal step\+Size, qreal val)
+\item 
+qreal \mbox{\hyperlink{util_8h_ae7f5dc16bb7c816ccaf596e0bdcfe161}{radians\+To\+Degrees}} (qreal radians)
+\item 
+bool \mbox{\hyperlink{util_8h_ac2844cece0b8701935d10079f192bfb0}{almost\+Zero}} (qreal f)
+\item 
+bool \mbox{\hyperlink{util_8h_a4c49397988a3156b8dc56ac573f4189b}{almost\+Equal}} (qreal f1, qreal f2)
+\item 
+QString \mbox{\hyperlink{util_8h_af66f7b843fb9bba46649efee78513f62}{float\+To\+String}} (qreal f)
+\item 
+qreal \mbox{\hyperlink{util_8h_a9e87a5ff220750cda0fcd8fe65889caa}{degrees\+To\+Radians}} (qreal degrees)
+\item 
+int \mbox{\hyperlink{util_8h_a1e4a0cd20c01c78b502ceb98a1c8a839}{normalise\+Angle\+Deg}} (int degrees)
+\item 
+qreal \mbox{\hyperlink{util_8h_a501683970f3438db5f8c09febddf0ac2}{normalise\+Angle\+Rad}} (qreal rads)
+\item 
+void \mbox{\hyperlink{util_8h_aaa9818150dce3e3896a77a55dcb478d7}{init\+Tex\+Constants}} ()
+\item 
+QString \mbox{\hyperlink{util_8h_a76f3974297dc09577ee2b32b14d60e6b}{replace\+Tex\+Constants}} (QString s)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{util_8h_ae71449b1cc6e6250b91f539153a7a0d3}\label{util_8h_ae71449b1cc6e6250b91f539153a7a0d3}} 
+\index{util.h@{util.h}!M\_PI@{M\_PI}}
+\index{M\_PI@{M\_PI}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{M\_PI}{M\_PI}}
+{\footnotesize\ttfamily \#define M\+\_\+\+PI~3.\+14159265358979323846264338327950288}
+
+Various utility functions, mostly for mathematical calculation. 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{util_8h_a4c49397988a3156b8dc56ac573f4189b}\label{util_8h_a4c49397988a3156b8dc56ac573f4189b}} 
+\index{util.h@{util.h}!almostEqual@{almostEqual}}
+\index{almostEqual@{almostEqual}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{almostEqual()}{almostEqual()}}
+{\footnotesize\ttfamily bool almost\+Equal (\begin{DoxyParamCaption}\item[{qreal}]{f1,  }\item[{qreal}]{f2 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{util_8h_a4c49397988a3156b8dc56ac573f4189b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{util_8h_ac2844cece0b8701935d10079f192bfb0}\label{util_8h_ac2844cece0b8701935d10079f192bfb0}} 
+\index{util.h@{util.h}!almostZero@{almostZero}}
+\index{almostZero@{almostZero}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{almostZero()}{almostZero()}}
+{\footnotesize\ttfamily bool almost\+Zero (\begin{DoxyParamCaption}\item[{qreal}]{f }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_abb6fa9335bf02cf61ce9d6b4873627f4}\label{util_8h_abb6fa9335bf02cf61ce9d6b4873627f4}} 
+\index{util.h@{util.h}!bezierInterpolate@{bezierInterpolate}}
+\index{bezierInterpolate@{bezierInterpolate}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{bezierInterpolate()}{bezierInterpolate()}}
+{\footnotesize\ttfamily qreal bezier\+Interpolate (\begin{DoxyParamCaption}\item[{qreal}]{dist,  }\item[{qreal}]{c0,  }\item[{qreal}]{c1,  }\item[{qreal}]{c2,  }\item[{qreal}]{c3 }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_a766a5fc3ca423d23f162e5338a37709b}\label{util_8h_a766a5fc3ca423d23f162e5338a37709b}} 
+\index{util.h@{util.h}!bezierInterpolateFull@{bezierInterpolateFull}}
+\index{bezierInterpolateFull@{bezierInterpolateFull}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{bezierInterpolateFull()}{bezierInterpolateFull()}}
+{\footnotesize\ttfamily QPointF bezier\+Interpolate\+Full (\begin{DoxyParamCaption}\item[{qreal}]{dist,  }\item[{QPointF}]{c0,  }\item[{QPointF}]{c1,  }\item[{QPointF}]{c2,  }\item[{QPointF}]{c3 }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{util_8h_a766a5fc3ca423d23f162e5338a37709b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{util_8h_a9e87a5ff220750cda0fcd8fe65889caa}\label{util_8h_a9e87a5ff220750cda0fcd8fe65889caa}} 
+\index{util.h@{util.h}!degreesToRadians@{degreesToRadians}}
+\index{degreesToRadians@{degreesToRadians}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{degreesToRadians()}{degreesToRadians()}}
+{\footnotesize\ttfamily qreal degrees\+To\+Radians (\begin{DoxyParamCaption}\item[{qreal}]{degrees }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_af66f7b843fb9bba46649efee78513f62}\label{util_8h_af66f7b843fb9bba46649efee78513f62}} 
+\index{util.h@{util.h}!floatToString@{floatToString}}
+\index{floatToString@{floatToString}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{floatToString()}{floatToString()}}
+{\footnotesize\ttfamily QString float\+To\+String (\begin{DoxyParamCaption}\item[{qreal}]{f }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{util_8h_af66f7b843fb9bba46649efee78513f62_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{util_8h_aaa9818150dce3e3896a77a55dcb478d7}\label{util_8h_aaa9818150dce3e3896a77a55dcb478d7}} 
+\index{util.h@{util.h}!initTexConstants@{initTexConstants}}
+\index{initTexConstants@{initTexConstants}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{initTexConstants()}{initTexConstants()}}
+{\footnotesize\ttfamily void init\+Tex\+Constants (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_a1e4a0cd20c01c78b502ceb98a1c8a839}\label{util_8h_a1e4a0cd20c01c78b502ceb98a1c8a839}} 
+\index{util.h@{util.h}!normaliseAngleDeg@{normaliseAngleDeg}}
+\index{normaliseAngleDeg@{normaliseAngleDeg}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{normaliseAngleDeg()}{normaliseAngleDeg()}}
+{\footnotesize\ttfamily int normalise\+Angle\+Deg (\begin{DoxyParamCaption}\item[{int}]{degrees }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_a501683970f3438db5f8c09febddf0ac2}\label{util_8h_a501683970f3438db5f8c09febddf0ac2}} 
+\index{util.h@{util.h}!normaliseAngleRad@{normaliseAngleRad}}
+\index{normaliseAngleRad@{normaliseAngleRad}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{normaliseAngleRad()}{normaliseAngleRad()}}
+{\footnotesize\ttfamily qreal normalise\+Angle\+Rad (\begin{DoxyParamCaption}\item[{qreal}]{rads }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_ae7f5dc16bb7c816ccaf596e0bdcfe161}\label{util_8h_ae7f5dc16bb7c816ccaf596e0bdcfe161}} 
+\index{util.h@{util.h}!radiansToDegrees@{radiansToDegrees}}
+\index{radiansToDegrees@{radiansToDegrees}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{radiansToDegrees()}{radiansToDegrees()}}
+{\footnotesize\ttfamily qreal radians\+To\+Degrees (\begin{DoxyParamCaption}\item[{qreal}]{radians }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_a76f3974297dc09577ee2b32b14d60e6b}\label{util_8h_a76f3974297dc09577ee2b32b14d60e6b}} 
+\index{util.h@{util.h}!replaceTexConstants@{replaceTexConstants}}
+\index{replaceTexConstants@{replaceTexConstants}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{replaceTexConstants()}{replaceTexConstants()}}
+{\footnotesize\ttfamily QString replace\+Tex\+Constants (\begin{DoxyParamCaption}\item[{QString}]{s }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{util_8h_a802165fc00dc25754466e4b04785f016}\label{util_8h_a802165fc00dc25754466e4b04785f016}} 
+\index{util.h@{util.h}!roundToNearest@{roundToNearest}}
+\index{roundToNearest@{roundToNearest}!util.h@{util.h}}
+\doxysubsubsection{\texorpdfstring{roundToNearest()}{roundToNearest()}}
+{\footnotesize\ttfamily qreal round\+To\+Nearest (\begin{DoxyParamCaption}\item[{qreal}]{step\+Size,  }\item[{qreal}]{val }\end{DoxyParamCaption})}
+

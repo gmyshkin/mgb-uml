@@ -1,0 +1,17 @@
+<map id="MainMenu::on_actionParse_triggered" name="MainMenu::on_actionParse_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,175,201,217"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="261,81,419,108"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#ae415cfa1eeb8e31814523aefa08cdaf0" title=" " alt="" coords="261,132,419,159"/>
+<area shape="rect" id="node13" href="$classMainWindow.html#a94f521d04a2274091efe201ffd76bd2e" title=" " alt="" coords="261,183,419,209"/>
+<area shape="rect" id="node14" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="252,233,428,260"/>
+<area shape="rect" id="node15" href="$classMainWindow.html#a1129689eae3a8a43e209117d386326c0" title=" " alt="" coords="249,284,431,311"/>
+<area shape="rect" id="node4" href="$classTikzScene.html#a26ddad9caa368a3f5eb5ce36ca4df98a" title=" " alt="" coords="508,19,641,45"/>
+<area shape="rect" id="node6" href="$classTikzAssembler.html#a0d1549f389f46e453fffd29d51fb5366" title=" " alt="" coords="493,81,656,108"/>
+<area shape="rect" id="node9" href="$classTikzScene.html#ae06f4cf5239ace8fa59a19bb7abaaeb4" title=" " alt="" coords="491,132,659,159"/>
+<area shape="rect" id="node11" href="$classTikzScene.html#a1b2d2f28cf4a27de84372c58a10a253c" title=" " alt="" coords="481,183,668,209"/>
+<area shape="rect" id="node12" href="$classTikzDocument.html#a862fc9522e63f9902e6c33416de92043" title=" " alt="" coords="479,233,671,260"/>
+<area shape="rect" id="node5" href="$classTikzDocument.html#a9caf79b651a74b556ff54f79334fe97c" title=" " alt="" coords="719,5,880,32"/>
+<area shape="rect" id="node7" href="$tikzlexer_8lexer_8cpp.html#a05db892e228d4fed278b18eccad95a93" title=" " alt="" coords="740,56,859,83"/>
+<area shape="rect" id="node8" href="$tikzassembler_8cpp.html#aee1277656c494f4a59b307a498f0a0a9" title=" " alt="" coords="762,107,837,133"/>
+<area shape="rect" id="node10" href="$classTikzScene.html#aa9af2dcd80a06d8ff5c51f2c10616f77" title=" " alt="" coords="725,157,873,184"/>
+</map>

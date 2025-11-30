@@ -1,0 +1,9 @@
+<map id="MainMenu::on_actionRotateCW_triggered" name="MainMenu::on_actionRotateCW_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,49,209,90"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="266,5,425,32"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#ab0722087c0cd4272a2059cbf2b48c7df" title=" " alt="" coords="257,56,433,83"/>
+<area shape="rect" id="node7" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="257,107,433,133"/>
+<area shape="rect" id="node4" href="$classTikzScene.html#a87345f0416c4ad584954a153f77abf68" title=" " alt="" coords="481,5,696,32"/>
+<area shape="rect" id="node5" href="$classTikzScene.html#a1b2d2f28cf4a27de84372c58a10a253c" title=" " alt="" coords="495,56,682,83"/>
+<area shape="rect" id="node6" href="$classTikzDocument.html#a862fc9522e63f9902e6c33416de92043" title=" " alt="" coords="493,107,685,133"/>
+</map>

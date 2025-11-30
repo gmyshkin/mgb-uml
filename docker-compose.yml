@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  tikzit:
+    build: .
+    image: mylocal/tikzit:latest
+    ports:
+      - "8080:8080"   # noVNC web UI
+      # - "5901:5901" # optional direct VNC
+    environment:
+      - VNC_PASSWORD=tikzitMGBadmin
+    volumes:
+      - ./data:/home/tikzituser/.local/share/tikzit
+      - .:/src
+    restart: unless-stopped

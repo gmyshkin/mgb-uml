@@ -1,0 +1,7 @@
+<map id="MainMenu::on_actionShow_Node_Labels_triggered" name="MainMenu::on_actionShow_Node_Labels_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,49,201,90"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="283,5,442,32"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#a75b815d7cadce9cc0dfbfa418378b0e8" title=" " alt="" coords="249,56,476,83"/>
+<area shape="rect" id="node5" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="275,107,451,133"/>
+<area shape="rect" id="node4" href="$classTikzScene.html#ab852be40a175e6442aa5bffc055c4a77" title=" " alt="" coords="524,56,728,83"/>
+</map>

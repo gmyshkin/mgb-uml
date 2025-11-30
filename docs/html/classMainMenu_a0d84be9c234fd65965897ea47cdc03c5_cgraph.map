@@ -1,0 +1,10 @@
+<map id="MainMenu::on_actionSend_to_Back_triggered" name="MainMenu::on_actionSend_to_Back_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,49,199,90"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="269,5,427,32"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#ae237618d61fe66891a2662c71805a87f" title=" " alt="" coords="247,56,449,83"/>
+<area shape="rect" id="node8" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="260,107,436,133"/>
+<area shape="rect" id="node4" href="$classTikzScene.html#aff3bb5ba8f5be9e329bf79c3d42c0da3" title=" " alt="" coords="505,5,682,32"/>
+<area shape="rect" id="node5" href="$classTikzScene.html#a26ddad9caa368a3f5eb5ce36ca4df98a" title=" " alt="" coords="527,56,660,83"/>
+<area shape="rect" id="node7" href="$classTikzDocument.html#a862fc9522e63f9902e6c33416de92043" title=" " alt="" coords="497,107,689,133"/>
+<area shape="rect" id="node6" href="$classTikzDocument.html#a9caf79b651a74b556ff54f79334fe97c" title=" " alt="" coords="737,56,899,83"/>
+</map>

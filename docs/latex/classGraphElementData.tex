@@ -1,0 +1,420 @@
+\hypertarget{classGraphElementData}{}\doxysection{Graph\+Element\+Data Class Reference}
+\label{classGraphElementData}\index{GraphElementData@{GraphElementData}}
+
+
+{\ttfamily \#include $<$graphelementdata.\+h$>$}
+
+
+
+Inheritance diagram for Graph\+Element\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classGraphElementData__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Graph\+Element\+Data\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classGraphElementData__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classGraphElementData_a7480ef48ed1a607af3f0464de6f918e1}{Graph\+Element\+Data}} (QVector$<$ \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} $>$ init, QObject $\ast$\mbox{\hyperlink{classGraphElementData_afd845f345d94961393d5425d348ff8f2}{parent}}=0)
+\item 
+\mbox{\hyperlink{classGraphElementData_ac25491b0cabd43aabef3791bb1a85b8b}{Graph\+Element\+Data}} (QObject $\ast$\mbox{\hyperlink{classGraphElementData_afd845f345d94961393d5425d348ff8f2}{parent}}=0)
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classGraphElementData_a8730133f7ca27919ea01f217ee9f0eb0}{copy}} ()
+\item 
+void \mbox{\hyperlink{classGraphElementData_a8eefb93c02a892ef3e967f8fa2f6f0f3}{set\+Property}} (QString key, QString value)
+\item 
+void \mbox{\hyperlink{classGraphElementData_ae3c7c23cef4a7d27cb47c9c4f60b4c7f}{unset\+Property}} (QString key)
+\item 
+void \mbox{\hyperlink{classGraphElementData_ab07fc52f0b706c59d0c6fc13c2da6ad4}{set\+Atom}} (QString \mbox{\hyperlink{classGraphElementData_a871e0b67112e8c9113b9fd510f0f0468}{atom}})
+\item 
+void \mbox{\hyperlink{classGraphElementData_a0be9efd4872d7a5074c0757e5174e95d}{unset\+Atom}} (QString \mbox{\hyperlink{classGraphElementData_a871e0b67112e8c9113b9fd510f0f0468}{atom}})
+\item 
+QString \mbox{\hyperlink{classGraphElementData_a93477321fee6d7ce1137baf22f5a2a7c}{property}} (QString key)
+\item 
+bool \mbox{\hyperlink{classGraphElementData_a0c822a3e237ff532489c01c332452189}{has\+Property}} (QString key)
+\item 
+bool \mbox{\hyperlink{classGraphElementData_a871e0b67112e8c9113b9fd510f0f0468}{atom}} (QString atom)
+\item 
+int \mbox{\hyperlink{classGraphElementData_ad0cf098d5d565845332e58654986ad8a}{index\+Of\+Key}} (QString key)
+\item 
+void \mbox{\hyperlink{classGraphElementData_a6e24680d36b13b3e7a9537f9340f69fd}{merge\+Data}} (\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$d)
+\item 
+bool \mbox{\hyperlink{classGraphElementData_a30deffcca557a5c61a7c938b2f9d7ef7}{remove\+Rows}} (int row, int count, const QModel\+Index \&\mbox{\hyperlink{classGraphElementData_afd845f345d94961393d5425d348ff8f2}{parent}}) override
+\item 
+bool \mbox{\hyperlink{classGraphElementData_a6d2ff310d796b14e61e677fd426031ec}{move\+Rows}} (const QModel\+Index \&source\+Parent, int source\+Row, int, const QModel\+Index \&destination\+Parent, int destination\+Row) override
+\item 
+QVariant \mbox{\hyperlink{classGraphElementData_a223cb27540850e269db67550c463089e}{data}} (const QModel\+Index \&\mbox{\hyperlink{classGraphElementData_ae5b3333e75b697c62450ab280faeae4d}{index}}, int role) const override
+\item 
+QVariant \mbox{\hyperlink{classGraphElementData_a4df3b7ba89a76dafd3565ba873677c9c}{header\+Data}} (int section, Qt\+::\+Orientation orientation, int role=Qt\+::\+Display\+Role) const override
+\item 
+QModel\+Index \mbox{\hyperlink{classGraphElementData_ae5b3333e75b697c62450ab280faeae4d}{index}} (int row, int column, const QModel\+Index \&) const override
+\item 
+QModel\+Index \mbox{\hyperlink{classGraphElementData_afd845f345d94961393d5425d348ff8f2}{parent}} (const QModel\+Index \&) const override
+\item 
+int \mbox{\hyperlink{classGraphElementData_ae5ec492bb4e2f6a89060a29140b9e7d0}{row\+Count}} (const QModel\+Index \&\mbox{\hyperlink{classGraphElementData_afd845f345d94961393d5425d348ff8f2}{parent}}=QModel\+Index()) const override
+\item 
+int \mbox{\hyperlink{classGraphElementData_a5bb3bc40a63cf442221d48260de55a96}{column\+Count}} (const QModel\+Index \&) const override
+\item 
+Qt\+::\+Item\+Flags \mbox{\hyperlink{classGraphElementData_ab8ac0d8d488bfb85502a63fd88ef87b3}{flags}} (const QModel\+Index \&\mbox{\hyperlink{classGraphElementData_ae5b3333e75b697c62450ab280faeae4d}{index}}) const override
+\item 
+bool \mbox{\hyperlink{classGraphElementData_a01725b6ffafd82ec72829d04f30ff028}{set\+Data}} (const QModel\+Index \&\mbox{\hyperlink{classGraphElementData_ae5b3333e75b697c62450ab280faeae4d}{index}}, const QVariant \&value, int role=Qt\+::\+Edit\+Role) override
+\item 
+void \mbox{\hyperlink{classGraphElementData_a70fa56ae6761a17c23ead1e8efd6a3db}{operator$<$$<$}} (\mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} p)
+\item 
+void \mbox{\hyperlink{classGraphElementData_a4d3a61f48ef02cac32c51c70600373c5}{add}} (\mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} p)
+\item 
+QString \mbox{\hyperlink{classGraphElementData_ab3b0ead65075314f39c17c6b4a5689ae}{tikz}} ()
+\item 
+bool \mbox{\hyperlink{classGraphElementData_a0838db41d5feaf9f7ea001a21ae60170}{is\+Empty}} ()
+\item 
+QVector$<$ \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} $>$ \mbox{\hyperlink{classGraphElementData_a9f709e269f00a027a44540d70dfb8b2f}{properties}} () const
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classGraphElementData_a408573c44d3aa5478fd2795d6d774359}{path\+Data}} () const
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classGraphElementData_a7f88a03f2564bfb658659513c00dca06}{non\+Path\+Data}} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A list of \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} objects, which convenience methods for lookup, deletion, re-\/ordering, etc. It inherits QAbstract\+Item\+Model so it can be used as the model for a QTree\+View in the \mbox{\hyperlink{classStyleEditor}{Style\+Editor}}. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classGraphElementData_a7480ef48ed1a607af3f0464de6f918e1}\label{classGraphElementData_a7480ef48ed1a607af3f0464de6f918e1}} 
+\index{GraphElementData@{GraphElementData}!GraphElementData@{GraphElementData}}
+\index{GraphElementData@{GraphElementData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{GraphElementData()}{GraphElementData()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Graph\+Element\+Data\+::\+Graph\+Element\+Data (\begin{DoxyParamCaption}\item[{QVector$<$ \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} $>$}]{init,  }\item[{QObject $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+\mbox{\Hypertarget{classGraphElementData_ac25491b0cabd43aabef3791bb1a85b8b}\label{classGraphElementData_ac25491b0cabd43aabef3791bb1a85b8b}} 
+\index{GraphElementData@{GraphElementData}!GraphElementData@{GraphElementData}}
+\index{GraphElementData@{GraphElementData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{GraphElementData()}{GraphElementData()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Graph\+Element\+Data\+::\+Graph\+Element\+Data (\begin{DoxyParamCaption}\item[{QObject $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classGraphElementData_a4d3a61f48ef02cac32c51c70600373c5}\label{classGraphElementData_a4d3a61f48ef02cac32c51c70600373c5}} 
+\index{GraphElementData@{GraphElementData}!add@{add}}
+\index{add@{add}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}}}]{p }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraphElementData_a871e0b67112e8c9113b9fd510f0f0468}\label{classGraphElementData_a871e0b67112e8c9113b9fd510f0f0468}} 
+\index{GraphElementData@{GraphElementData}!atom@{atom}}
+\index{atom@{atom}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{atom()}{atom()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Data\+::atom (\begin{DoxyParamCaption}\item[{QString}]{atom }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a871e0b67112e8c9113b9fd510f0f0468_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a5bb3bc40a63cf442221d48260de55a96}\label{classGraphElementData_a5bb3bc40a63cf442221d48260de55a96}} 
+\index{GraphElementData@{GraphElementData}!columnCount@{columnCount}}
+\index{columnCount@{columnCount}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{columnCount()}{columnCount()}}
+{\footnotesize\ttfamily int Graph\+Element\+Data\+::column\+Count (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classGraphElementData_a8730133f7ca27919ea01f217ee9f0eb0}\label{classGraphElementData_a8730133f7ca27919ea01f217ee9f0eb0}} 
+\index{GraphElementData@{GraphElementData}!copy@{copy}}
+\index{copy@{copy}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Graph\+Element\+Data\+::copy (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a8730133f7ca27919ea01f217ee9f0eb0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a223cb27540850e269db67550c463089e}\label{classGraphElementData_a223cb27540850e269db67550c463089e}} 
+\index{GraphElementData@{GraphElementData}!data@{data}}
+\index{data@{data}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily QVariant Graph\+Element\+Data\+::data (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{index,  }\item[{int}]{role }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a223cb27540850e269db67550c463089e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_ab8ac0d8d488bfb85502a63fd88ef87b3}\label{classGraphElementData_ab8ac0d8d488bfb85502a63fd88ef87b3}} 
+\index{GraphElementData@{GraphElementData}!flags@{flags}}
+\index{flags@{flags}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{flags()}{flags()}}
+{\footnotesize\ttfamily Qt\+::\+Item\+Flags Graph\+Element\+Data\+::flags (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{index }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_ab8ac0d8d488bfb85502a63fd88ef87b3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a0c822a3e237ff532489c01c332452189}\label{classGraphElementData_a0c822a3e237ff532489c01c332452189}} 
+\index{GraphElementData@{GraphElementData}!hasProperty@{hasProperty}}
+\index{hasProperty@{hasProperty}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{hasProperty()}{hasProperty()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Data\+::has\+Property (\begin{DoxyParamCaption}\item[{QString}]{key }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a0c822a3e237ff532489c01c332452189_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a4df3b7ba89a76dafd3565ba873677c9c}\label{classGraphElementData_a4df3b7ba89a76dafd3565ba873677c9c}} 
+\index{GraphElementData@{GraphElementData}!headerData@{headerData}}
+\index{headerData@{headerData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{headerData()}{headerData()}}
+{\footnotesize\ttfamily QVariant Graph\+Element\+Data\+::header\+Data (\begin{DoxyParamCaption}\item[{int}]{section,  }\item[{Qt\+::\+Orientation}]{orientation,  }\item[{int}]{role = {\ttfamily Qt\+:\+:DisplayRole} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classGraphElementData_ae5b3333e75b697c62450ab280faeae4d}\label{classGraphElementData_ae5b3333e75b697c62450ab280faeae4d}} 
+\index{GraphElementData@{GraphElementData}!index@{index}}
+\index{index@{index}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{index()}{index()}}
+{\footnotesize\ttfamily QModel\+Index Graph\+Element\+Data\+::index (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{column,  }\item[{const QModel\+Index \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classGraphElementData_ad0cf098d5d565845332e58654986ad8a}\label{classGraphElementData_ad0cf098d5d565845332e58654986ad8a}} 
+\index{GraphElementData@{GraphElementData}!indexOfKey@{indexOfKey}}
+\index{indexOfKey@{indexOfKey}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{indexOfKey()}{indexOfKey()}}
+{\footnotesize\ttfamily int Graph\+Element\+Data\+::index\+Of\+Key (\begin{DoxyParamCaption}\item[{QString}]{key }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraphElementData_a0838db41d5feaf9f7ea001a21ae60170}\label{classGraphElementData_a0838db41d5feaf9f7ea001a21ae60170}} 
+\index{GraphElementData@{GraphElementData}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Data\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classGraphElementData_a6e24680d36b13b3e7a9537f9340f69fd}\label{classGraphElementData_a6e24680d36b13b3e7a9537f9340f69fd}} 
+\index{GraphElementData@{GraphElementData}!mergeData@{mergeData}}
+\index{mergeData@{mergeData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{mergeData()}{mergeData()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::merge\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$}]{d }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a6e24680d36b13b3e7a9537f9340f69fd_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a6d2ff310d796b14e61e677fd426031ec}\label{classGraphElementData_a6d2ff310d796b14e61e677fd426031ec}} 
+\index{GraphElementData@{GraphElementData}!moveRows@{moveRows}}
+\index{moveRows@{moveRows}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{moveRows()}{moveRows()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Data\+::move\+Rows (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{source\+Parent,  }\item[{int}]{source\+Row,  }\item[{int}]{,  }\item[{const QModel\+Index \&}]{destination\+Parent,  }\item[{int}]{destination\+Row }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classGraphElementData_a7f88a03f2564bfb658659513c00dca06}\label{classGraphElementData_a7f88a03f2564bfb658659513c00dca06}} 
+\index{GraphElementData@{GraphElementData}!nonPathData@{nonPathData}}
+\index{nonPathData@{nonPathData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{nonPathData()}{nonPathData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Graph\+Element\+Data\+::non\+Path\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a7f88a03f2564bfb658659513c00dca06_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a70fa56ae6761a17c23ead1e8efd6a3db}\label{classGraphElementData_a70fa56ae6761a17c23ead1e8efd6a3db}} 
+\index{GraphElementData@{GraphElementData}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$()}{operator<<()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::operator$<$$<$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}}}]{p }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a70fa56ae6761a17c23ead1e8efd6a3db_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_afd845f345d94961393d5425d348ff8f2}\label{classGraphElementData_afd845f345d94961393d5425d348ff8f2}} 
+\index{GraphElementData@{GraphElementData}!parent@{parent}}
+\index{parent@{parent}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{parent()}{parent()}}
+{\footnotesize\ttfamily QModel\+Index Graph\+Element\+Data\+::parent (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+\mbox{\Hypertarget{classGraphElementData_a408573c44d3aa5478fd2795d6d774359}\label{classGraphElementData_a408573c44d3aa5478fd2795d6d774359}} 
+\index{GraphElementData@{GraphElementData}!pathData@{pathData}}
+\index{pathData@{pathData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{pathData()}{pathData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Graph\+Element\+Data\+::path\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a408573c44d3aa5478fd2795d6d774359_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a9f709e269f00a027a44540d70dfb8b2f}\label{classGraphElementData_a9f709e269f00a027a44540d70dfb8b2f}} 
+\index{GraphElementData@{GraphElementData}!properties@{properties}}
+\index{properties@{properties}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{properties()}{properties()}}
+{\footnotesize\ttfamily QVector$<$ \mbox{\hyperlink{classGraphElementProperty}{Graph\+Element\+Property}} $>$ Graph\+Element\+Data\+::properties (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classGraphElementData_a93477321fee6d7ce1137baf22f5a2a7c}\label{classGraphElementData_a93477321fee6d7ce1137baf22f5a2a7c}} 
+\index{GraphElementData@{GraphElementData}!property@{property}}
+\index{property@{property}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{property()}{property()}}
+{\footnotesize\ttfamily QString Graph\+Element\+Data\+::property (\begin{DoxyParamCaption}\item[{QString}]{key }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a93477321fee6d7ce1137baf22f5a2a7c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a30deffcca557a5c61a7c938b2f9d7ef7}\label{classGraphElementData_a30deffcca557a5c61a7c938b2f9d7ef7}} 
+\index{GraphElementData@{GraphElementData}!removeRows@{removeRows}}
+\index{removeRows@{removeRows}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{removeRows()}{removeRows()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Data\+::remove\+Rows (\begin{DoxyParamCaption}\item[{int}]{row,  }\item[{int}]{count,  }\item[{const QModel\+Index \&}]{parent }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a30deffcca557a5c61a7c938b2f9d7ef7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_ae5ec492bb4e2f6a89060a29140b9e7d0}\label{classGraphElementData_ae5ec492bb4e2f6a89060a29140b9e7d0}} 
+\index{GraphElementData@{GraphElementData}!rowCount@{rowCount}}
+\index{rowCount@{rowCount}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{rowCount()}{rowCount()}}
+{\footnotesize\ttfamily int Graph\+Element\+Data\+::row\+Count (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{parent = {\ttfamily QModelIndex()} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_ae5ec492bb4e2f6a89060a29140b9e7d0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_ab07fc52f0b706c59d0c6fc13c2da6ad4}\label{classGraphElementData_ab07fc52f0b706c59d0c6fc13c2da6ad4}} 
+\index{GraphElementData@{GraphElementData}!setAtom@{setAtom}}
+\index{setAtom@{setAtom}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{setAtom()}{setAtom()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::set\+Atom (\begin{DoxyParamCaption}\item[{QString}]{atom }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_ab07fc52f0b706c59d0c6fc13c2da6ad4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a01725b6ffafd82ec72829d04f30ff028}\label{classGraphElementData_a01725b6ffafd82ec72829d04f30ff028}} 
+\index{GraphElementData@{GraphElementData}!setData@{setData}}
+\index{setData@{setData}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily bool Graph\+Element\+Data\+::set\+Data (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{index,  }\item[{const QVariant \&}]{value,  }\item[{int}]{role = {\ttfamily Qt\+:\+:EditRole} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a01725b6ffafd82ec72829d04f30ff028_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a8eefb93c02a892ef3e967f8fa2f6f0f3}\label{classGraphElementData_a8eefb93c02a892ef3e967f8fa2f6f0f3}} 
+\index{GraphElementData@{GraphElementData}!setProperty@{setProperty}}
+\index{setProperty@{setProperty}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{setProperty()}{setProperty()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::set\+Property (\begin{DoxyParamCaption}\item[{QString}]{key,  }\item[{QString}]{value }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a8eefb93c02a892ef3e967f8fa2f6f0f3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_ab3b0ead65075314f39c17c6b4a5689ae}\label{classGraphElementData_ab3b0ead65075314f39c17c6b4a5689ae}} 
+\index{GraphElementData@{GraphElementData}!tikz@{tikz}}
+\index{tikz@{tikz}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{tikz()}{tikz()}}
+{\footnotesize\ttfamily QString Graph\+Element\+Data\+::tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_ab3b0ead65075314f39c17c6b4a5689ae_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_a0be9efd4872d7a5074c0757e5174e95d}\label{classGraphElementData_a0be9efd4872d7a5074c0757e5174e95d}} 
+\index{GraphElementData@{GraphElementData}!unsetAtom@{unsetAtom}}
+\index{unsetAtom@{unsetAtom}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{unsetAtom()}{unsetAtom()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::unset\+Atom (\begin{DoxyParamCaption}\item[{QString}]{atom }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_a0be9efd4872d7a5074c0757e5174e95d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classGraphElementData_ae3c7c23cef4a7d27cb47c9c4f60b4c7f}\label{classGraphElementData_ae3c7c23cef4a7d27cb47c9c4f60b4c7f}} 
+\index{GraphElementData@{GraphElementData}!unsetProperty@{unsetProperty}}
+\index{unsetProperty@{unsetProperty}!GraphElementData@{GraphElementData}}
+\doxysubsubsection{\texorpdfstring{unsetProperty()}{unsetProperty()}}
+{\footnotesize\ttfamily void Graph\+Element\+Data\+::unset\+Property (\begin{DoxyParamCaption}\item[{QString}]{key }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classGraphElementData_ae3c7c23cef4a7d27cb47c9c4f60b4c7f_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{graphelementdata_8h}{graphelementdata.\+h}}\item 
+src/data/\mbox{\hyperlink{graphelementdata_8cpp}{graphelementdata.\+cpp}}\end{DoxyCompactItemize}

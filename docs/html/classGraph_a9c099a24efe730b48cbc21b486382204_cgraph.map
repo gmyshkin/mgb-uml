@@ -1,0 +1,6 @@
+<map id="Graph::renameApart" name="Graph::renameApart">
+<area shape="rect" id="node1" title="renameApart assigns fresh names to all of the nodes in &quot;this&quot;, with respect to the given graph" alt="" coords="5,31,160,57"/>
+<area shape="rect" id="node2" href="$classGraph.html#aa4e7049577c238885b5f65fa12224356" title=" " alt="" coords="208,5,363,32"/>
+<area shape="rect" id="node4" href="$classNode.html#ae486aa31c81a58af85dd98383e6ed462" title=" " alt="" coords="224,56,347,83"/>
+<area shape="rect" id="node3" href="$classNode.html#ac40f16db9ad108a3d8a029802899104c" title=" " alt="" coords="411,31,512,57"/>
+</map>

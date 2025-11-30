@@ -1,0 +1,1376 @@
+\hypertarget{tikzlexer_8lexer_8cpp}{}\doxysection{src/data/tikzlexer.lexer.\+cpp File Reference}
+\label{tikzlexer_8lexer_8cpp}\index{src/data/tikzlexer.lexer.cpp@{src/data/tikzlexer.lexer.cpp}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}tikzparserdefs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tikzparser.\+parser.\+hpp\char`\"{}}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+Include dependency graph for tikzlexer.\+lexer.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tikzlexer_8lexer_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structyy__buffer__state}{yy\+\_\+buffer\+\_\+state}}
+\item 
+struct \mbox{\hyperlink{structyy__trans__info}{yy\+\_\+trans\+\_\+info}}
+\item 
+struct \mbox{\hyperlink{structyyguts__t}{yyguts\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a1ae16e642a197fa4948998525813c6f5}{YY\+\_\+\+INT\+\_\+\+ALIGNED}}~short int
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a3c3d1ef92e93b0bc81d7760a73d5c3b6}{FLEX\+\_\+\+SCANNER}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a243ca1d30872935faf05ea5118ed6fdc}{YY\+\_\+\+FLEX\+\_\+\+MAJOR\+\_\+\+VERSION}}~2
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a90f9d458829400869e47efb68a865677}{YY\+\_\+\+FLEX\+\_\+\+MINOR\+\_\+\+VERSION}}~6
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac676bd06869180ea493e9b6d7c078dbb}{YY\+\_\+\+FLEX\+\_\+\+SUBMINOR\+\_\+\+VERSION}}~4
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9465c9986fdda27730c9dff8d16a0887}{FLEX\+\_\+\+BETA}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0e14489006bd022ce321e77f56273a92}{yyget\+\_\+lval}}~yyget\+\_\+lval
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a117c6bea977059fe90ea665b5e09a397}{yyset\+\_\+lval}}~yyset\+\_\+lval
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab931ecf4ea00bb09722b9ae0690737ca}{yyget\+\_\+lloc}}~yyget\+\_\+lloc
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa1d0b60177211a8c249de8bd5365bf40}{yyset\+\_\+lloc}}~yyset\+\_\+lloc
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aec980b5a71bbe6d67931df20f0ebaec4}{FLEXINT\+\_\+H}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aadcf2a81af243df333b31efa6461ab8e}{INT8\+\_\+\+MIN}}~(-\/128)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad4e9955955b27624963643eac448118a}{INT16\+\_\+\+MIN}}~(-\/32767-\/1)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a688eb21a22db27c2b2bd5836943cdcbe}{INT32\+\_\+\+MIN}}~(-\/2147483647-\/1)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aaf7f29f45f1a513b4748a4e5014ddf6a}{INT8\+\_\+\+MAX}}~(127)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac58f2c111cc9989c86db2a7dc4fd84ca}{INT16\+\_\+\+MAX}}~(32767)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a181807730d4a375f848ba139813ce04f}{INT32\+\_\+\+MAX}}~(2147483647)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aeb4e270a084ee26fe73e799861bd0252}{UINT8\+\_\+\+MAX}}~(255U)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a3ea490c9b3617d4479bd80ef93cd5602}{UINT16\+\_\+\+MAX}}~(65535U)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab5eb23180f7cc12b7d6c04a8ec067fdd}{UINT32\+\_\+\+MAX}}~(4294967295U)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a3c75bb398badb69c7577b21486f9963f}{SIZE\+\_\+\+MAX}}~($\sim$(size\+\_\+t)0)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa2f1a918be586b44bf08126bde2d7cc9}{yyconst}}~const
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a452d0647f1848fea42589793f3e2d1f4}{yynoreturn}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8e0bcf8f8a5b613ea583347f8bc31cbf}{YY\+\_\+\+NULL}}~0
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_af1185350b7a92cf8aa5324c68850c8a6}{YY\+\_\+\+SC\+\_\+\+TO\+\_\+\+UI}}(c)~((\mbox{\hyperlink{tikzlexer_8lexer_8cpp_acc1e625a829554ffed5e4307d4a5f6b7}{YY\+\_\+\+CHAR}}) (c))
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a5d5508008cac8fb66fca3baa4e9b6584}{YY\+\_\+\+TYPEDEF\+\_\+\+YY\+\_\+\+SCANNER\+\_\+T}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyin\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4fd44867d448dcb6fc32ea004a15de54}{yyout}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyout\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a6d98927535a334881d37873915fbc45f}{yyextra}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyextra\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}{yyleng}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyleng\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}{yytext}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yytext\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad71cf0fddcfe4f61de0929105b33226c}{yylineno}}~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}-\/$>$yy\+\_\+bs\+\_\+lineno)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_adb60e80d603c103e73f2561c7499095c}{yycolumn}}~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}-\/$>$yy\+\_\+bs\+\_\+column)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a301f4439c9b191c80db45f5b1a8c7269}{yy\+\_\+flex\+\_\+debug}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+flex\+\_\+debug\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab766bbbee08d04b67e3fe599d6900873}{BEGIN}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+start = 1 + 2 $\ast$
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8e14785f9eab7a997d659b25af9584c5}{YY\+\_\+\+START}}~((\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+start -\/ 1) / 2)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a32b5b960944f946b192d54f672569cd9}{YYSTATE}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8e14785f9eab7a997d659b25af9584c5}{YY\+\_\+\+START}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab3077e60914fc54dcc55ecae1ce9700b}{YY\+\_\+\+STATE\+\_\+\+EOF}}(state)~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab2708fd42cff29ce6a0a52b91bea40d1}{YY\+\_\+\+END\+\_\+\+OF\+\_\+\+BUFFER}} + state + 1)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0406739e64fb5750cf995d2ae68ce69d}{YY\+\_\+\+NEW\+\_\+\+FILE}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a90dd3a9d98d1038bfbacab594def68aa}{yyrestart}}( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}} , yyscanner )
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab866a64da164ed2d4d444df1ef1fc9b3}{YY\+\_\+\+END\+\_\+\+OF\+\_\+\+BUFFER\+\_\+\+CHAR}}~0
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}{YY\+\_\+\+BUF\+\_\+\+SIZE}}~16384
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac2f8b6fccdc516d96b02ac09a4dc01bd}{YY\+\_\+\+STATE\+\_\+\+BUF\+\_\+\+SIZE}}~((\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}{YY\+\_\+\+BUF\+\_\+\+SIZE}} + 2) $\ast$ sizeof(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}{yy\+\_\+state\+\_\+type}}))
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa79d63ed3ff8d2249baf1732a73089f5}{YY\+\_\+\+TYPEDEF\+\_\+\+YY\+\_\+\+BUFFER\+\_\+\+STATE}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae0f2b0b5f04b2338367826b5670774f9}{YY\+\_\+\+TYPEDEF\+\_\+\+YY\+\_\+\+SIZE\+\_\+T}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_adf4b0db227e07782e28ade353a7ba7a1}{EOB\+\_\+\+ACT\+\_\+\+CONTINUE\+\_\+\+SCAN}}~0
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7f71d7fa2c403eb4b2f38cb9536f3c63}{EOB\+\_\+\+ACT\+\_\+\+END\+\_\+\+OF\+\_\+\+FILE}}~1
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad1a0b5ebcabffe388e9e9ebb2619c1fb}{EOB\+\_\+\+ACT\+\_\+\+LAST\+\_\+\+MATCH}}~2
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a12e5f3a76911433480bca7f4edba6119}{YY\+\_\+\+LESS\+\_\+\+LINENO}}(n)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac280d8ec59f96698c7b5d4264ba2e94c}{YY\+\_\+\+LINENO\+\_\+\+REWIND\+\_\+\+TO}}(dst)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae65cb72d09db0abdc4b8e8c4d533ab14}{yyless}}(n)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a448a4e9041a09588332733c6846c770c}{unput}}(c)~yyunput( c, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a790a191a93ef4d3b8c0bb43fd7480052}{yytext\+\_\+ptr}} , yyscanner )
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8aaa9e1fa7f13d6954d045ef973a9c84}{YY\+\_\+\+STRUCT\+\_\+\+YY\+\_\+\+BUFFER\+\_\+\+STATE}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a53579db42834b88199458993912c646d}{YY\+\_\+\+BUFFER\+\_\+\+NEW}}~0
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a609d19f40900ecc2a5f812d9388c21fb}{YY\+\_\+\+BUFFER\+\_\+\+NORMAL}}~1
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad689d97c15e807a6116ace7a420cea57}{YY\+\_\+\+BUFFER\+\_\+\+EOF\+\_\+\+PENDING}}~2
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+buffer\+\_\+stack\mbox{[}\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+buffer\+\_\+stack\+\_\+top\mbox{]}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac5d478d90ea9a2ecd43d579067a2e89d}{YY\+\_\+\+FLUSH\+\_\+\+BUFFER}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a120dc1da21a01a6803c3238d4b0c87f6}{yy\+\_\+flush\+\_\+buffer}}( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER}} , yyscanner)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab7eb911e18655f2f78e63afe5a8a4a12}{yy\+\_\+new\+\_\+buffer}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac09acfd337d92d0d2a9fc779a6e695a7}{yy\+\_\+create\+\_\+buffer}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac56eb96366c08862bf0efe5d83d1fc4c}{yy\+\_\+set\+\_\+interactive}}(is\+\_\+interactive)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a12e30d13a76a94e78010db9996d39c50}{yy\+\_\+set\+\_\+bol}}(at\+\_\+bol)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a71ca89b3656acd0552f14949a571560b}{YY\+\_\+\+AT\+\_\+\+BOL}}()~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}-\/$>$yy\+\_\+at\+\_\+bol)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9fc8f6b22baf5d54fbeeb62021a48e78}{yywrap}}(yyscanner)~(/$\ast$CONSTCOND$\ast$/1)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae1ef5933028cbc587d31328e53d11a99}{YY\+\_\+\+SKIP\+\_\+\+YYWRAP}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a790a191a93ef4d3b8c0bb43fd7480052}{yytext\+\_\+ptr}}~yytext\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_acc3486d769af4e4b2820346a0093cc79}{YY\+\_\+\+DO\+\_\+\+BEFORE\+\_\+\+ACTION}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae558785bb896e090901c2b905f6790c6}{YY\+\_\+\+NUM\+\_\+\+RULES}}~39
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab2708fd42cff29ce6a0a52b91bea40d1}{YY\+\_\+\+END\+\_\+\+OF\+\_\+\+BUFFER}}~40
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a835f10dd1ab4bf9a80c4cd80ee6e3058}{REJECT}}~reject\+\_\+used\+\_\+but\+\_\+not\+\_\+detected
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a745d37b5e002b2e5f93ad42ea7b554be}{yymore}}()~yymore\+\_\+used\+\_\+but\+\_\+not\+\_\+detected
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a68792d73820bc46a71d3d4e613f0b977}{YY\+\_\+\+MORE\+\_\+\+ADJ}}~0
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a56858d18c7eda4f53664496ef566f651}{YY\+\_\+\+RESTORE\+\_\+\+YY\+\_\+\+MORE\+\_\+\+OFFSET}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a6198b2fcf96178b24ad4efff2a3debb0}{YY\+\_\+\+USER\+\_\+\+ACTION}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa3d063564f6ab16f6d408b8369d0e9ff}{INITIAL}}~0
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a398670fdbc72d786dc730cec21808b11}{props}}~1
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a181c3a998724c72523477b4117f80cea}{xcoord}}~2
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7a2baaa35712f12843e76a9c53950765}{ycoord}}~3
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac654aa9d5d6dd3e334fff0761782092e}{noderef}}~4
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}}~\mbox{\hyperlink{classTikzAssembler}{Tikz\+Assembler}} $\ast$
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a75acfb3798e577ebd296e604e422e86b}{yylval}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yylval\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}{yylloc}}~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yylloc\+\_\+r
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aab1491ceccb1c95c14320b2903773a1c}{YY\+\_\+\+READ\+\_\+\+BUF\+\_\+\+SIZE}}~8192
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aad1dc60a04a1d8cfc8b3ded13601e361}{ECHO}}~do \{ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a33e91cd0cef6786e9e3a27ac67707207}{if}} (fwrite( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}{yytext}}, (size\+\_\+t) \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}{yyleng}}, 1, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4fd44867d448dcb6fc32ea004a15de54}{yyout}} )) \{\} \} while (0)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aacfdca45fa4beb8b06172525a53c424a}{YY\+\_\+\+INPUT}}(buf,  result,  max\+\_\+size)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac3286b18a2e91b4571b97df96a118e84}{yyterminate}}()~return \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8e0bcf8f8a5b613ea583347f8bc31cbf}{YY\+\_\+\+NULL}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a227e75c43b9e0cd41529974230be7e75}{YY\+\_\+\+START\+\_\+\+STACK\+\_\+\+INCR}}~25
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac0586b8b0b092d02f4ba7d45abe328f2}{YY\+\_\+\+FATAL\+\_\+\+ERROR}}(msg)~yy\+\_\+fatal\+\_\+error( msg , yyscanner)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7682c8d9cec0859408d2421fbe4a5570}{YY\+\_\+\+DECL\+\_\+\+IS\+\_\+\+OURS}}~1
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae5b01ac2fa5a6ad5fb97559638abe686}{YY\+\_\+\+DECL}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a3cc40a460ad7df816678bcc05241e84c}{YY\+\_\+\+BREAK}}~/$\ast$LINTED$\ast$/break;
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a690504b662e4281515bf12722df178ba}{YY\+\_\+\+RULE\+\_\+\+SETUP}}~ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a6198b2fcf96178b24ad4efff2a3debb0}{YY\+\_\+\+USER\+\_\+\+ACTION}}
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae93e67b85c44f6bd31ead14a552a35c8}{YY\+\_\+\+EXIT\+\_\+\+FAILURE}}~2
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae65cb72d09db0abdc4b8e8c4d533ab14}{yyless}}(n)
+\item 
+\#define \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a828cc83270f8f5bb1688e14dd4e28128}{YYTABLES\+\_\+\+NAME}}~\char`\"{}yytables\char`\"{}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef signed char \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7b0840dff4a2ef1702118aa12264b2a7}{flex\+\_\+int8\+\_\+t}}
+\item 
+typedef short int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a2e73b2c75126814585525fb2e9d51159}{flex\+\_\+int16\+\_\+t}}
+\item 
+typedef int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a838ce943cf44ef7769480714fc6c3ba9}{flex\+\_\+int32\+\_\+t}}
+\item 
+typedef unsigned char \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0fac5ea484f64e75dbe6eba4aa61750c}{flex\+\_\+uint8\+\_\+t}}
+\item 
+typedef unsigned short int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac50cdb9eefbef83a1cec89e3a7f6e1d2}{flex\+\_\+uint16\+\_\+t}}
+\item 
+typedef unsigned int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a36869712de12820c73aae736762e8e88}{flex\+\_\+uint32\+\_\+t}}
+\item 
+typedef void $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}
+\item 
+typedef struct \mbox{\hyperlink{structyy__buffer__state}{yy\+\_\+buffer\+\_\+state}} $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}}
+\item 
+typedef size\+\_\+t \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}
+\item 
+typedef \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0fac5ea484f64e75dbe6eba4aa61750c}{flex\+\_\+uint8\+\_\+t}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_acc1e625a829554ffed5e4307d4a5f6b7}{YY\+\_\+\+CHAR}}
+\item 
+typedef int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}{yy\+\_\+state\+\_\+type}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a90dd3a9d98d1038bfbacab594def68aa}{yyrestart}} (FILE $\ast$input\+\_\+file, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7cdbe6260339833a504479ae8e1ea279}{yy\+\_\+switch\+\_\+to\+\_\+buffer}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} new\+\_\+buffer, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac09acfd337d92d0d2a9fc779a6e695a7}{yy\+\_\+create\+\_\+buffer}} (FILE $\ast$file, int size, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_af84a23034d0c924a3e9ce920f4ec58d2}{yy\+\_\+delete\+\_\+buffer}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} b, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a120dc1da21a01a6803c3238d4b0c87f6}{yy\+\_\+flush\+\_\+buffer}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} b, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a307a8272bd7da504c943524338fbb330}{yypush\+\_\+buffer\+\_\+state}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} new\+\_\+buffer, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a878e1d6fe61658bf7d1c34a366989079}{yypop\+\_\+buffer\+\_\+state}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9660b57f0bd852377eadbd84dc9df68b}{yy\+\_\+scan\+\_\+buffer}} (char $\ast$base, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}} size, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a05db892e228d4fed278b18eccad95a93}{yy\+\_\+scan\+\_\+string}} (const char $\ast$yy\+\_\+str, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7c78559898f5069924025ecd3fe1de78}{yy\+\_\+scan\+\_\+bytes}} (const char $\ast$bytes, int len, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8ed916a3de3e1c01305e55cef415ba1e}{yyalloc}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae09f0ad558372e0809f461737d6538bb}{yyrealloc}} (void $\ast$, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ace3a0458b901e4a503a33b6411ef5fa1}{yyfree}} (void $\ast$, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afbcda44be0f721a1c8f2f280aabb74f6}{yylex\+\_\+init}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} $\ast$scanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a6d4d9baf5ca416f7f4028dc309aeaa02}{yylex\+\_\+init\+\_\+extra}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}} user\+\_\+defined, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} $\ast$scanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aaea60d8102c2afdd7d8e07bc43c530c3}{yylex\+\_\+destroy}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9711f7e149387b20a3fc11762adf0a9a}{yyget\+\_\+debug}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad59dca606bf72e9a622cf156a582d529}{yyset\+\_\+debug}} (int debug\+\_\+flag, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afe57498c9517147d12f9c13a6bdd07b3}{yyget\+\_\+extra}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a90d20294722d171c4bf004fda3cd9403}{yyset\+\_\+extra}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}} user\+\_\+defined, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+FILE $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac37f9e56a959084a6ee592974d1ffe62}{yyget\+\_\+in}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a5410f50aa0086688cc2ca73b6e1849a0}{yyset\+\_\+in}} (FILE $\ast$\+\_\+in\+\_\+str, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+FILE $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a18329358dd492efcce59c62dfa75c280}{yyget\+\_\+out}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8c7de59ce6936c509609aeddee876617}{yyset\+\_\+out}} (FILE $\ast$\+\_\+out\+\_\+str, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_acea17af68e4963e25068361d3dedba1c}{yyget\+\_\+leng}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+char $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac8eed2192509e291419cbe712aaa5bd5}{yyget\+\_\+text}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a86cef2b171b5abc4f80a9d55b839e7c2}{yyget\+\_\+lineno}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a5e23a53af7c9b4150007dc79b194f0d0}{yyset\+\_\+lineno}} (int \+\_\+line\+\_\+number, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae99214cb04ca948c5dde77ed7178a656}{yyget\+\_\+column}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae92fd9d54517feb81d7a8182295384d2}{yyset\+\_\+column}} (int \+\_\+column\+\_\+no, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}} $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a6c6af51e52d7fcedd43b98f8c9558752}{yyget\+\_\+lval}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab0cd88647db3e1e240b43ec63cb8d868}{yyset\+\_\+lval}} (\mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}} $\ast$yylval\+\_\+param, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{structYYLTYPE}{YYLTYPE}} $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad39ddb77cec9662cc9d880988283218d}{yyget\+\_\+lloc}} (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+void \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a1512f746aacfc23fba4682307e89c074}{yyset\+\_\+lloc}} (\mbox{\hyperlink{structYYLTYPE}{YYLTYPE}} $\ast$yylloc\+\_\+param, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a091ca9686c3b10b63fc0d06e0518bf57}{yylex}} (\mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}} $\ast$yylval\+\_\+param, \mbox{\hyperlink{structYYLTYPE}{YYLTYPE}} $\ast$yylloc\+\_\+param, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} yyscanner)
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a33e91cd0cef6786e9e3a27ac67707207}{if}} (!\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+init)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_abcefb20c54ce0f92452cfbb9cf657670}{YY\+\_\+\+DECL}}
+\item 
+char $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\+\_\+cp}}
+\item 
+char $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa749693ef7d0c10b137e887638fdc5b2}{yy\+\_\+bp}}
+\item 
+int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a483da4c691e92dcb79c40a3514759b6b}{yy\+\_\+act}}
+\item 
+struct \mbox{\hyperlink{structyyguts__t}{yyguts\+\_\+t}} $\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}} = (struct \mbox{\hyperlink{structyyguts__t}{yyguts\+\_\+t}}$\ast$)yyscanner
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_af8702f09f01285d3777507e641f94463}{yylval}} = yylval\+\_\+param
+\item 
+\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a793617ae8fbd24a4b287e884d1358d9b}{yylloc}} = yylloc\+\_\+param
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab766bbbee08d04b67e3fe599d6900873}\label{tikzlexer_8lexer_8cpp_ab766bbbee08d04b67e3fe599d6900873}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!BEGIN@{BEGIN}}
+\index{BEGIN@{BEGIN}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{BEGIN}{BEGIN}}
+{\footnotesize\ttfamily \#define BEGIN~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+start = 1 + 2 $\ast$}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aad1dc60a04a1d8cfc8b3ded13601e361}\label{tikzlexer_8lexer_8cpp_aad1dc60a04a1d8cfc8b3ded13601e361}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!ECHO@{ECHO}}
+\index{ECHO@{ECHO}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{ECHO}{ECHO}}
+{\footnotesize\ttfamily \#define ECHO~do \{ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a33e91cd0cef6786e9e3a27ac67707207}{if}} (fwrite( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}{yytext}}, (size\+\_\+t) \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}{yyleng}}, 1, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4fd44867d448dcb6fc32ea004a15de54}{yyout}} )) \{\} \} while (0)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_adf4b0db227e07782e28ade353a7ba7a1}\label{tikzlexer_8lexer_8cpp_adf4b0db227e07782e28ade353a7ba7a1}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!EOB\_ACT\_CONTINUE\_SCAN@{EOB\_ACT\_CONTINUE\_SCAN}}
+\index{EOB\_ACT\_CONTINUE\_SCAN@{EOB\_ACT\_CONTINUE\_SCAN}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{EOB\_ACT\_CONTINUE\_SCAN}{EOB\_ACT\_CONTINUE\_SCAN}}
+{\footnotesize\ttfamily \#define EOB\+\_\+\+ACT\+\_\+\+CONTINUE\+\_\+\+SCAN~0}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7f71d7fa2c403eb4b2f38cb9536f3c63}\label{tikzlexer_8lexer_8cpp_a7f71d7fa2c403eb4b2f38cb9536f3c63}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!EOB\_ACT\_END\_OF\_FILE@{EOB\_ACT\_END\_OF\_FILE}}
+\index{EOB\_ACT\_END\_OF\_FILE@{EOB\_ACT\_END\_OF\_FILE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{EOB\_ACT\_END\_OF\_FILE}{EOB\_ACT\_END\_OF\_FILE}}
+{\footnotesize\ttfamily \#define EOB\+\_\+\+ACT\+\_\+\+END\+\_\+\+OF\+\_\+\+FILE~1}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad1a0b5ebcabffe388e9e9ebb2619c1fb}\label{tikzlexer_8lexer_8cpp_ad1a0b5ebcabffe388e9e9ebb2619c1fb}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!EOB\_ACT\_LAST\_MATCH@{EOB\_ACT\_LAST\_MATCH}}
+\index{EOB\_ACT\_LAST\_MATCH@{EOB\_ACT\_LAST\_MATCH}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{EOB\_ACT\_LAST\_MATCH}{EOB\_ACT\_LAST\_MATCH}}
+{\footnotesize\ttfamily \#define EOB\+\_\+\+ACT\+\_\+\+LAST\+\_\+\+MATCH~2}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a9465c9986fdda27730c9dff8d16a0887}\label{tikzlexer_8lexer_8cpp_a9465c9986fdda27730c9dff8d16a0887}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!FLEX\_BETA@{FLEX\_BETA}}
+\index{FLEX\_BETA@{FLEX\_BETA}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{FLEX\_BETA}{FLEX\_BETA}}
+{\footnotesize\ttfamily \#define FLEX\+\_\+\+BETA}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a3c3d1ef92e93b0bc81d7760a73d5c3b6}\label{tikzlexer_8lexer_8cpp_a3c3d1ef92e93b0bc81d7760a73d5c3b6}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!FLEX\_SCANNER@{FLEX\_SCANNER}}
+\index{FLEX\_SCANNER@{FLEX\_SCANNER}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{FLEX\_SCANNER}{FLEX\_SCANNER}}
+{\footnotesize\ttfamily \#define FLEX\+\_\+\+SCANNER}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aec980b5a71bbe6d67931df20f0ebaec4}\label{tikzlexer_8lexer_8cpp_aec980b5a71bbe6d67931df20f0ebaec4}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!FLEXINT\_H@{FLEXINT\_H}}
+\index{FLEXINT\_H@{FLEXINT\_H}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{FLEXINT\_H}{FLEXINT\_H}}
+{\footnotesize\ttfamily \#define FLEXINT\+\_\+H}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa3d063564f6ab16f6d408b8369d0e9ff}\label{tikzlexer_8lexer_8cpp_aa3d063564f6ab16f6d408b8369d0e9ff}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INITIAL@{INITIAL}}
+\index{INITIAL@{INITIAL}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INITIAL}{INITIAL}}
+{\footnotesize\ttfamily \#define INITIAL~0}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac58f2c111cc9989c86db2a7dc4fd84ca}\label{tikzlexer_8lexer_8cpp_ac58f2c111cc9989c86db2a7dc4fd84ca}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INT16\_MAX@{INT16\_MAX}}
+\index{INT16\_MAX@{INT16\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INT16\_MAX}{INT16\_MAX}}
+{\footnotesize\ttfamily \#define INT16\+\_\+\+MAX~(32767)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad4e9955955b27624963643eac448118a}\label{tikzlexer_8lexer_8cpp_ad4e9955955b27624963643eac448118a}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INT16\_MIN@{INT16\_MIN}}
+\index{INT16\_MIN@{INT16\_MIN}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INT16\_MIN}{INT16\_MIN}}
+{\footnotesize\ttfamily \#define INT16\+\_\+\+MIN~(-\/32767-\/1)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a181807730d4a375f848ba139813ce04f}\label{tikzlexer_8lexer_8cpp_a181807730d4a375f848ba139813ce04f}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INT32\_MAX@{INT32\_MAX}}
+\index{INT32\_MAX@{INT32\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INT32\_MAX}{INT32\_MAX}}
+{\footnotesize\ttfamily \#define INT32\+\_\+\+MAX~(2147483647)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a688eb21a22db27c2b2bd5836943cdcbe}\label{tikzlexer_8lexer_8cpp_a688eb21a22db27c2b2bd5836943cdcbe}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INT32\_MIN@{INT32\_MIN}}
+\index{INT32\_MIN@{INT32\_MIN}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INT32\_MIN}{INT32\_MIN}}
+{\footnotesize\ttfamily \#define INT32\+\_\+\+MIN~(-\/2147483647-\/1)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aaf7f29f45f1a513b4748a4e5014ddf6a}\label{tikzlexer_8lexer_8cpp_aaf7f29f45f1a513b4748a4e5014ddf6a}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INT8\_MAX@{INT8\_MAX}}
+\index{INT8\_MAX@{INT8\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INT8\_MAX}{INT8\_MAX}}
+{\footnotesize\ttfamily \#define INT8\+\_\+\+MAX~(127)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aadcf2a81af243df333b31efa6461ab8e}\label{tikzlexer_8lexer_8cpp_aadcf2a81af243df333b31efa6461ab8e}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!INT8\_MIN@{INT8\_MIN}}
+\index{INT8\_MIN@{INT8\_MIN}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{INT8\_MIN}{INT8\_MIN}}
+{\footnotesize\ttfamily \#define INT8\+\_\+\+MIN~(-\/128)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac654aa9d5d6dd3e334fff0761782092e}\label{tikzlexer_8lexer_8cpp_ac654aa9d5d6dd3e334fff0761782092e}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!noderef@{noderef}}
+\index{noderef@{noderef}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{noderef}{noderef}}
+{\footnotesize\ttfamily \#define \mbox{\hyperlink{structnoderef}{noderef}}~4}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a398670fdbc72d786dc730cec21808b11}\label{tikzlexer_8lexer_8cpp_a398670fdbc72d786dc730cec21808b11}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!props@{props}}
+\index{props@{props}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{props}{props}}
+{\footnotesize\ttfamily \#define props~1}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a835f10dd1ab4bf9a80c4cd80ee6e3058}\label{tikzlexer_8lexer_8cpp_a835f10dd1ab4bf9a80c4cd80ee6e3058}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!REJECT@{REJECT}}
+\index{REJECT@{REJECT}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{REJECT}{REJECT}}
+{\footnotesize\ttfamily \#define REJECT~reject\+\_\+used\+\_\+but\+\_\+not\+\_\+detected}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a3c75bb398badb69c7577b21486f9963f}\label{tikzlexer_8lexer_8cpp_a3c75bb398badb69c7577b21486f9963f}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!SIZE\_MAX@{SIZE\_MAX}}
+\index{SIZE\_MAX@{SIZE\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{SIZE\_MAX}{SIZE\_MAX}}
+{\footnotesize\ttfamily \#define SIZE\+\_\+\+MAX~($\sim$(size\+\_\+t)0)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a3ea490c9b3617d4479bd80ef93cd5602}\label{tikzlexer_8lexer_8cpp_a3ea490c9b3617d4479bd80ef93cd5602}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!UINT16\_MAX@{UINT16\_MAX}}
+\index{UINT16\_MAX@{UINT16\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{UINT16\_MAX}{UINT16\_MAX}}
+{\footnotesize\ttfamily \#define UINT16\+\_\+\+MAX~(65535U)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab5eb23180f7cc12b7d6c04a8ec067fdd}\label{tikzlexer_8lexer_8cpp_ab5eb23180f7cc12b7d6c04a8ec067fdd}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!UINT32\_MAX@{UINT32\_MAX}}
+\index{UINT32\_MAX@{UINT32\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{UINT32\_MAX}{UINT32\_MAX}}
+{\footnotesize\ttfamily \#define UINT32\+\_\+\+MAX~(4294967295U)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aeb4e270a084ee26fe73e799861bd0252}\label{tikzlexer_8lexer_8cpp_aeb4e270a084ee26fe73e799861bd0252}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!UINT8\_MAX@{UINT8\_MAX}}
+\index{UINT8\_MAX@{UINT8\_MAX}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{UINT8\_MAX}{UINT8\_MAX}}
+{\footnotesize\ttfamily \#define UINT8\+\_\+\+MAX~(255U)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a448a4e9041a09588332733c6846c770c}\label{tikzlexer_8lexer_8cpp_a448a4e9041a09588332733c6846c770c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!unput@{unput}}
+\index{unput@{unput}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{unput}{unput}}
+{\footnotesize\ttfamily \#define unput(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~yyunput( c, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a790a191a93ef4d3b8c0bb43fd7480052}{yytext\+\_\+ptr}} , yyscanner )}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a181c3a998724c72523477b4117f80cea}\label{tikzlexer_8lexer_8cpp_a181c3a998724c72523477b4117f80cea}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!xcoord@{xcoord}}
+\index{xcoord@{xcoord}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{xcoord}{xcoord}}
+{\footnotesize\ttfamily \#define xcoord~2}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7a2baaa35712f12843e76a9c53950765}\label{tikzlexer_8lexer_8cpp_a7a2baaa35712f12843e76a9c53950765}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!ycoord@{ycoord}}
+\index{ycoord@{ycoord}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{ycoord}{ycoord}}
+{\footnotesize\ttfamily \#define ycoord~3}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a71ca89b3656acd0552f14949a571560b}\label{tikzlexer_8lexer_8cpp_a71ca89b3656acd0552f14949a571560b}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_AT\_BOL@{YY\_AT\_BOL}}
+\index{YY\_AT\_BOL@{YY\_AT\_BOL}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_AT\_BOL}{YY\_AT\_BOL}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+AT\+\_\+\+BOL(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}-\/$>$yy\+\_\+at\+\_\+bol)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a3cc40a460ad7df816678bcc05241e84c}\label{tikzlexer_8lexer_8cpp_a3cc40a460ad7df816678bcc05241e84c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_BREAK@{YY\_BREAK}}
+\index{YY\_BREAK@{YY\_BREAK}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_BREAK}{YY\_BREAK}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+BREAK~/$\ast$LINTED$\ast$/break;}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}\label{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_BUF\_SIZE@{YY\_BUF\_SIZE}}
+\index{YY\_BUF\_SIZE@{YY\_BUF\_SIZE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_BUF\_SIZE}{YY\_BUF\_SIZE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+BUF\+\_\+\+SIZE~16384}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad689d97c15e807a6116ace7a420cea57}\label{tikzlexer_8lexer_8cpp_ad689d97c15e807a6116ace7a420cea57}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_BUFFER\_EOF\_PENDING@{YY\_BUFFER\_EOF\_PENDING}}
+\index{YY\_BUFFER\_EOF\_PENDING@{YY\_BUFFER\_EOF\_PENDING}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_BUFFER\_EOF\_PENDING}{YY\_BUFFER\_EOF\_PENDING}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+BUFFER\+\_\+\+EOF\+\_\+\+PENDING~2}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a53579db42834b88199458993912c646d}\label{tikzlexer_8lexer_8cpp_a53579db42834b88199458993912c646d}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_BUFFER\_NEW@{YY\_BUFFER\_NEW}}
+\index{YY\_BUFFER\_NEW@{YY\_BUFFER\_NEW}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_BUFFER\_NEW}{YY\_BUFFER\_NEW}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+BUFFER\+\_\+\+NEW~0}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a609d19f40900ecc2a5f812d9388c21fb}\label{tikzlexer_8lexer_8cpp_a609d19f40900ecc2a5f812d9388c21fb}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_BUFFER\_NORMAL@{YY\_BUFFER\_NORMAL}}
+\index{YY\_BUFFER\_NORMAL@{YY\_BUFFER\_NORMAL}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_BUFFER\_NORMAL}{YY\_BUFFER\_NORMAL}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+BUFFER\+\_\+\+NORMAL~1}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}\label{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_CURRENT\_BUFFER@{YY\_CURRENT\_BUFFER}}
+\index{YY\_CURRENT\_BUFFER@{YY\_CURRENT\_BUFFER}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_CURRENT\_BUFFER}{YY\_CURRENT\_BUFFER}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+CURRENT\+\_\+\+BUFFER}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                          ( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_ad0b9d576189d518a4482f20ed9b2a416}{yy\_buffer\_stack}} \(\backslash\)}
+\DoxyCodeLine{                          ? \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_ad0b9d576189d518a4482f20ed9b2a416}{yy\_buffer\_stack}}[\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_af92507d904af2fcd4509acde654a9850}{yy\_buffer\_stack\_top}}] \(\backslash\)}
+\DoxyCodeLine{                          : NULL)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}\label{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_CURRENT\_BUFFER\_LVALUE@{YY\_CURRENT\_BUFFER\_LVALUE}}
+\index{YY\_CURRENT\_BUFFER\_LVALUE@{YY\_CURRENT\_BUFFER\_LVALUE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_CURRENT\_BUFFER\_LVALUE}{YY\_CURRENT\_BUFFER\_LVALUE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+buffer\+\_\+stack\mbox{[}\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+buffer\+\_\+stack\+\_\+top\mbox{]}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae5b01ac2fa5a6ad5fb97559638abe686}\label{tikzlexer_8lexer_8cpp_ae5b01ac2fa5a6ad5fb97559638abe686}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_DECL@{YY\_DECL}}
+\index{YY\_DECL@{YY\_DECL}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_DECL}{YY\_DECL}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+DECL}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{               \textcolor{keywordtype}{int} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a091ca9686c3b10b63fc0d06e0518bf57}{yylex}} \(\backslash\)}
+\DoxyCodeLine{               (\mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}} * yylval\_param, \mbox{\hyperlink{structYYLTYPE}{YYLTYPE}} * yylloc\_param , \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\_t}} yyscanner)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7682c8d9cec0859408d2421fbe4a5570}\label{tikzlexer_8lexer_8cpp_a7682c8d9cec0859408d2421fbe4a5570}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_DECL\_IS\_OURS@{YY\_DECL\_IS\_OURS}}
+\index{YY\_DECL\_IS\_OURS@{YY\_DECL\_IS\_OURS}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_DECL\_IS\_OURS}{YY\_DECL\_IS\_OURS}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+DECL\+\_\+\+IS\+\_\+\+OURS~1}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_acc3486d769af4e4b2820346a0093cc79}\label{tikzlexer_8lexer_8cpp_acc3486d769af4e4b2820346a0093cc79}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_DO\_BEFORE\_ACTION@{YY\_DO\_BEFORE\_ACTION}}
+\index{YY\_DO\_BEFORE\_ACTION@{YY\_DO\_BEFORE\_ACTION}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_DO\_BEFORE\_ACTION}{YY\_DO\_BEFORE\_ACTION}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+DO\+\_\+\+BEFORE\+\_\+\+ACTION}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>yytext\_ptr = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa749693ef7d0c10b137e887638fdc5b2}{yy\_bp}}; \(\backslash\)}
+\DoxyCodeLine{    yyleng = (int) (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}} -\/ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa749693ef7d0c10b137e887638fdc5b2}{yy\_bp}}); \(\backslash\)}
+\DoxyCodeLine{    yyg-\/>yy\_hold\_char = *\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}}; \(\backslash\)}
+\DoxyCodeLine{    *\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}} = \textcolor{charliteral}{'\(\backslash\)0'}; \(\backslash\)}
+\DoxyCodeLine{    yyg-\/>yy\_c\_buf\_p = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}};}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab2708fd42cff29ce6a0a52b91bea40d1}\label{tikzlexer_8lexer_8cpp_ab2708fd42cff29ce6a0a52b91bea40d1}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_END\_OF\_BUFFER@{YY\_END\_OF\_BUFFER}}
+\index{YY\_END\_OF\_BUFFER@{YY\_END\_OF\_BUFFER}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_END\_OF\_BUFFER}{YY\_END\_OF\_BUFFER}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+END\+\_\+\+OF\+\_\+\+BUFFER~40}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab866a64da164ed2d4d444df1ef1fc9b3}\label{tikzlexer_8lexer_8cpp_ab866a64da164ed2d4d444df1ef1fc9b3}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_END\_OF\_BUFFER\_CHAR@{YY\_END\_OF\_BUFFER\_CHAR}}
+\index{YY\_END\_OF\_BUFFER\_CHAR@{YY\_END\_OF\_BUFFER\_CHAR}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_END\_OF\_BUFFER\_CHAR}{YY\_END\_OF\_BUFFER\_CHAR}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+END\+\_\+\+OF\+\_\+\+BUFFER\+\_\+\+CHAR~0}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae93e67b85c44f6bd31ead14a552a35c8}\label{tikzlexer_8lexer_8cpp_ae93e67b85c44f6bd31ead14a552a35c8}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_EXIT\_FAILURE@{YY\_EXIT\_FAILURE}}
+\index{YY\_EXIT\_FAILURE@{YY\_EXIT\_FAILURE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_EXIT\_FAILURE}{YY\_EXIT\_FAILURE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+EXIT\+\_\+\+FAILURE~2}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}\label{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_EXTRA\_TYPE@{YY\_EXTRA\_TYPE}}
+\index{YY\_EXTRA\_TYPE@{YY\_EXTRA\_TYPE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_EXTRA\_TYPE}{YY\_EXTRA\_TYPE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+EXTRA\+\_\+\+TYPE~\mbox{\hyperlink{classTikzAssembler}{Tikz\+Assembler}} $\ast$}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac0586b8b0b092d02f4ba7d45abe328f2}\label{tikzlexer_8lexer_8cpp_ac0586b8b0b092d02f4ba7d45abe328f2}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_FATAL\_ERROR@{YY\_FATAL\_ERROR}}
+\index{YY\_FATAL\_ERROR@{YY\_FATAL\_ERROR}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_FATAL\_ERROR}{YY\_FATAL\_ERROR}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+FATAL\+\_\+\+ERROR(\begin{DoxyParamCaption}\item[{}]{msg }\end{DoxyParamCaption})~yy\+\_\+fatal\+\_\+error( msg , yyscanner)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a301f4439c9b191c80db45f5b1a8c7269}\label{tikzlexer_8lexer_8cpp_a301f4439c9b191c80db45f5b1a8c7269}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_flex\_debug@{yy\_flex\_debug}}
+\index{yy\_flex\_debug@{yy\_flex\_debug}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_flex\_debug}{yy\_flex\_debug}}
+{\footnotesize\ttfamily \#define yy\+\_\+flex\+\_\+debug~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+flex\+\_\+debug\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a243ca1d30872935faf05ea5118ed6fdc}\label{tikzlexer_8lexer_8cpp_a243ca1d30872935faf05ea5118ed6fdc}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_FLEX\_MAJOR\_VERSION@{YY\_FLEX\_MAJOR\_VERSION}}
+\index{YY\_FLEX\_MAJOR\_VERSION@{YY\_FLEX\_MAJOR\_VERSION}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_FLEX\_MAJOR\_VERSION}{YY\_FLEX\_MAJOR\_VERSION}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+FLEX\+\_\+\+MAJOR\+\_\+\+VERSION~2}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a90f9d458829400869e47efb68a865677}\label{tikzlexer_8lexer_8cpp_a90f9d458829400869e47efb68a865677}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_FLEX\_MINOR\_VERSION@{YY\_FLEX\_MINOR\_VERSION}}
+\index{YY\_FLEX\_MINOR\_VERSION@{YY\_FLEX\_MINOR\_VERSION}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_FLEX\_MINOR\_VERSION}{YY\_FLEX\_MINOR\_VERSION}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+FLEX\+\_\+\+MINOR\+\_\+\+VERSION~6}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac676bd06869180ea493e9b6d7c078dbb}\label{tikzlexer_8lexer_8cpp_ac676bd06869180ea493e9b6d7c078dbb}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_FLEX\_SUBMINOR\_VERSION@{YY\_FLEX\_SUBMINOR\_VERSION}}
+\index{YY\_FLEX\_SUBMINOR\_VERSION@{YY\_FLEX\_SUBMINOR\_VERSION}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_FLEX\_SUBMINOR\_VERSION}{YY\_FLEX\_SUBMINOR\_VERSION}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+FLEX\+\_\+\+SUBMINOR\+\_\+\+VERSION~4}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac5d478d90ea9a2ecd43d579067a2e89d}\label{tikzlexer_8lexer_8cpp_ac5d478d90ea9a2ecd43d579067a2e89d}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_FLUSH\_BUFFER@{YY\_FLUSH\_BUFFER}}
+\index{YY\_FLUSH\_BUFFER@{YY\_FLUSH\_BUFFER}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_FLUSH\_BUFFER}{YY\_FLUSH\_BUFFER}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+FLUSH\+\_\+\+BUFFER~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a120dc1da21a01a6803c3238d4b0c87f6}{yy\+\_\+flush\+\_\+buffer}}( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER}} , yyscanner)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aacfdca45fa4beb8b06172525a53c424a}\label{tikzlexer_8lexer_8cpp_aacfdca45fa4beb8b06172525a53c424a}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_INPUT@{YY\_INPUT}}
+\index{YY\_INPUT@{YY\_INPUT}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_INPUT}{YY\_INPUT}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+INPUT(\begin{DoxyParamCaption}\item[{}]{buf,  }\item[{}]{result,  }\item[{}]{max\+\_\+size }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{if} ( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\_CURRENT\_BUFFER\_LVALUE}}-\/>yy\_is\_interactive ) \(\backslash\)}
+\DoxyCodeLine{        \{ \(\backslash\)}
+\DoxyCodeLine{        int c = \textcolor{charliteral}{'*'}; \(\backslash\)}
+\DoxyCodeLine{        int n; \(\backslash\)}
+\DoxyCodeLine{        for ( n = 0; n < max\_size \&\& \(\backslash\)}
+\DoxyCodeLine{                 (c = getc( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}} )) != EOF \&\& c != \textcolor{charliteral}{'\(\backslash\)n'}; ++n ) \(\backslash\)}
+\DoxyCodeLine{            buf[n] = (\textcolor{keywordtype}{char}) c; \(\backslash\)}
+\DoxyCodeLine{        if ( c == \textcolor{charliteral}{'\(\backslash\)n'} ) \(\backslash\)}
+\DoxyCodeLine{            buf[n++] = (char) c; \(\backslash\)}
+\DoxyCodeLine{        if ( c == EOF \&\& ferror( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}} ) ) \(\backslash\)}
+\DoxyCodeLine{            YY\_FATAL\_ERROR( \textcolor{stringliteral}{"{}input in flex scanner failed"{}} ); \(\backslash\)}
+\DoxyCodeLine{        result = n; \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    else \(\backslash\)}
+\DoxyCodeLine{        \{ \(\backslash\)}
+\DoxyCodeLine{        errno=0; \(\backslash\)}
+\DoxyCodeLine{        while ( (result = (\textcolor{keywordtype}{int}) fread(buf, 1, (\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\_size\_t}}) max\_size, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}})) == 0 \&\& ferror(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}})) \(\backslash\)}
+\DoxyCodeLine{            \{ \(\backslash\)}
+\DoxyCodeLine{            if( errno != EINTR) \(\backslash\)}
+\DoxyCodeLine{                \{ \(\backslash\)}
+\DoxyCodeLine{                YY\_FATAL\_ERROR( \textcolor{stringliteral}{"{}input in flex scanner failed"{}} ); \(\backslash\)}
+\DoxyCodeLine{                break; \(\backslash\)}
+\DoxyCodeLine{                \} \(\backslash\)}
+\DoxyCodeLine{            errno=0; \(\backslash\)}
+\DoxyCodeLine{            clearerr(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}}); \(\backslash\)}
+\DoxyCodeLine{            \} \(\backslash\)}
+\DoxyCodeLine{        \}\(\backslash\)}
+\DoxyCodeLine{\(\backslash\)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a1ae16e642a197fa4948998525813c6f5}\label{tikzlexer_8lexer_8cpp_a1ae16e642a197fa4948998525813c6f5}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_INT\_ALIGNED@{YY\_INT\_ALIGNED}}
+\index{YY\_INT\_ALIGNED@{YY\_INT\_ALIGNED}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_INT\_ALIGNED}{YY\_INT\_ALIGNED}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+INT\+\_\+\+ALIGNED~short int}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a12e5f3a76911433480bca7f4edba6119}\label{tikzlexer_8lexer_8cpp_a12e5f3a76911433480bca7f4edba6119}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_LESS\_LINENO@{YY\_LESS\_LINENO}}
+\index{YY\_LESS\_LINENO@{YY\_LESS\_LINENO}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_LESS\_LINENO}{YY\_LESS\_LINENO}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+LESS\+\_\+\+LINENO(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            \textcolor{keywordflow}{do} \{ \(\backslash\)}
+\DoxyCodeLine{                int yyl;\(\backslash\)}
+\DoxyCodeLine{                for ( yyl = n; yyl < \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}{yyleng}}; ++yyl )\(\backslash\)}
+\DoxyCodeLine{                    \textcolor{keywordflow}{if} ( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}{yytext}}[yyl] == \textcolor{charliteral}{'\(\backslash\)n'} )\(\backslash\)}
+\DoxyCodeLine{                        -\/-\/\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad71cf0fddcfe4f61de0929105b33226c}{yylineno}};\(\backslash\)}
+\DoxyCodeLine{            \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac280d8ec59f96698c7b5d4264ba2e94c}\label{tikzlexer_8lexer_8cpp_ac280d8ec59f96698c7b5d4264ba2e94c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_LINENO\_REWIND\_TO@{YY\_LINENO\_REWIND\_TO}}
+\index{YY\_LINENO\_REWIND\_TO@{YY\_LINENO\_REWIND\_TO}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_LINENO\_REWIND\_TO}{YY\_LINENO\_REWIND\_TO}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+LINENO\+\_\+\+REWIND\+\_\+\+TO(\begin{DoxyParamCaption}\item[{}]{dst }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{            \textcolor{keywordflow}{do} \{\(\backslash\)}
+\DoxyCodeLine{                const \textcolor{keywordtype}{char} *p;\(\backslash\)}
+\DoxyCodeLine{                for ( p = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}}-\/1; p >= (dst); -\/-\/p)\(\backslash\)}
+\DoxyCodeLine{                    \textcolor{keywordflow}{if} ( *p == \textcolor{charliteral}{'\(\backslash\)n'} )\(\backslash\)}
+\DoxyCodeLine{                        -\/-\/\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad71cf0fddcfe4f61de0929105b33226c}{yylineno}};\(\backslash\)}
+\DoxyCodeLine{            \}\textcolor{keywordflow}{while}(0)}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a68792d73820bc46a71d3d4e613f0b977}\label{tikzlexer_8lexer_8cpp_a68792d73820bc46a71d3d4e613f0b977}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_MORE\_ADJ@{YY\_MORE\_ADJ}}
+\index{YY\_MORE\_ADJ@{YY\_MORE\_ADJ}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_MORE\_ADJ}{YY\_MORE\_ADJ}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+MORE\+\_\+\+ADJ~0}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab7eb911e18655f2f78e63afe5a8a4a12}\label{tikzlexer_8lexer_8cpp_ab7eb911e18655f2f78e63afe5a8a4a12}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_new\_buffer@{yy\_new\_buffer}}
+\index{yy\_new\_buffer@{yy\_new\_buffer}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_new\_buffer}{yy\_new\_buffer}}
+{\footnotesize\ttfamily \#define yy\+\_\+new\+\_\+buffer~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac09acfd337d92d0d2a9fc779a6e695a7}{yy\+\_\+create\+\_\+buffer}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a0406739e64fb5750cf995d2ae68ce69d}\label{tikzlexer_8lexer_8cpp_a0406739e64fb5750cf995d2ae68ce69d}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_NEW\_FILE@{YY\_NEW\_FILE}}
+\index{YY\_NEW\_FILE@{YY\_NEW\_FILE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_NEW\_FILE}{YY\_NEW\_FILE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+NEW\+\_\+\+FILE~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a90dd3a9d98d1038bfbacab594def68aa}{yyrestart}}( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}} , yyscanner )}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a8e0bcf8f8a5b613ea583347f8bc31cbf}\label{tikzlexer_8lexer_8cpp_a8e0bcf8f8a5b613ea583347f8bc31cbf}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_NULL@{YY\_NULL}}
+\index{YY\_NULL@{YY\_NULL}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_NULL}{YY\_NULL}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+NULL~0}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae558785bb896e090901c2b905f6790c6}\label{tikzlexer_8lexer_8cpp_ae558785bb896e090901c2b905f6790c6}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_NUM\_RULES@{YY\_NUM\_RULES}}
+\index{YY\_NUM\_RULES@{YY\_NUM\_RULES}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_NUM\_RULES}{YY\_NUM\_RULES}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+NUM\+\_\+\+RULES~39}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aab1491ceccb1c95c14320b2903773a1c}\label{tikzlexer_8lexer_8cpp_aab1491ceccb1c95c14320b2903773a1c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_READ\_BUF\_SIZE@{YY\_READ\_BUF\_SIZE}}
+\index{YY\_READ\_BUF\_SIZE@{YY\_READ\_BUF\_SIZE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_READ\_BUF\_SIZE}{YY\_READ\_BUF\_SIZE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+READ\+\_\+\+BUF\+\_\+\+SIZE~8192}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a56858d18c7eda4f53664496ef566f651}\label{tikzlexer_8lexer_8cpp_a56858d18c7eda4f53664496ef566f651}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_RESTORE\_YY\_MORE\_OFFSET@{YY\_RESTORE\_YY\_MORE\_OFFSET}}
+\index{YY\_RESTORE\_YY\_MORE\_OFFSET@{YY\_RESTORE\_YY\_MORE\_OFFSET}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_RESTORE\_YY\_MORE\_OFFSET}{YY\_RESTORE\_YY\_MORE\_OFFSET}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+RESTORE\+\_\+\+YY\+\_\+\+MORE\+\_\+\+OFFSET}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a690504b662e4281515bf12722df178ba}\label{tikzlexer_8lexer_8cpp_a690504b662e4281515bf12722df178ba}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_RULE\_SETUP@{YY\_RULE\_SETUP}}
+\index{YY\_RULE\_SETUP@{YY\_RULE\_SETUP}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_RULE\_SETUP}{YY\_RULE\_SETUP}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+RULE\+\_\+\+SETUP~ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a6198b2fcf96178b24ad4efff2a3debb0}{YY\+\_\+\+USER\+\_\+\+ACTION}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_af1185350b7a92cf8aa5324c68850c8a6}\label{tikzlexer_8lexer_8cpp_af1185350b7a92cf8aa5324c68850c8a6}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_SC\_TO\_UI@{YY\_SC\_TO\_UI}}
+\index{YY\_SC\_TO\_UI@{YY\_SC\_TO\_UI}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_SC\_TO\_UI}{YY\_SC\_TO\_UI}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+SC\+\_\+\+TO\+\_\+\+UI(\begin{DoxyParamCaption}\item[{}]{c }\end{DoxyParamCaption})~((\mbox{\hyperlink{tikzlexer_8lexer_8cpp_acc1e625a829554ffed5e4307d4a5f6b7}{YY\+\_\+\+CHAR}}) (c))}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a12e30d13a76a94e78010db9996d39c50}\label{tikzlexer_8lexer_8cpp_a12e30d13a76a94e78010db9996d39c50}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_set\_bol@{yy\_set\_bol}}
+\index{yy\_set\_bol@{yy\_set\_bol}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_set\_bol}{yy\_set\_bol}}
+{\footnotesize\ttfamily \#define yy\+\_\+set\+\_\+bol(\begin{DoxyParamCaption}\item[{}]{at\+\_\+bol }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \{ \(\backslash\)}
+\DoxyCodeLine{    if ( ! \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}{YY\_CURRENT\_BUFFER}} )\{\(\backslash\)}
+\DoxyCodeLine{        yyensure\_buffer\_stack (yyscanner); \(\backslash\)}
+\DoxyCodeLine{        YY\_CURRENT\_BUFFER\_LVALUE =    \(\backslash\)}
+\DoxyCodeLine{            yy\_create\_buffer( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}}, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}{YY\_BUF\_SIZE}} , yyscanner); \(\backslash\)}
+\DoxyCodeLine{    \} \(\backslash\)}
+\DoxyCodeLine{    YY\_CURRENT\_BUFFER\_LVALUE-\/>yy\_at\_bol = at\_bol; \(\backslash\)}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac56eb96366c08862bf0efe5d83d1fc4c}\label{tikzlexer_8lexer_8cpp_ac56eb96366c08862bf0efe5d83d1fc4c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_set\_interactive@{yy\_set\_interactive}}
+\index{yy\_set\_interactive@{yy\_set\_interactive}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_set\_interactive}{yy\_set\_interactive}}
+{\footnotesize\ttfamily \#define yy\+\_\+set\+\_\+interactive(\begin{DoxyParamCaption}\item[{}]{is\+\_\+interactive }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \{ \(\backslash\)}
+\DoxyCodeLine{    if ( ! \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa093d500a6330d06d8e4760c494fac33}{YY\_CURRENT\_BUFFER}} )\{ \(\backslash\)}
+\DoxyCodeLine{        yyensure\_buffer\_stack (yyscanner); \(\backslash\)}
+\DoxyCodeLine{        YY\_CURRENT\_BUFFER\_LVALUE =    \(\backslash\)}
+\DoxyCodeLine{            yy\_create\_buffer( \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}{yyin}}, \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}{YY\_BUF\_SIZE}} , yyscanner); \(\backslash\)}
+\DoxyCodeLine{    \} \(\backslash\)}
+\DoxyCodeLine{    YY\_CURRENT\_BUFFER\_LVALUE-\/>yy\_is\_interactive = is\_interactive; \(\backslash\)}
+\DoxyCodeLine{    \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae1ef5933028cbc587d31328e53d11a99}\label{tikzlexer_8lexer_8cpp_ae1ef5933028cbc587d31328e53d11a99}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_SKIP\_YYWRAP@{YY\_SKIP\_YYWRAP}}
+\index{YY\_SKIP\_YYWRAP@{YY\_SKIP\_YYWRAP}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_SKIP\_YYWRAP}{YY\_SKIP\_YYWRAP}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+SKIP\+\_\+\+YYWRAP}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a8e14785f9eab7a997d659b25af9584c5}\label{tikzlexer_8lexer_8cpp_a8e14785f9eab7a997d659b25af9584c5}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_START@{YY\_START}}
+\index{YY\_START@{YY\_START}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_START}{YY\_START}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+START~((\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yy\+\_\+start -\/ 1) / 2)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a227e75c43b9e0cd41529974230be7e75}\label{tikzlexer_8lexer_8cpp_a227e75c43b9e0cd41529974230be7e75}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_START\_STACK\_INCR@{YY\_START\_STACK\_INCR}}
+\index{YY\_START\_STACK\_INCR@{YY\_START\_STACK\_INCR}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_START\_STACK\_INCR}{YY\_START\_STACK\_INCR}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+START\+\_\+\+STACK\+\_\+\+INCR~25}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac2f8b6fccdc516d96b02ac09a4dc01bd}\label{tikzlexer_8lexer_8cpp_ac2f8b6fccdc516d96b02ac09a4dc01bd}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_STATE\_BUF\_SIZE@{YY\_STATE\_BUF\_SIZE}}
+\index{YY\_STATE\_BUF\_SIZE@{YY\_STATE\_BUF\_SIZE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_STATE\_BUF\_SIZE}{YY\_STATE\_BUF\_SIZE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+STATE\+\_\+\+BUF\+\_\+\+SIZE~((\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ae7e51116e747d3390e7a6cfc6532834c}{YY\+\_\+\+BUF\+\_\+\+SIZE}} + 2) $\ast$ sizeof(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}{yy\+\_\+state\+\_\+type}}))}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab3077e60914fc54dcc55ecae1ce9700b}\label{tikzlexer_8lexer_8cpp_ab3077e60914fc54dcc55ecae1ce9700b}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_STATE\_EOF@{YY\_STATE\_EOF}}
+\index{YY\_STATE\_EOF@{YY\_STATE\_EOF}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_STATE\_EOF}{YY\_STATE\_EOF}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+STATE\+\_\+\+EOF(\begin{DoxyParamCaption}\item[{}]{state }\end{DoxyParamCaption})~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ab2708fd42cff29ce6a0a52b91bea40d1}{YY\+\_\+\+END\+\_\+\+OF\+\_\+\+BUFFER}} + state + 1)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a8aaa9e1fa7f13d6954d045ef973a9c84}\label{tikzlexer_8lexer_8cpp_a8aaa9e1fa7f13d6954d045ef973a9c84}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_STRUCT\_YY\_BUFFER\_STATE@{YY\_STRUCT\_YY\_BUFFER\_STATE}}
+\index{YY\_STRUCT\_YY\_BUFFER\_STATE@{YY\_STRUCT\_YY\_BUFFER\_STATE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_STRUCT\_YY\_BUFFER\_STATE}{YY\_STRUCT\_YY\_BUFFER\_STATE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+STRUCT\+\_\+\+YY\+\_\+\+BUFFER\+\_\+\+STATE}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa79d63ed3ff8d2249baf1732a73089f5}\label{tikzlexer_8lexer_8cpp_aa79d63ed3ff8d2249baf1732a73089f5}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_TYPEDEF\_YY\_BUFFER\_STATE@{YY\_TYPEDEF\_YY\_BUFFER\_STATE}}
+\index{YY\_TYPEDEF\_YY\_BUFFER\_STATE@{YY\_TYPEDEF\_YY\_BUFFER\_STATE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_TYPEDEF\_YY\_BUFFER\_STATE}{YY\_TYPEDEF\_YY\_BUFFER\_STATE}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+TYPEDEF\+\_\+\+YY\+\_\+\+BUFFER\+\_\+\+STATE}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a5d5508008cac8fb66fca3baa4e9b6584}\label{tikzlexer_8lexer_8cpp_a5d5508008cac8fb66fca3baa4e9b6584}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_TYPEDEF\_YY\_SCANNER\_T@{YY\_TYPEDEF\_YY\_SCANNER\_T}}
+\index{YY\_TYPEDEF\_YY\_SCANNER\_T@{YY\_TYPEDEF\_YY\_SCANNER\_T}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_TYPEDEF\_YY\_SCANNER\_T}{YY\_TYPEDEF\_YY\_SCANNER\_T}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+TYPEDEF\+\_\+\+YY\+\_\+\+SCANNER\+\_\+T}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae0f2b0b5f04b2338367826b5670774f9}\label{tikzlexer_8lexer_8cpp_ae0f2b0b5f04b2338367826b5670774f9}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_TYPEDEF\_YY\_SIZE\_T@{YY\_TYPEDEF\_YY\_SIZE\_T}}
+\index{YY\_TYPEDEF\_YY\_SIZE\_T@{YY\_TYPEDEF\_YY\_SIZE\_T}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_TYPEDEF\_YY\_SIZE\_T}{YY\_TYPEDEF\_YY\_SIZE\_T}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+TYPEDEF\+\_\+\+YY\+\_\+\+SIZE\+\_\+T}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a6198b2fcf96178b24ad4efff2a3debb0}\label{tikzlexer_8lexer_8cpp_a6198b2fcf96178b24ad4efff2a3debb0}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_USER\_ACTION@{YY\_USER\_ACTION}}
+\index{YY\_USER\_ACTION@{YY\_USER\_ACTION}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_USER\_ACTION}{YY\_USER\_ACTION}}
+{\footnotesize\ttfamily \#define YY\+\_\+\+USER\+\_\+\+ACTION}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}{yylloc}}-\/>first\_line = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}{yylloc}}-\/>last\_line; \(\backslash\)}
+\DoxyCodeLine{    yylloc-\/>first\_column = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}{yylloc}}-\/>last\_column + 1; \(\backslash\)}
+\DoxyCodeLine{    yylloc-\/>last\_column = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}{yylloc}}-\/>first\_column + \mbox{\hyperlink{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}{yyleng}} -\/ 1;}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_adb60e80d603c103e73f2561c7499095c}\label{tikzlexer_8lexer_8cpp_adb60e80d603c103e73f2561c7499095c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yycolumn@{yycolumn}}
+\index{yycolumn@{yycolumn}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yycolumn}{yycolumn}}
+{\footnotesize\ttfamily \#define yycolumn~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}-\/$>$yy\+\_\+bs\+\_\+column)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa2f1a918be586b44bf08126bde2d7cc9}\label{tikzlexer_8lexer_8cpp_aa2f1a918be586b44bf08126bde2d7cc9}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyconst@{yyconst}}
+\index{yyconst@{yyconst}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyconst}{yyconst}}
+{\footnotesize\ttfamily \#define yyconst~const}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a6d98927535a334881d37873915fbc45f}\label{tikzlexer_8lexer_8cpp_a6d98927535a334881d37873915fbc45f}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyextra@{yyextra}}
+\index{yyextra@{yyextra}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyextra}{yyextra}}
+{\footnotesize\ttfamily \#define yyextra~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyextra\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab931ecf4ea00bb09722b9ae0690737ca}\label{tikzlexer_8lexer_8cpp_ab931ecf4ea00bb09722b9ae0690737ca}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_lloc@{yyget\_lloc}}
+\index{yyget\_lloc@{yyget\_lloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_lloc}{yyget\_lloc}}
+{\footnotesize\ttfamily \#define yyget\+\_\+lloc~yyget\+\_\+lloc}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a0e14489006bd022ce321e77f56273a92}\label{tikzlexer_8lexer_8cpp_a0e14489006bd022ce321e77f56273a92}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_lval@{yyget\_lval}}
+\index{yyget\_lval@{yyget\_lval}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_lval}{yyget\_lval}}
+{\footnotesize\ttfamily \#define yyget\+\_\+lval~yyget\+\_\+lval}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}\label{tikzlexer_8lexer_8cpp_aa789f4617e33fb99594cb04a3688a0c1}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyin@{yyin}}
+\index{yyin@{yyin}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyin}{yyin}}
+{\footnotesize\ttfamily \#define yyin~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyin\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}\label{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyleng@{yyleng}}
+\index{yyleng@{yyleng}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyleng}{yyleng}}
+{\footnotesize\ttfamily \#define yyleng~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyleng\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae65cb72d09db0abdc4b8e8c4d533ab14}\label{tikzlexer_8lexer_8cpp_ae65cb72d09db0abdc4b8e8c4d533ab14}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyless@{yyless}}
+\index{yyless@{yyless}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyless}{yyless}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \#define yyless(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \(\backslash\)}
+\DoxyCodeLine{        \{ \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* Undo effects of setting up yytext. */} \(\backslash\)}
+\DoxyCodeLine{        int yyless\_macro\_arg = (n); \(\backslash\)}
+\DoxyCodeLine{        YY\_LESS\_LINENO(yyless\_macro\_arg);\(\backslash\)}
+\DoxyCodeLine{        *\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}} = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_adde3f71374c223bbac47284824996e86}{yy\_hold\_char}}; \(\backslash\)}
+\DoxyCodeLine{        YY\_RESTORE\_YY\_MORE\_OFFSET \(\backslash\)}
+\DoxyCodeLine{        yyg-\/>yy\_c\_buf\_p = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}{yy\_cp}} = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_aa749693ef7d0c10b137e887638fdc5b2}{yy\_bp}} + yyless\_macro\_arg -\/ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a68792d73820bc46a71d3d4e613f0b977}{YY\_MORE\_ADJ}}; \(\backslash\)}
+\DoxyCodeLine{        YY\_DO\_BEFORE\_ACTION; \textcolor{comment}{/* set up yytext again */} \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    while ( 0 )}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae65cb72d09db0abdc4b8e8c4d533ab14}\label{tikzlexer_8lexer_8cpp_ae65cb72d09db0abdc4b8e8c4d533ab14}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyless@{yyless}}
+\index{yyless@{yyless}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyless}{yyless}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \#define yyless(\begin{DoxyParamCaption}\item[{}]{n }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{    \textcolor{keywordflow}{do} \(\backslash\)}
+\DoxyCodeLine{        \{ \(\backslash\)}
+\DoxyCodeLine{        \textcolor{comment}{/* Undo effects of setting up yytext. */} \(\backslash\)}
+\DoxyCodeLine{        int yyless\_macro\_arg = (n); \(\backslash\)}
+\DoxyCodeLine{        YY\_LESS\_LINENO(yyless\_macro\_arg);\(\backslash\)}
+\DoxyCodeLine{        yytext[\mbox{\hyperlink{tikzlexer_8lexer_8cpp_afa07a629486cb790560bb95713ec7794}{yyleng}}] = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_adde3f71374c223bbac47284824996e86}{yy\_hold\_char}}; \(\backslash\)}
+\DoxyCodeLine{        yyg-\/>yy\_c\_buf\_p = \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}{yytext}} + yyless\_macro\_arg; \(\backslash\)}
+\DoxyCodeLine{        yyg-\/>yy\_hold\_char = *\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_ab1b9bcacb33aab1e02b625512bc0e221}{yy\_c\_buf\_p}}; \(\backslash\)}
+\DoxyCodeLine{        *\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/>\mbox{\hyperlink{structyyguts__t_ab1b9bcacb33aab1e02b625512bc0e221}{yy\_c\_buf\_p}} = \textcolor{charliteral}{'\(\backslash\)0'}; \(\backslash\)}
+\DoxyCodeLine{        yyleng = yyless\_macro\_arg; \(\backslash\)}
+\DoxyCodeLine{        \} \(\backslash\)}
+\DoxyCodeLine{    while ( 0 )}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad71cf0fddcfe4f61de0929105b33226c}\label{tikzlexer_8lexer_8cpp_ad71cf0fddcfe4f61de0929105b33226c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylineno@{yylineno}}
+\index{yylineno@{yylineno}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylineno}{yylineno}}
+{\footnotesize\ttfamily \#define yylineno~(\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a817a6a24af62508b5a35f4bed5f56a2e}{YY\+\_\+\+CURRENT\+\_\+\+BUFFER\+\_\+\+LVALUE}}-\/$>$yy\+\_\+bs\+\_\+lineno)}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}\label{tikzlexer_8lexer_8cpp_a0e48b4ad7ce99f1617702ffe76dc00de}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylloc@{yylloc}}
+\index{yylloc@{yylloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylloc}{yylloc}}
+{\footnotesize\ttfamily \#define yylloc~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yylloc\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a75acfb3798e577ebd296e604e422e86b}\label{tikzlexer_8lexer_8cpp_a75acfb3798e577ebd296e604e422e86b}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylval@{yylval}}
+\index{yylval@{yylval}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylval}{yylval}}
+{\footnotesize\ttfamily \#define yylval~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yylval\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a745d37b5e002b2e5f93ad42ea7b554be}\label{tikzlexer_8lexer_8cpp_a745d37b5e002b2e5f93ad42ea7b554be}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yymore@{yymore}}
+\index{yymore@{yymore}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yymore}{yymore}}
+{\footnotesize\ttfamily \#define yymore(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~yymore\+\_\+used\+\_\+but\+\_\+not\+\_\+detected}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a452d0647f1848fea42589793f3e2d1f4}\label{tikzlexer_8lexer_8cpp_a452d0647f1848fea42589793f3e2d1f4}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yynoreturn@{yynoreturn}}
+\index{yynoreturn@{yynoreturn}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yynoreturn}{yynoreturn}}
+{\footnotesize\ttfamily \#define yynoreturn}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a4fd44867d448dcb6fc32ea004a15de54}\label{tikzlexer_8lexer_8cpp_a4fd44867d448dcb6fc32ea004a15de54}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyout@{yyout}}
+\index{yyout@{yyout}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyout}{yyout}}
+{\footnotesize\ttfamily \#define yyout~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yyout\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa1d0b60177211a8c249de8bd5365bf40}\label{tikzlexer_8lexer_8cpp_aa1d0b60177211a8c249de8bd5365bf40}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_lloc@{yyset\_lloc}}
+\index{yyset\_lloc@{yyset\_lloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_lloc}{yyset\_lloc}}
+{\footnotesize\ttfamily \#define yyset\+\_\+lloc~yyset\+\_\+lloc}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a117c6bea977059fe90ea665b5e09a397}\label{tikzlexer_8lexer_8cpp_a117c6bea977059fe90ea665b5e09a397}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_lval@{yyset\_lval}}
+\index{yyset\_lval@{yyset\_lval}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_lval}{yyset\_lval}}
+{\footnotesize\ttfamily \#define yyset\+\_\+lval~yyset\+\_\+lval}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a32b5b960944f946b192d54f672569cd9}\label{tikzlexer_8lexer_8cpp_a32b5b960944f946b192d54f672569cd9}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YYSTATE@{YYSTATE}}
+\index{YYSTATE@{YYSTATE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YYSTATE}{YYSTATE}}
+{\footnotesize\ttfamily \#define YYSTATE~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8e14785f9eab7a997d659b25af9584c5}{YY\+\_\+\+START}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a828cc83270f8f5bb1688e14dd4e28128}\label{tikzlexer_8lexer_8cpp_a828cc83270f8f5bb1688e14dd4e28128}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YYTABLES\_NAME@{YYTABLES\_NAME}}
+\index{YYTABLES\_NAME@{YYTABLES\_NAME}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YYTABLES\_NAME}{YYTABLES\_NAME}}
+{\footnotesize\ttfamily \#define YYTABLES\+\_\+\+NAME~\char`\"{}yytables\char`\"{}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac3286b18a2e91b4571b97df96a118e84}\label{tikzlexer_8lexer_8cpp_ac3286b18a2e91b4571b97df96a118e84}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyterminate@{yyterminate}}
+\index{yyterminate@{yyterminate}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyterminate}{yyterminate}}
+{\footnotesize\ttfamily \#define yyterminate(\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})~return \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a8e0bcf8f8a5b613ea583347f8bc31cbf}{YY\+\_\+\+NULL}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}\label{tikzlexer_8lexer_8cpp_a0d71f919dbec1ffd74b2460fa7e5ac28}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yytext@{yytext}}
+\index{yytext@{yytext}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yytext}{yytext}}
+{\footnotesize\ttfamily \#define yytext~\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$yytext\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a790a191a93ef4d3b8c0bb43fd7480052}\label{tikzlexer_8lexer_8cpp_a790a191a93ef4d3b8c0bb43fd7480052}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yytext\_ptr@{yytext\_ptr}}
+\index{yytext\_ptr@{yytext\_ptr}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yytext\_ptr}{yytext\_ptr}}
+{\footnotesize\ttfamily \#define yytext\+\_\+ptr~yytext\+\_\+r}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a9fc8f6b22baf5d54fbeeb62021a48e78}\label{tikzlexer_8lexer_8cpp_a9fc8f6b22baf5d54fbeeb62021a48e78}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yywrap@{yywrap}}
+\index{yywrap@{yywrap}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yywrap}{yywrap}}
+{\footnotesize\ttfamily \#define yywrap(\begin{DoxyParamCaption}\item[{}]{yyscanner }\end{DoxyParamCaption})~(/$\ast$CONSTCOND$\ast$/1)}
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a2e73b2c75126814585525fb2e9d51159}\label{tikzlexer_8lexer_8cpp_a2e73b2c75126814585525fb2e9d51159}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!flex\_int16\_t@{flex\_int16\_t}}
+\index{flex\_int16\_t@{flex\_int16\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{flex\_int16\_t}{flex\_int16\_t}}
+{\footnotesize\ttfamily typedef short int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a2e73b2c75126814585525fb2e9d51159}{flex\+\_\+int16\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a838ce943cf44ef7769480714fc6c3ba9}\label{tikzlexer_8lexer_8cpp_a838ce943cf44ef7769480714fc6c3ba9}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!flex\_int32\_t@{flex\_int32\_t}}
+\index{flex\_int32\_t@{flex\_int32\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{flex\_int32\_t}{flex\_int32\_t}}
+{\footnotesize\ttfamily typedef int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a838ce943cf44ef7769480714fc6c3ba9}{flex\+\_\+int32\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7b0840dff4a2ef1702118aa12264b2a7}\label{tikzlexer_8lexer_8cpp_a7b0840dff4a2ef1702118aa12264b2a7}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!flex\_int8\_t@{flex\_int8\_t}}
+\index{flex\_int8\_t@{flex\_int8\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{flex\_int8\_t}{flex\_int8\_t}}
+{\footnotesize\ttfamily typedef signed char \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7b0840dff4a2ef1702118aa12264b2a7}{flex\+\_\+int8\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac50cdb9eefbef83a1cec89e3a7f6e1d2}\label{tikzlexer_8lexer_8cpp_ac50cdb9eefbef83a1cec89e3a7f6e1d2}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!flex\_uint16\_t@{flex\_uint16\_t}}
+\index{flex\_uint16\_t@{flex\_uint16\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{flex\_uint16\_t}{flex\_uint16\_t}}
+{\footnotesize\ttfamily typedef unsigned short int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ac50cdb9eefbef83a1cec89e3a7f6e1d2}{flex\+\_\+uint16\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a36869712de12820c73aae736762e8e88}\label{tikzlexer_8lexer_8cpp_a36869712de12820c73aae736762e8e88}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!flex\_uint32\_t@{flex\_uint32\_t}}
+\index{flex\_uint32\_t@{flex\_uint32\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{flex\_uint32\_t}{flex\_uint32\_t}}
+{\footnotesize\ttfamily typedef unsigned int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a36869712de12820c73aae736762e8e88}{flex\+\_\+uint32\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a0fac5ea484f64e75dbe6eba4aa61750c}\label{tikzlexer_8lexer_8cpp_a0fac5ea484f64e75dbe6eba4aa61750c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!flex\_uint8\_t@{flex\_uint8\_t}}
+\index{flex\_uint8\_t@{flex\_uint8\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{flex\_uint8\_t}{flex\_uint8\_t}}
+{\footnotesize\ttfamily typedef unsigned char \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0fac5ea484f64e75dbe6eba4aa61750c}{flex\+\_\+uint8\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}\label{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_BUFFER\_STATE@{YY\_BUFFER\_STATE}}
+\index{YY\_BUFFER\_STATE@{YY\_BUFFER\_STATE}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_BUFFER\_STATE}{YY\_BUFFER\_STATE}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structyy__buffer__state}{yy\+\_\+buffer\+\_\+state}}$\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_acc1e625a829554ffed5e4307d4a5f6b7}\label{tikzlexer_8lexer_8cpp_acc1e625a829554ffed5e4307d4a5f6b7}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_CHAR@{YY\_CHAR}}
+\index{YY\_CHAR@{YY\_CHAR}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_CHAR}{YY\_CHAR}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a0fac5ea484f64e75dbe6eba4aa61750c}{flex\+\_\+uint8\+\_\+t}} \mbox{\hyperlink{tikzlexer_8lexer_8cpp_acc1e625a829554ffed5e4307d4a5f6b7}{YY\+\_\+\+CHAR}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}\label{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_size\_t@{yy\_size\_t}}
+\index{yy\_size\_t@{yy\_size\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_size\_t}{yy\_size\_t}}
+{\footnotesize\ttfamily typedef size\+\_\+t \mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}\label{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_state\_type@{yy\_state\_type}}
+\index{yy\_state\_type@{yy\_state\_type}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_state\_type}{yy\_state\_type}}
+{\footnotesize\ttfamily typedef int \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}{yy\+\_\+state\+\_\+type}}}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}\label{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyscan\_t@{yyscan\_t}}
+\index{yyscan\_t@{yyscan\_t}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyscan\_t}{yyscan\_t}}
+{\footnotesize\ttfamily typedef void$\ast$ \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a33e91cd0cef6786e9e3a27ac67707207}\label{tikzlexer_8lexer_8cpp_a33e91cd0cef6786e9e3a27ac67707207}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!if@{if}}
+\index{if@{if}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{if()}{if()}}
+{\footnotesize\ttfamily if (\begin{DoxyParamCaption}\item[{!\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}{yyg}}-\/$>$}]{yy\+\_\+init }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac09acfd337d92d0d2a9fc779a6e695a7}\label{tikzlexer_8lexer_8cpp_ac09acfd337d92d0d2a9fc779a6e695a7}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_create\_buffer@{yy\_create\_buffer}}
+\index{yy\_create\_buffer@{yy\_create\_buffer}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_create\_buffer()}{yy\_create\_buffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} yy\+\_\+create\+\_\+buffer (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{file,  }\item[{int}]{size,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_af84a23034d0c924a3e9ce920f4ec58d2}\label{tikzlexer_8lexer_8cpp_af84a23034d0c924a3e9ce920f4ec58d2}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_delete\_buffer@{yy\_delete\_buffer}}
+\index{yy\_delete\_buffer@{yy\_delete\_buffer}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_delete\_buffer()}{yy\_delete\_buffer()}}
+{\footnotesize\ttfamily void yy\+\_\+delete\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}}}]{b,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a120dc1da21a01a6803c3238d4b0c87f6}\label{tikzlexer_8lexer_8cpp_a120dc1da21a01a6803c3238d4b0c87f6}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_flush\_buffer@{yy\_flush\_buffer}}
+\index{yy\_flush\_buffer@{yy\_flush\_buffer}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_flush\_buffer()}{yy\_flush\_buffer()}}
+{\footnotesize\ttfamily void yy\+\_\+flush\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}}}]{b,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a9660b57f0bd852377eadbd84dc9df68b}\label{tikzlexer_8lexer_8cpp_a9660b57f0bd852377eadbd84dc9df68b}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_scan\_buffer@{yy\_scan\_buffer}}
+\index{yy\_scan\_buffer@{yy\_scan\_buffer}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_scan\_buffer()}{yy\_scan\_buffer()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} yy\+\_\+scan\+\_\+buffer (\begin{DoxyParamCaption}\item[{char $\ast$}]{base,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}}]{size,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7c78559898f5069924025ecd3fe1de78}\label{tikzlexer_8lexer_8cpp_a7c78559898f5069924025ecd3fe1de78}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_scan\_bytes@{yy\_scan\_bytes}}
+\index{yy\_scan\_bytes@{yy\_scan\_bytes}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_scan\_bytes()}{yy\_scan\_bytes()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} yy\+\_\+scan\+\_\+bytes (\begin{DoxyParamCaption}\item[{const char $\ast$}]{bytes,  }\item[{int}]{len,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a05db892e228d4fed278b18eccad95a93}\label{tikzlexer_8lexer_8cpp_a05db892e228d4fed278b18eccad95a93}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_scan\_string@{yy\_scan\_string}}
+\index{yy\_scan\_string@{yy\_scan\_string}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_scan\_string()}{yy\_scan\_string()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}} yy\+\_\+scan\+\_\+string (\begin{DoxyParamCaption}\item[{const char $\ast$}]{yy\+\_\+str,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7cdbe6260339833a504479ae8e1ea279}\label{tikzlexer_8lexer_8cpp_a7cdbe6260339833a504479ae8e1ea279}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_switch\_to\_buffer@{yy\_switch\_to\_buffer}}
+\index{yy\_switch\_to\_buffer@{yy\_switch\_to\_buffer}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_switch\_to\_buffer()}{yy\_switch\_to\_buffer()}}
+{\footnotesize\ttfamily void yy\+\_\+switch\+\_\+to\+\_\+buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}}}]{new\+\_\+buffer,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a8ed916a3de3e1c01305e55cef415ba1e}\label{tikzlexer_8lexer_8cpp_a8ed916a3de3e1c01305e55cef415ba1e}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyalloc@{yyalloc}}
+\index{yyalloc@{yyalloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyalloc()}{yyalloc()}}
+{\footnotesize\ttfamily void$\ast$ \mbox{\hyperlink{unionyyalloc}{yyalloc}} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}}]{,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ace3a0458b901e4a503a33b6411ef5fa1}\label{tikzlexer_8lexer_8cpp_ace3a0458b901e4a503a33b6411ef5fa1}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyfree@{yyfree}}
+\index{yyfree@{yyfree}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyfree()}{yyfree()}}
+{\footnotesize\ttfamily void yyfree (\begin{DoxyParamCaption}\item[{void $\ast$}]{,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae99214cb04ca948c5dde77ed7178a656}\label{tikzlexer_8lexer_8cpp_ae99214cb04ca948c5dde77ed7178a656}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_column@{yyget\_column}}
+\index{yyget\_column@{yyget\_column}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_column()}{yyget\_column()}}
+{\footnotesize\ttfamily int yyget\+\_\+column (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a9711f7e149387b20a3fc11762adf0a9a}\label{tikzlexer_8lexer_8cpp_a9711f7e149387b20a3fc11762adf0a9a}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_debug@{yyget\_debug}}
+\index{yyget\_debug@{yyget\_debug}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_debug()}{yyget\_debug()}}
+{\footnotesize\ttfamily int yyget\+\_\+debug (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_afe57498c9517147d12f9c13a6bdd07b3}\label{tikzlexer_8lexer_8cpp_afe57498c9517147d12f9c13a6bdd07b3}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_extra@{yyget\_extra}}
+\index{yyget\_extra@{yyget\_extra}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_extra()}{yyget\_extra()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}} yyget\+\_\+extra (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac37f9e56a959084a6ee592974d1ffe62}\label{tikzlexer_8lexer_8cpp_ac37f9e56a959084a6ee592974d1ffe62}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_in@{yyget\_in}}
+\index{yyget\_in@{yyget\_in}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_in()}{yyget\_in()}}
+{\footnotesize\ttfamily FILE$\ast$ yyget\+\_\+in (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_acea17af68e4963e25068361d3dedba1c}\label{tikzlexer_8lexer_8cpp_acea17af68e4963e25068361d3dedba1c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_leng@{yyget\_leng}}
+\index{yyget\_leng@{yyget\_leng}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_leng()}{yyget\_leng()}}
+{\footnotesize\ttfamily int yyget\+\_\+leng (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a86cef2b171b5abc4f80a9d55b839e7c2}\label{tikzlexer_8lexer_8cpp_a86cef2b171b5abc4f80a9d55b839e7c2}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_lineno@{yyget\_lineno}}
+\index{yyget\_lineno@{yyget\_lineno}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_lineno()}{yyget\_lineno()}}
+{\footnotesize\ttfamily int yyget\+\_\+lineno (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad39ddb77cec9662cc9d880988283218d}\label{tikzlexer_8lexer_8cpp_ad39ddb77cec9662cc9d880988283218d}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_lloc@{yyget\_lloc}}
+\index{yyget\_lloc@{yyget\_lloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_lloc()}{yyget\_lloc()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structYYLTYPE}{YYLTYPE}}$\ast$ yyget\+\_\+lloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a6c6af51e52d7fcedd43b98f8c9558752}\label{tikzlexer_8lexer_8cpp_a6c6af51e52d7fcedd43b98f8c9558752}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_lval@{yyget\_lval}}
+\index{yyget\_lval@{yyget\_lval}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_lval()}{yyget\_lval()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}}$\ast$ yyget\+\_\+lval (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a18329358dd492efcce59c62dfa75c280}\label{tikzlexer_8lexer_8cpp_a18329358dd492efcce59c62dfa75c280}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_out@{yyget\_out}}
+\index{yyget\_out@{yyget\_out}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_out()}{yyget\_out()}}
+{\footnotesize\ttfamily FILE$\ast$ yyget\+\_\+out (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ac8eed2192509e291419cbe712aaa5bd5}\label{tikzlexer_8lexer_8cpp_ac8eed2192509e291419cbe712aaa5bd5}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyget\_text@{yyget\_text}}
+\index{yyget\_text@{yyget\_text}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyget\_text()}{yyget\_text()}}
+{\footnotesize\ttfamily char$\ast$ yyget\+\_\+text (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a091ca9686c3b10b63fc0d06e0518bf57}\label{tikzlexer_8lexer_8cpp_a091ca9686c3b10b63fc0d06e0518bf57}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylex@{yylex}}
+\index{yylex@{yylex}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylex()}{yylex()}}
+{\footnotesize\ttfamily int yylex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}} $\ast$}]{yylval\+\_\+param,  }\item[{\mbox{\hyperlink{structYYLTYPE}{YYLTYPE}} $\ast$}]{yylloc\+\_\+param,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aaea60d8102c2afdd7d8e07bc43c530c3}\label{tikzlexer_8lexer_8cpp_aaea60d8102c2afdd7d8e07bc43c530c3}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylex\_destroy@{yylex\_destroy}}
+\index{yylex\_destroy@{yylex\_destroy}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylex\_destroy()}{yylex\_destroy()}}
+{\footnotesize\ttfamily int yylex\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_afbcda44be0f721a1c8f2f280aabb74f6}\label{tikzlexer_8lexer_8cpp_afbcda44be0f721a1c8f2f280aabb74f6}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylex\_init@{yylex\_init}}
+\index{yylex\_init@{yylex\_init}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylex\_init()}{yylex\_init()}}
+{\footnotesize\ttfamily int yylex\+\_\+init (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} $\ast$}]{scanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a6d4d9baf5ca416f7f4028dc309aeaa02}\label{tikzlexer_8lexer_8cpp_a6d4d9baf5ca416f7f4028dc309aeaa02}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylex\_init\_extra@{yylex\_init\_extra}}
+\index{yylex\_init\_extra@{yylex\_init\_extra}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylex\_init\_extra()}{yylex\_init\_extra()}}
+{\footnotesize\ttfamily int yylex\+\_\+init\+\_\+extra (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}}}]{user\+\_\+defined,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}} $\ast$}]{scanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a878e1d6fe61658bf7d1c34a366989079}\label{tikzlexer_8lexer_8cpp_a878e1d6fe61658bf7d1c34a366989079}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yypop\_buffer\_state@{yypop\_buffer\_state}}
+\index{yypop\_buffer\_state@{yypop\_buffer\_state}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yypop\_buffer\_state()}{yypop\_buffer\_state()}}
+{\footnotesize\ttfamily void yypop\+\_\+buffer\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a307a8272bd7da504c943524338fbb330}\label{tikzlexer_8lexer_8cpp_a307a8272bd7da504c943524338fbb330}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yypush\_buffer\_state@{yypush\_buffer\_state}}
+\index{yypush\_buffer\_state@{yypush\_buffer\_state}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yypush\_buffer\_state()}{yypush\_buffer\_state()}}
+{\footnotesize\ttfamily void yypush\+\_\+buffer\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a4e5bd2d129903df83f3d13effaf8f3e4}{YY\+\_\+\+BUFFER\+\_\+\+STATE}}}]{new\+\_\+buffer,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae09f0ad558372e0809f461737d6538bb}\label{tikzlexer_8lexer_8cpp_ae09f0ad558372e0809f461737d6538bb}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyrealloc@{yyrealloc}}
+\index{yyrealloc@{yyrealloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyrealloc()}{yyrealloc()}}
+{\footnotesize\ttfamily void$\ast$ yyrealloc (\begin{DoxyParamCaption}\item[{void $\ast$}]{,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_ad557845057f187eec4be07e2717d2afa}{yy\+\_\+size\+\_\+t}}}]{,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a90dd3a9d98d1038bfbacab594def68aa}\label{tikzlexer_8lexer_8cpp_a90dd3a9d98d1038bfbacab594def68aa}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyrestart@{yyrestart}}
+\index{yyrestart@{yyrestart}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyrestart()}{yyrestart()}}
+{\footnotesize\ttfamily void yyrestart (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{input\+\_\+file,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ae92fd9d54517feb81d7a8182295384d2}\label{tikzlexer_8lexer_8cpp_ae92fd9d54517feb81d7a8182295384d2}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_column@{yyset\_column}}
+\index{yyset\_column@{yyset\_column}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_column()}{yyset\_column()}}
+{\footnotesize\ttfamily void yyset\+\_\+column (\begin{DoxyParamCaption}\item[{int}]{\+\_\+column\+\_\+no,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ad59dca606bf72e9a622cf156a582d529}\label{tikzlexer_8lexer_8cpp_ad59dca606bf72e9a622cf156a582d529}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_debug@{yyset\_debug}}
+\index{yyset\_debug@{yyset\_debug}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_debug()}{yyset\_debug()}}
+{\footnotesize\ttfamily void yyset\+\_\+debug (\begin{DoxyParamCaption}\item[{int}]{debug\+\_\+flag,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a90d20294722d171c4bf004fda3cd9403}\label{tikzlexer_8lexer_8cpp_a90d20294722d171c4bf004fda3cd9403}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_extra@{yyset\_extra}}
+\index{yyset\_extra@{yyset\_extra}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_extra()}{yyset\_extra()}}
+{\footnotesize\ttfamily void yyset\+\_\+extra (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a26938d921de835f6183c02e54cf08828}{YY\+\_\+\+EXTRA\+\_\+\+TYPE}}}]{user\+\_\+defined,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a5410f50aa0086688cc2ca73b6e1849a0}\label{tikzlexer_8lexer_8cpp_a5410f50aa0086688cc2ca73b6e1849a0}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_in@{yyset\_in}}
+\index{yyset\_in@{yyset\_in}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_in()}{yyset\_in()}}
+{\footnotesize\ttfamily void yyset\+\_\+in (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{\+\_\+in\+\_\+str,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a5e23a53af7c9b4150007dc79b194f0d0}\label{tikzlexer_8lexer_8cpp_a5e23a53af7c9b4150007dc79b194f0d0}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_lineno@{yyset\_lineno}}
+\index{yyset\_lineno@{yyset\_lineno}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_lineno()}{yyset\_lineno()}}
+{\footnotesize\ttfamily void yyset\+\_\+lineno (\begin{DoxyParamCaption}\item[{int}]{\+\_\+line\+\_\+number,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a1512f746aacfc23fba4682307e89c074}\label{tikzlexer_8lexer_8cpp_a1512f746aacfc23fba4682307e89c074}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_lloc@{yyset\_lloc}}
+\index{yyset\_lloc@{yyset\_lloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_lloc()}{yyset\_lloc()}}
+{\footnotesize\ttfamily void yyset\+\_\+lloc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structYYLTYPE}{YYLTYPE}} $\ast$}]{yylloc\+\_\+param,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_ab0cd88647db3e1e240b43ec63cb8d868}\label{tikzlexer_8lexer_8cpp_ab0cd88647db3e1e240b43ec63cb8d868}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_lval@{yyset\_lval}}
+\index{yyset\_lval@{yyset\_lval}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_lval()}{yyset\_lval()}}
+{\footnotesize\ttfamily void yyset\+\_\+lval (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{unionYYSTYPE}{YYSTYPE}} $\ast$}]{yylval\+\_\+param,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a8c7de59ce6936c509609aeddee876617}\label{tikzlexer_8lexer_8cpp_a8c7de59ce6936c509609aeddee876617}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyset\_out@{yyset\_out}}
+\index{yyset\_out@{yyset\_out}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyset\_out()}{yyset\_out()}}
+{\footnotesize\ttfamily void yyset\+\_\+out (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{\+\_\+out\+\_\+str,  }\item[{\mbox{\hyperlink{tikzlexer_8lexer_8cpp_a157535ed0322a026cc197c8985c08d35}{yyscan\+\_\+t}}}]{yyscanner }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a483da4c691e92dcb79c40a3514759b6b}\label{tikzlexer_8lexer_8cpp_a483da4c691e92dcb79c40a3514759b6b}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_act@{yy\_act}}
+\index{yy\_act@{yy\_act}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_act}{yy\_act}}
+{\footnotesize\ttfamily int yy\+\_\+act}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_aa749693ef7d0c10b137e887638fdc5b2}\label{tikzlexer_8lexer_8cpp_aa749693ef7d0c10b137e887638fdc5b2}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_bp@{yy\_bp}}
+\index{yy\_bp@{yy\_bp}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_bp}{yy\_bp}}
+{\footnotesize\ttfamily char $\ast$ yy\+\_\+bp}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}\label{tikzlexer_8lexer_8cpp_a61b01b6b236b05090b972f8fd95da539}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yy\_cp@{yy\_cp}}
+\index{yy\_cp@{yy\_cp}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yy\_cp}{yy\_cp}}
+{\footnotesize\ttfamily char$\ast$ yy\+\_\+cp}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_abcefb20c54ce0f92452cfbb9cf657670}\label{tikzlexer_8lexer_8cpp_abcefb20c54ce0f92452cfbb9cf657670}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!YY\_DECL@{YY\_DECL}}
+\index{YY\_DECL@{YY\_DECL}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{YY\_DECL}{YY\_DECL}}
+{\footnotesize\ttfamily YY\+\_\+\+DECL}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    \mbox{\hyperlink{tikzlexer_8lexer_8cpp_a9ba7c416f135b0f0c1f4addded4616b5}{yy\_state\_type}} yy\_current\_state}
+
+\end{DoxyCode}
+The main scanner function which does all the work. \mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}\label{tikzlexer_8lexer_8cpp_a7507d83bcbf665441b28b684525ae59c}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yyg@{yyg}}
+\index{yyg@{yyg}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yyg}{yyg}}
+{\footnotesize\ttfamily struct \mbox{\hyperlink{structyyguts__t}{yyguts\+\_\+t}}$\ast$ yyg = (struct \mbox{\hyperlink{structyyguts__t}{yyguts\+\_\+t}}$\ast$)yyscanner}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_a793617ae8fbd24a4b287e884d1358d9b}\label{tikzlexer_8lexer_8cpp_a793617ae8fbd24a4b287e884d1358d9b}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylloc@{yylloc}}
+\index{yylloc@{yylloc}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylloc}{yylloc}}
+{\footnotesize\ttfamily yylloc = yylloc\+\_\+param}
+
+\mbox{\Hypertarget{tikzlexer_8lexer_8cpp_af8702f09f01285d3777507e641f94463}\label{tikzlexer_8lexer_8cpp_af8702f09f01285d3777507e641f94463}} 
+\index{tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}!yylval@{yylval}}
+\index{yylval@{yylval}!tikzlexer.lexer.cpp@{tikzlexer.lexer.cpp}}
+\doxysubsubsection{\texorpdfstring{yylval}{yylval}}
+{\footnotesize\ttfamily yylval = yylval\+\_\+param}
+

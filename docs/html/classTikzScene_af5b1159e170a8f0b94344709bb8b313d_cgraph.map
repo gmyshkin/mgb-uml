@@ -1,0 +1,18 @@
+<map id="TikzScene::pasteFromClipboard" name="TikzScene::pasteFromClipboard">
+<area shape="rect" id="node1" title=" " alt="" coords="5,183,232,209"/>
+<area shape="rect" id="node2" href="$classTikzScene.html#a26ddad9caa368a3f5eb5ce36ca4df98a" title=" " alt="" coords="309,5,443,32"/>
+<area shape="rect" id="node4" href="$classGraph.html#a2f24b55c50d8d44a330e3af107515c21" title=" " alt="" coords="322,56,430,83"/>
+<area shape="rect" id="node5" href="$classTikzAssembler.html#a0d1549f389f46e453fffd29d51fb5366" title=" " alt="" coords="295,107,457,133"/>
+<area shape="rect" id="node8" href="$classNode.html#ada23bb394e483cb99d4c48561c2d1130" title=" " alt="" coords="552,208,649,235"/>
+<area shape="rect" id="node9" href="$classGraph.html#a981e3f969bb5cfff0a712131fa1d4710" title="realBbox computes the union of the user&#45;defined bounding box, and the bounding boxes of the graph&#39;s c..." alt="" coords="313,259,439,285"/>
+<area shape="rect" id="node11" href="$classGraph.html#a9c099a24efe730b48cbc21b486382204" title="renameApart assigns fresh names to all of the nodes in &quot;this&quot;, with respect to the given graph" alt="" coords="299,309,453,336"/>
+<area shape="rect" id="node15" href="$classNode.html#a65cfc7efc3d8a025cdc34f679d57788e" title=" " alt="" coords="317,208,435,235"/>
+<area shape="rect" id="node16" href="$classTikzDocument.html#a862fc9522e63f9902e6c33416de92043" title=" " alt="" coords="280,360,472,387"/>
+<area shape="rect" id="node3" href="$classTikzDocument.html#a9caf79b651a74b556ff54f79334fe97c" title=" " alt="" coords="520,5,681,32"/>
+<area shape="rect" id="node6" href="$tikzlexer_8lexer_8cpp.html#a05db892e228d4fed278b18eccad95a93" title=" " alt="" coords="541,81,660,108"/>
+<area shape="rect" id="node7" href="$tikzassembler_8cpp.html#aee1277656c494f4a59b307a498f0a0a9" title=" " alt="" coords="563,132,638,159"/>
+<area shape="rect" id="node10" href="$classGraph.html#a8e6d9daac118e05cf9d96cacdaaa7d93" title=" " alt="" coords="550,259,651,285"/>
+<area shape="rect" id="node12" href="$classGraph.html#aa4e7049577c238885b5f65fa12224356" title=" " alt="" coords="523,309,678,336"/>
+<area shape="rect" id="node14" href="$classNode.html#ae486aa31c81a58af85dd98383e6ed462" title=" " alt="" coords="539,360,662,387"/>
+<area shape="rect" id="node13" href="$classNode.html#ac40f16db9ad108a3d8a029802899104c" title=" " alt="" coords="729,335,831,361"/>
+</map>

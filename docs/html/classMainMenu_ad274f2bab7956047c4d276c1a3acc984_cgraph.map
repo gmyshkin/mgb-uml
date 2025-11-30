@@ -1,0 +1,14 @@
+<map id="MainMenu::on_actionDelete_triggered" name="MainMenu::on_actionDelete_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,175,209,217"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="275,124,433,151"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#a744abf1d2b1f8d0eb74e5e8ff5b6a45b" title=" " alt="" coords="257,175,451,217"/>
+<area shape="rect" id="node12" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="266,241,442,268"/>
+<area shape="rect" id="node4" href="$classGraph.html#abf683e0de28374a105289e1dccbcfb76" title=" " alt="" coords="541,5,649,32"/>
+<area shape="rect" id="node5" href="$classTikzScene.html#aff3bb5ba8f5be9e329bf79c3d42c0da3" title=" " alt="" coords="506,56,683,83"/>
+<area shape="rect" id="node6" href="$classTikzDocument.html#a9caf79b651a74b556ff54f79334fe97c" title=" " alt="" coords="514,107,675,133"/>
+<area shape="rect" id="node7" href="$classGraph.html#a2f24b55c50d8d44a330e3af107515c21" title=" " alt="" coords="541,157,649,184"/>
+<area shape="rect" id="node8" href="$classEdge.html#ab71e896913bced523d6715dc21286256" title=" " alt="" coords="549,208,640,235"/>
+<area shape="rect" id="node9" href="$classEdge.html#a7ceb7f3cda01e0b94fdd1e2b296b81d9" title=" " alt="" coords="542,259,647,285"/>
+<area shape="rect" id="node10" href="$classEdge.html#ab1e1317b53ceb2896a1ac50c0c3629cc" title=" " alt="" coords="544,309,645,336"/>
+<area shape="rect" id="node11" href="$classTikzDocument.html#a862fc9522e63f9902e6c33416de92043" title=" " alt="" coords="499,360,691,387"/>
+</map>

@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: tikzit_proxy
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - tikzit_docs:/var/www/docs
+      # The folder where we will write user configs dynamically
+      - ./user_configs:/etc/nginx/conf.d 
+    networks:
+      - tikzit_net
+
+# Define a custom network so Nginx can find the user containers by name
+networks:
+  tikzit_net:
+    name: tikzit_net
+    driver: bridge
+
+volumes:
+  tikzit_docs:
+    external: true # We assume this is populated by your publish workflow

@@ -1,0 +1,64 @@
+\hypertarget{undocommands_8h}{}\doxysection{src/gui/undocommands.h File Reference}
+\label{undocommands_8h}\index{src/gui/undocommands.h@{src/gui/undocommands.h}}
+{\ttfamily \#include \char`\"{}tikzscene.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$QUndo\+Command$>$}\newline
+{\ttfamily \#include $<$QSet$>$}\newline
+Include dependency graph for undocommands.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{undocommands_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{undocommands_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classGraphUpdateCommand}{Graph\+Update\+Command}}
+\item 
+class \mbox{\hyperlink{classMoveCommand}{Move\+Command}}
+\item 
+class \mbox{\hyperlink{classEdgeBendCommand}{Edge\+Bend\+Command}}
+\item 
+class \mbox{\hyperlink{classReverseEdgesCommand}{Reverse\+Edges\+Command}}
+\item 
+class \mbox{\hyperlink{classDeleteCommand}{Delete\+Command}}
+\item 
+class \mbox{\hyperlink{classAddNodeCommand}{Add\+Node\+Command}}
+\item 
+class \mbox{\hyperlink{classAddEdgeCommand}{Add\+Edge\+Command}}
+\item 
+class \mbox{\hyperlink{classChangeEdgeModeCommand}{Change\+Edge\+Mode\+Command}}
+\item 
+class \mbox{\hyperlink{classApplyStyleToNodesCommand}{Apply\+Style\+To\+Nodes\+Command}}
+\item 
+class \mbox{\hyperlink{classApplyStyleToEdgesCommand}{Apply\+Style\+To\+Edges\+Command}}
+\item 
+class \mbox{\hyperlink{classPasteCommand}{Paste\+Command}}
+\item 
+class \mbox{\hyperlink{classChangeLabelCommand}{Change\+Label\+Command}}
+\item 
+class \mbox{\hyperlink{classReplaceGraphCommand}{Replace\+Graph\+Command}}
+\item 
+class \mbox{\hyperlink{classReflectNodesCommand}{Reflect\+Nodes\+Command}}
+\item 
+class \mbox{\hyperlink{classRotateNodesCommand}{Rotate\+Nodes\+Command}}
+\item 
+class \mbox{\hyperlink{classReorderCommand}{Reorder\+Command}}
+\item 
+class \mbox{\hyperlink{classMakePathCommand}{Make\+Path\+Command}}
+\item 
+class \mbox{\hyperlink{classSplitPathCommand}{Split\+Path\+Command}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+All changes to a \mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} are done via subclasses of QUndo\+Command. When a controller (e.\+g. \mbox{\hyperlink{classTikzScene}{Tikz\+Scene}}) gets input from the user to change the document, it will push one of these commands onto the \mbox{\hyperlink{classTikzDocument}{Tikz\+Document}}\textquotesingle{}s undo stack, which automatically calls the redo() method of the command. 

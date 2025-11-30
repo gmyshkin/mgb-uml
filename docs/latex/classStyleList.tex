@@ -1,0 +1,257 @@
+\hypertarget{classStyleList}{}\doxysection{Style\+List Class Reference}
+\label{classStyleList}\index{StyleList@{StyleList}}
+
+
+{\ttfamily \#include $<$stylelist.\+h$>$}
+
+
+
+Inheritance diagram for Style\+List\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{classStyleList__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Style\+List\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=195pt]{classStyleList__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classStyleList_a0e6e0babc8673c9b1769a99e842028ae}{Style\+List}} (bool edge\+Styles=false, QObject $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{classStyle}{Style}} $\ast$ \mbox{\hyperlink{classStyleList_aa6a04d82d4b97c0a0420f5c7f2ab270b}{style}} (QString name)
+\item 
+\mbox{\hyperlink{classStyle}{Style}} $\ast$ \mbox{\hyperlink{classStyleList_a3f856034e9acb5b3181d7b9c478a512c}{style}} (int i)
+\item 
+int \mbox{\hyperlink{classStyleList_a0eea953405034b2aabcb80e909359366}{length}} () const
+\item 
+void \mbox{\hyperlink{classStyleList_af851f0ae92e656c0d55b0179970ad1b5}{add\+Style}} (\mbox{\hyperlink{classStyle}{Style}} $\ast$s)
+\item 
+void \mbox{\hyperlink{classStyleList_ad2292d2c1eed8f6049a0e2aa60bde400}{remove\+Nth\+Style}} (int n)
+\item 
+void \mbox{\hyperlink{classStyleList_a42c9b70d021d4181898d55f29244e5b0}{clear}} ()
+\item 
+QString \mbox{\hyperlink{classStyleList_a6e6e0198b77a7cd87e0dec1373e9beca}{tikz}} ()
+\item 
+int \mbox{\hyperlink{classStyleList_af6d192f4bf1e92bd22ca4553c9a3b951}{num\+In\+Category}} () const
+\item 
+int \mbox{\hyperlink{classStyleList_a281a41082e8106f13f320b6e6f1e4c05}{nth\+In\+Category}} (int n) const
+\item 
+\mbox{\hyperlink{classStyle}{Style}} $\ast$ \mbox{\hyperlink{classStyleList_ac16b000d91b38e50ba61c9a3dbb03ba1}{style\+In\+Category}} (int n) const
+\item 
+QVariant \mbox{\hyperlink{classStyleList_a7977686e523d24911060476a8875e624}{data}} (const QModel\+Index \&index, int role) const override
+\item 
+int \mbox{\hyperlink{classStyleList_a56137d7b5967a92051561e7753d25634}{row\+Count}} (const QModel\+Index \&) const override
+\item 
+bool \mbox{\hyperlink{classStyleList_a68ff761f2b16c09e17aab3461a22da51}{move\+Rows}} (const QModel\+Index \&source\+Parent, int source\+Row, int, const QModel\+Index \&destination\+Parent, int destination\+Child) override
+\item 
+QString \mbox{\hyperlink{classStyleList_acac6d6483bea655b86e2e1134d9ee067}{category}} () const
+\item 
+void \mbox{\hyperlink{classStyleList_abaeb39719ec8bf6780b9445ac7f439ee}{set\+Category}} (const QString \&\mbox{\hyperlink{classStyleList_acac6d6483bea655b86e2e1134d9ee067}{category}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classStyleList_a0e6e0babc8673c9b1769a99e842028ae}\label{classStyleList_a0e6e0babc8673c9b1769a99e842028ae}} 
+\index{StyleList@{StyleList}!StyleList@{StyleList}}
+\index{StyleList@{StyleList}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{StyleList()}{StyleList()}}
+{\footnotesize\ttfamily Style\+List\+::\+Style\+List (\begin{DoxyParamCaption}\item[{bool}]{edge\+Styles = {\ttfamily false},  }\item[{QObject $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classStyleList_af851f0ae92e656c0d55b0179970ad1b5}\label{classStyleList_af851f0ae92e656c0d55b0179970ad1b5}} 
+\index{StyleList@{StyleList}!addStyle@{addStyle}}
+\index{addStyle@{addStyle}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{addStyle()}{addStyle()}}
+{\footnotesize\ttfamily void Style\+List\+::add\+Style (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classStyle}{Style}} $\ast$}]{s }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_af851f0ae92e656c0d55b0179970ad1b5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_acac6d6483bea655b86e2e1134d9ee067}\label{classStyleList_acac6d6483bea655b86e2e1134d9ee067}} 
+\index{StyleList@{StyleList}!category@{category}}
+\index{category@{category}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{category()}{category()}}
+{\footnotesize\ttfamily QString Style\+List\+::category (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classStyleList_a42c9b70d021d4181898d55f29244e5b0}\label{classStyleList_a42c9b70d021d4181898d55f29244e5b0}} 
+\index{StyleList@{StyleList}!clear@{clear}}
+\index{clear@{clear}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Style\+List\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_a42c9b70d021d4181898d55f29244e5b0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_a7977686e523d24911060476a8875e624}\label{classStyleList_a7977686e523d24911060476a8875e624}} 
+\index{StyleList@{StyleList}!data@{data}}
+\index{data@{data}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily QVariant Style\+List\+::data (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{index,  }\item[{int}]{role }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_a7977686e523d24911060476a8875e624_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_a0eea953405034b2aabcb80e909359366}\label{classStyleList_a0eea953405034b2aabcb80e909359366}} 
+\index{StyleList@{StyleList}!length@{length}}
+\index{length@{length}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{length()}{length()}}
+{\footnotesize\ttfamily int Style\+List\+::length (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classStyleList_a68ff761f2b16c09e17aab3461a22da51}\label{classStyleList_a68ff761f2b16c09e17aab3461a22da51}} 
+\index{StyleList@{StyleList}!moveRows@{moveRows}}
+\index{moveRows@{moveRows}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{moveRows()}{moveRows()}}
+{\footnotesize\ttfamily bool Style\+List\+::move\+Rows (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{source\+Parent,  }\item[{int}]{source\+Row,  }\item[{int}]{,  }\item[{const QModel\+Index \&}]{destination\+Parent,  }\item[{int}]{destination\+Child }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_a68ff761f2b16c09e17aab3461a22da51_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_a281a41082e8106f13f320b6e6f1e4c05}\label{classStyleList_a281a41082e8106f13f320b6e6f1e4c05}} 
+\index{StyleList@{StyleList}!nthInCategory@{nthInCategory}}
+\index{nthInCategory@{nthInCategory}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{nthInCategory()}{nthInCategory()}}
+{\footnotesize\ttfamily int Style\+List\+::nth\+In\+Category (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_a281a41082e8106f13f320b6e6f1e4c05_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_af6d192f4bf1e92bd22ca4553c9a3b951}\label{classStyleList_af6d192f4bf1e92bd22ca4553c9a3b951}} 
+\index{StyleList@{StyleList}!numInCategory@{numInCategory}}
+\index{numInCategory@{numInCategory}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{numInCategory()}{numInCategory()}}
+{\footnotesize\ttfamily int Style\+List\+::num\+In\+Category (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_af6d192f4bf1e92bd22ca4553c9a3b951_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_ad2292d2c1eed8f6049a0e2aa60bde400}\label{classStyleList_ad2292d2c1eed8f6049a0e2aa60bde400}} 
+\index{StyleList@{StyleList}!removeNthStyle@{removeNthStyle}}
+\index{removeNthStyle@{removeNthStyle}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{removeNthStyle()}{removeNthStyle()}}
+{\footnotesize\ttfamily void Style\+List\+::remove\+Nth\+Style (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_ad2292d2c1eed8f6049a0e2aa60bde400_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_a56137d7b5967a92051561e7753d25634}\label{classStyleList_a56137d7b5967a92051561e7753d25634}} 
+\index{StyleList@{StyleList}!rowCount@{rowCount}}
+\index{rowCount@{rowCount}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{rowCount()}{rowCount()}}
+{\footnotesize\ttfamily int Style\+List\+::row\+Count (\begin{DoxyParamCaption}\item[{const QModel\+Index \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_a56137d7b5967a92051561e7753d25634_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_abaeb39719ec8bf6780b9445ac7f439ee}\label{classStyleList_abaeb39719ec8bf6780b9445ac7f439ee}} 
+\index{StyleList@{StyleList}!setCategory@{setCategory}}
+\index{setCategory@{setCategory}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{setCategory()}{setCategory()}}
+{\footnotesize\ttfamily void Style\+List\+::set\+Category (\begin{DoxyParamCaption}\item[{const QString \&}]{category }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=347pt]{classStyleList_abaeb39719ec8bf6780b9445ac7f439ee_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_a3f856034e9acb5b3181d7b9c478a512c}\label{classStyleList_a3f856034e9acb5b3181d7b9c478a512c}} 
+\index{StyleList@{StyleList}!style@{style}}
+\index{style@{style}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{style()}{style()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle}{Style}} $\ast$ Style\+List\+::style (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classStyleList_aa6a04d82d4b97c0a0420f5c7f2ab270b}\label{classStyleList_aa6a04d82d4b97c0a0420f5c7f2ab270b}} 
+\index{StyleList@{StyleList}!style@{style}}
+\index{style@{style}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{style()}{style()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle}{Style}} $\ast$ Style\+List\+::style (\begin{DoxyParamCaption}\item[{QString}]{name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{classStyleList_aa6a04d82d4b97c0a0420f5c7f2ab270b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_ac16b000d91b38e50ba61c9a3dbb03ba1}\label{classStyleList_ac16b000d91b38e50ba61c9a3dbb03ba1}} 
+\index{StyleList@{StyleList}!styleInCategory@{styleInCategory}}
+\index{styleInCategory@{styleInCategory}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{styleInCategory()}{styleInCategory()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle}{Style}} $\ast$ Style\+List\+::style\+In\+Category (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classStyleList_ac16b000d91b38e50ba61c9a3dbb03ba1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classStyleList_a6e6e0198b77a7cd87e0dec1373e9beca}\label{classStyleList_a6e6e0198b77a7cd87e0dec1373e9beca}} 
+\index{StyleList@{StyleList}!tikz@{tikz}}
+\index{tikz@{tikz}!StyleList@{StyleList}}
+\doxysubsubsection{\texorpdfstring{tikz()}{tikz()}}
+{\footnotesize\ttfamily QString Style\+List\+::tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{stylelist_8h}{stylelist.\+h}}\item 
+src/data/\mbox{\hyperlink{stylelist_8cpp}{stylelist.\+cpp}}\end{DoxyCompactItemize}

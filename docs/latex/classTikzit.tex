@@ -1,0 +1,453 @@
+\hypertarget{classTikzit}{}\doxysection{Tikzit Class Reference}
+\label{classTikzit}\index{Tikzit@{Tikzit}}
+
+
+{\ttfamily \#include $<$tikzit.\+h$>$}
+
+
+
+Inheritance diagram for Tikzit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classTikzit__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tikzit\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classTikzit__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTikzit_a32b92e21cb2512f62f8d602cb452bddc}{clear\+Recent\+Files}} ()
+\item 
+void \mbox{\hyperlink{classTikzit_a762b5e27e04f20bb7f6ed161a222b5c9}{set\+Check\+For\+Updates}} (bool check)
+\item 
+void \mbox{\hyperlink{classTikzit_aa853eb642e891ca355e49b94cb453652}{check\+For\+Updates}} (bool manual)
+\item 
+void \mbox{\hyperlink{classTikzit_a1a969509d91a1f3ec0132d1650d7354e}{update\+Auto}} (QNetwork\+Reply $\ast$reply)
+\item 
+void \mbox{\hyperlink{classTikzit_a3375cbe721ef274920261f943d11050c}{update\+Manual}} (QNetwork\+Reply $\ast$reply)
+\item 
+void \mbox{\hyperlink{classTikzit_ad600aca5e2b0afafb48c319baf2cc713}{update\+Reply}} (QNetwork\+Reply $\ast$reply, bool manual)
+\item 
+void \mbox{\hyperlink{classTikzit_a5dc561f5f8ae049246ef2efe2c72507d}{make\+Preview}} ()
+\item 
+void \mbox{\hyperlink{classTikzit_ad2ee007e1fae9f7393374df8ebfc5ed6}{cleanup\+Latex}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTikzit_a8eb27aabbab461fe7d069b902e1adc16}{Tikzit}} ()
+\item 
+\mbox{\hyperlink{classToolPalette}{Tool\+Palette}} $\ast$ \mbox{\hyperlink{classTikzit_a15745626ad7df363efe39d863267a5c5}{tool\+Palette}} () const
+\item 
+\mbox{\hyperlink{classPropertyPalette}{Property\+Palette}} $\ast$ \mbox{\hyperlink{classTikzit_a49ca060ef4796d114fb4259bea40fca9}{property\+Palette}} () const
+\item 
+\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$ \mbox{\hyperlink{classTikzit_acd29084c8b324c7fdd6ba7c0a27db95a}{active\+Window}} () const
+\item 
+bool \mbox{\hyperlink{classTikzit_ad2fae31a60cd6f06658799c36be67b65}{dialog\+Status}} () const
+\item 
+void \mbox{\hyperlink{classTikzit_ae5a5a940782aaadd45c264329bbe055d}{set\+Active\+Window}} (\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$\mbox{\hyperlink{classTikzit_acd29084c8b324c7fdd6ba7c0a27db95a}{active\+Window}})
+\item 
+void \mbox{\hyperlink{classTikzit_a9353132fccfa95ceb9602ad56bed7216}{remove\+Window}} (\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$w)
+\item 
+void \mbox{\hyperlink{classTikzit_a88a2ea90160265409704107d077c3023}{set\+Dialog\+Status}} (bool active)
+\item 
+void \mbox{\hyperlink{classTikzit_a85c2d5b9932ce464e442e329a431f02c}{new\+Doc}} ()
+\item 
+void \mbox{\hyperlink{classTikzit_a3a06304a019e9ba945ad213a767420c0}{open}} ()
+\item 
+void \mbox{\hyperlink{classTikzit_ab28b40a57aef36d420010edf2815303e}{open}} (QString file\+Name)
+\item 
+void \mbox{\hyperlink{classTikzit_a2d09a4102dc672b2ec3e64a20cc07b38}{quit}} ()
+\item 
+void \mbox{\hyperlink{classTikzit_a7c465fb6852f78e6ce141c0423288deb}{init}} ()
+\item 
+QColor \mbox{\hyperlink{classTikzit_a8733ba20798d96784f7947d2ad1a992d}{color\+By\+Index}} (int i)
+\item 
+QColor \mbox{\hyperlink{classTikzit_a8b3e616a1f13eee66e5e8c6bf919643b}{color\+By\+Name}} (QString name)
+\item 
+QString \mbox{\hyperlink{classTikzit_ad7553c4e058d130acab7678ca696f64f}{name\+For\+Color}} (QColor col)
+\item 
+void \mbox{\hyperlink{classTikzit_af316d4bd8c0e9daaabb8ea5af3c9fcf9}{new\+Tikz\+Styles}} ()
+\item 
+void \mbox{\hyperlink{classTikzit_a6409c04d67b0d3d5e900357867cd0b40}{open\+Tikz\+Styles}} ()
+\item 
+bool \mbox{\hyperlink{classTikzit_abd21277fc1af39fb5876304c3fe5d1b7}{load\+Styles}} (QString file\+Name)
+\item 
+void \mbox{\hyperlink{classTikzit_a12eac6b3a56c34cd0e11bca403a85512}{show\+Style\+Editor}} ()
+\item 
+\mbox{\hyperlink{classTikzStyles}{Tikz\+Styles}} $\ast$ \mbox{\hyperlink{classTikzit_a24e2439bb0de1fa5e4eeec25093190cb}{styles}} () const
+\item 
+QString \mbox{\hyperlink{classTikzit_a4f63f6fdec39b10611b3ef29580e5c54}{style\+File}} () const
+\item 
+QString \mbox{\hyperlink{classTikzit_a17aa91297d8d392fd914a25bdf111cbc}{style\+File\+Path}} () const
+\item 
+void \mbox{\hyperlink{classTikzit_a9d2aaaf2c60de49f9543e9566dd612ff}{update\+Recent\+Files}} ()
+\item 
+\mbox{\hyperlink{classPreviewWindow}{Preview\+Window}} $\ast$ \mbox{\hyperlink{classTikzit_ab4628bbcdf3344642fa52f9975e1aadc}{preview\+Window}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static QFont \mbox{\hyperlink{classTikzit_ada0446e99237e2746dfa07c7c9abde57}{LABEL\+\_\+\+FONT}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classTikzit}{Tikzit}} is the top-\/level class which maintains the global application state. For convenience, it also holds an instance of the main menu for mac\+OS (or Ubuntu unity) style GUIs which only have one, application-\/level menu. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTikzit_a8eb27aabbab461fe7d069b902e1adc16}\label{classTikzit_a8eb27aabbab461fe7d069b902e1adc16}} 
+\index{Tikzit@{Tikzit}!Tikzit@{Tikzit}}
+\index{Tikzit@{Tikzit}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{Tikzit()}{Tikzit()}}
+{\footnotesize\ttfamily Tikzit\+::\+Tikzit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTikzit_acd29084c8b324c7fdd6ba7c0a27db95a}\label{classTikzit_acd29084c8b324c7fdd6ba7c0a27db95a}} 
+\index{Tikzit@{Tikzit}!activeWindow@{activeWindow}}
+\index{activeWindow@{activeWindow}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{activeWindow()}{activeWindow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$ Tikzit\+::active\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_aa853eb642e891ca355e49b94cb453652}\label{classTikzit_aa853eb642e891ca355e49b94cb453652}} 
+\index{Tikzit@{Tikzit}!checkForUpdates@{checkForUpdates}}
+\index{checkForUpdates@{checkForUpdates}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{checkForUpdates}{checkForUpdates}}
+{\footnotesize\ttfamily void Tikzit\+::check\+For\+Updates (\begin{DoxyParamCaption}\item[{bool}]{manual }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_aa853eb642e891ca355e49b94cb453652_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_ad2ee007e1fae9f7393374df8ebfc5ed6}\label{classTikzit_ad2ee007e1fae9f7393374df8ebfc5ed6}} 
+\index{Tikzit@{Tikzit}!cleanupLatex@{cleanupLatex}}
+\index{cleanupLatex@{cleanupLatex}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{cleanupLatex}{cleanupLatex}}
+{\footnotesize\ttfamily void Tikzit\+::cleanup\+Latex (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+\mbox{\Hypertarget{classTikzit_a32b92e21cb2512f62f8d602cb452bddc}\label{classTikzit_a32b92e21cb2512f62f8d602cb452bddc}} 
+\index{Tikzit@{Tikzit}!clearRecentFiles@{clearRecentFiles}}
+\index{clearRecentFiles@{clearRecentFiles}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{clearRecentFiles}{clearRecentFiles}}
+{\footnotesize\ttfamily void Tikzit\+::clear\+Recent\+Files (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a32b92e21cb2512f62f8d602cb452bddc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a8733ba20798d96784f7947d2ad1a992d}\label{classTikzit_a8733ba20798d96784f7947d2ad1a992d}} 
+\index{Tikzit@{Tikzit}!colorByIndex@{colorByIndex}}
+\index{colorByIndex@{colorByIndex}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{colorByIndex()}{colorByIndex()}}
+{\footnotesize\ttfamily QColor Tikzit\+::color\+By\+Index (\begin{DoxyParamCaption}\item[{int}]{i }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzit_a8b3e616a1f13eee66e5e8c6bf919643b}\label{classTikzit_a8b3e616a1f13eee66e5e8c6bf919643b}} 
+\index{Tikzit@{Tikzit}!colorByName@{colorByName}}
+\index{colorByName@{colorByName}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{colorByName()}{colorByName()}}
+{\footnotesize\ttfamily QColor Tikzit\+::color\+By\+Name (\begin{DoxyParamCaption}\item[{QString}]{name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzit_ad2fae31a60cd6f06658799c36be67b65}\label{classTikzit_ad2fae31a60cd6f06658799c36be67b65}} 
+\index{Tikzit@{Tikzit}!dialogStatus@{dialogStatus}}
+\index{dialogStatus@{dialogStatus}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{dialogStatus()}{dialogStatus()}}
+{\footnotesize\ttfamily bool Tikzit\+::dialog\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a7c465fb6852f78e6ce141c0423288deb}\label{classTikzit_a7c465fb6852f78e6ce141c0423288deb}} 
+\index{Tikzit@{Tikzit}!init@{init}}
+\index{init@{init}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Tikzit\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a7c465fb6852f78e6ce141c0423288deb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_abd21277fc1af39fb5876304c3fe5d1b7}\label{classTikzit_abd21277fc1af39fb5876304c3fe5d1b7}} 
+\index{Tikzit@{Tikzit}!loadStyles@{loadStyles}}
+\index{loadStyles@{loadStyles}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{loadStyles()}{loadStyles()}}
+{\footnotesize\ttfamily bool Tikzit\+::load\+Styles (\begin{DoxyParamCaption}\item[{QString}]{file\+Name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_abd21277fc1af39fb5876304c3fe5d1b7_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a5dc561f5f8ae049246ef2efe2c72507d}\label{classTikzit_a5dc561f5f8ae049246ef2efe2c72507d}} 
+\index{Tikzit@{Tikzit}!makePreview@{makePreview}}
+\index{makePreview@{makePreview}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{makePreview}{makePreview}}
+{\footnotesize\ttfamily void Tikzit\+::make\+Preview (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a5dc561f5f8ae049246ef2efe2c72507d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_ad7553c4e058d130acab7678ca696f64f}\label{classTikzit_ad7553c4e058d130acab7678ca696f64f}} 
+\index{Tikzit@{Tikzit}!nameForColor@{nameForColor}}
+\index{nameForColor@{nameForColor}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{nameForColor()}{nameForColor()}}
+{\footnotesize\ttfamily QString Tikzit\+::name\+For\+Color (\begin{DoxyParamCaption}\item[{QColor}]{col }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzit_a85c2d5b9932ce464e442e329a431f02c}\label{classTikzit_a85c2d5b9932ce464e442e329a431f02c}} 
+\index{Tikzit@{Tikzit}!newDoc@{newDoc}}
+\index{newDoc@{newDoc}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{newDoc()}{newDoc()}}
+{\footnotesize\ttfamily void Tikzit\+::new\+Doc (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a85c2d5b9932ce464e442e329a431f02c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_af316d4bd8c0e9daaabb8ea5af3c9fcf9}\label{classTikzit_af316d4bd8c0e9daaabb8ea5af3c9fcf9}} 
+\index{Tikzit@{Tikzit}!newTikzStyles@{newTikzStyles}}
+\index{newTikzStyles@{newTikzStyles}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{newTikzStyles()}{newTikzStyles()}}
+{\footnotesize\ttfamily void Tikzit\+::new\+Tikz\+Styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_af316d4bd8c0e9daaabb8ea5af3c9fcf9_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a3a06304a019e9ba945ad213a767420c0}\label{classTikzit_a3a06304a019e9ba945ad213a767420c0}} 
+\index{Tikzit@{Tikzit}!open@{open}}
+\index{open@{open}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Tikzit\+::open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzit_ab28b40a57aef36d420010edf2815303e}\label{classTikzit_ab28b40a57aef36d420010edf2815303e}} 
+\index{Tikzit@{Tikzit}!open@{open}}
+\index{open@{open}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Tikzit\+::open (\begin{DoxyParamCaption}\item[{QString}]{file\+Name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_ab28b40a57aef36d420010edf2815303e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a6409c04d67b0d3d5e900357867cd0b40}\label{classTikzit_a6409c04d67b0d3d5e900357867cd0b40}} 
+\index{Tikzit@{Tikzit}!openTikzStyles@{openTikzStyles}}
+\index{openTikzStyles@{openTikzStyles}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{openTikzStyles()}{openTikzStyles()}}
+{\footnotesize\ttfamily void Tikzit\+::open\+Tikz\+Styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a6409c04d67b0d3d5e900357867cd0b40_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_ab4628bbcdf3344642fa52f9975e1aadc}\label{classTikzit_ab4628bbcdf3344642fa52f9975e1aadc}} 
+\index{Tikzit@{Tikzit}!previewWindow@{previewWindow}}
+\index{previewWindow@{previewWindow}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{previewWindow()}{previewWindow()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPreviewWindow}{Preview\+Window}} $\ast$ Tikzit\+::preview\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a49ca060ef4796d114fb4259bea40fca9}\label{classTikzit_a49ca060ef4796d114fb4259bea40fca9}} 
+\index{Tikzit@{Tikzit}!propertyPalette@{propertyPalette}}
+\index{propertyPalette@{propertyPalette}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{propertyPalette()}{propertyPalette()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPropertyPalette}{Property\+Palette}} $\ast$ Tikzit\+::property\+Palette (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a2d09a4102dc672b2ec3e64a20cc07b38}\label{classTikzit_a2d09a4102dc672b2ec3e64a20cc07b38}} 
+\index{Tikzit@{Tikzit}!quit@{quit}}
+\index{quit@{quit}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{quit()}{quit()}}
+{\footnotesize\ttfamily void Tikzit\+::quit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzit_a9353132fccfa95ceb9602ad56bed7216}\label{classTikzit_a9353132fccfa95ceb9602ad56bed7216}} 
+\index{Tikzit@{Tikzit}!removeWindow@{removeWindow}}
+\index{removeWindow@{removeWindow}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{removeWindow()}{removeWindow()}}
+{\footnotesize\ttfamily void Tikzit\+::remove\+Window (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$}]{w }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{classTikzit_a9353132fccfa95ceb9602ad56bed7216_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_ae5a5a940782aaadd45c264329bbe055d}\label{classTikzit_ae5a5a940782aaadd45c264329bbe055d}} 
+\index{Tikzit@{Tikzit}!setActiveWindow@{setActiveWindow}}
+\index{setActiveWindow@{setActiveWindow}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{setActiveWindow()}{setActiveWindow()}}
+{\footnotesize\ttfamily void Tikzit\+::set\+Active\+Window (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMainWindow}{Main\+Window}} $\ast$}]{active\+Window }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_ae5a5a940782aaadd45c264329bbe055d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a762b5e27e04f20bb7f6ed161a222b5c9}\label{classTikzit_a762b5e27e04f20bb7f6ed161a222b5c9}} 
+\index{Tikzit@{Tikzit}!setCheckForUpdates@{setCheckForUpdates}}
+\index{setCheckForUpdates@{setCheckForUpdates}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{setCheckForUpdates}{setCheckForUpdates}}
+{\footnotesize\ttfamily void Tikzit\+::set\+Check\+For\+Updates (\begin{DoxyParamCaption}\item[{bool}]{check }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a762b5e27e04f20bb7f6ed161a222b5c9_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a88a2ea90160265409704107d077c3023}\label{classTikzit_a88a2ea90160265409704107d077c3023}} 
+\index{Tikzit@{Tikzit}!setDialogStatus@{setDialogStatus}}
+\index{setDialogStatus@{setDialogStatus}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{setDialogStatus()}{setDialogStatus()}}
+{\footnotesize\ttfamily void Tikzit\+::set\+Dialog\+Status (\begin{DoxyParamCaption}\item[{bool}]{active }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzit_a12eac6b3a56c34cd0e11bca403a85512}\label{classTikzit_a12eac6b3a56c34cd0e11bca403a85512}} 
+\index{Tikzit@{Tikzit}!showStyleEditor@{showStyleEditor}}
+\index{showStyleEditor@{showStyleEditor}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{showStyleEditor()}{showStyleEditor()}}
+{\footnotesize\ttfamily void Tikzit\+::show\+Style\+Editor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a12eac6b3a56c34cd0e11bca403a85512_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a4f63f6fdec39b10611b3ef29580e5c54}\label{classTikzit_a4f63f6fdec39b10611b3ef29580e5c54}} 
+\index{Tikzit@{Tikzit}!styleFile@{styleFile}}
+\index{styleFile@{styleFile}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{styleFile()}{styleFile()}}
+{\footnotesize\ttfamily QString Tikzit\+::style\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a17aa91297d8d392fd914a25bdf111cbc}\label{classTikzit_a17aa91297d8d392fd914a25bdf111cbc}} 
+\index{Tikzit@{Tikzit}!styleFilePath@{styleFilePath}}
+\index{styleFilePath@{styleFilePath}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{styleFilePath()}{styleFilePath()}}
+{\footnotesize\ttfamily QString Tikzit\+::style\+File\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a24e2439bb0de1fa5e4eeec25093190cb}\label{classTikzit_a24e2439bb0de1fa5e4eeec25093190cb}} 
+\index{Tikzit@{Tikzit}!styles@{styles}}
+\index{styles@{styles}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{styles()}{styles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzStyles}{Tikz\+Styles}} $\ast$ Tikzit\+::styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a15745626ad7df363efe39d863267a5c5}\label{classTikzit_a15745626ad7df363efe39d863267a5c5}} 
+\index{Tikzit@{Tikzit}!toolPalette@{toolPalette}}
+\index{toolPalette@{toolPalette}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{toolPalette()}{toolPalette()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classToolPalette}{Tool\+Palette}} $\ast$ Tikzit\+::tool\+Palette (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzit_a1a969509d91a1f3ec0132d1650d7354e}\label{classTikzit_a1a969509d91a1f3ec0132d1650d7354e}} 
+\index{Tikzit@{Tikzit}!updateAuto@{updateAuto}}
+\index{updateAuto@{updateAuto}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{updateAuto}{updateAuto}}
+{\footnotesize\ttfamily void Tikzit\+::update\+Auto (\begin{DoxyParamCaption}\item[{QNetwork\+Reply $\ast$}]{reply }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{classTikzit_a1a969509d91a1f3ec0132d1650d7354e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a3375cbe721ef274920261f943d11050c}\label{classTikzit_a3375cbe721ef274920261f943d11050c}} 
+\index{Tikzit@{Tikzit}!updateManual@{updateManual}}
+\index{updateManual@{updateManual}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{updateManual}{updateManual}}
+{\footnotesize\ttfamily void Tikzit\+::update\+Manual (\begin{DoxyParamCaption}\item[{QNetwork\+Reply $\ast$}]{reply }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{classTikzit_a3375cbe721ef274920261f943d11050c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_a9d2aaaf2c60de49f9543e9566dd612ff}\label{classTikzit_a9d2aaaf2c60de49f9543e9566dd612ff}} 
+\index{Tikzit@{Tikzit}!updateRecentFiles@{updateRecentFiles}}
+\index{updateRecentFiles@{updateRecentFiles}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{updateRecentFiles()}{updateRecentFiles()}}
+{\footnotesize\ttfamily void Tikzit\+::update\+Recent\+Files (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzit_a9d2aaaf2c60de49f9543e9566dd612ff_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzit_ad600aca5e2b0afafb48c319baf2cc713}\label{classTikzit_ad600aca5e2b0afafb48c319baf2cc713}} 
+\index{Tikzit@{Tikzit}!updateReply@{updateReply}}
+\index{updateReply@{updateReply}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{updateReply}{updateReply}}
+{\footnotesize\ttfamily void Tikzit\+::update\+Reply (\begin{DoxyParamCaption}\item[{QNetwork\+Reply $\ast$}]{reply,  }\item[{bool}]{manual }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classTikzit_ada0446e99237e2746dfa07c7c9abde57}\label{classTikzit_ada0446e99237e2746dfa07c7c9abde57}} 
+\index{Tikzit@{Tikzit}!LABEL\_FONT@{LABEL\_FONT}}
+\index{LABEL\_FONT@{LABEL\_FONT}!Tikzit@{Tikzit}}
+\doxysubsubsection{\texorpdfstring{LABEL\_FONT}{LABEL\_FONT}}
+{\footnotesize\ttfamily QFont Tikzit\+::\+LABEL\+\_\+\+FONT\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{tikzit_8h}{tikzit.\+h}}\item 
+src/\mbox{\hyperlink{tikzit_8cpp}{tikzit.\+cpp}}\end{DoxyCompactItemize}

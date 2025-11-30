@@ -1,0 +1,9 @@
+<map id="MainMenu::on_actionReflectHorizontal_triggered" name="MainMenu::on_actionReflectHorizontal_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,49,212,90"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="270,5,429,32"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#a8161d9818602c9792019282fb8c58efc" title=" " alt="" coords="260,56,439,83"/>
+<area shape="rect" id="node7" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="261,107,437,133"/>
+<area shape="rect" id="node4" href="$classTikzScene.html#a87345f0416c4ad584954a153f77abf68" title=" " alt="" coords="487,5,701,32"/>
+<area shape="rect" id="node5" href="$classTikzScene.html#a1b2d2f28cf4a27de84372c58a10a253c" title=" " alt="" coords="501,56,687,83"/>
+<area shape="rect" id="node6" href="$classTikzDocument.html#a862fc9522e63f9902e6c33416de92043" title=" " alt="" coords="498,107,690,133"/>
+</map>

@@ -1,0 +1,212 @@
+\hypertarget{classTikzDocument}{}\doxysection{Tikz\+Document Class Reference}
+\label{classTikzDocument}\index{TikzDocument@{TikzDocument}}
+
+
+{\ttfamily \#include $<$tikzdocument.\+h$>$}
+
+
+
+Inheritance diagram for Tikz\+Document\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{classTikzDocument__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tikz\+Document\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=186pt]{classTikzDocument__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTikzDocument_a726d22781699b5b6bc7c28297dc661dd}{Tikz\+Document}} (QObject $\ast$parent=0)
+\item 
+\mbox{\hyperlink{classGraph}{Graph}} $\ast$ \mbox{\hyperlink{classTikzDocument_a9caf79b651a74b556ff54f79334fe97c}{graph}} () const
+\item 
+void \mbox{\hyperlink{classTikzDocument_a5af11086baa5b2c734e323020dca5c39}{set\+Graph}} (\mbox{\hyperlink{classGraph}{Graph}} $\ast$\mbox{\hyperlink{classTikzDocument_a9caf79b651a74b556ff54f79334fe97c}{graph}})
+\item 
+QString \mbox{\hyperlink{classTikzDocument_a78b3a62fc55b1389d39a90455cc92e66}{tikz}} () const
+\item 
+QUndo\+Stack $\ast$ \mbox{\hyperlink{classTikzDocument_a862fc9522e63f9902e6c33416de92043}{undo\+Stack}} () const
+\item 
+bool \mbox{\hyperlink{classTikzDocument_a2b6ee2eb1aec4da1912008daaa259412}{parse\+Success}} () const
+\item 
+void \mbox{\hyperlink{classTikzDocument_a95fd117fd9ba53a013a232667bc9c753}{refresh\+Tikz}} ()
+\item 
+void \mbox{\hyperlink{classTikzDocument_a7c058274de812dfde10ab98b400b6ac1}{open}} (QString \mbox{\hyperlink{classTikzDocument_a05a60025072223c9722bb35d5447edfe}{file\+Name}})
+\item 
+QString \mbox{\hyperlink{classTikzDocument_aecb6be6763daf71347ed3f06e9c2419a}{short\+Name}} () const
+\item 
+bool \mbox{\hyperlink{classTikzDocument_a7e750fc0b7377c5bc8abb454c543d48b}{save\+As}} ()
+\item 
+bool \mbox{\hyperlink{classTikzDocument_a9754faf73b7b7114f77286e8a04306ea}{save}} ()
+\item 
+bool \mbox{\hyperlink{classTikzDocument_a45b29da74cdf6000f3b59d0d2a8a92e1}{is\+Clean}} () const
+\item 
+void \mbox{\hyperlink{classTikzDocument_aca39a7dfab651185129ac737f18022ec}{set\+Clean}} ()
+\item 
+QString \mbox{\hyperlink{classTikzDocument_a05a60025072223c9722bb35d5447edfe}{file\+Name}} () const
+\item 
+bool \mbox{\hyperlink{classTikzDocument_af59f39de7c04414b6c5f5649c9767282}{is\+Empty}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class contains a tikz \mbox{\hyperlink{classGraph}{Graph}}, source code, file info, and undo stack. It serves as the model in the MVC triple (\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}}, \mbox{\hyperlink{classTikzView}{Tikz\+View}}, \mbox{\hyperlink{classTikzScene}{Tikz\+Scene}}). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTikzDocument_a726d22781699b5b6bc7c28297dc661dd}\label{classTikzDocument_a726d22781699b5b6bc7c28297dc661dd}} 
+\index{TikzDocument@{TikzDocument}!TikzDocument@{TikzDocument}}
+\index{TikzDocument@{TikzDocument}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{TikzDocument()}{TikzDocument()}}
+{\footnotesize\ttfamily Tikz\+Document\+::\+Tikz\+Document (\begin{DoxyParamCaption}\item[{QObject $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTikzDocument_a05a60025072223c9722bb35d5447edfe}\label{classTikzDocument_a05a60025072223c9722bb35d5447edfe}} 
+\index{TikzDocument@{TikzDocument}!fileName@{fileName}}
+\index{fileName@{fileName}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{fileName()}{fileName()}}
+{\footnotesize\ttfamily QString Tikz\+Document\+::file\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzDocument_a9caf79b651a74b556ff54f79334fe97c}\label{classTikzDocument_a9caf79b651a74b556ff54f79334fe97c}} 
+\index{TikzDocument@{TikzDocument}!graph@{graph}}
+\index{graph@{graph}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{graph()}{graph()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraph}{Graph}} $\ast$ Tikz\+Document\+::graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzDocument_a45b29da74cdf6000f3b59d0d2a8a92e1}\label{classTikzDocument_a45b29da74cdf6000f3b59d0d2a8a92e1}} 
+\index{TikzDocument@{TikzDocument}!isClean@{isClean}}
+\index{isClean@{isClean}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{isClean()}{isClean()}}
+{\footnotesize\ttfamily bool Tikz\+Document\+::is\+Clean (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzDocument_af59f39de7c04414b6c5f5649c9767282}\label{classTikzDocument_af59f39de7c04414b6c5f5649c9767282}} 
+\index{TikzDocument@{TikzDocument}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily bool Tikz\+Document\+::is\+Empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{classTikzDocument_af59f39de7c04414b6c5f5649c9767282_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzDocument_a7c058274de812dfde10ab98b400b6ac1}\label{classTikzDocument_a7c058274de812dfde10ab98b400b6ac1}} 
+\index{TikzDocument@{TikzDocument}!open@{open}}
+\index{open@{open}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}}
+{\footnotesize\ttfamily void Tikz\+Document\+::open (\begin{DoxyParamCaption}\item[{QString}]{file\+Name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzDocument_a7c058274de812dfde10ab98b400b6ac1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzDocument_a2b6ee2eb1aec4da1912008daaa259412}\label{classTikzDocument_a2b6ee2eb1aec4da1912008daaa259412}} 
+\index{TikzDocument@{TikzDocument}!parseSuccess@{parseSuccess}}
+\index{parseSuccess@{parseSuccess}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{parseSuccess()}{parseSuccess()}}
+{\footnotesize\ttfamily bool Tikz\+Document\+::parse\+Success (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzDocument_a95fd117fd9ba53a013a232667bc9c753}\label{classTikzDocument_a95fd117fd9ba53a013a232667bc9c753}} 
+\index{TikzDocument@{TikzDocument}!refreshTikz@{refreshTikz}}
+\index{refreshTikz@{refreshTikz}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{refreshTikz()}{refreshTikz()}}
+{\footnotesize\ttfamily void Tikz\+Document\+::refresh\+Tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzDocument_a95fd117fd9ba53a013a232667bc9c753_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzDocument_a9754faf73b7b7114f77286e8a04306ea}\label{classTikzDocument_a9754faf73b7b7114f77286e8a04306ea}} 
+\index{TikzDocument@{TikzDocument}!save@{save}}
+\index{save@{save}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily bool Tikz\+Document\+::save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzDocument_a9754faf73b7b7114f77286e8a04306ea_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzDocument_a7e750fc0b7377c5bc8abb454c543d48b}\label{classTikzDocument_a7e750fc0b7377c5bc8abb454c543d48b}} 
+\index{TikzDocument@{TikzDocument}!saveAs@{saveAs}}
+\index{saveAs@{saveAs}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{saveAs()}{saveAs()}}
+{\footnotesize\ttfamily bool Tikz\+Document\+::save\+As (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzDocument_a7e750fc0b7377c5bc8abb454c543d48b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzDocument_aca39a7dfab651185129ac737f18022ec}\label{classTikzDocument_aca39a7dfab651185129ac737f18022ec}} 
+\index{TikzDocument@{TikzDocument}!setClean@{setClean}}
+\index{setClean@{setClean}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{setClean()}{setClean()}}
+{\footnotesize\ttfamily void Tikz\+Document\+::set\+Clean (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzDocument_a5af11086baa5b2c734e323020dca5c39}\label{classTikzDocument_a5af11086baa5b2c734e323020dca5c39}} 
+\index{TikzDocument@{TikzDocument}!setGraph@{setGraph}}
+\index{setGraph@{setGraph}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{setGraph()}{setGraph()}}
+{\footnotesize\ttfamily void Tikz\+Document\+::set\+Graph (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}} $\ast$}]{graph }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzDocument_a5af11086baa5b2c734e323020dca5c39_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzDocument_aecb6be6763daf71347ed3f06e9c2419a}\label{classTikzDocument_aecb6be6763daf71347ed3f06e9c2419a}} 
+\index{TikzDocument@{TikzDocument}!shortName@{shortName}}
+\index{shortName@{shortName}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{shortName()}{shortName()}}
+{\footnotesize\ttfamily QString Tikz\+Document\+::short\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzDocument_a78b3a62fc55b1389d39a90455cc92e66}\label{classTikzDocument_a78b3a62fc55b1389d39a90455cc92e66}} 
+\index{TikzDocument@{TikzDocument}!tikz@{tikz}}
+\index{tikz@{tikz}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{tikz()}{tikz()}}
+{\footnotesize\ttfamily QString Tikz\+Document\+::tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzDocument_a862fc9522e63f9902e6c33416de92043}\label{classTikzDocument_a862fc9522e63f9902e6c33416de92043}} 
+\index{TikzDocument@{TikzDocument}!undoStack@{undoStack}}
+\index{undoStack@{undoStack}!TikzDocument@{TikzDocument}}
+\doxysubsubsection{\texorpdfstring{undoStack()}{undoStack()}}
+{\footnotesize\ttfamily QUndo\+Stack $\ast$ Tikz\+Document\+::undo\+Stack (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{tikzdocument_8h}{tikzdocument.\+h}}\item 
+src/data/\mbox{\hyperlink{tikzdocument_8cpp}{tikzdocument.\+cpp}}\end{DoxyCompactItemize}

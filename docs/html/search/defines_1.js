@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['begin_1879',['BEGIN',['../tikzlexer_8lexer_8cpp.html#ab766bbbee08d04b67e3fe599d6900873',1,'tikzlexer.lexer.cpp']]]
+];

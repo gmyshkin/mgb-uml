@@ -1,0 +1,271 @@
+\hypertarget{classMainWindow}{}\doxysection{Main\+Window Class Reference}
+\label{classMainWindow}\index{MainWindow@{MainWindow}}
+
+
+{\ttfamily \#include $<$mainwindow.\+h$>$}
+
+
+
+Inheritance diagram for Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classMainWindow__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Main\+Window\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=251pt]{classMainWindow__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMainWindow_a59f933f727d8147948372405fd96c714}{on\+\_\+tikz\+Source\+\_\+text\+Changed}} ()
+\item 
+void \mbox{\hyperlink{classMainWindow_a8ac741058964d6c5dd88b81ce6d0b6a2}{update\+File\+Name}} ()
+\item 
+void \mbox{\hyperlink{classMainWindow_afd1ad3096281222d22c15a7ed982d333}{refresh\+Tikz}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMainWindow_a8b244be8b7b7db1b08de2a2acb9409db}{Main\+Window}} (QWidget $\ast$parent=0)
+\item 
+\mbox{\hyperlink{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}{$\sim$\+Main\+Window}} ()
+\item 
+void \mbox{\hyperlink{classMainWindow_a944c7af057cca1478429d640b7e06b3e}{restore\+Position}} ()
+\item 
+void \mbox{\hyperlink{classMainWindow_a9cc3cc52e618e5288afe8ffb9f3108dd}{set\+Font}} ()
+\item 
+void \mbox{\hyperlink{classMainWindow_a459c7a2482bda3909521b1cb319a5f32}{open}} (QString file\+Name)
+\item 
+int \mbox{\hyperlink{classMainWindow_afc330d1f03ab09e60e8268bd9f34ba2f}{window\+Id}} () const
+\item 
+\mbox{\hyperlink{classTikzView}{Tikz\+View}} $\ast$ \mbox{\hyperlink{classMainWindow_a6cde9b2b6abc197f454e105f430f9b9f}{tikz\+View}} () const
+\item 
+\mbox{\hyperlink{classTikzScene}{Tikz\+Scene}} $\ast$ \mbox{\hyperlink{classMainWindow_a8d6032e4a0b33e130f694fba6010898f}{tikz\+Scene}} () const
+\item 
+\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$ \mbox{\hyperlink{classMainWindow_af3c315cae3863d981c6dd069e77741fa}{tikz\+Document}} () const
+\item 
+\mbox{\hyperlink{classToolPalette}{Tool\+Palette}} $\ast$ \mbox{\hyperlink{classMainWindow_af075c96f739f463155731a248a6a2775}{tool\+Palette}} () const
+\item 
+\mbox{\hyperlink{classStylePalette}{Style\+Palette}} $\ast$ \mbox{\hyperlink{classMainWindow_a2cfc8751f9e8234a5df3cc6da25600f3}{style\+Palette}} () const
+\item 
+QSplitter $\ast$ \mbox{\hyperlink{classMainWindow_a94f521d04a2274091efe201ffd76bd2e}{splitter}} () const
+\item 
+QString \mbox{\hyperlink{classMainWindow_a1129689eae3a8a43e209117d386326c0}{tikz\+Source}} ()
+\item 
+void \mbox{\hyperlink{classMainWindow_af7ed4e0679a10e1f6a2875c0c01e4471}{set\+Source\+Line}} (int line)
+\item 
+\mbox{\hyperlink{classMainMenu}{Main\+Menu}} $\ast$ \mbox{\hyperlink{classMainWindow_a2ab86db55c20df5c6639a34a66a52206}{menu}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classMainWindow_a05fb9d72c044aa3bb7d187b994704e2f}{close\+Event}} (QClose\+Event $\ast$event) override
+\item 
+void \mbox{\hyperlink{classMainWindow_a416ae2140ac1aa9f03a6279316abdcad}{change\+Event}} (QEvent $\ast$event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMainWindow_a8b244be8b7b7db1b08de2a2acb9409db}\label{classMainWindow_a8b244be8b7b7db1b08de2a2acb9409db}} 
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\index{MainWindow@{MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{MainWindow()}{MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::\+Main\+Window (\begin{DoxyParamCaption}\item[{QWidget $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_a8b244be8b7b7db1b08de2a2acb9409db_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}\label{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7}} 
+\index{MainWindow@{MainWindow}!````~MainWindow@{$\sim$MainWindow}}
+\index{````~MainWindow@{$\sim$MainWindow}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{$\sim$MainWindow()}{~MainWindow()}}
+{\footnotesize\ttfamily Main\+Window\+::$\sim$\+Main\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_ae98d00a93bc118200eeef9f9bba1dba7_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMainWindow_a416ae2140ac1aa9f03a6279316abdcad}\label{classMainWindow_a416ae2140ac1aa9f03a6279316abdcad}} 
+\index{MainWindow@{MainWindow}!changeEvent@{changeEvent}}
+\index{changeEvent@{changeEvent}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{changeEvent()}{changeEvent()}}
+{\footnotesize\ttfamily void Main\+Window\+::change\+Event (\begin{DoxyParamCaption}\item[{QEvent $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_a416ae2140ac1aa9f03a6279316abdcad_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_a05fb9d72c044aa3bb7d187b994704e2f}\label{classMainWindow_a05fb9d72c044aa3bb7d187b994704e2f}} 
+\index{MainWindow@{MainWindow}!closeEvent@{closeEvent}}
+\index{closeEvent@{closeEvent}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{closeEvent()}{closeEvent()}}
+{\footnotesize\ttfamily void Main\+Window\+::close\+Event (\begin{DoxyParamCaption}\item[{QClose\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_a05fb9d72c044aa3bb7d187b994704e2f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_a2ab86db55c20df5c6639a34a66a52206}\label{classMainWindow_a2ab86db55c20df5c6639a34a66a52206}} 
+\index{MainWindow@{MainWindow}!menu@{menu}}
+\index{menu@{menu}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{menu()}{menu()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMainMenu}{Main\+Menu}} $\ast$ Main\+Window\+::menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_a59f933f727d8147948372405fd96c714}\label{classMainWindow_a59f933f727d8147948372405fd96c714}} 
+\index{MainWindow@{MainWindow}!on\_tikzSource\_textChanged@{on\_tikzSource\_textChanged}}
+\index{on\_tikzSource\_textChanged@{on\_tikzSource\_textChanged}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{on\_tikzSource\_textChanged}{on\_tikzSource\_textChanged}}
+{\footnotesize\ttfamily void Main\+Window\+::on\+\_\+tikz\+Source\+\_\+text\+Changed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_a59f933f727d8147948372405fd96c714_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_a459c7a2482bda3909521b1cb319a5f32}\label{classMainWindow_a459c7a2482bda3909521b1cb319a5f32}} 
+\index{MainWindow@{MainWindow}!open@{open}}
+\index{open@{open}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}}
+{\footnotesize\ttfamily void Main\+Window\+::open (\begin{DoxyParamCaption}\item[{QString}]{file\+Name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_a459c7a2482bda3909521b1cb319a5f32_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_afd1ad3096281222d22c15a7ed982d333}\label{classMainWindow_afd1ad3096281222d22c15a7ed982d333}} 
+\index{MainWindow@{MainWindow}!refreshTikz@{refreshTikz}}
+\index{refreshTikz@{refreshTikz}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{refreshTikz}{refreshTikz}}
+{\footnotesize\ttfamily void Main\+Window\+::refresh\+Tikz (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_afd1ad3096281222d22c15a7ed982d333_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_a944c7af057cca1478429d640b7e06b3e}\label{classMainWindow_a944c7af057cca1478429d640b7e06b3e}} 
+\index{MainWindow@{MainWindow}!restorePosition@{restorePosition}}
+\index{restorePosition@{restorePosition}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{restorePosition()}{restorePosition()}}
+{\footnotesize\ttfamily void Main\+Window\+::restore\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMainWindow_a9cc3cc52e618e5288afe8ffb9f3108dd}\label{classMainWindow_a9cc3cc52e618e5288afe8ffb9f3108dd}} 
+\index{MainWindow@{MainWindow}!setFont@{setFont}}
+\index{setFont@{setFont}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{setFont()}{setFont()}}
+{\footnotesize\ttfamily void Main\+Window\+::set\+Font (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMainWindow_af7ed4e0679a10e1f6a2875c0c01e4471}\label{classMainWindow_af7ed4e0679a10e1f6a2875c0c01e4471}} 
+\index{MainWindow@{MainWindow}!setSourceLine@{setSourceLine}}
+\index{setSourceLine@{setSourceLine}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{setSourceLine()}{setSourceLine()}}
+{\footnotesize\ttfamily void Main\+Window\+::set\+Source\+Line (\begin{DoxyParamCaption}\item[{int}]{line }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMainWindow_a94f521d04a2274091efe201ffd76bd2e}\label{classMainWindow_a94f521d04a2274091efe201ffd76bd2e}} 
+\index{MainWindow@{MainWindow}!splitter@{splitter}}
+\index{splitter@{splitter}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{splitter()}{splitter()}}
+{\footnotesize\ttfamily QSplitter $\ast$ Main\+Window\+::splitter (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_a2cfc8751f9e8234a5df3cc6da25600f3}\label{classMainWindow_a2cfc8751f9e8234a5df3cc6da25600f3}} 
+\index{MainWindow@{MainWindow}!stylePalette@{stylePalette}}
+\index{stylePalette@{stylePalette}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{stylePalette()}{stylePalette()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStylePalette}{Style\+Palette}} $\ast$ Main\+Window\+::style\+Palette (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_af3c315cae3863d981c6dd069e77741fa}\label{classMainWindow_af3c315cae3863d981c6dd069e77741fa}} 
+\index{MainWindow@{MainWindow}!tikzDocument@{tikzDocument}}
+\index{tikzDocument@{tikzDocument}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{tikzDocument()}{tikzDocument()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$ Main\+Window\+::tikz\+Document (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_a8d6032e4a0b33e130f694fba6010898f}\label{classMainWindow_a8d6032e4a0b33e130f694fba6010898f}} 
+\index{MainWindow@{MainWindow}!tikzScene@{tikzScene}}
+\index{tikzScene@{tikzScene}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{tikzScene()}{tikzScene()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzScene}{Tikz\+Scene}} $\ast$ Main\+Window\+::tikz\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_a1129689eae3a8a43e209117d386326c0}\label{classMainWindow_a1129689eae3a8a43e209117d386326c0}} 
+\index{MainWindow@{MainWindow}!tikzSource@{tikzSource}}
+\index{tikzSource@{tikzSource}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{tikzSource()}{tikzSource()}}
+{\footnotesize\ttfamily QString Main\+Window\+::tikz\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classMainWindow_a6cde9b2b6abc197f454e105f430f9b9f}\label{classMainWindow_a6cde9b2b6abc197f454e105f430f9b9f}} 
+\index{MainWindow@{MainWindow}!tikzView@{tikzView}}
+\index{tikzView@{tikzView}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{tikzView()}{tikzView()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzView}{Tikz\+View}} $\ast$ Main\+Window\+::tikz\+View (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_af075c96f739f463155731a248a6a2775}\label{classMainWindow_af075c96f739f463155731a248a6a2775}} 
+\index{MainWindow@{MainWindow}!toolPalette@{toolPalette}}
+\index{toolPalette@{toolPalette}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{toolPalette()}{toolPalette()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classToolPalette}{Tool\+Palette}} $\ast$ Main\+Window\+::tool\+Palette (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classMainWindow_a8ac741058964d6c5dd88b81ce6d0b6a2}\label{classMainWindow_a8ac741058964d6c5dd88b81ce6d0b6a2}} 
+\index{MainWindow@{MainWindow}!updateFileName@{updateFileName}}
+\index{updateFileName@{updateFileName}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{updateFileName}{updateFileName}}
+{\footnotesize\ttfamily void Main\+Window\+::update\+File\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMainWindow_a8ac741058964d6c5dd88b81ce6d0b6a2_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classMainWindow_afc330d1f03ab09e60e8268bd9f34ba2f}\label{classMainWindow_afc330d1f03ab09e60e8268bd9f34ba2f}} 
+\index{MainWindow@{MainWindow}!windowId@{windowId}}
+\index{windowId@{windowId}!MainWindow@{MainWindow}}
+\doxysubsubsection{\texorpdfstring{windowId()}{windowId()}}
+{\footnotesize\ttfamily int Main\+Window\+::window\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{mainwindow_8h}{mainwindow.\+h}}\item 
+src/gui/\mbox{\hyperlink{mainwindow_8cpp}{mainwindow.\+cpp}}\end{DoxyCompactItemize}

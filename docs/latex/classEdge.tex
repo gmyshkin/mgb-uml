@@ -1,0 +1,565 @@
+\hypertarget{classEdge}{}\doxysection{Edge Class Reference}
+\label{classEdge}\index{Edge@{Edge}}
+
+
+{\ttfamily \#include $<$edge.\+h$>$}
+
+
+
+Inheritance diagram for Edge\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classEdge__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Edge\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{classEdge__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEdge_a375ea16dff20cbe28ee596c4ddddd740}{Edge}} (\mbox{\hyperlink{classNode}{Node}} $\ast$s, \mbox{\hyperlink{classNode}{Node}} $\ast$t, QObject $\ast$parent=nullptr)
+\item 
+\mbox{\hyperlink{classEdge}{Edge}} $\ast$ \mbox{\hyperlink{classEdge_a805051856ecb4d6377a1cb2e2d25f8e5}{copy}} (QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ $\ast$node\+Table=nullptr)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classEdge_a805051856ecb4d6377a1cb2e2d25f8e5}{Edge\+::copy}} makes a deep copy of an edge. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classNode}{Node}} $\ast$ \mbox{\hyperlink{classEdge_a7ceb7f3cda01e0b94fdd1e2b296b81d9}{source}} () const
+\item 
+\mbox{\hyperlink{classNode}{Node}} $\ast$ \mbox{\hyperlink{classEdge_ab1e1317b53ceb2896a1ac50c0c3629cc}{target}} () const
+\item 
+bool \mbox{\hyperlink{classEdge_ad30c096f3f81d7c59b9f4643d6205c17}{is\+Self\+Loop}} ()
+\item 
+bool \mbox{\hyperlink{classEdge_a4a0f5bf9b69464f62a807411434fe8cc}{is\+Straight}} ()
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classEdge_a09e6e4ab1ac48d46420fda978fb29be0}{data}} () const
+\item 
+void \mbox{\hyperlink{classEdge_a2d11bfef3d90dcd1ff2c7417e7cd076d}{set\+Data}} (\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$\mbox{\hyperlink{classEdge_a09e6e4ab1ac48d46420fda978fb29be0}{data}})
+\item 
+QString \mbox{\hyperlink{classEdge_a2da30eab3aace9680c557f6ee6fdc287}{source\+Anchor}} () const
+\item 
+void \mbox{\hyperlink{classEdge_a0453b715bcf9a118001f13c3a2ee90ed}{set\+Source\+Anchor}} (const QString \&\mbox{\hyperlink{classEdge_a2da30eab3aace9680c557f6ee6fdc287}{source\+Anchor}})
+\item 
+QString \mbox{\hyperlink{classEdge_a5388694cadf14d84af05f0efa1697f3f}{target\+Anchor}} () const
+\item 
+void \mbox{\hyperlink{classEdge_a52a0a6d16c74176e6a6ad51b85714909}{set\+Target\+Anchor}} (const QString \&\mbox{\hyperlink{classEdge_a5388694cadf14d84af05f0efa1697f3f}{target\+Anchor}})
+\item 
+\mbox{\hyperlink{classNode}{Node}} $\ast$ \mbox{\hyperlink{classEdge_a1c3226bc61fa535bb6954db7fd3d0272}{edge\+Node}} () const
+\item 
+void \mbox{\hyperlink{classEdge_acb56d2284f787a355c35aa15bb73daff}{set\+Edge\+Node}} (\mbox{\hyperlink{classNode}{Node}} $\ast$\mbox{\hyperlink{classEdge_a1c3226bc61fa535bb6954db7fd3d0272}{edge\+Node}})
+\item 
+bool \mbox{\hyperlink{classEdge_a1d3a0e9231a69fa878831a13f90b937e}{has\+Edge\+Node}} ()
+\item 
+void \mbox{\hyperlink{classEdge_a26636a67c58b35168fb74e928c7b8608}{update\+Controls}} ()
+\item 
+void \mbox{\hyperlink{classEdge_a1aa37a1a808b88c7eeddff97f94b2a32}{set\+Attributes\+From\+Data}} ()
+\item 
+void \mbox{\hyperlink{classEdge_a8d412b3ca575e30b143f530faec6a87c}{update\+Data}} ()
+\item 
+QPointF \mbox{\hyperlink{classEdge_a4602174bd8f6d683ee0987009fcead98}{head}} () const
+\item 
+QPointF \mbox{\hyperlink{classEdge_a6fa2352e055ddad1ff13122f2789d5c5}{tail}} () const
+\item 
+QPointF \mbox{\hyperlink{classEdge_a16eaba885828862c315272022d1acdb8}{cp1}} () const
+\item 
+QPointF \mbox{\hyperlink{classEdge_a974b814a5db4d7c213a5bbb364998e45}{cp2}} () const
+\item 
+QPointF \mbox{\hyperlink{classEdge_a45af0e5585df850756edeb5b2bfe8cf5}{mid}} () const
+\item 
+QPointF \mbox{\hyperlink{classEdge_a23e0b5ccc4447c30c5d45ba4b0b8052f}{head\+Tangent}} () const
+\item 
+QPointF \mbox{\hyperlink{classEdge_a50e11a0e214e616fca82f700435eaace}{tail\+Tangent}} () const
+\item 
+int \mbox{\hyperlink{classEdge_a53f63e42b6e63636cf411d1a67c24d2c}{bend}} () const
+\item 
+int \mbox{\hyperlink{classEdge_ad0811300a211e9a910bdf07c0b7059dd}{in\+Angle}} () const
+\item 
+int \mbox{\hyperlink{classEdge_a7714c3ce4da8aa916ceeb5fc7934b89c}{out\+Angle}} () const
+\item 
+qreal \mbox{\hyperlink{classEdge_af9ccf996181bd66f3d9d202d825749ce}{weight}} () const
+\item 
+bool \mbox{\hyperlink{classEdge_a31ca982045bb13f7cf4107cf647aa66d}{basic\+Bend\+Mode}} () const
+\item 
+qreal \mbox{\hyperlink{classEdge_aef317645eb1e4b654b59ffb2a0f1cf75}{cp\+Dist}} () const
+\item 
+void \mbox{\hyperlink{classEdge_a80db6397cec3044118ac8667a831a3fe}{set\+Basic\+Bend\+Mode}} (bool mode)
+\item 
+void \mbox{\hyperlink{classEdge_ada04c0d551593461f57b014c4d1a6332}{set\+Bend}} (int \mbox{\hyperlink{classEdge_a53f63e42b6e63636cf411d1a67c24d2c}{bend}})
+\item 
+void \mbox{\hyperlink{classEdge_a80516d889ebac103903fd7782cf7b975}{set\+In\+Angle}} (int \mbox{\hyperlink{classEdge_ad0811300a211e9a910bdf07c0b7059dd}{in\+Angle}})
+\item 
+void \mbox{\hyperlink{classEdge_aac2c72666ce7d330e8e90e31e17e4cde}{set\+Out\+Angle}} (int \mbox{\hyperlink{classEdge_a7714c3ce4da8aa916ceeb5fc7934b89c}{out\+Angle}})
+\item 
+void \mbox{\hyperlink{classEdge_a49e3ad02aecde899eee729fcef6c488c}{set\+Weight}} (qreal \mbox{\hyperlink{classEdge_af9ccf996181bd66f3d9d202d825749ce}{weight}})
+\item 
+void \mbox{\hyperlink{classEdge_a5c95f3f2170f1f36b70ec5413580ef98}{reverse}} ()
+\item 
+int \mbox{\hyperlink{classEdge_a8d681660a73c1519b1706042fbda8e61}{tikz\+Line}} () const
+\item 
+void \mbox{\hyperlink{classEdge_a88a8af9e1de08d7e4f72efa4e514aec5}{set\+Tikz\+Line}} (int \mbox{\hyperlink{classEdge_a8d681660a73c1519b1706042fbda8e61}{tikz\+Line}})
+\item 
+void \mbox{\hyperlink{classEdge_adca90b2318553964a9a35a2eca8604eb}{attach\+Style}} ()
+\item 
+QString \mbox{\hyperlink{classEdge_a8eeb15d11b0ac09e5154a7bc2cf154ef}{style\+Name}} () const
+\item 
+void \mbox{\hyperlink{classEdge_ae9f3caeca82b1c7c3edbb46197fc4ee5}{set\+Style\+Name}} (const QString \&\mbox{\hyperlink{classEdge_a8eeb15d11b0ac09e5154a7bc2cf154ef}{style\+Name}})
+\item 
+\mbox{\hyperlink{classStyle}{Style}} $\ast$ \mbox{\hyperlink{classEdge_a4d5d38d173c3ad7ed313e4d57e6d6787}{style}} () const
+\item 
+\mbox{\hyperlink{classPath}{Path}} $\ast$ \mbox{\hyperlink{classEdge_ab71e896913bced523d6715dc21286256}{path}} () const
+\item 
+void \mbox{\hyperlink{classEdge_a4e9e9bc2ff018e62f4c7657244e7f3e4}{set\+Path}} (\mbox{\hyperlink{classPath}{Path}} $\ast$\mbox{\hyperlink{classEdge_ab71e896913bced523d6715dc21286256}{path}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEdge_a375ea16dff20cbe28ee596c4ddddd740}\label{classEdge_a375ea16dff20cbe28ee596c4ddddd740}} 
+\index{Edge@{Edge}!Edge@{Edge}}
+\index{Edge@{Edge}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{Edge()}{Edge()}}
+{\footnotesize\ttfamily Edge\+::\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{s,  }\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{t,  }\item[{QObject $\ast$}]{parent = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a375ea16dff20cbe28ee596c4ddddd740_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEdge_adca90b2318553964a9a35a2eca8604eb}\label{classEdge_adca90b2318553964a9a35a2eca8604eb}} 
+\index{Edge@{Edge}!attachStyle@{attachStyle}}
+\index{attachStyle@{attachStyle}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{attachStyle()}{attachStyle()}}
+{\footnotesize\ttfamily void Edge\+::attach\+Style (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_adca90b2318553964a9a35a2eca8604eb_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a31ca982045bb13f7cf4107cf647aa66d}\label{classEdge_a31ca982045bb13f7cf4107cf647aa66d}} 
+\index{Edge@{Edge}!basicBendMode@{basicBendMode}}
+\index{basicBendMode@{basicBendMode}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{basicBendMode()}{basicBendMode()}}
+{\footnotesize\ttfamily bool Edge\+::basic\+Bend\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a53f63e42b6e63636cf411d1a67c24d2c}\label{classEdge_a53f63e42b6e63636cf411d1a67c24d2c}} 
+\index{Edge@{Edge}!bend@{bend}}
+\index{bend@{bend}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{bend()}{bend()}}
+{\footnotesize\ttfamily int Edge\+::bend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a805051856ecb4d6377a1cb2e2d25f8e5}\label{classEdge_a805051856ecb4d6377a1cb2e2d25f8e5}} 
+\index{Edge@{Edge}!copy@{copy}}
+\index{copy@{copy}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{copy()}{copy()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classEdge}{Edge}} $\ast$ Edge\+::copy (\begin{DoxyParamCaption}\item[{QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ $\ast$}]{node\+Table = {\ttfamily nullptr} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classEdge_a805051856ecb4d6377a1cb2e2d25f8e5}{Edge\+::copy}} makes a deep copy of an edge. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em node\+Table} & is an optional pointer to a table mapping the old source/target node pointers to their new, copied versions. This is used when making a copy of an entire (sub)graph. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a copy of the edge 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a805051856ecb4d6377a1cb2e2d25f8e5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a16eaba885828862c315272022d1acdb8}\label{classEdge_a16eaba885828862c315272022d1acdb8}} 
+\index{Edge@{Edge}!cp1@{cp1}}
+\index{cp1@{cp1}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{cp1()}{cp1()}}
+{\footnotesize\ttfamily QPointF Edge\+::cp1 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a974b814a5db4d7c213a5bbb364998e45}\label{classEdge_a974b814a5db4d7c213a5bbb364998e45}} 
+\index{Edge@{Edge}!cp2@{cp2}}
+\index{cp2@{cp2}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{cp2()}{cp2()}}
+{\footnotesize\ttfamily QPointF Edge\+::cp2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_aef317645eb1e4b654b59ffb2a0f1cf75}\label{classEdge_aef317645eb1e4b654b59ffb2a0f1cf75}} 
+\index{Edge@{Edge}!cpDist@{cpDist}}
+\index{cpDist@{cpDist}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{cpDist()}{cpDist()}}
+{\footnotesize\ttfamily qreal Edge\+::cp\+Dist (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a09e6e4ab1ac48d46420fda978fb29be0}\label{classEdge_a09e6e4ab1ac48d46420fda978fb29be0}} 
+\index{Edge@{Edge}!data@{data}}
+\index{data@{data}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Edge\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a1c3226bc61fa535bb6954db7fd3d0272}\label{classEdge_a1c3226bc61fa535bb6954db7fd3d0272}} 
+\index{Edge@{Edge}!edgeNode@{edgeNode}}
+\index{edgeNode@{edgeNode}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{edgeNode()}{edgeNode()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} $\ast$ Edge\+::edge\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a1d3a0e9231a69fa878831a13f90b937e}\label{classEdge_a1d3a0e9231a69fa878831a13f90b937e}} 
+\index{Edge@{Edge}!hasEdgeNode@{hasEdgeNode}}
+\index{hasEdgeNode@{hasEdgeNode}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{hasEdgeNode()}{hasEdgeNode()}}
+{\footnotesize\ttfamily bool Edge\+::has\+Edge\+Node (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classEdge_a4602174bd8f6d683ee0987009fcead98}\label{classEdge_a4602174bd8f6d683ee0987009fcead98}} 
+\index{Edge@{Edge}!head@{head}}
+\index{head@{head}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{head()}{head()}}
+{\footnotesize\ttfamily QPointF Edge\+::head (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a23e0b5ccc4447c30c5d45ba4b0b8052f}\label{classEdge_a23e0b5ccc4447c30c5d45ba4b0b8052f}} 
+\index{Edge@{Edge}!headTangent@{headTangent}}
+\index{headTangent@{headTangent}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{headTangent()}{headTangent()}}
+{\footnotesize\ttfamily QPointF Edge\+::head\+Tangent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_ad0811300a211e9a910bdf07c0b7059dd}\label{classEdge_ad0811300a211e9a910bdf07c0b7059dd}} 
+\index{Edge@{Edge}!inAngle@{inAngle}}
+\index{inAngle@{inAngle}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{inAngle()}{inAngle()}}
+{\footnotesize\ttfamily int Edge\+::in\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_ad30c096f3f81d7c59b9f4643d6205c17}\label{classEdge_ad30c096f3f81d7c59b9f4643d6205c17}} 
+\index{Edge@{Edge}!isSelfLoop@{isSelfLoop}}
+\index{isSelfLoop@{isSelfLoop}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{isSelfLoop()}{isSelfLoop()}}
+{\footnotesize\ttfamily bool Edge\+::is\+Self\+Loop (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classEdge_a4a0f5bf9b69464f62a807411434fe8cc}\label{classEdge_a4a0f5bf9b69464f62a807411434fe8cc}} 
+\index{Edge@{Edge}!isStraight@{isStraight}}
+\index{isStraight@{isStraight}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{isStraight()}{isStraight()}}
+{\footnotesize\ttfamily bool Edge\+::is\+Straight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classEdge_a45af0e5585df850756edeb5b2bfe8cf5}\label{classEdge_a45af0e5585df850756edeb5b2bfe8cf5}} 
+\index{Edge@{Edge}!mid@{mid}}
+\index{mid@{mid}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{mid()}{mid()}}
+{\footnotesize\ttfamily QPointF Edge\+::mid (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a7714c3ce4da8aa916ceeb5fc7934b89c}\label{classEdge_a7714c3ce4da8aa916ceeb5fc7934b89c}} 
+\index{Edge@{Edge}!outAngle@{outAngle}}
+\index{outAngle@{outAngle}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{outAngle()}{outAngle()}}
+{\footnotesize\ttfamily int Edge\+::out\+Angle (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_ab71e896913bced523d6715dc21286256}\label{classEdge_ab71e896913bced523d6715dc21286256}} 
+\index{Edge@{Edge}!path@{path}}
+\index{path@{path}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPath}{Path}} $\ast$ Edge\+::path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a5c95f3f2170f1f36b70ec5413580ef98}\label{classEdge_a5c95f3f2170f1f36b70ec5413580ef98}} 
+\index{Edge@{Edge}!reverse@{reverse}}
+\index{reverse@{reverse}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{reverse()}{reverse()}}
+{\footnotesize\ttfamily void Edge\+::reverse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a5c95f3f2170f1f36b70ec5413580ef98_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a1aa37a1a808b88c7eeddff97f94b2a32}\label{classEdge_a1aa37a1a808b88c7eeddff97f94b2a32}} 
+\index{Edge@{Edge}!setAttributesFromData@{setAttributesFromData}}
+\index{setAttributesFromData@{setAttributesFromData}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setAttributesFromData()}{setAttributesFromData()}}
+{\footnotesize\ttfamily void Edge\+::set\+Attributes\+From\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a1aa37a1a808b88c7eeddff97f94b2a32_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a80db6397cec3044118ac8667a831a3fe}\label{classEdge_a80db6397cec3044118ac8667a831a3fe}} 
+\index{Edge@{Edge}!setBasicBendMode@{setBasicBendMode}}
+\index{setBasicBendMode@{setBasicBendMode}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setBasicBendMode()}{setBasicBendMode()}}
+{\footnotesize\ttfamily void Edge\+::set\+Basic\+Bend\+Mode (\begin{DoxyParamCaption}\item[{bool}]{mode }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classEdge_ada04c0d551593461f57b014c4d1a6332}\label{classEdge_ada04c0d551593461f57b014c4d1a6332}} 
+\index{Edge@{Edge}!setBend@{setBend}}
+\index{setBend@{setBend}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setBend()}{setBend()}}
+{\footnotesize\ttfamily void Edge\+::set\+Bend (\begin{DoxyParamCaption}\item[{int}]{bend }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{classEdge_ada04c0d551593461f57b014c4d1a6332_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a2d11bfef3d90dcd1ff2c7417e7cd076d}\label{classEdge_a2d11bfef3d90dcd1ff2c7417e7cd076d}} 
+\index{Edge@{Edge}!setData@{setData}}
+\index{setData@{setData}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setData()}{setData()}}
+{\footnotesize\ttfamily void Edge\+::set\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$}]{data }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a2d11bfef3d90dcd1ff2c7417e7cd076d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_acb56d2284f787a355c35aa15bb73daff}\label{classEdge_acb56d2284f787a355c35aa15bb73daff}} 
+\index{Edge@{Edge}!setEdgeNode@{setEdgeNode}}
+\index{setEdgeNode@{setEdgeNode}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setEdgeNode()}{setEdgeNode()}}
+{\footnotesize\ttfamily void Edge\+::set\+Edge\+Node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{edge\+Node }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{classEdge_acb56d2284f787a355c35aa15bb73daff_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a80516d889ebac103903fd7782cf7b975}\label{classEdge_a80516d889ebac103903fd7782cf7b975}} 
+\index{Edge@{Edge}!setInAngle@{setInAngle}}
+\index{setInAngle@{setInAngle}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setInAngle()}{setInAngle()}}
+{\footnotesize\ttfamily void Edge\+::set\+In\+Angle (\begin{DoxyParamCaption}\item[{int}]{in\+Angle }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{classEdge_a80516d889ebac103903fd7782cf7b975_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_aac2c72666ce7d330e8e90e31e17e4cde}\label{classEdge_aac2c72666ce7d330e8e90e31e17e4cde}} 
+\index{Edge@{Edge}!setOutAngle@{setOutAngle}}
+\index{setOutAngle@{setOutAngle}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setOutAngle()}{setOutAngle()}}
+{\footnotesize\ttfamily void Edge\+::set\+Out\+Angle (\begin{DoxyParamCaption}\item[{int}]{out\+Angle }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{classEdge_aac2c72666ce7d330e8e90e31e17e4cde_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a4e9e9bc2ff018e62f4c7657244e7f3e4}\label{classEdge_a4e9e9bc2ff018e62f4c7657244e7f3e4}} 
+\index{Edge@{Edge}!setPath@{setPath}}
+\index{setPath@{setPath}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setPath()}{setPath()}}
+{\footnotesize\ttfamily void Edge\+::set\+Path (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPath}{Path}} $\ast$}]{path }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{classEdge_a4e9e9bc2ff018e62f4c7657244e7f3e4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a0453b715bcf9a118001f13c3a2ee90ed}\label{classEdge_a0453b715bcf9a118001f13c3a2ee90ed}} 
+\index{Edge@{Edge}!setSourceAnchor@{setSourceAnchor}}
+\index{setSourceAnchor@{setSourceAnchor}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setSourceAnchor()}{setSourceAnchor()}}
+{\footnotesize\ttfamily void Edge\+::set\+Source\+Anchor (\begin{DoxyParamCaption}\item[{const QString \&}]{source\+Anchor }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a0453b715bcf9a118001f13c3a2ee90ed_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_ae9f3caeca82b1c7c3edbb46197fc4ee5}\label{classEdge_ae9f3caeca82b1c7c3edbb46197fc4ee5}} 
+\index{Edge@{Edge}!setStyleName@{setStyleName}}
+\index{setStyleName@{setStyleName}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setStyleName()}{setStyleName()}}
+{\footnotesize\ttfamily void Edge\+::set\+Style\+Name (\begin{DoxyParamCaption}\item[{const QString \&}]{style\+Name }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_ae9f3caeca82b1c7c3edbb46197fc4ee5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a52a0a6d16c74176e6a6ad51b85714909}\label{classEdge_a52a0a6d16c74176e6a6ad51b85714909}} 
+\index{Edge@{Edge}!setTargetAnchor@{setTargetAnchor}}
+\index{setTargetAnchor@{setTargetAnchor}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setTargetAnchor()}{setTargetAnchor()}}
+{\footnotesize\ttfamily void Edge\+::set\+Target\+Anchor (\begin{DoxyParamCaption}\item[{const QString \&}]{target\+Anchor }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a52a0a6d16c74176e6a6ad51b85714909_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a88a8af9e1de08d7e4f72efa4e514aec5}\label{classEdge_a88a8af9e1de08d7e4f72efa4e514aec5}} 
+\index{Edge@{Edge}!setTikzLine@{setTikzLine}}
+\index{setTikzLine@{setTikzLine}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setTikzLine()}{setTikzLine()}}
+{\footnotesize\ttfamily void Edge\+::set\+Tikz\+Line (\begin{DoxyParamCaption}\item[{int}]{tikz\+Line }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=303pt]{classEdge_a88a8af9e1de08d7e4f72efa4e514aec5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a49e3ad02aecde899eee729fcef6c488c}\label{classEdge_a49e3ad02aecde899eee729fcef6c488c}} 
+\index{Edge@{Edge}!setWeight@{setWeight}}
+\index{setWeight@{setWeight}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{setWeight()}{setWeight()}}
+{\footnotesize\ttfamily void Edge\+::set\+Weight (\begin{DoxyParamCaption}\item[{qreal}]{weight }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{classEdge_a49e3ad02aecde899eee729fcef6c488c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a7ceb7f3cda01e0b94fdd1e2b296b81d9}\label{classEdge_a7ceb7f3cda01e0b94fdd1e2b296b81d9}} 
+\index{Edge@{Edge}!source@{source}}
+\index{source@{source}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{source()}{source()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} $\ast$ Edge\+::source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a2da30eab3aace9680c557f6ee6fdc287}\label{classEdge_a2da30eab3aace9680c557f6ee6fdc287}} 
+\index{Edge@{Edge}!sourceAnchor@{sourceAnchor}}
+\index{sourceAnchor@{sourceAnchor}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{sourceAnchor()}{sourceAnchor()}}
+{\footnotesize\ttfamily QString Edge\+::source\+Anchor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a4d5d38d173c3ad7ed313e4d57e6d6787}\label{classEdge_a4d5d38d173c3ad7ed313e4d57e6d6787}} 
+\index{Edge@{Edge}!style@{style}}
+\index{style@{style}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{style()}{style()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classStyle}{Style}} $\ast$ Edge\+::style (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a8eeb15d11b0ac09e5154a7bc2cf154ef}\label{classEdge_a8eeb15d11b0ac09e5154a7bc2cf154ef}} 
+\index{Edge@{Edge}!styleName@{styleName}}
+\index{styleName@{styleName}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{styleName()}{styleName()}}
+{\footnotesize\ttfamily QString Edge\+::style\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a8eeb15d11b0ac09e5154a7bc2cf154ef_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a6fa2352e055ddad1ff13122f2789d5c5}\label{classEdge_a6fa2352e055ddad1ff13122f2789d5c5}} 
+\index{Edge@{Edge}!tail@{tail}}
+\index{tail@{tail}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{tail()}{tail()}}
+{\footnotesize\ttfamily QPointF Edge\+::tail (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a50e11a0e214e616fca82f700435eaace}\label{classEdge_a50e11a0e214e616fca82f700435eaace}} 
+\index{Edge@{Edge}!tailTangent@{tailTangent}}
+\index{tailTangent@{tailTangent}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{tailTangent()}{tailTangent()}}
+{\footnotesize\ttfamily QPointF Edge\+::tail\+Tangent (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_ab1e1317b53ceb2896a1ac50c0c3629cc}\label{classEdge_ab1e1317b53ceb2896a1ac50c0c3629cc}} 
+\index{Edge@{Edge}!target@{target}}
+\index{target@{target}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{target()}{target()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} $\ast$ Edge\+::target (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a5388694cadf14d84af05f0efa1697f3f}\label{classEdge_a5388694cadf14d84af05f0efa1697f3f}} 
+\index{Edge@{Edge}!targetAnchor@{targetAnchor}}
+\index{targetAnchor@{targetAnchor}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{targetAnchor()}{targetAnchor()}}
+{\footnotesize\ttfamily QString Edge\+::target\+Anchor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a8d681660a73c1519b1706042fbda8e61}\label{classEdge_a8d681660a73c1519b1706042fbda8e61}} 
+\index{Edge@{Edge}!tikzLine@{tikzLine}}
+\index{tikzLine@{tikzLine}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{tikzLine()}{tikzLine()}}
+{\footnotesize\ttfamily int Edge\+::tikz\+Line (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classEdge_a26636a67c58b35168fb74e928c7b8608}\label{classEdge_a26636a67c58b35168fb74e928c7b8608}} 
+\index{Edge@{Edge}!updateControls@{updateControls}}
+\index{updateControls@{updateControls}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{updateControls()}{updateControls()}}
+{\footnotesize\ttfamily void Edge\+::update\+Controls (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a26636a67c58b35168fb74e928c7b8608_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_a8d412b3ca575e30b143f530faec6a87c}\label{classEdge_a8d412b3ca575e30b143f530faec6a87c}} 
+\index{Edge@{Edge}!updateData@{updateData}}
+\index{updateData@{updateData}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{updateData()}{updateData()}}
+{\footnotesize\ttfamily void Edge\+::update\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEdge_a8d412b3ca575e30b143f530faec6a87c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classEdge_af9ccf996181bd66f3d9d202d825749ce}\label{classEdge_af9ccf996181bd66f3d9d202d825749ce}} 
+\index{Edge@{Edge}!weight@{weight}}
+\index{weight@{weight}!Edge@{Edge}}
+\doxysubsubsection{\texorpdfstring{weight()}{weight()}}
+{\footnotesize\ttfamily qreal Edge\+::weight (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{edge_8h}{edge.\+h}}\item 
+src/data/\mbox{\hyperlink{edge_8cpp}{edge.\+cpp}}\end{DoxyCompactItemize}

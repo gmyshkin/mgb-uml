@@ -1,0 +1,156 @@
+\hypertarget{tikzit_8h}{}\doxysection{src/tikzit.h File Reference}
+\label{tikzit_8h}\index{src/tikzit.h@{src/tikzit.h}}
+{\ttfamily \#include \char`\"{}mainwindow.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mainmenu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}ui\+\_\+mainmenu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}styleeditor.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}toolpalette.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}propertypalette.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}stylepalette.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tikzstyles.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}latexprocess.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}previewwindow.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$QObject$>$}\newline
+{\ttfamily \#include $<$QVector$>$}\newline
+{\ttfamily \#include $<$QString\+List$>$}\newline
+{\ttfamily \#include $<$QPointF$>$}\newline
+{\ttfamily \#include $<$QMenu\+Bar$>$}\newline
+{\ttfamily \#include $<$QMain\+Window$>$}\newline
+{\ttfamily \#include $<$QFont$>$}\newline
+{\ttfamily \#include $<$QColor$>$}\newline
+{\ttfamily \#include $<$QNetwork\+Reply$>$}\newline
+Include dependency graph for tikzit.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tikzit_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tikzit_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classTikzit}{Tikzit}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_a5b91504866bf58abc6cf4f80f5157391}{TIKZIT\+\_\+\+VERSION}}~\char`\"{}2.\+2\char`\"{}
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_a04d3d4f70b4c6caf5cfa811b879e32a1}{GLOBAL\+\_\+\+SCALE}}~40
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_abd193c3e7c0b85fa365ed5414377bb4f}{GLOBAL\+\_\+\+SCALEF}}~40.\+0
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_a9fda914656f6ff52ddf9c5a88889c244}{GLOBAL\+\_\+\+SCALEF\+\_\+\+INV}}~0.\+025
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_ae1cbee0676033687fc88b0a6fd872e6e}{GRID\+\_\+N}}~4
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_a5c198b1c3a76a6915d0fd2837a58d1f0}{GRID\+\_\+\+SEP}}~10
+\item 
+\#define \mbox{\hyperlink{tikzit_8h_a68f4046fbf1d65c16f59dcb84f2e62ad}{GRID\+\_\+\+SEPF}}~10.\+0f
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+QPointF \mbox{\hyperlink{tikzit_8h_a9300836d6f09614d7e4b19e0a30e17b8}{to\+Screen}} (QPointF src)
+\item 
+QPointF \mbox{\hyperlink{tikzit_8h_a7c4bc23f3fc176ad2bc303b7f5892578}{from\+Screen}} (QPointF src)
+\item 
+QRectF \mbox{\hyperlink{tikzit_8h_a9043fb55e325b927f9ed9f4b7b2e370c}{rect\+To\+Screen}} (QRectF src)
+\item 
+QRectF \mbox{\hyperlink{tikzit_8h_a47654dd6df31e6322cad8f6a59b6599b}{rect\+From\+Screen}} (QRectF src)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTikzit}{Tikzit}} $\ast$ \mbox{\hyperlink{tikzit_8h_a275189ddf6b850dde1e63b990e5c4d87}{tikzit}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{tikzit_8h_a04d3d4f70b4c6caf5cfa811b879e32a1}\label{tikzit_8h_a04d3d4f70b4c6caf5cfa811b879e32a1}} 
+\index{tikzit.h@{tikzit.h}!GLOBAL\_SCALE@{GLOBAL\_SCALE}}
+\index{GLOBAL\_SCALE@{GLOBAL\_SCALE}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{GLOBAL\_SCALE}{GLOBAL\_SCALE}}
+{\footnotesize\ttfamily \#define GLOBAL\+\_\+\+SCALE~40}
+
+\mbox{\Hypertarget{tikzit_8h_abd193c3e7c0b85fa365ed5414377bb4f}\label{tikzit_8h_abd193c3e7c0b85fa365ed5414377bb4f}} 
+\index{tikzit.h@{tikzit.h}!GLOBAL\_SCALEF@{GLOBAL\_SCALEF}}
+\index{GLOBAL\_SCALEF@{GLOBAL\_SCALEF}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{GLOBAL\_SCALEF}{GLOBAL\_SCALEF}}
+{\footnotesize\ttfamily \#define GLOBAL\+\_\+\+SCALEF~40.\+0}
+
+\mbox{\Hypertarget{tikzit_8h_a9fda914656f6ff52ddf9c5a88889c244}\label{tikzit_8h_a9fda914656f6ff52ddf9c5a88889c244}} 
+\index{tikzit.h@{tikzit.h}!GLOBAL\_SCALEF\_INV@{GLOBAL\_SCALEF\_INV}}
+\index{GLOBAL\_SCALEF\_INV@{GLOBAL\_SCALEF\_INV}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{GLOBAL\_SCALEF\_INV}{GLOBAL\_SCALEF\_INV}}
+{\footnotesize\ttfamily \#define GLOBAL\+\_\+\+SCALEF\+\_\+\+INV~0.\+025}
+
+\mbox{\Hypertarget{tikzit_8h_ae1cbee0676033687fc88b0a6fd872e6e}\label{tikzit_8h_ae1cbee0676033687fc88b0a6fd872e6e}} 
+\index{tikzit.h@{tikzit.h}!GRID\_N@{GRID\_N}}
+\index{GRID\_N@{GRID\_N}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{GRID\_N}{GRID\_N}}
+{\footnotesize\ttfamily \#define GRID\+\_\+N~4}
+
+\mbox{\Hypertarget{tikzit_8h_a5c198b1c3a76a6915d0fd2837a58d1f0}\label{tikzit_8h_a5c198b1c3a76a6915d0fd2837a58d1f0}} 
+\index{tikzit.h@{tikzit.h}!GRID\_SEP@{GRID\_SEP}}
+\index{GRID\_SEP@{GRID\_SEP}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{GRID\_SEP}{GRID\_SEP}}
+{\footnotesize\ttfamily \#define GRID\+\_\+\+SEP~10}
+
+\mbox{\Hypertarget{tikzit_8h_a68f4046fbf1d65c16f59dcb84f2e62ad}\label{tikzit_8h_a68f4046fbf1d65c16f59dcb84f2e62ad}} 
+\index{tikzit.h@{tikzit.h}!GRID\_SEPF@{GRID\_SEPF}}
+\index{GRID\_SEPF@{GRID\_SEPF}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{GRID\_SEPF}{GRID\_SEPF}}
+{\footnotesize\ttfamily \#define GRID\+\_\+\+SEPF~10.\+0f}
+
+\mbox{\Hypertarget{tikzit_8h_a5b91504866bf58abc6cf4f80f5157391}\label{tikzit_8h_a5b91504866bf58abc6cf4f80f5157391}} 
+\index{tikzit.h@{tikzit.h}!TIKZIT\_VERSION@{TIKZIT\_VERSION}}
+\index{TIKZIT\_VERSION@{TIKZIT\_VERSION}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{TIKZIT\_VERSION}{TIKZIT\_VERSION}}
+{\footnotesize\ttfamily \#define TIKZIT\+\_\+\+VERSION~\char`\"{}2.\+2\char`\"{}}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{tikzit_8h_a7c4bc23f3fc176ad2bc303b7f5892578}\label{tikzit_8h_a7c4bc23f3fc176ad2bc303b7f5892578}} 
+\index{tikzit.h@{tikzit.h}!fromScreen@{fromScreen}}
+\index{fromScreen@{fromScreen}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{fromScreen()}{fromScreen()}}
+{\footnotesize\ttfamily QPointF from\+Screen (\begin{DoxyParamCaption}\item[{QPointF}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{tikzit_8h_a47654dd6df31e6322cad8f6a59b6599b}\label{tikzit_8h_a47654dd6df31e6322cad8f6a59b6599b}} 
+\index{tikzit.h@{tikzit.h}!rectFromScreen@{rectFromScreen}}
+\index{rectFromScreen@{rectFromScreen}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{rectFromScreen()}{rectFromScreen()}}
+{\footnotesize\ttfamily QRectF rect\+From\+Screen (\begin{DoxyParamCaption}\item[{QRectF}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{tikzit_8h_a9043fb55e325b927f9ed9f4b7b2e370c}\label{tikzit_8h_a9043fb55e325b927f9ed9f4b7b2e370c}} 
+\index{tikzit.h@{tikzit.h}!rectToScreen@{rectToScreen}}
+\index{rectToScreen@{rectToScreen}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{rectToScreen()}{rectToScreen()}}
+{\footnotesize\ttfamily QRectF rect\+To\+Screen (\begin{DoxyParamCaption}\item[{QRectF}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\mbox{\Hypertarget{tikzit_8h_a9300836d6f09614d7e4b19e0a30e17b8}\label{tikzit_8h_a9300836d6f09614d7e4b19e0a30e17b8}} 
+\index{tikzit.h@{tikzit.h}!toScreen@{toScreen}}
+\index{toScreen@{toScreen}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{toScreen()}{toScreen()}}
+{\footnotesize\ttfamily QPointF to\+Screen (\begin{DoxyParamCaption}\item[{QPointF}]{src }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{tikzit_8h_a275189ddf6b850dde1e63b990e5c4d87}\label{tikzit_8h_a275189ddf6b850dde1e63b990e5c4d87}} 
+\index{tikzit.h@{tikzit.h}!tikzit@{tikzit}}
+\index{tikzit@{tikzit}!tikzit.h@{tikzit.h}}
+\doxysubsubsection{\texorpdfstring{tikzit}{tikzit}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzit}{Tikzit}}$\ast$ tikzit\hspace{0.3cm}{\ttfamily [extern]}}
+

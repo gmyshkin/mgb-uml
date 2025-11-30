@@ -1,0 +1,714 @@
+\hypertarget{classTikzScene}{}\doxysection{Tikz\+Scene Class Reference}
+\label{classTikzScene}\index{TikzScene@{TikzScene}}
+
+
+{\ttfamily \#include $<$tikzscene.\+h$>$}
+
+
+
+Inheritance diagram for Tikz\+Scene\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classTikzScene__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tikz\+Scene\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{classTikzScene__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Slots}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTikzScene_a48175fadcc45533e5265d2f4b2f9fbfe}{graph\+Replaced}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a8a1627bc79fae93add880198371cead6}{refresh\+ZIndices}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTikzScene_a930797baee3d1cd6e662077d68aec7bf}{Tikz\+Scene}} (\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$\mbox{\hyperlink{classTikzScene_a1b2d2f28cf4a27de84372c58a10a253c}{tikz\+Document}}, \mbox{\hyperlink{classToolPalette}{Tool\+Palette}} $\ast$tools, \mbox{\hyperlink{classStylePalette}{Style\+Palette}} $\ast$styles, QObject $\ast$parent)
+\item 
+\mbox{\hyperlink{classTikzScene_ae173241efd16b529fbe22ab1f0e78f1e}{$\sim$\+Tikz\+Scene}} () override
+\item 
+\mbox{\hyperlink{classGraph}{Graph}} $\ast$ \mbox{\hyperlink{classTikzScene_a26ddad9caa368a3f5eb5ce36ca4df98a}{graph}} ()
+\item 
+QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, \mbox{\hyperlink{classNodeItem}{Node\+Item}} $\ast$ $>$ \& \mbox{\hyperlink{classTikzScene_ab6f4972600dafc7bfa8db3efd33ffe0a}{node\+Items}} ()
+\item 
+QMap$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$, \mbox{\hyperlink{classEdgeItem}{Edge\+Item}} $\ast$ $>$ \& \mbox{\hyperlink{classTikzScene_a8a1814ee36a70ed9af571725f683218a}{edge\+Items}} ()
+\item 
+QMap$<$ \mbox{\hyperlink{classPath}{Path}} $\ast$, \mbox{\hyperlink{classPathItem}{Path\+Item}} $\ast$ $>$ \& \mbox{\hyperlink{classTikzScene_a5702109525d5703f4058831ee39df111}{path\+Items}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a983169bcc98d03cc8ae5ff6950329604}{refresh\+Adjacent\+Edges}} (QList$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ nodes)
+\item 
+\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$ \mbox{\hyperlink{classTikzScene_a1b2d2f28cf4a27de84372c58a10a253c}{tikz\+Document}} () const
+\item 
+void \mbox{\hyperlink{classTikzScene_acc9d42e7bcc8e62612a0239af3f1853c}{set\+Tikz\+Document}} (\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$\mbox{\hyperlink{classTikzScene_a1b2d2f28cf4a27de84372c58a10a253c}{tikz\+Document}})
+\item 
+void \mbox{\hyperlink{classTikzScene_a16d5dd33c02a8e61d4a69804803addf1}{reload\+Styles}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a379288e8ede64567a0744c0deeacfccf}{apply\+Active\+Style\+To\+Nodes}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_aa26cc0cff7ad173fa43e0380917ae0ca}{apply\+Active\+Style\+To\+Edges}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a744abf1d2b1f8d0eb74e5e8ff5b6a45b}{delete\+Selected\+Items}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a741118bb95d39879e870be5990ecc62e}{copy\+To\+Clipboard}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a658d082ead8c0389cc1b8f38fb95fb12}{cut\+To\+Clipboard}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_af5b1159e170a8f0b94344709bb8b313d}{paste\+From\+Clipboard}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a2e510fb06f989a6cc6da0156b7e719bd}{select\+All\+Nodes}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a7bec715b527a2edba6abc14f459541d6}{deselect\+All}} ()
+\item 
+bool \mbox{\hyperlink{classTikzScene_ae415cfa1eeb8e31814523aefa08cdaf0}{parse\+Tikz}} (QString tikz)
+\item 
+void \mbox{\hyperlink{classTikzScene_a8161d9818602c9792019282fb8c58efc}{reflect\+Nodes}} (bool horizontal)
+\item 
+void \mbox{\hyperlink{classTikzScene_ab0722087c0cd4272a2059cbf2b48c7df}{rotate\+Nodes}} (bool clockwise)
+\item 
+bool \mbox{\hyperlink{classTikzScene_aa9af2dcd80a06d8ff5c51f2c10616f77}{enabled}} () const
+\item 
+void \mbox{\hyperlink{classTikzScene_ae06f4cf5239ace8fa59a19bb7abaaeb4}{set\+Enabled}} (bool \mbox{\hyperlink{classTikzScene_aa9af2dcd80a06d8ff5c51f2c10616f77}{enabled}})
+\item 
+int \mbox{\hyperlink{classTikzScene_a26f4d9d39234bee8b432566b2cfc7d9a}{line\+Number\+For\+Selection}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a504537fa8475a36ff88e45241625c441}{extend\+Selection\+Up}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_af4a9a4af9655916a29cf920ee8c68607}{extend\+Selection\+Down}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a4e58400de6e7899b2874d26f60b5fea5}{extend\+Selection\+Left}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a2d3696aaf01952402be0442497cf7dfc}{extend\+Selection\+Right}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a868c00dddf275eb3d67878f326152048}{merge\+Nodes}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_ae237618d61fe66891a2662c71805a87f}{reorder\+Selection}} (bool to\+Front)
+\item 
+void \mbox{\hyperlink{classTikzScene_a30fcc4ef4b22343cbc7f8bc6d85a88ea}{reverse\+Selected\+Edges}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_a3ffa5bf0e59f617bf010b3b7fd21c483}{make\+Path}} (bool duplicate\+Edges)
+\item 
+void \mbox{\hyperlink{classTikzScene_a4ae94ce00a368b3af63b5fcbda15b4ce}{split\+Path}} ()
+\item 
+void \mbox{\hyperlink{classTikzScene_aff3bb5ba8f5be9e329bf79c3d42c0da3}{get\+Selection}} (QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&sel\+Nodes, QSet$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&sel\+Edges) const
+\item 
+QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \mbox{\hyperlink{classTikzScene_a87345f0416c4ad584954a153f77abf68}{get\+Selected\+Nodes}} () const
+\item 
+void \mbox{\hyperlink{classTikzScene_a7e81763a44d51b036d338514ffa7657a}{refresh\+Scene\+Bounds}} ()
+\item 
+bool \mbox{\hyperlink{classTikzScene_a9eacb5fec6384c9c9f8378ccd4bd6c0b}{highlight\+Heads}} () const
+\item 
+bool \mbox{\hyperlink{classTikzScene_a1f91bfc2cdaf6531d662474e790d10c0}{highlight\+Tails}} () const
+\item 
+bool \mbox{\hyperlink{classTikzScene_ab852be40a175e6442aa5bffc055c4a77}{draw\+Node\+Labels}} () const
+\item 
+void \mbox{\hyperlink{classTikzScene_a75b815d7cadce9cc0dfbfa418378b0e8}{set\+Draw\+Node\+Labels}} (bool \mbox{\hyperlink{classTikzScene_ab852be40a175e6442aa5bffc055c4a77}{draw\+Node\+Labels}})
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classTikzScene_ab730e6386e106767fe9f4ea9411d52e1}{mouse\+Press\+Event}} (QGraphics\+Scene\+Mouse\+Event $\ast$event) override
+\item 
+void \mbox{\hyperlink{classTikzScene_ab9a249b41992f042e30530a0df6e6a8b}{mouse\+Move\+Event}} (QGraphics\+Scene\+Mouse\+Event $\ast$event) override
+\item 
+void \mbox{\hyperlink{classTikzScene_a43c6c0bc65b8cb7652c624afa81cf6b6}{mouse\+Release\+Event}} (QGraphics\+Scene\+Mouse\+Event $\ast$event) override
+\item 
+void \mbox{\hyperlink{classTikzScene_a6f11af94af48b51a924b80e53244d73e}{key\+Release\+Event}} (QKey\+Event $\ast$event) override
+\item 
+void \mbox{\hyperlink{classTikzScene_a330be3962dca537819336f19a54758e3}{key\+Press\+Event}} (QKey\+Event $\ast$event) override
+\item 
+void \mbox{\hyperlink{classTikzScene_a574c8c6381b2004c7c0ed28675262b6e}{mouse\+Double\+Click\+Event}} (QGraphics\+Scene\+Mouse\+Event $\ast$event) override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manage the scene, which contains a single \mbox{\hyperlink{classGraph}{Graph}}, and respond to user input. This serves as the controller for the MVC (\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}}, \mbox{\hyperlink{classTikzView}{Tikz\+View}}, \mbox{\hyperlink{classTikzScene}{Tikz\+Scene}}). 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTikzScene_a930797baee3d1cd6e662077d68aec7bf}\label{classTikzScene_a930797baee3d1cd6e662077d68aec7bf}} 
+\index{TikzScene@{TikzScene}!TikzScene@{TikzScene}}
+\index{TikzScene@{TikzScene}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{TikzScene()}{TikzScene()}}
+{\footnotesize\ttfamily Tikz\+Scene\+::\+Tikz\+Scene (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$}]{tikz\+Document,  }\item[{\mbox{\hyperlink{classToolPalette}{Tool\+Palette}} $\ast$}]{tools,  }\item[{\mbox{\hyperlink{classStylePalette}{Style\+Palette}} $\ast$}]{styles,  }\item[{QObject $\ast$}]{parent }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a930797baee3d1cd6e662077d68aec7bf_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ae173241efd16b529fbe22ab1f0e78f1e}\label{classTikzScene_ae173241efd16b529fbe22ab1f0e78f1e}} 
+\index{TikzScene@{TikzScene}!````~TikzScene@{$\sim$TikzScene}}
+\index{````~TikzScene@{$\sim$TikzScene}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{$\sim$TikzScene()}{~TikzScene()}}
+{\footnotesize\ttfamily Tikz\+Scene\+::$\sim$\+Tikz\+Scene (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTikzScene_aa26cc0cff7ad173fa43e0380917ae0ca}\label{classTikzScene_aa26cc0cff7ad173fa43e0380917ae0ca}} 
+\index{TikzScene@{TikzScene}!applyActiveStyleToEdges@{applyActiveStyleToEdges}}
+\index{applyActiveStyleToEdges@{applyActiveStyleToEdges}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{applyActiveStyleToEdges()}{applyActiveStyleToEdges()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::apply\+Active\+Style\+To\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_aa26cc0cff7ad173fa43e0380917ae0ca_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a379288e8ede64567a0744c0deeacfccf}\label{classTikzScene_a379288e8ede64567a0744c0deeacfccf}} 
+\index{TikzScene@{TikzScene}!applyActiveStyleToNodes@{applyActiveStyleToNodes}}
+\index{applyActiveStyleToNodes@{applyActiveStyleToNodes}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{applyActiveStyleToNodes()}{applyActiveStyleToNodes()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::apply\+Active\+Style\+To\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a379288e8ede64567a0744c0deeacfccf_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a741118bb95d39879e870be5990ecc62e}\label{classTikzScene_a741118bb95d39879e870be5990ecc62e}} 
+\index{TikzScene@{TikzScene}!copyToClipboard@{copyToClipboard}}
+\index{copyToClipboard@{copyToClipboard}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{copyToClipboard()}{copyToClipboard()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::copy\+To\+Clipboard (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a741118bb95d39879e870be5990ecc62e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a658d082ead8c0389cc1b8f38fb95fb12}\label{classTikzScene_a658d082ead8c0389cc1b8f38fb95fb12}} 
+\index{TikzScene@{TikzScene}!cutToClipboard@{cutToClipboard}}
+\index{cutToClipboard@{cutToClipboard}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{cutToClipboard()}{cutToClipboard()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::cut\+To\+Clipboard (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a658d082ead8c0389cc1b8f38fb95fb12_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a744abf1d2b1f8d0eb74e5e8ff5b6a45b}\label{classTikzScene_a744abf1d2b1f8d0eb74e5e8ff5b6a45b}} 
+\index{TikzScene@{TikzScene}!deleteSelectedItems@{deleteSelectedItems}}
+\index{deleteSelectedItems@{deleteSelectedItems}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{deleteSelectedItems()}{deleteSelectedItems()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::delete\+Selected\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a744abf1d2b1f8d0eb74e5e8ff5b6a45b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a7bec715b527a2edba6abc14f459541d6}\label{classTikzScene_a7bec715b527a2edba6abc14f459541d6}} 
+\index{TikzScene@{TikzScene}!deselectAll@{deselectAll}}
+\index{deselectAll@{deselectAll}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{deselectAll()}{deselectAll()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::deselect\+All (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzScene_ab852be40a175e6442aa5bffc055c4a77}\label{classTikzScene_ab852be40a175e6442aa5bffc055c4a77}} 
+\index{TikzScene@{TikzScene}!drawNodeLabels@{drawNodeLabels}}
+\index{drawNodeLabels@{drawNodeLabels}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{drawNodeLabels()}{drawNodeLabels()}}
+{\footnotesize\ttfamily bool Tikz\+Scene\+::draw\+Node\+Labels (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzScene_a8a1814ee36a70ed9af571725f683218a}\label{classTikzScene_a8a1814ee36a70ed9af571725f683218a}} 
+\index{TikzScene@{TikzScene}!edgeItems@{edgeItems}}
+\index{edgeItems@{edgeItems}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{edgeItems()}{edgeItems()}}
+{\footnotesize\ttfamily QMap$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$, \mbox{\hyperlink{classEdgeItem}{Edge\+Item}} $\ast$ $>$ \& Tikz\+Scene\+::edge\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzScene_aa9af2dcd80a06d8ff5c51f2c10616f77}\label{classTikzScene_aa9af2dcd80a06d8ff5c51f2c10616f77}} 
+\index{TikzScene@{TikzScene}!enabled@{enabled}}
+\index{enabled@{enabled}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{enabled()}{enabled()}}
+{\footnotesize\ttfamily bool Tikz\+Scene\+::enabled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzScene_af4a9a4af9655916a29cf920ee8c68607}\label{classTikzScene_af4a9a4af9655916a29cf920ee8c68607}} 
+\index{TikzScene@{TikzScene}!extendSelectionDown@{extendSelectionDown}}
+\index{extendSelectionDown@{extendSelectionDown}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{extendSelectionDown()}{extendSelectionDown()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::extend\+Selection\+Down (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_af4a9a4af9655916a29cf920ee8c68607_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a4e58400de6e7899b2874d26f60b5fea5}\label{classTikzScene_a4e58400de6e7899b2874d26f60b5fea5}} 
+\index{TikzScene@{TikzScene}!extendSelectionLeft@{extendSelectionLeft}}
+\index{extendSelectionLeft@{extendSelectionLeft}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{extendSelectionLeft()}{extendSelectionLeft()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::extend\+Selection\+Left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a4e58400de6e7899b2874d26f60b5fea5_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a2d3696aaf01952402be0442497cf7dfc}\label{classTikzScene_a2d3696aaf01952402be0442497cf7dfc}} 
+\index{TikzScene@{TikzScene}!extendSelectionRight@{extendSelectionRight}}
+\index{extendSelectionRight@{extendSelectionRight}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{extendSelectionRight()}{extendSelectionRight()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::extend\+Selection\+Right (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a2d3696aaf01952402be0442497cf7dfc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a504537fa8475a36ff88e45241625c441}\label{classTikzScene_a504537fa8475a36ff88e45241625c441}} 
+\index{TikzScene@{TikzScene}!extendSelectionUp@{extendSelectionUp}}
+\index{extendSelectionUp@{extendSelectionUp}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{extendSelectionUp()}{extendSelectionUp()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::extend\+Selection\+Up (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a504537fa8475a36ff88e45241625c441_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a87345f0416c4ad584954a153f77abf68}\label{classTikzScene_a87345f0416c4ad584954a153f77abf68}} 
+\index{TikzScene@{TikzScene}!getSelectedNodes@{getSelectedNodes}}
+\index{getSelectedNodes@{getSelectedNodes}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{getSelectedNodes()}{getSelectedNodes()}}
+{\footnotesize\ttfamily QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ Tikz\+Scene\+::get\+Selected\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzScene_aff3bb5ba8f5be9e329bf79c3d42c0da3}\label{classTikzScene_aff3bb5ba8f5be9e329bf79c3d42c0da3}} 
+\index{TikzScene@{TikzScene}!getSelection@{getSelection}}
+\index{getSelection@{getSelection}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{getSelection()}{getSelection()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::get\+Selection (\begin{DoxyParamCaption}\item[{QSet$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$ \&}]{sel\+Nodes,  }\item[{QSet$<$ \mbox{\hyperlink{classEdge}{Edge}} $\ast$ $>$ \&}]{sel\+Edges }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzScene_a26ddad9caa368a3f5eb5ce36ca4df98a}\label{classTikzScene_a26ddad9caa368a3f5eb5ce36ca4df98a}} 
+\index{TikzScene@{TikzScene}!graph@{graph}}
+\index{graph@{graph}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{graph()}{graph()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraph}{Graph}} $\ast$ Tikz\+Scene\+::graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{classTikzScene_a26ddad9caa368a3f5eb5ce36ca4df98a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a48175fadcc45533e5265d2f4b2f9fbfe}\label{classTikzScene_a48175fadcc45533e5265d2f4b2f9fbfe}} 
+\index{TikzScene@{TikzScene}!graphReplaced@{graphReplaced}}
+\index{graphReplaced@{graphReplaced}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{graphReplaced}{graphReplaced}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::graph\+Replaced (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a48175fadcc45533e5265d2f4b2f9fbfe_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a9eacb5fec6384c9c9f8378ccd4bd6c0b}\label{classTikzScene_a9eacb5fec6384c9c9f8378ccd4bd6c0b}} 
+\index{TikzScene@{TikzScene}!highlightHeads@{highlightHeads}}
+\index{highlightHeads@{highlightHeads}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{highlightHeads()}{highlightHeads()}}
+{\footnotesize\ttfamily bool Tikz\+Scene\+::highlight\+Heads (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a9eacb5fec6384c9c9f8378ccd4bd6c0b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a1f91bfc2cdaf6531d662474e790d10c0}\label{classTikzScene_a1f91bfc2cdaf6531d662474e790d10c0}} 
+\index{TikzScene@{TikzScene}!highlightTails@{highlightTails}}
+\index{highlightTails@{highlightTails}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{highlightTails()}{highlightTails()}}
+{\footnotesize\ttfamily bool Tikz\+Scene\+::highlight\+Tails (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a1f91bfc2cdaf6531d662474e790d10c0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a330be3962dca537819336f19a54758e3}\label{classTikzScene_a330be3962dca537819336f19a54758e3}} 
+\index{TikzScene@{TikzScene}!keyPressEvent@{keyPressEvent}}
+\index{keyPressEvent@{keyPressEvent}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{keyPressEvent()}{keyPressEvent()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::key\+Press\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a330be3962dca537819336f19a54758e3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a6f11af94af48b51a924b80e53244d73e}\label{classTikzScene_a6f11af94af48b51a924b80e53244d73e}} 
+\index{TikzScene@{TikzScene}!keyReleaseEvent@{keyReleaseEvent}}
+\index{keyReleaseEvent@{keyReleaseEvent}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{keyReleaseEvent()}{keyReleaseEvent()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::key\+Release\+Event (\begin{DoxyParamCaption}\item[{QKey\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+\mbox{\Hypertarget{classTikzScene_a26f4d9d39234bee8b432566b2cfc7d9a}\label{classTikzScene_a26f4d9d39234bee8b432566b2cfc7d9a}} 
+\index{TikzScene@{TikzScene}!lineNumberForSelection@{lineNumberForSelection}}
+\index{lineNumberForSelection@{lineNumberForSelection}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{lineNumberForSelection()}{lineNumberForSelection()}}
+{\footnotesize\ttfamily int Tikz\+Scene\+::line\+Number\+For\+Selection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzScene_a3ffa5bf0e59f617bf010b3b7fd21c483}\label{classTikzScene_a3ffa5bf0e59f617bf010b3b7fd21c483}} 
+\index{TikzScene@{TikzScene}!makePath@{makePath}}
+\index{makePath@{makePath}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{makePath()}{makePath()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::make\+Path (\begin{DoxyParamCaption}\item[{bool}]{duplicate\+Edges }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a3ffa5bf0e59f617bf010b3b7fd21c483_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a868c00dddf275eb3d67878f326152048}\label{classTikzScene_a868c00dddf275eb3d67878f326152048}} 
+\index{TikzScene@{TikzScene}!mergeNodes@{mergeNodes}}
+\index{mergeNodes@{mergeNodes}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{mergeNodes()}{mergeNodes()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::merge\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a868c00dddf275eb3d67878f326152048_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a574c8c6381b2004c7c0ed28675262b6e}\label{classTikzScene_a574c8c6381b2004c7c0ed28675262b6e}} 
+\index{TikzScene@{TikzScene}!mouseDoubleClickEvent@{mouseDoubleClickEvent}}
+\index{mouseDoubleClickEvent@{mouseDoubleClickEvent}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{mouseDoubleClickEvent()}{mouseDoubleClickEvent()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::mouse\+Double\+Click\+Event (\begin{DoxyParamCaption}\item[{QGraphics\+Scene\+Mouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a574c8c6381b2004c7c0ed28675262b6e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ab9a249b41992f042e30530a0df6e6a8b}\label{classTikzScene_ab9a249b41992f042e30530a0df6e6a8b}} 
+\index{TikzScene@{TikzScene}!mouseMoveEvent@{mouseMoveEvent}}
+\index{mouseMoveEvent@{mouseMoveEvent}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{mouseMoveEvent()}{mouseMoveEvent()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::mouse\+Move\+Event (\begin{DoxyParamCaption}\item[{QGraphics\+Scene\+Mouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_ab9a249b41992f042e30530a0df6e6a8b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ab730e6386e106767fe9f4ea9411d52e1}\label{classTikzScene_ab730e6386e106767fe9f4ea9411d52e1}} 
+\index{TikzScene@{TikzScene}!mousePressEvent@{mousePressEvent}}
+\index{mousePressEvent@{mousePressEvent}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{mousePressEvent()}{mousePressEvent()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::mouse\+Press\+Event (\begin{DoxyParamCaption}\item[{QGraphics\+Scene\+Mouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_ab730e6386e106767fe9f4ea9411d52e1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a43c6c0bc65b8cb7652c624afa81cf6b6}\label{classTikzScene_a43c6c0bc65b8cb7652c624afa81cf6b6}} 
+\index{TikzScene@{TikzScene}!mouseReleaseEvent@{mouseReleaseEvent}}
+\index{mouseReleaseEvent@{mouseReleaseEvent}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{mouseReleaseEvent()}{mouseReleaseEvent()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::mouse\+Release\+Event (\begin{DoxyParamCaption}\item[{QGraphics\+Scene\+Mouse\+Event $\ast$}]{event }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a43c6c0bc65b8cb7652c624afa81cf6b6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ab6f4972600dafc7bfa8db3efd33ffe0a}\label{classTikzScene_ab6f4972600dafc7bfa8db3efd33ffe0a}} 
+\index{TikzScene@{TikzScene}!nodeItems@{nodeItems}}
+\index{nodeItems@{nodeItems}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{nodeItems()}{nodeItems()}}
+{\footnotesize\ttfamily QMap$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$, \mbox{\hyperlink{classNodeItem}{Node\+Item}} $\ast$ $>$ \& Tikz\+Scene\+::node\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzScene_ae415cfa1eeb8e31814523aefa08cdaf0}\label{classTikzScene_ae415cfa1eeb8e31814523aefa08cdaf0}} 
+\index{TikzScene@{TikzScene}!parseTikz@{parseTikz}}
+\index{parseTikz@{parseTikz}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{parseTikz()}{parseTikz()}}
+{\footnotesize\ttfamily bool Tikz\+Scene\+::parse\+Tikz (\begin{DoxyParamCaption}\item[{QString}]{tikz }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_ae415cfa1eeb8e31814523aefa08cdaf0_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_af5b1159e170a8f0b94344709bb8b313d}\label{classTikzScene_af5b1159e170a8f0b94344709bb8b313d}} 
+\index{TikzScene@{TikzScene}!pasteFromClipboard@{pasteFromClipboard}}
+\index{pasteFromClipboard@{pasteFromClipboard}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{pasteFromClipboard()}{pasteFromClipboard()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::paste\+From\+Clipboard (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_af5b1159e170a8f0b94344709bb8b313d_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a5702109525d5703f4058831ee39df111}\label{classTikzScene_a5702109525d5703f4058831ee39df111}} 
+\index{TikzScene@{TikzScene}!pathItems@{pathItems}}
+\index{pathItems@{pathItems}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{pathItems()}{pathItems()}}
+{\footnotesize\ttfamily QMap$<$ \mbox{\hyperlink{classPath}{Path}} $\ast$, \mbox{\hyperlink{classPathItem}{Path\+Item}} $\ast$ $>$ \& Tikz\+Scene\+::path\+Items (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzScene_a8161d9818602c9792019282fb8c58efc}\label{classTikzScene_a8161d9818602c9792019282fb8c58efc}} 
+\index{TikzScene@{TikzScene}!reflectNodes@{reflectNodes}}
+\index{reflectNodes@{reflectNodes}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{reflectNodes()}{reflectNodes()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::reflect\+Nodes (\begin{DoxyParamCaption}\item[{bool}]{horizontal }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a8161d9818602c9792019282fb8c58efc_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a983169bcc98d03cc8ae5ff6950329604}\label{classTikzScene_a983169bcc98d03cc8ae5ff6950329604}} 
+\index{TikzScene@{TikzScene}!refreshAdjacentEdges@{refreshAdjacentEdges}}
+\index{refreshAdjacentEdges@{refreshAdjacentEdges}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{refreshAdjacentEdges()}{refreshAdjacentEdges()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::refresh\+Adjacent\+Edges (\begin{DoxyParamCaption}\item[{QList$<$ \mbox{\hyperlink{classNode}{Node}} $\ast$ $>$}]{nodes }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a983169bcc98d03cc8ae5ff6950329604_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a7e81763a44d51b036d338514ffa7657a}\label{classTikzScene_a7e81763a44d51b036d338514ffa7657a}} 
+\index{TikzScene@{TikzScene}!refreshSceneBounds@{refreshSceneBounds}}
+\index{refreshSceneBounds@{refreshSceneBounds}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{refreshSceneBounds()}{refreshSceneBounds()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::refresh\+Scene\+Bounds (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a7e81763a44d51b036d338514ffa7657a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a8a1627bc79fae93add880198371cead6}\label{classTikzScene_a8a1627bc79fae93add880198371cead6}} 
+\index{TikzScene@{TikzScene}!refreshZIndices@{refreshZIndices}}
+\index{refreshZIndices@{refreshZIndices}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{refreshZIndices}{refreshZIndices}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::refresh\+ZIndices (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [slot]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a8a1627bc79fae93add880198371cead6_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a16d5dd33c02a8e61d4a69804803addf1}\label{classTikzScene_a16d5dd33c02a8e61d4a69804803addf1}} 
+\index{TikzScene@{TikzScene}!reloadStyles@{reloadStyles}}
+\index{reloadStyles@{reloadStyles}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{reloadStyles()}{reloadStyles()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::reload\+Styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a16d5dd33c02a8e61d4a69804803addf1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ae237618d61fe66891a2662c71805a87f}\label{classTikzScene_ae237618d61fe66891a2662c71805a87f}} 
+\index{TikzScene@{TikzScene}!reorderSelection@{reorderSelection}}
+\index{reorderSelection@{reorderSelection}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{reorderSelection()}{reorderSelection()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::reorder\+Selection (\begin{DoxyParamCaption}\item[{bool}]{to\+Front }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_ae237618d61fe66891a2662c71805a87f_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a30fcc4ef4b22343cbc7f8bc6d85a88ea}\label{classTikzScene_a30fcc4ef4b22343cbc7f8bc6d85a88ea}} 
+\index{TikzScene@{TikzScene}!reverseSelectedEdges@{reverseSelectedEdges}}
+\index{reverseSelectedEdges@{reverseSelectedEdges}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{reverseSelectedEdges()}{reverseSelectedEdges()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::reverse\+Selected\+Edges (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a30fcc4ef4b22343cbc7f8bc6d85a88ea_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ab0722087c0cd4272a2059cbf2b48c7df}\label{classTikzScene_ab0722087c0cd4272a2059cbf2b48c7df}} 
+\index{TikzScene@{TikzScene}!rotateNodes@{rotateNodes}}
+\index{rotateNodes@{rotateNodes}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{rotateNodes()}{rotateNodes()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::rotate\+Nodes (\begin{DoxyParamCaption}\item[{bool}]{clockwise }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_ab0722087c0cd4272a2059cbf2b48c7df_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a2e510fb06f989a6cc6da0156b7e719bd}\label{classTikzScene_a2e510fb06f989a6cc6da0156b7e719bd}} 
+\index{TikzScene@{TikzScene}!selectAllNodes@{selectAllNodes}}
+\index{selectAllNodes@{selectAllNodes}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{selectAllNodes()}{selectAllNodes()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::select\+All\+Nodes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzScene_a75b815d7cadce9cc0dfbfa418378b0e8}\label{classTikzScene_a75b815d7cadce9cc0dfbfa418378b0e8}} 
+\index{TikzScene@{TikzScene}!setDrawNodeLabels@{setDrawNodeLabels}}
+\index{setDrawNodeLabels@{setDrawNodeLabels}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{setDrawNodeLabels()}{setDrawNodeLabels()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::set\+Draw\+Node\+Labels (\begin{DoxyParamCaption}\item[{bool}]{draw\+Node\+Labels }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a75b815d7cadce9cc0dfbfa418378b0e8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_ae06f4cf5239ace8fa59a19bb7abaaeb4}\label{classTikzScene_ae06f4cf5239ace8fa59a19bb7abaaeb4}} 
+\index{TikzScene@{TikzScene}!setEnabled@{setEnabled}}
+\index{setEnabled@{setEnabled}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{setEnabled()}{setEnabled()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::set\+Enabled (\begin{DoxyParamCaption}\item[{bool}]{enabled }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_ae06f4cf5239ace8fa59a19bb7abaaeb4_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_acc9d42e7bcc8e62612a0239af3f1853c}\label{classTikzScene_acc9d42e7bcc8e62612a0239af3f1853c}} 
+\index{TikzScene@{TikzScene}!setTikzDocument@{setTikzDocument}}
+\index{setTikzDocument@{setTikzDocument}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{setTikzDocument()}{setTikzDocument()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::set\+Tikz\+Document (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$}]{tikz\+Document }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_acc9d42e7bcc8e62612a0239af3f1853c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a4ae94ce00a368b3af63b5fcbda15b4ce}\label{classTikzScene_a4ae94ce00a368b3af63b5fcbda15b4ce}} 
+\index{TikzScene@{TikzScene}!splitPath@{splitPath}}
+\index{splitPath@{splitPath}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{splitPath()}{splitPath()}}
+{\footnotesize\ttfamily void Tikz\+Scene\+::split\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzScene_a4ae94ce00a368b3af63b5fcbda15b4ce_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzScene_a1b2d2f28cf4a27de84372c58a10a253c}\label{classTikzScene_a1b2d2f28cf4a27de84372c58a10a253c}} 
+\index{TikzScene@{TikzScene}!tikzDocument@{tikzDocument}}
+\index{tikzDocument@{tikzDocument}!TikzScene@{TikzScene}}
+\doxysubsubsection{\texorpdfstring{tikzDocument()}{tikzDocument()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzDocument}{Tikz\+Document}} $\ast$ Tikz\+Scene\+::tikz\+Document (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/\mbox{\hyperlink{tikzscene_8h}{tikzscene.\+h}}\item 
+src/gui/\mbox{\hyperlink{tikzscene_8cpp}{tikzscene.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,268 @@
+\hypertarget{classTikzAssembler}{}\doxysection{Tikz\+Assembler Class Reference}
+\label{classTikzAssembler}\index{TikzAssembler@{TikzAssembler}}
+
+
+{\ttfamily \#include $<$tikzassembler.\+h$>$}
+
+
+
+Inheritance diagram for Tikz\+Assembler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{classTikzAssembler__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Tikz\+Assembler\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{classTikzAssembler__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTikzAssembler_adb4429abfdd6c3202e73edb6ef7d93b8}{Tikz\+Assembler}} (\mbox{\hyperlink{classGraph}{Graph}} $\ast$\mbox{\hyperlink{classTikzAssembler_aea6154fc4939b9ca2c7bc6edb36f8e70}{graph}}, QObject $\ast$parent=0)
+\item 
+\mbox{\hyperlink{classTikzAssembler_a7ddcf994fb19a2981dea2b6be2f6971d}{Tikz\+Assembler}} (\mbox{\hyperlink{classTikzStyles}{Tikz\+Styles}} $\ast$\mbox{\hyperlink{classTikzAssembler_afd5ae5f8245069ccb535cf6d20521d1f}{tikz\+Styles}}, QObject $\ast$parent=0)
+\item 
+void \mbox{\hyperlink{classTikzAssembler_ad1cccbf83f6a2f19765274b24faaf79b}{add\+Node\+To\+Map}} (\mbox{\hyperlink{classNode}{Node}} $\ast$n)
+\item 
+\mbox{\hyperlink{classNode}{Node}} $\ast$ \mbox{\hyperlink{classTikzAssembler_a059c3c443a2f3956d88bd21cbdb172fd}{node\+With\+Name}} (QString name)
+\item 
+bool \mbox{\hyperlink{classTikzAssembler_a0d1549f389f46e453fffd29d51fb5366}{parse}} (const QString \&tikz)
+\item 
+\mbox{\hyperlink{classGraph}{Graph}} $\ast$ \mbox{\hyperlink{classTikzAssembler_aea6154fc4939b9ca2c7bc6edb36f8e70}{graph}} () const
+\item 
+\mbox{\hyperlink{classTikzStyles}{Tikz\+Styles}} $\ast$ \mbox{\hyperlink{classTikzAssembler_afd5ae5f8245069ccb535cf6d20521d1f}{tikz\+Styles}} () const
+\item 
+bool \mbox{\hyperlink{classTikzAssembler_ae4684355a1020a6df4bee2e568f5edf4}{is\+Graph}} () const
+\item 
+bool \mbox{\hyperlink{classTikzAssembler_a6eff68c2cc7975123423d68d3b3137f4}{is\+Tikz\+Styles}} () const
+\item 
+\mbox{\hyperlink{classNode}{Node}} $\ast$ \mbox{\hyperlink{classTikzAssembler_ad473cdec52b79f8cb76b483a3ca8851a}{current\+Edge\+Source}} () const
+\item 
+void \mbox{\hyperlink{classTikzAssembler_a38a8a9ee2762d60ec725d8e1bd117cef}{set\+Current\+Edge\+Source}} (\mbox{\hyperlink{classNode}{Node}} $\ast$\mbox{\hyperlink{classTikzAssembler_ad473cdec52b79f8cb76b483a3ca8851a}{current\+Edge\+Source}})
+\item 
+\mbox{\hyperlink{classNode}{Node}} $\ast$ \mbox{\hyperlink{classTikzAssembler_a0681c711a0bf7a25a179f7be8d1f717a}{current\+Path\+Source}} () const
+\item 
+\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ \mbox{\hyperlink{classTikzAssembler_a1f82b548f5792d16c6fc8bdb239c1fc6}{current\+Edge\+Data}} () const
+\item 
+void \mbox{\hyperlink{classTikzAssembler_a9fe5a02d0d2032342c2321b17321258e}{set\+Current\+Edge\+Data}} (\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$\mbox{\hyperlink{classTikzAssembler_a1f82b548f5792d16c6fc8bdb239c1fc6}{current\+Edge\+Data}})
+\item 
+QString \mbox{\hyperlink{classTikzAssembler_a3cf28b3390e07679acdc0c1dcd033c37}{current\+Edge\+Source\+Anchor}} () const
+\item 
+void \mbox{\hyperlink{classTikzAssembler_a66de3d022773dfc390317333e4c32a9e}{set\+Current\+Edge\+Source\+Anchor}} (const QString \&\mbox{\hyperlink{classTikzAssembler_a3cf28b3390e07679acdc0c1dcd033c37}{current\+Edge\+Source\+Anchor}})
+\item 
+void \mbox{\hyperlink{classTikzAssembler_a4810d17e9e5902956b1ad694fddb764c}{add\+Edge}} (\mbox{\hyperlink{classEdge}{Edge}} $\ast$e)
+\item 
+void \mbox{\hyperlink{classTikzAssembler_adffdc59010b7d398339708f11b7ec201}{finish\+Current\+Path}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Convenience class to hold the parser state while loading tikz graphs or projects. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTikzAssembler_adb4429abfdd6c3202e73edb6ef7d93b8}\label{classTikzAssembler_adb4429abfdd6c3202e73edb6ef7d93b8}} 
+\index{TikzAssembler@{TikzAssembler}!TikzAssembler@{TikzAssembler}}
+\index{TikzAssembler@{TikzAssembler}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{TikzAssembler()}{TikzAssembler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Tikz\+Assembler\+::\+Tikz\+Assembler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraph}{Graph}} $\ast$}]{graph,  }\item[{QObject $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_adb4429abfdd6c3202e73edb6ef7d93b8_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_a7ddcf994fb19a2981dea2b6be2f6971d}\label{classTikzAssembler_a7ddcf994fb19a2981dea2b6be2f6971d}} 
+\index{TikzAssembler@{TikzAssembler}!TikzAssembler@{TikzAssembler}}
+\index{TikzAssembler@{TikzAssembler}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{TikzAssembler()}{TikzAssembler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Tikz\+Assembler\+::\+Tikz\+Assembler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classTikzStyles}{Tikz\+Styles}} $\ast$}]{tikz\+Styles,  }\item[{QObject $\ast$}]{parent = {\ttfamily 0} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_a7ddcf994fb19a2981dea2b6be2f6971d_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTikzAssembler_a4810d17e9e5902956b1ad694fddb764c}\label{classTikzAssembler_a4810d17e9e5902956b1ad694fddb764c}} 
+\index{TikzAssembler@{TikzAssembler}!addEdge@{addEdge}}
+\index{addEdge@{addEdge}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{addEdge()}{addEdge()}}
+{\footnotesize\ttfamily void Tikz\+Assembler\+::add\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classEdge}{Edge}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_a4810d17e9e5902956b1ad694fddb764c_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_ad1cccbf83f6a2f19765274b24faaf79b}\label{classTikzAssembler_ad1cccbf83f6a2f19765274b24faaf79b}} 
+\index{TikzAssembler@{TikzAssembler}!addNodeToMap@{addNodeToMap}}
+\index{addNodeToMap@{addNodeToMap}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{addNodeToMap()}{addNodeToMap()}}
+{\footnotesize\ttfamily void Tikz\+Assembler\+::add\+Node\+To\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{n }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_ad1cccbf83f6a2f19765274b24faaf79b_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_a1f82b548f5792d16c6fc8bdb239c1fc6}\label{classTikzAssembler_a1f82b548f5792d16c6fc8bdb239c1fc6}} 
+\index{TikzAssembler@{TikzAssembler}!currentEdgeData@{currentEdgeData}}
+\index{currentEdgeData@{currentEdgeData}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{currentEdgeData()}{currentEdgeData()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$ Tikz\+Assembler\+::current\+Edge\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzAssembler_ad473cdec52b79f8cb76b483a3ca8851a}\label{classTikzAssembler_ad473cdec52b79f8cb76b483a3ca8851a}} 
+\index{TikzAssembler@{TikzAssembler}!currentEdgeSource@{currentEdgeSource}}
+\index{currentEdgeSource@{currentEdgeSource}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{currentEdgeSource()}{currentEdgeSource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} $\ast$ Tikz\+Assembler\+::current\+Edge\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzAssembler_a3cf28b3390e07679acdc0c1dcd033c37}\label{classTikzAssembler_a3cf28b3390e07679acdc0c1dcd033c37}} 
+\index{TikzAssembler@{TikzAssembler}!currentEdgeSourceAnchor@{currentEdgeSourceAnchor}}
+\index{currentEdgeSourceAnchor@{currentEdgeSourceAnchor}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{currentEdgeSourceAnchor()}{currentEdgeSourceAnchor()}}
+{\footnotesize\ttfamily QString Tikz\+Assembler\+::current\+Edge\+Source\+Anchor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzAssembler_a0681c711a0bf7a25a179f7be8d1f717a}\label{classTikzAssembler_a0681c711a0bf7a25a179f7be8d1f717a}} 
+\index{TikzAssembler@{TikzAssembler}!currentPathSource@{currentPathSource}}
+\index{currentPathSource@{currentPathSource}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{currentPathSource()}{currentPathSource()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} $\ast$ Tikz\+Assembler\+::current\+Path\+Source (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{classTikzAssembler_a0681c711a0bf7a25a179f7be8d1f717a_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_adffdc59010b7d398339708f11b7ec201}\label{classTikzAssembler_adffdc59010b7d398339708f11b7ec201}} 
+\index{TikzAssembler@{TikzAssembler}!finishCurrentPath@{finishCurrentPath}}
+\index{finishCurrentPath@{finishCurrentPath}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{finishCurrentPath()}{finishCurrentPath()}}
+{\footnotesize\ttfamily void Tikz\+Assembler\+::finish\+Current\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_adffdc59010b7d398339708f11b7ec201_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_aea6154fc4939b9ca2c7bc6edb36f8e70}\label{classTikzAssembler_aea6154fc4939b9ca2c7bc6edb36f8e70}} 
+\index{TikzAssembler@{TikzAssembler}!graph@{graph}}
+\index{graph@{graph}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{graph()}{graph()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classGraph}{Graph}} $\ast$ Tikz\+Assembler\+::graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzAssembler_ae4684355a1020a6df4bee2e568f5edf4}\label{classTikzAssembler_ae4684355a1020a6df4bee2e568f5edf4}} 
+\index{TikzAssembler@{TikzAssembler}!isGraph@{isGraph}}
+\index{isGraph@{isGraph}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{isGraph()}{isGraph()}}
+{\footnotesize\ttfamily bool Tikz\+Assembler\+::is\+Graph (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzAssembler_a6eff68c2cc7975123423d68d3b3137f4}\label{classTikzAssembler_a6eff68c2cc7975123423d68d3b3137f4}} 
+\index{TikzAssembler@{TikzAssembler}!isTikzStyles@{isTikzStyles}}
+\index{isTikzStyles@{isTikzStyles}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{isTikzStyles()}{isTikzStyles()}}
+{\footnotesize\ttfamily bool Tikz\+Assembler\+::is\+Tikz\+Styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+\mbox{\Hypertarget{classTikzAssembler_a059c3c443a2f3956d88bd21cbdb172fd}\label{classTikzAssembler_a059c3c443a2f3956d88bd21cbdb172fd}} 
+\index{TikzAssembler@{TikzAssembler}!nodeWithName@{nodeWithName}}
+\index{nodeWithName@{nodeWithName}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{nodeWithName()}{nodeWithName()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNode}{Node}} $\ast$ Tikz\+Assembler\+::node\+With\+Name (\begin{DoxyParamCaption}\item[{QString}]{name }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classTikzAssembler_a0d1549f389f46e453fffd29d51fb5366}\label{classTikzAssembler_a0d1549f389f46e453fffd29d51fb5366}} 
+\index{TikzAssembler@{TikzAssembler}!parse@{parse}}
+\index{parse@{parse}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily bool Tikz\+Assembler\+::parse (\begin{DoxyParamCaption}\item[{const QString \&}]{tikz }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{classTikzAssembler_a0d1549f389f46e453fffd29d51fb5366_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_a9fe5a02d0d2032342c2321b17321258e}\label{classTikzAssembler_a9fe5a02d0d2032342c2321b17321258e}} 
+\index{TikzAssembler@{TikzAssembler}!setCurrentEdgeData@{setCurrentEdgeData}}
+\index{setCurrentEdgeData@{setCurrentEdgeData}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{setCurrentEdgeData()}{setCurrentEdgeData()}}
+{\footnotesize\ttfamily void Tikz\+Assembler\+::set\+Current\+Edge\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classGraphElementData}{Graph\+Element\+Data}} $\ast$}]{current\+Edge\+Data }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_a9fe5a02d0d2032342c2321b17321258e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_a38a8a9ee2762d60ec725d8e1bd117cef}\label{classTikzAssembler_a38a8a9ee2762d60ec725d8e1bd117cef}} 
+\index{TikzAssembler@{TikzAssembler}!setCurrentEdgeSource@{setCurrentEdgeSource}}
+\index{setCurrentEdgeSource@{setCurrentEdgeSource}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{setCurrentEdgeSource()}{setCurrentEdgeSource()}}
+{\footnotesize\ttfamily void Tikz\+Assembler\+::set\+Current\+Edge\+Source (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNode}{Node}} $\ast$}]{current\+Edge\+Source }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_a38a8a9ee2762d60ec725d8e1bd117cef_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_a66de3d022773dfc390317333e4c32a9e}\label{classTikzAssembler_a66de3d022773dfc390317333e4c32a9e}} 
+\index{TikzAssembler@{TikzAssembler}!setCurrentEdgeSourceAnchor@{setCurrentEdgeSourceAnchor}}
+\index{setCurrentEdgeSourceAnchor@{setCurrentEdgeSourceAnchor}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{setCurrentEdgeSourceAnchor()}{setCurrentEdgeSourceAnchor()}}
+{\footnotesize\ttfamily void Tikz\+Assembler\+::set\+Current\+Edge\+Source\+Anchor (\begin{DoxyParamCaption}\item[{const QString \&}]{current\+Edge\+Source\+Anchor }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classTikzAssembler_a66de3d022773dfc390317333e4c32a9e_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classTikzAssembler_afd5ae5f8245069ccb535cf6d20521d1f}\label{classTikzAssembler_afd5ae5f8245069ccb535cf6d20521d1f}} 
+\index{TikzAssembler@{TikzAssembler}!tikzStyles@{tikzStyles}}
+\index{tikzStyles@{tikzStyles}!TikzAssembler@{TikzAssembler}}
+\doxysubsubsection{\texorpdfstring{tikzStyles()}{tikzStyles()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTikzStyles}{Tikz\+Styles}} $\ast$ Tikz\+Assembler\+::tikz\+Styles (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/data/\mbox{\hyperlink{tikzassembler_8h}{tikzassembler.\+h}}\item 
+src/data/\mbox{\hyperlink{tikzassembler_8cpp}{tikzassembler.\+cpp}}\end{DoxyCompactItemize}

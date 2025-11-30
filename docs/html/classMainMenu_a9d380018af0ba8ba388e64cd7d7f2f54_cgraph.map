@@ -1,0 +1,8 @@
+<map id="MainMenu::on_actionJump_to_Selection_triggered" name="MainMenu::on_actionJump_to_Selection_triggered">
+<area shape="rect" id="node1" title=" " alt="" coords="5,115,200,157"/>
+<area shape="rect" id="node2" href="$classTikzit.html#acd29084c8b324c7fdd6ba7c0a27db95a" title=" " alt="" coords="271,5,429,32"/>
+<area shape="rect" id="node3" href="$classTikzScene.html#a26f4d9d39234bee8b432566b2cfc7d9a" title=" " alt="" coords="254,57,446,98"/>
+<area shape="rect" id="node4" href="$classMainWindow.html#af7ed4e0679a10e1f6a2875c0c01e4471" title=" " alt="" coords="248,123,452,149"/>
+<area shape="rect" id="node5" href="$classMainWindow.html#a94f521d04a2274091efe201ffd76bd2e" title=" " alt="" coords="271,173,429,200"/>
+<area shape="rect" id="node6" href="$classMainWindow.html#a8d6032e4a0b33e130f694fba6010898f" title=" " alt="" coords="262,224,438,251"/>
+</map>
