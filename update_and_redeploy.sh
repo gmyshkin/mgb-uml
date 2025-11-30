@@ -9,6 +9,7 @@ docker pull $REGISTRY_URL
 echo "📚 Updating Documentation (Extracting from Image to Volume)..."
 # This takes the HTML files inside the new image and copies them into the Nginx volume
 docker run --rm \
+  --entrypoint cp \
   -v tikzit_docs:/target \
   $REGISTRY_URL \
   cp -r /src/docs/html/. /target/

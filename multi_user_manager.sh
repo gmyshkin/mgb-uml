@@ -52,8 +52,13 @@ docker run -d \
 echo "🔗 configuring Nginx route..."
 
 cat > "$CONFIG_DIR/$USERNAME.conf" <<EOF
+# Redirect clean URL -> Magic URL
+location = /$USERNAME/ {
+    return 301 https://\$host/$USERNAME/vnc.html?path=$USERNAME/websockify;
+}
+
+# Handle the traffic
 location /$USERNAME/ {
-    # The trailing slash after 8080 is CRITICAL. It strips /$USERNAME from the request.
     proxy_pass http://$CONTAINER_NAME:8080/;
     
     proxy_http_version 1.1;
@@ -61,7 +66,6 @@ location /$USERNAME/ {
     proxy_set_header Connection "Upgrade";
     proxy_set_header Host \$host;
     
-    # Rewrite cookie path so authentication works on subpath
     proxy_cookie_path / /$USERNAME/;
 }
 EOF
@@ -72,5 +76,6 @@ docker exec tikzit_proxy nginx -s reload
 
 echo "------------------------------------------------"
 echo "✅ SUCCESS!"
-echo "Access URL: http://<YOUR_IP>/$USERNAME/vnc.html"
+# We add the ?path=... parameter to ensure the websocket routes correctly
+echo "Access URL: https://mgb-uml.me/$USERNAME/vnc.html?path=$USERNAME/websockify"
 echo "------------------------------------------------"
