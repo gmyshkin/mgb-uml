@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e # Stop script if any command fails
 
-# --- CONFIGURATION (CHANGE THESE) ---
+# --- CONFIGURATION ---
 REGISTRY_URL="registry.digitalocean.com/mgb-uml"
 IMAGE_NAME="tikzit"
-# ------------------------------------
+# ---------------------
 
-# 1. Get Current and New Version
+# 1. Get Versions
 if [ -f VERSION ]; then
     CURRENT_VERSION=$(cat VERSION)
 else
@@ -26,17 +26,23 @@ fi
 
 # 2. Update Version Files
 echo "$NEW_VERSION" > VERSION
-echo "✅ Updated VERSION file."
-
-# Update Doxyfile project number
 sed -i "s/^PROJECT_NUMBER[[:space:]]*=.*/PROJECT_NUMBER         = $NEW_VERSION/" Doxyfile
-echo "✅ Updated Doxyfile version."
+echo "✅ Updated Version Files."
 
 # 3. Regenerate Documentation
 echo "⚙️  Regenerating Doxygen Docs..."
-# We run doxygen using the 'builder' stage logic locally to ensure docs are fresh
+# We use your current method (ubuntu container) because it works reliably
 docker run --rm -v "$PWD":/src -w /src ubuntu:22.04 /bin/bash -c "apt-get update && apt-get install -y doxygen && doxygen Doxyfile"
-echo "✅ Docs updated."
+
+# --- 3.5 NEW SAFETY CHECK ---
+if [ ! -f "docs/html/index.html" ]; then
+    echo "❌ CRITICAL ERROR: Docs were not generated!"
+    echo "   I looked for 'docs/html/index.html' but could not find it."
+    echo "   Check your Doxyfile settings (OUTPUT_DIRECTORY should be 'docs')."
+    exit 1
+fi
+echo "✅ Docs confirmed locally."
+# -----------------------------
 
 # 4. Git Operations
 echo "🐙 Pushing to GitHub..."
@@ -45,20 +51,18 @@ git commit -m "Release v$NEW_VERSION"
 git tag -a "v$NEW_VERSION" -m "Release $NEW_VERSION"
 git push origin main
 git push origin "v$NEW_VERSION"
-echo "✅ Code and Tags pushed to GitHub."
 
 # 5. Docker Operations
-echo "🐳 Building and Pushing Docker Image..."
-echo "   (This may take a moment...)"
+echo "🐳 Building Docker Image (Forcing No Cache for Docs)..."
 
-# Build with two tags: specific version AND latest
-docker build -t $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION -t $REGISTRY_URL/$IMAGE_NAME:latest .
+# We add --no-cache to ensure it actually COPIES the new docs folder
+docker build --no-cache -t $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION -t $REGISTRY_URL/$IMAGE_NAME:latest .
 
-# Push both to DigitalOcean
+echo "🚀 Pushing to DigitalOcean..."
 docker push $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION
 docker push $REGISTRY_URL/$IMAGE_NAME:latest
 
 echo "----------------------------------------------------"
 echo "🎉 SUCCESS! Version $NEW_VERSION is live."
 echo "----------------------------------------------------"
-echo "Next Step: SSH into your server and run './update_and_redeploy.sh'"
+echo "Next Step: Run './update_and_redeploy.sh' on the server."
