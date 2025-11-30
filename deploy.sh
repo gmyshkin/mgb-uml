@@ -24,4 +24,4 @@ docker network create tikzit_net || true
 echo "📚 Creating Docs Volume..."
 docker volume create tikzit_docs
 
-echo "✅ Setup Complete. You are ready to run docker-compose up."
+echo "✅ Setup Complete. You are ready to run docker compose up."
