@@ -56,7 +56,7 @@ git push origin "v$NEW_VERSION"
 echo "🐳 Building Docker Image (Forcing No Cache for Docs)..."
 
 # We add --no-cache to ensure it actually COPIES the new docs folder
-docker build --no-cache -t $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION -t $REGISTRY_URL/$IMAGE_NAME:latest .
+docker build -t $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION -t $REGISTRY_URL/$IMAGE_NAME:latest .
 
 echo "🚀 Pushing to DigitalOcean..."
 docker push $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION
