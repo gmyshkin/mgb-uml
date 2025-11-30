@@ -2,7 +2,10 @@
 set -euo pipefail
 
 # default env vars
-VNC_PASSWORD="${VNC_PASSWORD:-tikzitMGBadmin}"
+if [ -z "$VNC_PASSWORD" ]; then
+  echo "ERROR: VNC_PASSWORD environment variable is not set!"
+  exit 1
+fi
 VNC_GEOMETRY="${VNC_GEOMETRY:-1280x800}"
 VNC_DISPLAY="${VNC_DISPLAY:-:1}"
 VNC_USER="${VNC_USER:-tikzituser}"

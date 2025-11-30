@@ -37,4 +37,5 @@ tikzit
 tikzlexer.h
 dist
 win32-deps
+.env
 

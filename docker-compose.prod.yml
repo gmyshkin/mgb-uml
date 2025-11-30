@@ -1,26 +1,55 @@
 version: "3.8"
 
 services:
+  # 1. THE DEFAULT SHARED CONTAINER (Landing Page App)
+  tikzit_default:
+    image: registry.digitalocean.com/mgb-uml/tikzit:latest
+    container_name: tikzit_default
+    restart: always
+    environment:
+      - VNC_PASSWORD=${VNC_PASSWORD} # Reads from .env
+    volumes:
+      - tikzit_data_default:/home/tikzituser/.local/share/tikzit
+    networks:
+      - tikzit_net
+
+  # 2. NGINX (The Traffic Cop & SSL Handler)
   nginx:
     image: nginx:alpine
     container_name: tikzit_proxy
     restart: always
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - tikzit_docs:/var/www/docs
-      # The folder where we will write user configs dynamically
       - ./user_configs:/etc/nginx/conf.d 
+      # SSL Certificates (Let's Encrypt)
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     networks:
       - tikzit_net
+    depends_on:
+      - tikzit_default
 
-# Define a custom network so Nginx can find the user containers by name
+  # 3. CERTBOT (The SSL Renewer)
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+
+# --- CRITICAL SECTIONS BELOW ---
+
+# Define the network so Nginx can find the user containers
 networks:
   tikzit_net:
     name: tikzit_net
     driver: bridge
 
+# Define volumes so data survives restarts
 volumes:
   tikzit_docs:
-    external: true # We assume this is populated by your publish workflow
+    external: true # Populated by update_and_redeploy.sh
+  tikzit_data_default: # Stores data for the default session

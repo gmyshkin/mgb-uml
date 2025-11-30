@@ -5,6 +5,15 @@ IMAGE_NAME="registry.digitalocean.com/mgb-uml/tikzit:latest"
 NETWORK_NAME="tikzit_net"
 CONFIG_DIR="./user_configs"
 
+if [ -f .env ]; then
+    # This reads the .env file and makes the variables usable in this script
+    export $(cat .env | xargs)
+else
+    echo "❌ Error: .env file not found. Cannot start container without password."
+    exit 1
+fi
+
+
 # 1. Ask for Username
 echo "👤 TIKZIT USER CREATOR"
 read -p "Enter username (lowercase, no spaces): " USERNAME
@@ -34,7 +43,7 @@ docker run -d \
   --name $CONTAINER_NAME \
   --network $NETWORK_NAME \
   --restart always \
-  -e VNC_PASSWORD=tikzitMGBadmin \
+  -e VNC_PASSWORD=$VNC_PASSWORD \
   -v "tikzit_data_$USERNAME:/home/tikzituser/.local/share/tikzit" \
   $IMAGE_NAME
 
