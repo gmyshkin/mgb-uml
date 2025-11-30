@@ -1,0 +1,30 @@
+    # Ignore Git history (Heavy!)
+.git
+.gitignore
+
+# Ignore Build Artifacts (Heavy!)
+build/
+release/
+debug/
+*.o
+*.a
+*.so
+
+# Ignore Local Configs
+user_configs/
+user_data/
+nginx.conf
+docker-compose.yml
+docker-compose.prod.yml
+deploy.sh
+multi_user_manager.sh
+update_and_redeploy.sh
+publish_all.sh
+
+# Ignore IDE settings
+.vscode/
+.idea/
+
+# We DO want docs to be copied manually via the specific COPY command,
+# but we usually ignore source docs to keep context light.
+# However, since we explicitly COPY docs in Stage 2, keep them visible.
