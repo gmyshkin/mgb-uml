@@ -1,4 +1,4 @@
-name: TikZiT DevOps Pipeline
+name: TikZiT CI Verifier
 
 on:
   push:
@@ -7,66 +7,47 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-test-deploy:
+  verify-code:
     runs-on: ubuntu-22.04
     permissions:
       contents: write
-      packages: write
 
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    # Python Tests
+    # 1. Run Python Tests
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: '3.9'
-    - name: Install Test Dependencies
+    - name: Install Dependencies
       run: |
         pip install -r tests/requirements.txt
         pip install pytest
-    - name: Run Python Tests
+    - name: Run Tests
       run: pytest tests/deployment/ --junitxml=test-results.xml
 
-    # LaTeX Compilation (Fixed)
+    # 2. Compile LaTeX (To prove it works)
     - name: Compile LaTeX Report
       uses: xu-cheng/latex-action@v2
       with:
-        root_file: itManual.tex          # Your correct file
-        working_directory: latex_documentation/ # Your correct folder
+        root_file: itManual.tex
+        working_directory: latex_documentation/
+        # We keep 'continue on error' just in case, but try to fix the spaces!
         args: -pdf -file-line-error -interaction=nonstopmode -f
 
-    # Doxygen
-    - name: Install Doxygen & Graphviz
+    # 3. Doxygen Check
+    - name: Install Doxygen
       run: sudo apt-get install -y doxygen graphviz
-    - name: Generate Doxygen Docs
+    - name: Generate Docs
       run: doxygen Doxyfile
 
-    # Build Docker
-    - name: Login to DigitalOcean Registry
-      uses: docker/login-action@v2
+    # 4. Upload Artifacts (So you can download the PDF from GitHub)
+    - name: Upload PDF & Docs
+      uses: actions/upload-artifact@v4
       with:
-        registry: registry.digitalocean.com
-        username: _
-        password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-    - name: Build and Push Docker Image
-      run: |
-        VERSION=$(cat VERSION)
-        docker build . -t registry.digitalocean.com/mgb-uml/tikzit:$VERSION
-        docker push registry.digitalocean.com/mgb-uml/tikzit:$VERSION
-        docker tag registry.digitalocean.com/mgb-uml/tikzit:$VERSION registry.digitalocean.com/mgb-uml/tikzit:latest
-        docker push registry.digitalocean.com/mgb-uml/tikzit:latest
-
-    # Artifacts (Fixed Deprecation Error)
-    - name: Zip Artifacts
-      run: |
-        VERSION=$(cat VERSION)
-        # Zip the PDF generated in the latex folder
-        zip -r tikzit-release-$VERSION.zip src/ docs/html/ latex_documentation/*.pdf VERSION
-
-    - name: Upload Artifact to GitHub
-      uses: actions/upload-artifact@v4  # CHANGED FROM v3 TO v4
-      with:
-        name: deployment-package
-        path: tikzit-release-*.zip
+        name: Project-Documentation
+        path: |
+          latex_documentation/*.pdf
+          docs/html/index.html

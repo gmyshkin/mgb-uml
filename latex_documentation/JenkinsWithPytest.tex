@@ -9,7 +9,7 @@
 \textbf{Commands:}
 \begin{verbatim}
 docker compose up -d
-docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+docker exec -it jenkins cat /var/jenkins\_home/secrets/initialAdminPassword
 \end{verbatim}
 Open \url{http://localhost:8080} → Install Suggested Plugins → create admin.
 
@@ -90,17 +90,17 @@ pipeline {
 services:
   jenkins:
     build: .
-    container_name: jenkins
+    container\_name: jenkins
     ports:
       
 "8080:8080"
 "50000:50000"
 volumes:
-jenkins_home:/var/jenkins_home\# 
+jenkins\_home:/var/jenkins\_home\# 
 leave this out unless you explicitly need Docker 
 inside builds\# - /var/run/docker.sock:/var/run/docker.sock
 volumes:
-  jenkins_home:
+  jenkins\_home:
 
 
 \subsection{Docker file (added):}
@@ -110,6 +110,6 @@ USER root
 Install Python 3 + venv + pip
 RUN apt-get update \
  \&\& apt-get install -y python3 python3-venv python3-pip \
- && rm -rf /var/lib/apt/lists/*
+ \&\& rm -rf /var/lib/apt/lists/*
 
 USER jenkins
