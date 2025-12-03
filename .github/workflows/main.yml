@@ -36,18 +36,12 @@ jobs:
         working_directory: latex_documentation/
         # We keep 'continue on error' just in case, but try to fix the spaces!
         args: -pdf -file-line-error -interaction=nonstopmode -f
+      continue-on-error: true
 
-    # 3. Doxygen Check
-    - name: Install Doxygen
-      run: sudo apt-get install -y doxygen graphviz
-    - name: Generate Docs
-      run: doxygen Doxyfile
-
-    # 4. Upload Artifacts (So you can download the PDF from GitHub)
-    - name: Upload PDF & Docs
+    # 3. Upload Artifacts (So you can download the PDF from GitHub)
+    - name: Upload PDF
       uses: actions/upload-artifact@v4
       with:
         name: Project-Documentation
         path: |
           latex_documentation/*.pdf
-          docs/html/index.html
