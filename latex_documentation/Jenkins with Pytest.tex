@@ -34,7 +34,7 @@ Include screenshots: Dashboard, Configure (SCM), Console, Test Result.
 
 \section*{Result}
 Tests: total 3, passed 2, failed 1.  
-Stages: Install ✓, Test ✓, Report ✓.
+Stages: Install (done), Test (done), Report (done).
 
 \section{GitHub Link}
 
@@ -96,9 +96,9 @@ services:
 "8080:8080"
 "50000:50000"
 volumes:
-jenkins_home:/var/jenkins_home# 
+jenkins_home:/var/jenkins_home\# 
 leave this out unless you explicitly need Docker 
-inside builds# - /var/run/docker.sock:/var/run/docker.sock
+inside builds\# - /var/run/docker.sock:/var/run/docker.sock
 volumes:
   jenkins_home:
 
@@ -109,7 +109,7 @@ FROM jenkins/jenkins:lts
 USER root
 Install Python 3 + venv + pip
 RUN apt-get update \
- && apt-get install -y python3 python3-venv python3-pip \
+ \&\& apt-get install -y python3 python3-venv python3-pip \
  && rm -rf /var/lib/apt/lists/*
 
 USER jenkins
