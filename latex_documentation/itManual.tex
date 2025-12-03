@@ -45,6 +45,46 @@
 %\usepackage{tabto}
 
 
+\lstdefinestyle{linuxstyle}{%
+    language=bash,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{green!50!black}\bfseries,
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    morecomment=[l]{#},
+}
+
+\lstdefinestyle{DOBash}{
+    language=bash,
+    backgroundcolor=\color{DOBackground},
+    basicstyle=\ttfamily\small,
+    frame=single,
+    rulecolor=\color{black!30},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=2,
+    % Keywords for main commands
+    keywordstyle=\color{DOBlue}\bfseries,
+    keywords={doctl, docker, brew},
+    % Keywords for sub-commands
+    keywordstyle=[2]\color{black},
+    keywords=[2]{auth, init, account, get, registry, create, login, build, tag, push, install},
+    % Style for comments
+    commentstyle=\color{DOCommentGreen},
+    % Style for strings
+    stringstyle=\color{DOStringPurple},
+    % This tells listings to process LaTeX commands inside the code
+    moredelim=**[is][\placeholder]{@}{@},
+}
+
 \usepackage{tabularx,colortbl}
 \usepackage[chapter]{algorithm} 
 \usepackage{algorithmic} 
@@ -483,45 +523,6 @@
 %\usepackage{listings}
 
 
-\lstdefinestyle{linuxstyle}{%
-    language=bash,
-    basicstyle=\ttfamily\small,
-    keywordstyle=\color{blue}\bfseries,
-    commentstyle=\color{green!50!black}\bfseries,
-    stringstyle=\color{orange},
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    stepnumber=1,
-    numbersep=5pt,
-    breaklines=true,
-    showstringspaces=false,
-    morecomment=[l]{#},
-}
-
-\lstdefinestyle{DOBash}{
-    language=bash,
-    backgroundcolor=\color{DOBackground},
-    basicstyle=\ttfamily\small,
-    frame=single,
-    rulecolor=\color{black!30},
-    numbers=left,
-    numberstyle=\tiny\color{gray},
-    breaklines=true,
-    breakatwhitespace=true,
-    tabsize=2,
-    % Keywords for main commands
-    keywordstyle=\color{DOBlue}\bfseries,
-    keywords={doctl, docker, brew},
-    % Keywords for sub-commands
-    keywordstyle=[2]\color{black},
-    keywords=[2]{auth, init, account, get, registry, create, login, build, tag, push, install},
-    % Style for comments
-    commentstyle=\color{DOCommentGreen},
-    % Style for strings
-    stringstyle=\color{DOStringPurple},
-    % This tells listings to process LaTeX commands inside the code
-    moredelim=**[is][\placeholder]{@}{@},
-}
 
 % overleaf -> github test
 
