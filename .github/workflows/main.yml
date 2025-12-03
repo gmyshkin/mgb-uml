@@ -35,6 +35,7 @@ jobs:
       with:
         root_file: itManual.tex          # Your correct file
         working_directory: latex_documentation/ # Your correct folder
+        args: -pdf -file-line-error -interaction=nonstopmode -f
 
     # Doxygen
     - name: Install Doxygen & Graphviz
