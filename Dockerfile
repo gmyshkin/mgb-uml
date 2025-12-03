@@ -88,6 +88,8 @@ COPY docs/ /src/docs/
 # during the build process so you know immediately.
 RUN ls -la /src/docs/html/index.html && echo "✅ Docs verified inside image."
 
+RUN rm -rf /opt/noVNC/docs && ln -s /src/docs/html /opt/noVNC/docs
+
 # Create default index symlink
 RUN ln -s /opt/noVNC/vnc.html /opt/noVNC/index.html
 
