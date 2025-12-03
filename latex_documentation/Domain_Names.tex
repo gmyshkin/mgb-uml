@@ -1,0 +1,98 @@
+\chapter{Domain Names, SSL, and Versioning\\
+\medium{\textit{---Version 1.0.0}}}
+\label{Chapter!Domain Names, SSL, and Versioning}
+\index{Chapter!Domain Names, SSL, and Versioning}
+
+\section{Domain Name}
+The following is the name of our Overleaf Domain:
+\href{mgboverleaf.me}{mgboverleaf.me}
+
+\section{Research SSL Options}
+Adding SSL or TLS certificates will allow to secure a self-hosted Overleaf instance so that users can connect over HTTPS. Through some reasearch, the easiest method found is to use a rever proxy (something like Nginx) in front of the Overleaf container to handle the SSL. The following is a way we found to add the SSL:
+\newline \newline
+The first thing that we need is to set up a reverse proxy by running Overleaf normally with HTTP on port 3000 and configure Nginx to listen on ports 80 and 443. The proxy will forward secure requests to Overleaf.
+\newline \newline
+After that, we need to get a free SSL certificate. We can use Let's Encrypt to issue a certificate for our domain. These certificates are free but expire every 90 days.
+\newline \newline
+Next, we have to install the certificate. We have to point Nginx to the vertificate and key files, using the path of the files and comman lines such as ssl\_certificate and ssl\_certificate\_key.
+\newline \newline
+Now, we enable the HTTPS by restarting Nginx and visiting our Overleaf site through out domain with the https in the URL.
+\newline \newline
+We can also set up auto renewal that allows Let's Encrypt to renew certificates every three months through the following command:
+sudo certbot renew --quiet --post-hook "systemctl reload nginx"
+
+
+\section{Configure Overleaf Container}
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/packages.png}
+  \centering
+  \caption{LaTeX packages}
+  \vspace{-0.3cm}
+\end{figure}
+
+
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/proof.png}
+  \centering
+  \caption{Examples for the LaTeX packages}
+  \vspace{-0.3cm}
+\end{figure}
+
+
+
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/proof2.png}
+  \centering
+  \caption{Examples for the LaTeX packages 2}
+  \vspace{-0.3cm}
+\end{figure}
+
+
+\begin{itemize}
+  \item TeX Live is installed and populated: the output showing 2804 packages had been installed.
+  \item Core LaTeX engines are available: version lines for latex, pdflatex, and pdftex demonstrate the compilers are installed.
+  \item Bibliography toolchain is present: biber is installed and accessible.
+\end{itemize}
+
+
+
+\section{Connect Overleaf Instance}
+Instructions were created with the help of ChatGPT
+\newline \newline
+GitHub URL: \href{https://github.com/JKDX4567/mgb-overleaf}{https://github.com/JKDX4567/mgb-overleaf}
+\newline \newline
+To connect the Overleaf instance to GitHub, we went with the Git Bridge path. For this to work with our project, we first had to enable the git bridge on our Overleaf server by setting GIT\_BRIDGE\_ENABLED=true in the config/overleaf.rc in our config and then restart Overleaf.
+\newline \newline
+After enabling the git bridge, we open the project that we want to sync, which is this document in our case.
+\newline \newline
+After selecting the project, we have to get its Git URL, which we can do from the Overleaf UI. To do this, we had to go to Menu $->$ Git. This will show the Git clone URL: 
+\begin{lstlisting}[style=linuxstyle, language=bash]
+git clone https://git@git.overleaf.com/68c0867ec3256f4a94db8086
+\end{lstlisting}
+\newline \newline
+After getting the Git URL, we have to get the Overleaf Git Token. We need this token so that we can authenticate git for our project. This token is a one time token that we can use to log in to our Overleaf in Git so that we can connect the two.
+\newline \newline
+After getting the token, we can clone the project using the Git link that we created previously. During the cloning process, Git asks for a username and password, which we use our own username for the username and the token as the password.
+\newline \newline
+After this, we are pretty much complete. Now with this setup, we can test syncing our files between Github and Overleaf.
+
+\section{Compile Overleaf}
+Instructions were created with the help of ChatGPT
+\newline \newline
+We had two ways that we compiled our Overleaf project. The first method that we used was using latexmk as a command line to automatically run multiple commands at once, bib/biber, and indexing. The following were the lines of code that we used to compile the project:
+
+\begin{lstlisting}[style=linuxstyle, language=bash]
+#First, we need to be sure that we are in the correct directory with the use of cd.
+cd path/of/directory
+
+#After making sure we are in the correct directory, we use latexmk to put multiple other commands into one simple one.
+latexmk -pdf -interaction=nonstopmode -file-line-error --shell-escape itManual.tex
+\end{lstlisting}
+\newline \newline
+The other way that we managed to compile our project is directly in Overleaf using its own compiler. The following are the things that we did to get it working correctly using the Menu buttons and its options:
+\newline \newline
+Menu $->$ Compiler: pdfLaTeX\newline
+Menu $->$ Allow shell escape: ON (needed for minted)\newline 
+Menu $->$ Main document: itManual.tex\newline 
+Click Recompile (or turn on Auto) \newline 
+If ToC/LOF/LOT or links look stale, then the following is done: Menu $->$ Clear cached files, then Recompile

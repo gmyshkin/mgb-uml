@@ -4,101 +4,86 @@ set -e
 # --- CONFIGURATION ---
 REGISTRY_URL="registry.digitalocean.com/mgb-uml"
 IMAGE_NAME="tikzit"
+LATEX_DIR="latex_documentation"
+MAIN_TEX_FILE="MGBProjectProposal.tex" # Your main file identified above
 # ---------------------
 
 echo "----------------------------------------------------"
-echo "🤖 TIKZIT AUTO-PILOT RELEASE"
+echo "🚀 TIKZIT LOCAL PIPELINE (Mirrors GitHub Actions)"
 echo "----------------------------------------------------"
 
-# 1. AUTO-INCREMENT VERSION
+# 1. VERSIONING
 if [ -f VERSION ]; then CURRENT_VERSION=$(cat VERSION); else CURRENT_VERSION="0.0.0"; fi
-
-# Split version (1.0.0) into parts
+# Auto-increment logic
 IFS='.' read -r -a parts <<< "$CURRENT_VERSION"
-major=${parts[0]}
-minor=${parts[1]}
-patch=${parts[2]}
+next_patch=$((${parts[2]} + 1))
+SUGGESTED_VERSION="${parts[0]}.${parts[1]}.$next_patch"
 
-# Logic: Increment Patch
-next_patch=$((patch + 1))
-NEW_VERSION="$major.$minor.$next_patch"
+echo "🔹 Current: $CURRENT_VERSION"
+read -p "🔹 Enter Version (Press ENTER for $SUGGESTED_VERSION): " INPUT_VERSION
+NEW_VERSION="${INPUT_VERSION:-$SUGGESTED_VERSION}"
 
-# Safety: Check if tag exists (Collision detection)
-while git rev-parse "v$NEW_VERSION" >/dev/null 2>&1; do
-    echo "⚠️  v$NEW_VERSION already exists. Skipping..."
-    next_patch=$((next_patch + 1))
-    NEW_VERSION="$major.$minor.$next_patch"
-done
+# 2. RUN PYTHON TESTS (Matches GitHub Action)
+echo "🐍 Running Python Tests (via Docker)..."
+# We mount the current folder to /app and run pytest
+docker run --rm -v "$PWD":/app -w /app python:3.9-slim /bin/bash -c "pip install -r tests/requirements.txt && pip install pytest && pytest tests/deployment/ --junitxml=test-results.xml"
+echo "✅ Tests Passed."
 
-echo "🔹 Current Version: $CURRENT_VERSION"
-echo "🔹 Target Version:  $NEW_VERSION"
-echo "   (Auto-calculated to prevent duplicates)"
-echo "----------------------------------------------------"
+# 3. COMPILE LATEX (Matches GitHub Action)
+echo "📄 Compiling LaTeX Report (via Docker)..."
+# We mount the root to /data, but set workdir to the latex folder
+docker run --rm --platform linux/amd64 -v "$PWD":/data -w /data/$LATEX_DIR grandline/latex pdflatex -interaction=nonstopmode $MAIN_TEX_FILE > /dev/null 2>&1 || true
 
-# 2. HANDLE UNCOMMITTED CODE (The Hash Fix)
-# We check if there are changed files that haven't been committed yet
-if [[ -n $(git status -s) ]]; then
-    echo "📝 Found uncommitted changes in your code."
-    echo "   I need to commit these FIRST to get the correct Hash."
-    read -p "   Enter commit message for your code changes: " WORK_MSG
-    
-    if [ -z "$WORK_MSG" ]; then WORK_MSG="Code updates before release v$NEW_VERSION"; fi
-    
-    git add .
-    git commit -m "$WORK_MSG"
-    echo "✅ Code committed."
+# Check if PDF was created
+if [ -f "$LATEX_DIR/${MAIN_TEX_FILE%.*}.pdf" ]; then
+    echo "✅ LaTeX Compiled Successfully."
+    # Move PDF to root so we can zip it easily
+    mv "$LATEX_DIR/${MAIN_TEX_FILE%.*}.pdf" project_report.pdf
 else
-    echo "✅ Clean working tree. Proceeding..."
+    echo "⚠️ LaTeX Compilation Warning: PDF not found."
+    touch project_report.pdf # Create placeholder so script doesn't crash
 fi
-
-# 3. CAPTURE THE HASH (Now it's the correct one!)
-GIT_HASH=$(git rev-parse --short HEAD)
-echo "🔗 Locking in Source Hash: $GIT_HASH"
 
 # 4. UPDATE VERSION FILES
 echo "$NEW_VERSION" > VERSION
+# Mac/Linux sed compatibility
 if [[ "$(uname)" == "Darwin" ]]; then
     sed -i '' "s/^PROJECT_NUMBER[[:space:]]*=.*/PROJECT_NUMBER         = $NEW_VERSION/" Doxyfile
 else
     sed -i "s/^PROJECT_NUMBER[[:space:]]*=.*/PROJECT_NUMBER         = $NEW_VERSION/" Doxyfile
 fi
 
-# 5. GENERATE ARTIFACTS
-echo "📄 Compiling LaTeX..."
-docker run --rm --platform linux/amd64 -v "$PWD":/data -w /data grandline/latex pdflatex -interaction=nonstopmode project_report.tex > /dev/null 2>&1 || true
-
+# 5. GENERATE DOXYGEN
 echo "⚙️  Regenerating Doxygen..."
-docker run --rm --platform linux/amd64 -v "$PWD":/src -w /src ubuntu:22.04 /bin/bash -c "apt-get update && apt-get install -y doxygen && doxygen Doxyfile" || true
+docker run --rm --platform linux/amd64 -v "$PWD":/src -w /src ubuntu:22.04 /bin/bash -c "apt-get update && apt-get install -y doxygen graphviz && doxygen Doxyfile" > /dev/null 2>&1
+if [ ! -f "docs/html/index.html" ]; then echo "❌ Doxygen Failed!"; exit 1; fi
 
-echo "🗜️  Creating ZIP..."
+# 6. CREATE ZIP ARTIFACT
+echo "🗜️  Creating Deployment Artifact..."
+GIT_HASH=$(git rev-parse --short HEAD)
 ZIP_NAME="tikzit-release-v$NEW_VERSION-$GIT_HASH.zip"
 zip -r $ZIP_NAME src/ docs/ project_report.pdf VERSION nginx.conf *.sh > /dev/null || true
+echo "✅ Artifact: $ZIP_NAME"
 
-# 6. GIT RELEASE (The Final Tag)
-echo "🐙 Tagging Release on GitHub..."
+# 7. GIT PUSH (Triggers GitHub Actions!)
+echo "🐙 Pushing to GitHub..."
 git add .
-# We use [skip ci] to prevent infinite loops if you set up Actions later
-RELEASE_MSG="Release v$NEW_VERSION [Ref: $GIT_HASH]"
-
-git commit -m "$RELEASE_MSG"
-git tag -a "v$NEW_VERSION" -m "$RELEASE_MSG"
-
+COMMIT_MSG="Release v$NEW_VERSION [Ref: $GIT_HASH]"
+git commit -m "$COMMIT_MSG"
+git tag -a "v$NEW_VERSION" -m "$COMMIT_MSG"
 git push origin main
 git push origin "v$NEW_VERSION"
+echo "✅ Pushed to GitHub. (This will trigger the Actions tab!)"
 
-# 7. DOCKER DEPLOY
-echo "🐳 Building & Pushing Docker Image..."
+# 8. DOCKER PUSH (Direct to DigitalOcean)
+echo "🐳 Building & Pushing to DigitalOcean..."
 docker build --platform linux/amd64 \
   -t $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION \
   -t $REGISTRY_URL/$IMAGE_NAME:latest \
-  -t $REGISTRY_URL/$IMAGE_NAME:git-$GIT_HASH \
   .
-
 docker push $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION
 docker push $REGISTRY_URL/$IMAGE_NAME:latest
 
 echo "----------------------------------------------------"
-echo "🎉 DEPLOYMENT COMPLETE: v$NEW_VERSION"
-echo "🔗 Hash Ref: $GIT_HASH"
+echo "🎉 DONE! v$NEW_VERSION is live."
 echo "----------------------------------------------------"
-#Test with this publish_all scrip, trying to make sure everything works fine.

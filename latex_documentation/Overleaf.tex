@@ -1,0 +1,45 @@
+\chapter{Overleaf}
+\small{\textit{-- Matthew Smith, Bowen Jiang, Gleb Myshkin}}
+\ChapterLabel{Overleaf}
+\index{hosts} 
+\index{Chapter!Overleaf}
+
+
+3 options for ssl:
+
+\begin{itemize}
+        \item Caddy (easiest) — automatic Let’s Encrypt + renewals
+
+        (yaml code): # service caddy
+        ports: ["80:80","443:443"]
+        volumes: ["./Caddyfile:/etc/caddy/Caddyfile","caddy_data:/data"]
+        # Caddyfile
+        overleaf.example.com {
+          encode gzip
+          reverse_proxy sharelatex:80
+        }
+        \item Nginx + certbot
+        \item Traefik
+    \end{itemize}
+
+\begin{minted}{python}
+print("minted works")
+\end{minted}
+
+
+Logs to confirm these work right:
+
+GPT DIAG: pdfshellescape=1
+GPT DIAG: minted.sty FOUND
+
+
+
+Github link: https://github.com/JKDX4567/mgb-overleaf
+
+(How to update github: 
+git pull overleaf master
+git push origin main
+DO THIS WHILE IN FOLDER TERMINAL
+First line updates local file
+Second pushes it to github)
+

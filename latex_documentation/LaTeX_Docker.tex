@@ -1,0 +1,85 @@
+\chapter[LaTeX Docker]{LaTeX Docker\\
+\small\textit{-- -- Matthew Smith, Bowen Jiang, Gleb Myshkin}}
+\index{LaTeX Docker}
+\index{Chapter!LaTeX Docker}
+\label{Chapter:LaTeX_Docker}
+
+\section{Overview}
+This chapter documents a minimal \LaTeX{} toolchain in Docker using TeX~Live, similar to Overleaf. We show the image, a sample document that uses \texttt{minted}, and the exact commands to build and run.
+
+\subsection*{Compilation note (important)}
+The \texttt{minted} package requires \texttt{pygmentize} and \emph{shell escape}. Compile with:
+\begin{minted}[fontsize=\small]{bash}
+latexmk -pdf -shell-escape main.tex
+# or if using Docker (shown later), the container runs with -shell-escape enabled.
+\end{minted}
+
+\section{Docker Image}
+The Dockerfile installs TeX Live, \texttt{latexmk}, and \texttt{python3-pygments} for \texttt{minted}. The entrypoint runs \texttt{latexmk} with \texttt{-shell-escape}.
+
+\begin{minted}[fontsize=\small,breaklines]{docker}
+FROM debian:bookworm-slim
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    make \
+    latexmk \
+    texlive-base \
+    texlive-latex-recommended \
+    texlive-latex-extra \
+    texlive-fonts-recommended \
+    texlive-fonts-extra \
+    texlive-xetex \
+    python3-pygments \
+    ghostscript \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /work
+RUN useradd -ms /bin/bash builder
+USER builder
+
+ENTRYPOINT ["latexmk", "-pdf", "-shell-escape", "-file-line-error", "-interaction=nonstopmode"]
+CMD ["main.tex"]
+\end{minted}
+
+
+
+\section{Sample \LaTeX{} Document Using \texttt{minted}}
+\begin{minted}[fontsize=\small,breaklines]{latex}
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{minted}
+\usemintedstyle{friendly}
+\title{Hello, \LaTeX{} in Docker!}
+\author{Team Name}\date{\today}
+
+\begin{document}
+\maketitle
+
+This PDF was compiled inside a Docker container. Example code:
+
+\begin{minted}[fontsize=\small,breaklines]{python}
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+print(greet("world"))
+\end{minted}
+
+\end{document}
+\end{minted}
+
+\section{Build \& Run}
+From the folder containing the Dockerfile and \texttt{main.tex}:
+\begin{minted}[fontsize=\small]{bash}
+# Build the image
+docker build -t latex-texlive .
+
+# Compile main.tex in the current directory (mounted as /work)
+docker run --rm -v "$PWD":/work latex-texlive
+
+# View the PDF (macOS)
+open main.pdf
+# Linux: xdg-open main.pdf   |  Windows (Git Bash/PowerShell)
+
+
+\end{minted}

@@ -1,0 +1,83 @@
+name: TikZiT DevOps Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write # Needed to create Releases
+      packages: write
+
+    steps:
+    # 1. Checkout Code
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    # 2. Python Automated Testing (Graded Requirement #5)
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Test Dependencies
+      # Installs requirements from your tests folder
+      run: |
+        pip install -r tests/requirements.txt
+        pip install pytest
+
+    - name: Run Python Tests
+      # This runs your tests and fails the build if they break
+      run: |
+        pytest tests/deployment/ --junitxml=test-results.xml
+
+    # 3. Compile LaTeX Documentation (Graded Requirement #4)
+    - name: Compile LaTeX Report
+      uses: xu-cheng/latex-action@v2
+      with:
+        # Change this filename if your main file is different!
+        root_file: itManual.tex 
+        working_directory: latex_documentation/
+
+    # 4. Generate Doxygen (Bonus +5)
+    - name: Install Doxygen & Graphviz
+      run: sudo apt-get install -y doxygen graphviz
+
+    - name: Generate Doxygen Docs
+      run: doxygen Doxyfile
+
+    # 5. Build Docker Image (Smoke Test included)
+    - name: Login to DigitalOcean Registry
+      uses: docker/login-action@v2
+      with:
+        registry: registry.digitalocean.com
+        username: _
+        password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+    - name: Build and Push Docker Image
+      run: |
+        VERSION=$(cat VERSION)
+        # Build the image (includes the "Smoke Test" RUN line you added to Dockerfile)
+        docker build . -t registry.digitalocean.com/mgb-uml/tikzit:$VERSION
+        docker push registry.digitalocean.com/mgb-uml/tikzit:$VERSION
+        
+        # Also tag as latest
+        docker tag registry.digitalocean.com/mgb-uml/tikzit:$VERSION registry.digitalocean.com/mgb-uml/tikzit:latest
+        docker push registry.digitalocean.com/mgb-uml/tikzit:latest
+
+    # 6. Create Deployment Artifact (Graded Requirement #6)
+    - name: Zip Artifacts
+      run: |
+        VERSION=$(cat VERSION)
+        # Zip source, docs, and the compiled PDF from the latex folder
+        zip -r tikzit-release-$VERSION.zip src/ docs/html/ latex_documentation/*.pdf VERSION
+
+    - name: Upload Artifact to GitHub
+      uses: actions/upload-artifact@v3
+      with:
+        name: deployment-package
+        path: tikzit-release-*.zip

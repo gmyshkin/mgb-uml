@@ -1,0 +1,220 @@
+\chapter{Load Balancer and Virtual Host  \\
+\small{\textit{-- Matthew Smith, Bowen Jiang, Gleb Myshkin}}}
+\index{Load Balancer and Virtual Host } 
+\index{Chapter!Load Balancer and Virtual Host }
+\label{Chapter::Load Balancer and Virtual Host}
+
+\section{Load Balancer}
+
+\subsection{Setup Steps}
+
+\begin{enumerate}
+
+  \item For the Load Balancer to work online for anyone to access, instead of testing it locally, a Digital Ocean Droplet was needed. An Ubuntu droplet was chosen.
+
+  \item After creating the Droplet, files need to be created to setup the Load Balancer. The main folder is \texttt{load-balanced-app} then we created a \texttt{nginx}, \texttt{web1}, and \texttt{web2} folder. Inside of \texttt{nginx} we create a file \texttt{nginx.conf}. Inside of \texttt{web1} we created \texttt{index.html}. Inside \texttt{web2} we created \texttt{index.html}. In the main \texttt{load-balanced-app} we created a \texttt{docker-compose.yml}.
+
+
+  \item Inside of \texttt{web1/index.html} we added the following simple code:
+    \begin{lstlisting}[style=linuxstyle, language=bash]
+    <h1>Hello from Web 1 </h1>
+    \end{lstlisting}
+
+  \item Inside of \texttt{web2/index.html} we added the following simple code:
+    \begin{lstlisting}[style=linuxstyle, language=bash]
+    <h1>Hello from Web 2 </h1>
+    \end{lstlisting}
+
+  \item Inside of \texttt{nginx/nginx.conf} we added the following simple code:
+    \begin{lstlisting}[style=linuxstyle, language=bash]
+    events {}
+    
+    http {
+        upstream backend {
+            server web1:80;
+            server web2:80;
+        }
+    
+        server {
+            listen 80;
+            location / {
+                proxy_pass http://backend;
+                proxy_set_header Host $host;
+                proxy_set_header X-Real-IP $remote_addr;
+            }
+        }
+    }
+    \end{lstlisting}
+
+  \item Inside of \texttt{docker-compose.yml} we added the following simple code:
+    \begin{lstlisting}[style=linuxstyle, language=bash]
+    version: '3'
+    services:
+      web1:
+        image: nginx
+        container_name: web1
+        volumes:
+          - ./web1:/usr/share/nginx/html:ro
+    
+      web2:
+        image: nginx
+        container_name: web2
+        volumes:
+          - ./web2:/usr/share/nginx/html:ro
+    
+      loadbalancer:
+        image: nginx
+        container_name: loadbalancer
+        ports:
+          - "8080:80"
+        volumes:
+          - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+        depends_on:
+          - web1
+          - web2
+    \end{lstlisting}
+
+  \item After setting up the files, we start to go into the droplet console and take the files that we created and upload them to Digital Ocean through the use of the public ip to allow another person to access the website. We have to run the following code commands to SSH into the server and then do the rest to get the website up and running.
+
+   \begin{lstlisting}[style=linuxstyle, language=bash]
+    #The first thing we have to do is SSH into the server using the droplet's public ipv4.
+    ssh root@104.248.11.61
+
+    #After ther we install Docker and Docker Compose after doing an update
+    sudo apt update
+    sudo apt install -y docker.io docker-compose
+    
+    \end{lstlisting}
+    
+    \item After that, we need to make the files web1 and web2 readable
+    \begin{lstlisting}[style=linuxstyle, language=bash]
+    chmod -R 755 web1 web2
+    \end{lstlisting}
+
+    \item After getting Docker installed into the droplet project and making the files readable, we have to do the following commands to get into the project and then get it up and running.
+
+   \begin{lstlisting}[style=linuxstyle, language=bash]
+   #First we have to cd into the project directory
+   cd load-balanced-app
+
+   #Now we have to start the container in the background
+   docker-compose up -d --build
+   \end{lstlisting}
+
+   \item We need to open the firewall so that Digital Ocean allows the port 8080 to work.
+   \begin{lstlisting}[style=linuxstyle, language=bash]
+    ufw allow 8080
+    \end{lstlisting}
+
+  
+\end{enumerate}
+
+\subsection{Explanation on how to test the webpage}
+The webpage is supposed to show two different versions of the same site that show two different things. The first page is supposed to be Hello from Web 1 while the second one will be Hello from Web 2. After refreshing the page, they should change between them, but this doesn't really work when the webpage might be saving cache and not really allowing them to change from one another. One method that I found to work is using the curl method in the terminal and having it show the two different outputs. The following is the code that was used:
+\begin{lstlisting}[style=linuxstyle, language=bash]
+curl http://104.248.11.61:8080
+
+#The code above will give the following outputs, changing from one another:
+<h1>Hello from Web 1 </h1>
+<h1>Hello from Web 2 </h1>
+<h1>Hello from Web 2 </h1>
+<h1>Hello from Web 1 </h1>
+<h1>Hello from Web 2 </h1>
+<h1>Hello from Web 1 </h1>
+\end{lstlisting}
+
+A method that works on the webpage is doing a Hard Refresh in Incognito Mode. The commands for a hard refres are as follows:
+
+Windows/Linux: Ctrl + F5
+
+Mac: Cmd + Shift + R
+
+I noticed that the command has to be pressed multiple times in fast succession to actually show the different webpage.
+
+The webpage for the Load Balancer is as follows: \url{http://104.248.11.61:8080/}
+
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/balance loader web 1.png}
+  \centering
+  \caption{load balancer web1}
+  \vspace{-0.3cm}
+\end{figure}
+
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/balance loader web 2.png}
+  \centering
+  \caption{load balancer web2}
+  \vspace{-0.3cm}
+\end{figure}
+
+\section{Virtual Hosting}
+
+\subsection{Setup Steps}
+
+
+\begin{enumerate}
+  \item I created a DigitalOcean droplet running Ubuntu and updated the system
+        packages. On the droplet I created the directory
+        \texttt{ssw590-3-2-virtualhost} and a \texttt{docker-compose.yml} file
+        that defines three Nginx containers on the same Docker network:
+        two backend servers called \texttt{web1} and \texttt{web2}, and a
+        \texttt{proxy} container that acts as the reverse proxy.
+
+  \item In the \texttt{web1} and \texttt{web2} folders I created simple
+        \texttt{index.html} files with different messages so I could clearly
+        see which virtual host was serving each request.
+
+  \item For the reverse proxy I wrote \texttt{nginx/nginx.conf} with two
+        \texttt{server} blocks. The first block listens on port~80 for
+        \texttt{web1.ssw590domain.me} and forwards requests to container
+        \newline
+        \texttt{web1} using \verb|proxy_pass http://web1:80|. The second block
+        does the same for \texttt{web2.ssw590domain.me} and forwards to
+        \verb|http://web2:80|.
+
+  \item I started the stack with \verb|docker compose up -d| and tested the
+        configuration from inside the droplet using
+        \verb|curl -H "Host: web1.ssw590domain.me" http://127.0.0.1|
+        and the equivalent command for \texttt{web2}, confirming that each
+        hostname returned the correct HTML page.
+
+  \item Next, I used the GitHub Student Developer Pack to register the real
+        domain \texttt{ssw590domain.me} through Namecheap. In Namecheap's
+        ``Advanced DNS'' settings I added two A records:
+        \texttt{web1.ssw590domain.me} $\rightarrow$ \texttt{134.122.9.126}
+        and \texttt{web2.ssw590domain.me} $\rightarrow$ \texttt{134.122.9.126},
+        pointing both hostnames to my droplet's public IP address.
+
+  \item After DNS propagation I verified on my laptop with
+        \verb|nslookup web1.ssw590domain.me| and
+        \newline
+        \verb|nslookup web2.ssw590domain.me| that both names resolved to
+        \texttt{134.122.9.126}. Finally, I opened
+        \url{http://web1.ssw590domain.me} and
+        \url{http://web2.ssw590domain.me} in a browser and confirmed that the
+        reverse proxy served two different pages based on the hostname.
+\end{enumerate}
+
+
+
+\subsection{Links}
+\url{http://web1.ssw590domain.me/}
+
+
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/virtual host 1.png}
+  \centering
+  \caption{virtual host for web1}
+  \vspace{-0.3cm}
+\end{figure}
+
+
+\newpage
+
+\url{http://web2.ssw590domain.me/}
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/virtual host 2.png}
+  \centering
+  \caption{virtual host for web2}
+  \vspace{-0.3cm}
+\end{figure}

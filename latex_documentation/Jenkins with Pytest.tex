@@ -1,0 +1,115 @@
+\chapter{Jenkins with Pytest}
+\small{\textit{-- Matthew Smith, Bowen Jiang, Gleb Myshkin}}
+\index{Jenkins with Pytest} 
+\index{Chapter!Jenkins with Pytest }
+\label{Chapter Jenkins with Pytest}
+
+
+\section{Steps}
+\textbf{Commands:}
+\begin{verbatim}
+docker compose up -d
+docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+\end{verbatim}
+Open \url{http://localhost:8080} → Install Suggested Plugins → create admin.
+
+\section*{Pipeline (from SCM)}
+Jenkins → New Item → Pipeline → \emph{Pipeline script from SCM (Git)} → URL, branch \texttt{*/main}, script path \texttt{Jenkinsfile} → Save.
+
+\section*{Jenkinsfile}
+\begin{verbatim}
+pipeline {
+  agent { docker { image 'python:3.11-slim' } }
+  stages {
+    stage('Install'){steps{sh 'pip install -r requirements.txt'}}
+    stage('Test'){steps{sh 'pytest -q --junitxml=report.xml'}}
+    stage('Report'){steps{junit 'report.xml'}}
+  }
+}
+\end{verbatim}
+
+\section*{Run \& Evidence}
+Build Now → check \textbf{Console Output} and \textbf{Test Result}.  
+Include screenshots: Dashboard, Configure (SCM), Console, Test Result.
+
+\section*{Result}
+Tests: total 3, passed 2, failed 1.  
+Stages: Install ✓, Test ✓, Report ✓.
+
+\section{GitHub Link}
+
+\url{https://github.com/JKDX4567/jenkins-python-pytest-demo}
+
+\section{Screenshots}
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/jerkin 1.png}
+  \centering
+  \caption{Jerkin Tests}
+  \vspace{-0.3cm}
+\end{figure}
+
+
+\begin{figure} [H]
+\includegraphics[width=\textwidth]{png/jerkin 2.png}
+  \centering
+  \caption{Jerkin statues}
+  \vspace{-0.3cm}
+\end{figure}
+
+\section{Additional Configurations Changes}
+\subsection{Jenkinsfile:} 
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Install dependencies') {
+            steps {
+                sh 'python3 -m venv venv'
+                sh './venv/bin/pip install -r requirements.txt'
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                sh './venv/bin/pytest --junitxml=report.xml'
+            }
+        }
+
+        stage('Publish Report') {
+            steps {
+                junit 'report.xml'
+            }
+        }
+    }
+}
+
+\subsection{Yml file:} 
+
+
+services:
+  jenkins:
+    build: .
+    container_name: jenkins
+    ports:
+      
+"8080:8080"
+"50000:50000"
+volumes:
+jenkins_home:/var/jenkins_home# 
+leave this out unless you explicitly need Docker 
+inside builds# - /var/run/docker.sock:/var/run/docker.sock
+volumes:
+  jenkins_home:
+
+
+\subsection{Docker file (added):}
+FROM jenkins/jenkins:lts
+
+USER root
+Install Python 3 + venv + pip
+RUN apt-get update \
+ && apt-get install -y python3 python3-venv python3-pip \
+ && rm -rf /var/lib/apt/lists/*
+
+USER jenkins
