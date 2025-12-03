@@ -8,12 +8,12 @@
 3 options for ssl:
 
 \begin{itemize}
-        \item Caddy (easiest) — automatic Let’s Encrypt + renewals
+        \item Caddy (easiest) — automatic Let's Encrypt + renewals
 
-        (yaml code): # service caddy
+        (yaml code): \# service caddy
         ports: ["80:80","443:443"]
         volumes: ["./Caddyfile:/etc/caddy/Caddyfile","caddy_data:/data"]
-        # Caddyfile
+        \# Caddyfile
         overleaf.example.com {
           encode gzip
           reverse_proxy sharelatex:80
