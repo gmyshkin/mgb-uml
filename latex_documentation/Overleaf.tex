@@ -12,11 +12,11 @@
 
         (yaml code): \# service caddy
         ports: ["80:80","443:443"]
-        volumes: ["./Caddyfile:/etc/caddy/Caddyfile","caddy_data:/data"]
+        volumes: ["./Caddyfile:/etc/caddy/Caddyfile","caddy\_data:/data"]
         \# Caddyfile
         overleaf.example.com {
           encode gzip
-          reverse_proxy sharelatex:80
+          reverse\_proxy sharelatex:80
         }
         \item Nginx + certbot
         \item Traefik
