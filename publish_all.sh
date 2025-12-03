@@ -55,6 +55,10 @@ echo "🔗 Hash Locked: $GIT_HASH"
 echo "$NEW_VERSION" > VERSION
 sed -i "s/^PROJECT_NUMBER[[:space:]]*=.*/PROJECT_NUMBER         = $NEW_VERSION/" Doxyfile
 
+# This creates a file that LaTeX can read directly
+echo "\\newcommand{\\VERSION}{Version $NEW_VERSION}" > $LATEX_DIR/version.tex
+echo "📄 Generated latex_documentation/version.tex"
+
 # 6. GENERATE ARTIFACTS
 echo "📄 Compiling LaTeX..."
 docker run --rm --platform linux/amd64 -v "$PWD":/data -w /data/$LATEX_DIR grandline/latex pdflatex -interaction=nonstopmode $LATEX_MAIN > /dev/null 2>&1 || true
