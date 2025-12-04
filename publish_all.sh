@@ -91,4 +91,4 @@ docker push $REGISTRY_URL/$IMAGE_NAME:$NEW_VERSION
 docker push $REGISTRY_URL/$IMAGE_NAME:latest
 
 echo "🎉 DONE: v$NEW_VERSION [Ref: $GIT_HASH]"
-#Comment to show a change in code
+#Comment to show a change in code DEMO purposes
