@@ -94,7 +94,7 @@ void yyerror(YYLTYPE *yylloc, void * /*scanner*/, const char *str) {
 %token PATH_CMD "\\path"
 %token RECTANGLE "rectangle"
 %token NODE "node"
-%token AT "at"
+%token TOK_AT "at"
 %token TO "to"
 %token CYCLE "cycle"
 %token SEMICOLON ";"
@@ -189,7 +189,7 @@ property:
 val: PROPSTRING { $$ = $1; } | DELIMITEDSTRING { $$ = $1; };
 
 nodename: "(" REFSTRING ")" { $$ = $2; };
-node: "\\node" optproperties nodename "at" TCOORD DELIMITEDSTRING ";"
+node: "\\node" optproperties nodename TOK_AT TCOORD DELIMITEDSTRING ";"
 	{
         Node *node = new Node();
 
