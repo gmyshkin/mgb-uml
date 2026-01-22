@@ -1,6 +1,6 @@
 # CONFIG += debug
 
-QT += core gui widgets network pdf
+QT += core gui widgets network pdf pdfwidgets
 
 VERSION = 2.2
 
