@@ -29,21 +29,15 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install Flex/Bison
+      - name: Install Dependencies (Poppler & Tools)
         shell: cmd
-        run: choco install winflexbison3
-
-      - name: Download Poppler Dependency
-        shell: powershell
         run: |
-          Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip" -OutFile "poppler.zip"
+          choco install winflexbison3 7zip
+          powershell -Command "Invoke-WebRequest https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip -OutFile poppler.zip"
           7z x poppler.zip -oppoppler-21.11.0
-          if (Test-Path "poppler-21.11.0\poppler-21.11.0") {
-             Move-Item -Path "poppler-21.11.0\poppler-21.11.0\*" -Destination "poppler-21.11.0"
-             Remove-Item -Path "poppler-21.11.0\poppler-21.11.0"
-          }
+          powershell -Command "if (Test-Path poppler-21.11.0\poppler-21.11.0) { Move-Item poppler-21.11.0\poppler-21.11.0\* poppler-21.11.0; Remove-Item poppler-21.11.0\poppler-21.11.0 }"
 
-      - name: Build with QMake
+      - name: Build (QMake)
         shell: cmd
         run: |
           mkdir build
@@ -51,24 +45,15 @@ jobs:
           qmake ..\tikzit.pro "CONFIG+=release"
           nmake
 
-      # --- FIXED: Move the EXE so deploy-win.bat can find it ---
-      - name: Move Executable for Deploy Script
+      - name: Package (Run Script)
         shell: cmd
-        run: |
-          mkdir release
-          copy build\release\tikzit.exe release\tikzit.exe
+        run: .\deploy-win.bat
 
-      - name: Package
-        shell: cmd
-        run: |
-          choco install 7zip
-          .\deploy-win.bat
-
-      - name: Upload Windows Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: TikZiT-Windows
-          path: dist/tikzit.zip
+          path: dist/tikzit-windows.zip
 
   # =========================================================
   # JOB 2: MACOS
@@ -84,24 +69,23 @@ jobs:
           version: '6.5.0'
           modules: 'qtpdf'
 
-      - name: Build with QMake
+      - name: Build (QMake)
         run: |
           mkdir build
           cd build
           qmake ../tikzit.pro CONFIG+=release
           make -j$(sysctl -n hw.ncpu)
 
-      - name: Package
+      - name: Package (Run Script)
         run: |
-          mv build/tikzit.app .
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
-      - name: Upload Mac Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: TikZiT-macOS
-          path: tikzit.dmg
+          path: tikzit-macos.dmg
 
   # =========================================================
   # JOB 3: LINUX
@@ -127,25 +111,20 @@ jobs:
         run: |
           sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
 
-      - name: Build with QMake
+      - name: Build (QMake)
         run: |
           mkdir build
           cd build
           qmake6 ../tikzit.pro
           make -j$(nproc)
 
-      - name: Package (AppImage)
+      - name: Package (Run Script)
         run: |
-          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-          wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
-          chmod +x linuxdeploy*.AppImage
-          export QMAKE=/usr/bin/qmake6
-          
-          # --- FIXED: Pointed to the correct icon file ---
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon-file images/tikzit.svg --desktop-file share/applications/tikzit.desktop --plugin qt --output appimage
+          chmod +x deploy-linux.sh
+          ./deploy-linux.sh
 
-      - name: Upload Linux Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: TikZiT-Linux
-          path: TikZiT*.AppImage
+          path: tikzit-linux.AppImage

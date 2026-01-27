@@ -1,30 +1,19 @@
-# deploy the Mac app bundle. Note the bin/ directory
-# of Qt should be in your PATH
+#!/bin/bash
 
-# copy in libraries and set (most) library paths
-macdeployqt tikzit.app
+# Ensure we are in the project root
+if [ -d "build/tikzit.app" ]; then
+    mv build/tikzit.app .
+fi
 
-# macdeployqt doesn't fix the path to libpoppler for some reason, so we do it by hand
-cd tikzit.app/Contents/Frameworks
+if [ ! -d "tikzit.app" ]; then
+    echo "Error: tikzit.app not found in current directory."
+    exit 1
+fi
 
-# POPPLER_CPP=`ls libpoppler-cpp*`
-# POPPLER_PATH=`otool -L $POPPLER_CPP | sed -n 's!.*\(/usr.*\(libpoppler\..*dylib\)\).*!\1!p'`
-# POPPLER_LIB=`otool -L $POPPLER_CPP | sed -n 's!.*\(/usr.*\(libpoppler\..*dylib\)\).*!\2!p'`
+# Run the standard Mac deployment tool
+# -dmg : Automatically creates the DMG file (simplifies the script)
+# -verbose=1 : Shows us what is happening
+macdeployqt tikzit.app -dmg -verbose=1
 
-# echo "Found $POPPLER_CPP and $POPPLER_LIB"
-
-# if [ "$POPPLER_PATH" != "" ]; then
-#   echo "Replacing $POPPLER_PATH with relative path..."
-#   install_name_tool -id "@executable_path/../Frameworks/$POPPLER_LIB" $POPPLER_LIB
-#   install_name_tool -change $POPPLER_PATH "@executable_path/../Frameworks/$POPPLER_LIB" $POPPLER_CPP
-# else
-#   echo "Poppler already has relative path, so nothing to do."
-# fi
-
-
-cd ../../..
-
-# create DMG
-hdiutil create -volname TikZiT -srcfolder tikzit.app -ov -format UDZO tikzit.dmg
-
-
+# Rename the DMG so the upload step finds it easily
+mv tikzit.dmg tikzit-macos.dmg
