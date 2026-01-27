@@ -15,7 +15,7 @@ export QMAKE=/usr/bin/qmake6
     --appdir AppDir \
     --executable build/tikzit \
     --icon-file images/tikzit.svg \
-    --desktop-file share/tikzit.desktop \
+    --desktop-file share/applications/tikzit.desktop \
     --plugin qt \
     --output appimage
 
