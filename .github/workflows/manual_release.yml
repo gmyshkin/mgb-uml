@@ -1,0 +1,129 @@
+name: Manual Build & Release
+
+# 1. This ensures it ONLY runs when you click the button
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Tag name for release (e.g. v2.2.0)'
+        required: false
+        default: 'test-build'
+
+jobs:
+  # =========================================================
+  # JOB 1: WINDOWS
+  # =========================================================
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Install Qt 6
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.5.0'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2019_64'
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      # Build the EXE first
+      - name: Build TikZiT
+        shell: cmd
+        run: |
+          mkdir release
+          cd release
+          cmake .. -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
+          nmake
+          cd ..
+
+      # Run your custom script
+      - name: Run Deploy Script
+        shell: cmd
+        run: |
+          # The script expects tikzit.exe in "release\" folder.
+          # We need to make sure 7zip is in the path.
+          choco install 7zip
+          
+          # Run the batch file provided
+          .\deploy-win.bat
+
+      - name: Upload Windows Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TikZiT-Windows
+          path: dist/tikzit.zip
+
+  # =========================================================
+  # JOB 2: MACOS
+  # =========================================================
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Qt 6
+        uses: jurplel/install-qt-action@v3
+        with:
+          version: '6.5.0'
+
+      - name: Build TikZiT
+        run: |
+          cmake . -DCMAKE_BUILD_TYPE=Release
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Run Deploy Script
+        run: |
+          # Make the script executable
+          chmod +x deploy-osx.sh
+          
+          # Run it
+          ./deploy-osx.sh
+
+      - name: Upload Mac Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TikZiT-macOS
+          path: tikzit.dmg
+
+  # =========================================================
+  # JOB 3: LINUX (Modernized)
+  # =========================================================
+  build-linux:
+    runs-on: ubuntu-22.04
+    container: ubuntu:22.04  # Use a clean container to avoid version conflicts
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          apt-get update
+          apt-get install -y build-essential cmake git file wget \
+            qt6-base-dev qt6-tools-dev libqt6svg6-dev libpoppler-qt6-dev \
+            libx11-xcb1 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0 libxcb-shm0 libxcb-render-util0
+
+      - name: Build TikZiT
+        run: |
+          cmake . -DCMAKE_BUILD_TYPE=Release
+          make -j$(nproc)
+
+      # The provided 'deploy-linux.sh' is hardcoded for Qt5 and specific paths.
+      # Using 'linuxdeploy' is the modern standard (like windeployqt).
+      - name: Package with LinuxDeploy
+        run: |
+          # Download linuxdeploy and the Qt plugin
+          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+          wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
+          chmod +x linuxdeploy*.AppImage
+
+          # Package it into an AppImage (Runs on any Linux)
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable tikzit --icon share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
+
+      - name: Upload Linux Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TikZiT-Linux
+          path: TikZiT*.AppImage
