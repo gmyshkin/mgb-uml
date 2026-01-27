@@ -10,7 +10,7 @@ on:
 
 jobs:
   # =========================================================
-  # JOB 1: WINDOWS (Using QMake)
+  # JOB 1: WINDOWS
   # =========================================================
   build-windows:
     runs-on: windows-latest
@@ -24,17 +24,23 @@ jobs:
           host: 'windows'
           target: 'desktop'
           arch: 'win64_msvc2019_64'
+          modules: 'qtpdf'  # Request PDF module here too, just in case
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      # Download Poppler (Still required for Windows because of the deploy script)
+      # FIXED: Uses 7zip (pre-installed) to extract exactly where we want
       - name: Download Poppler Dependency
         shell: powershell
         run: |
           Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip" -OutFile "poppler.zip"
-          Expand-Archive -Path "poppler.zip" -DestinationPath "."
-          Rename-Item -Path "poppler-21.11.0-0" -NewName "poppler-21.11.0"
+          # Extract directly to the folder name we want (no renaming needed)
+          7z x poppler.zip -oppoppler-21.11.0
+          # Move contents up one level if 7zip nested them (Safe check)
+          if (Test-Path "poppler-21.11.0\poppler-21.11.0") {
+             Move-Item -Path "poppler-21.11.0\poppler-21.11.0\*" -Destination "poppler-21.11.0"
+             Remove-Item -Path "poppler-21.11.0\poppler-21.11.0"
+          }
 
       - name: Build with QMake
         shell: cmd
@@ -57,7 +63,7 @@ jobs:
           path: dist/tikzit.zip
 
   # =========================================================
-  # JOB 2: MACOS (Using QMake)
+  # JOB 2: MACOS
   # =========================================================
   build-macos:
     runs-on: macos-latest
@@ -68,6 +74,8 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.5.0'
+          # FIXED: Explicitly ask for the PDF module
+          modules: 'qtpdf'
 
       - name: Build with QMake
         run: |
@@ -88,17 +96,18 @@ jobs:
           path: tikzit.dmg
 
   # =========================================================
-  # JOB 3: LINUX (Using QMake - No hacks)
+  # JOB 3: LINUX
   # =========================================================
   build-linux:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
+      # FIXED: Added 'sudo' to all apt commands
       - name: Install Dependencies
         run: |
-          apt-get update
-          apt-get install -y build-essential git pkg-config wget ca-certificates \
+          sudo apt-get update
+          sudo apt-get install -y build-essential git pkg-config wget ca-certificates \
             flex bison qmake6 \
             qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-pdf-dev \
             libqt6svg6-dev libpoppler-dev \
@@ -116,15 +125,10 @@ jobs:
 
       - name: Package (AppImage)
         run: |
-          # Setup LinuxDeploy
           wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy*.AppImage
-
-          # Tell it where qmake is
           export QMAKE=/usr/bin/qmake6
-          
-          # Create the final single-file executable
           ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
 
       - name: Upload Linux Artifact
