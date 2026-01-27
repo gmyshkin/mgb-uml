@@ -1,6 +1,5 @@
 name: Manual Build & Release
 
-# 1. This ensures it ONLY runs when you click the button
 on:
   workflow_dispatch:
     inputs:
@@ -11,14 +10,13 @@ on:
 
 jobs:
   # =========================================================
-  # JOB 1: WINDOWS
+  # JOB 1: WINDOWS (Using QMake)
   # =========================================================
   build-windows:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Install Qt 6
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -30,25 +28,26 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      # Build the EXE first
-      - name: Build TikZiT
-        shell: cmd
+      # Download Poppler (Still required for Windows because of the deploy script)
+      - name: Download Poppler Dependency
+        shell: powershell
         run: |
-          mkdir release
-          cd release
-          cmake .. -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
-          nmake
-          cd ..
+          Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip" -OutFile "poppler.zip"
+          Expand-Archive -Path "poppler.zip" -DestinationPath "."
+          Rename-Item -Path "poppler-21.11.0-0" -NewName "poppler-21.11.0"
 
-      # Run your custom script
-      - name: Run Deploy Script
+      - name: Build with QMake
         shell: cmd
         run: |
-          # The script expects tikzit.exe in "release\" folder.
-          # We need to make sure 7zip is in the path.
+          mkdir build
+          cd build
+          qmake ..\tikzit.pro "CONFIG+=release"
+          nmake
+
+      - name: Package
+        shell: cmd
+        run: |
           choco install 7zip
-          
-          # Run the batch file provided
           .\deploy-win.bat
 
       - name: Upload Windows Artifact
@@ -58,29 +57,28 @@ jobs:
           path: dist/tikzit.zip
 
   # =========================================================
-  # JOB 2: MACOS
+  # JOB 2: MACOS (Using QMake)
   # =========================================================
   build-macos:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Qt 6
+      - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.5.0'
 
-      - name: Build TikZiT
+      - name: Build with QMake
         run: |
-          cmake . -DCMAKE_BUILD_TYPE=Release
+          mkdir build
+          cd build
+          qmake ../tikzit.pro CONFIG+=release
           make -j$(sysctl -n hw.ncpu)
 
-      - name: Run Deploy Script
+      - name: Package
         run: |
-          # Make the script executable
           chmod +x deploy-osx.sh
-          
-          # Run it
           ./deploy-osx.sh
 
       - name: Upload Mac Artifact
@@ -90,37 +88,44 @@ jobs:
           path: tikzit.dmg
 
   # =========================================================
-  # JOB 3: LINUX (Modernized)
+  # JOB 3: LINUX (Using QMake - No hacks)
   # =========================================================
   build-linux:
     runs-on: ubuntu-22.04
-    container: ubuntu:22.04  # Use a clean container to avoid version conflicts
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Dependencies
         run: |
           apt-get update
-          apt-get install -y build-essential cmake git file wget \
-            qt6-base-dev qt6-tools-dev libqt6svg6-dev libpoppler-qt6-dev \
-            libx11-xcb1 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-keysyms1 libxcb-image0 libxcb-shm0 libxcb-render-util0
+          apt-get install -y build-essential git pkg-config wget ca-certificates \
+            flex bison qmake6 \
+            qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-pdf-dev \
+            libqt6svg6-dev libpoppler-dev \
+            libx11-xcb1 libxkbcommon-x11-0 libxrender1 \
+            libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
+            libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 \
+            libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1
 
-      - name: Build TikZiT
+      - name: Build with QMake
         run: |
-          cmake . -DCMAKE_BUILD_TYPE=Release
+          mkdir build
+          cd build
+          qmake6 ../tikzit.pro
           make -j$(nproc)
 
-      # The provided 'deploy-linux.sh' is hardcoded for Qt5 and specific paths.
-      # Using 'linuxdeploy' is the modern standard (like windeployqt).
-      - name: Package with LinuxDeploy
+      - name: Package (AppImage)
         run: |
-          # Download linuxdeploy and the Qt plugin
+          # Setup LinuxDeploy
           wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy*.AppImage
 
-          # Package it into an AppImage (Runs on any Linux)
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable tikzit --icon share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
+          # Tell it where qmake is
+          export QMAKE=/usr/bin/qmake6
+          
+          # Create the final single-file executable
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
 
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
