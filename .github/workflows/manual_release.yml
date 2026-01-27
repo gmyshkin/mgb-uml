@@ -29,7 +29,6 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      # FIXED: Install win_flex so QMake can find it
       - name: Install Flex/Bison
         shell: cmd
         run: choco install winflexbison3
@@ -78,13 +77,6 @@ jobs:
           version: '6.5.0'
           modules: 'qtpdf'
 
-      # FIXED: Rename 'version' to prevent C++ header collision
-      - name: Fix Version File Collision
-        run: |
-          mv version VERSION.txt
-          # Patch the .pro file to read the new filename
-          sed -i '' 's/cat(version)/cat(VERSION.txt)/g' tikzit.pro
-
       - name: Build with QMake
         run: |
           mkdir build
@@ -94,6 +86,9 @@ jobs:
 
       - name: Package
         run: |
+          # FIXED: Move the app from build folder to root so the script finds it
+          mv build/tikzit.app .
+          
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
@@ -123,7 +118,6 @@ jobs:
             libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 \
             libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1
 
-      # FIXED: Re-added the sed hack because the cloud runner needs it
       - name: Fix Source Code (Qt6 Renames)
         run: |
           sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
@@ -141,7 +135,9 @@ jobs:
           wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
           chmod +x linuxdeploy*.AppImage
           export QMAKE=/usr/bin/qmake6
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
+          
+          # FIXED: Changed --icon to --icon-file
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon-file share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
 
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
