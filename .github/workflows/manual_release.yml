@@ -51,6 +51,13 @@ jobs:
           qmake ..\tikzit.pro "CONFIG+=release"
           nmake
 
+      # --- FIXED: Move the EXE so deploy-win.bat can find it ---
+      - name: Move Executable for Deploy Script
+        shell: cmd
+        run: |
+          mkdir release
+          copy build\release\tikzit.exe release\tikzit.exe
+
       - name: Package
         shell: cmd
         run: |
@@ -86,9 +93,7 @@ jobs:
 
       - name: Package
         run: |
-          # FIXED: Move the app from build folder to root so the script finds it
           mv build/tikzit.app .
-          
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
@@ -136,8 +141,8 @@ jobs:
           chmod +x linuxdeploy*.AppImage
           export QMAKE=/usr/bin/qmake6
           
-          # FIXED: Changed --icon to --icon-file
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon-file share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
+          # --- FIXED: Pointed to the correct icon file ---
+          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon-file images/tikzit.svg --desktop-file share/applications/tikzit.desktop --plugin qt --output appimage
 
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
