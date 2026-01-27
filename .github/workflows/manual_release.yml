@@ -24,19 +24,21 @@ jobs:
           host: 'windows'
           target: 'desktop'
           arch: 'win64_msvc2019_64'
-          modules: 'qtpdf'  # Request PDF module here too, just in case
+          modules: 'qtpdf'
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      # FIXED: Uses 7zip (pre-installed) to extract exactly where we want
+      # FIXED: Install win_flex so QMake can find it
+      - name: Install Flex/Bison
+        shell: cmd
+        run: choco install winflexbison3
+
       - name: Download Poppler Dependency
         shell: powershell
         run: |
           Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip" -OutFile "poppler.zip"
-          # Extract directly to the folder name we want (no renaming needed)
           7z x poppler.zip -oppoppler-21.11.0
-          # Move contents up one level if 7zip nested them (Safe check)
           if (Test-Path "poppler-21.11.0\poppler-21.11.0") {
              Move-Item -Path "poppler-21.11.0\poppler-21.11.0\*" -Destination "poppler-21.11.0"
              Remove-Item -Path "poppler-21.11.0\poppler-21.11.0"
@@ -74,8 +76,14 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.5.0'
-          # FIXED: Explicitly ask for the PDF module
           modules: 'qtpdf'
+
+      # FIXED: Rename 'version' to prevent C++ header collision
+      - name: Fix Version File Collision
+        run: |
+          mv version VERSION.txt
+          # Patch the .pro file to read the new filename
+          sed -i '' 's/cat(version)/cat(VERSION.txt)/g' tikzit.pro
 
       - name: Build with QMake
         run: |
@@ -103,7 +111,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # FIXED: Added 'sudo' to all apt commands
       - name: Install Dependencies
         run: |
           sudo apt-get update
@@ -115,6 +122,11 @@ jobs:
             libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
             libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 \
             libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1
+
+      # FIXED: Re-added the sed hack because the cloud runner needs it
+      - name: Fix Source Code (Qt6 Renames)
+        run: |
+          sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
 
       - name: Build with QMake
         run: |
