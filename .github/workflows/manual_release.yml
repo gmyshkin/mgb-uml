@@ -5,8 +5,19 @@ on:
     inputs:
       release_tag:
         description: 'Tag name for release (e.g. v2.2.0)'
-        required: false
+        required: true
         default: 'test-build'
+      
+      # --- NEW: Checkbox to control publishing ---
+      publish:
+        description: 'Publish to GitHub Releases page?'
+        type: boolean
+        required: false
+        default: false
+
+# --- NEW: Permission to write Releases ---
+permissions:
+  contents: write
 
 jobs:
   # =========================================================
@@ -29,7 +40,8 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Install Dependencies (Poppler & Tools)
+      # Install Dependencies (Poppler & Tools)
+      - name: Install Dependencies
         shell: cmd
         run: |
           choco install winflexbison3 7zip
@@ -37,7 +49,7 @@ jobs:
           7z x poppler.zip -oppoppler-21.11.0
           powershell -Command "if (Test-Path poppler-21.11.0\poppler-21.11.0) { Move-Item poppler-21.11.0\poppler-21.11.0\* poppler-21.11.0; Remove-Item poppler-21.11.0\poppler-21.11.0 }"
 
-      - name: Build (QMake)
+      - name: Build with QMake
         shell: cmd
         run: |
           mkdir build
@@ -49,11 +61,16 @@ jobs:
         shell: cmd
         run: .\deploy-win.bat
 
-      - name: Upload Artifact
+      # --- VERSIONING: Rename the file ---
+      - name: Rename Output
+        shell: cmd
+        run: move dist\tikzit-windows.zip dist\tikzit-windows-${{ github.event.inputs.release_tag }}.zip
+
+      - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-Windows
-          path: dist/tikzit-windows.zip
+          name: TikZiT-Windows-${{ github.event.inputs.release_tag }}
+          path: dist/tikzit-windows-${{ github.event.inputs.release_tag }}.zip
 
   # =========================================================
   # JOB 2: MACOS
@@ -69,7 +86,7 @@ jobs:
           version: '6.5.0'
           modules: 'qtpdf'
 
-      - name: Build (QMake)
+      - name: Build with QMake
         run: |
           mkdir build
           cd build
@@ -81,11 +98,15 @@ jobs:
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
-      - name: Upload Artifact
+      # --- VERSIONING: Rename the file ---
+      - name: Rename Output
+        run: mv tikzit-macos.dmg tikzit-macos-${{ github.event.inputs.release_tag }}.dmg
+
+      - name: Upload Mac Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-macOS
-          path: tikzit-macos.dmg
+          name: TikZiT-macOS-${{ github.event.inputs.release_tag }}
+          path: tikzit-macos-${{ github.event.inputs.release_tag }}.dmg
 
   # =========================================================
   # JOB 3: LINUX
@@ -107,11 +128,12 @@ jobs:
             libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 \
             libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1
 
-      - name: Fix Source Code (Qt6 Renames)
+      # Fix for Qt6 renames in source code
+      - name: Fix Source Code
         run: |
           sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
 
-      - name: Build (QMake)
+      - name: Build with QMake
         run: |
           mkdir build
           cd build
@@ -123,8 +145,41 @@ jobs:
           chmod +x deploy-linux.sh
           ./deploy-linux.sh
 
-      - name: Upload Artifact
+      # --- VERSIONING: Rename the file ---
+      - name: Rename Output
+        run: mv tikzit-linux.AppImage tikzit-linux-${{ github.event.inputs.release_tag }}.AppImage
+
+      - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-Linux
-          path: tikzit-linux.AppImage
+          name: TikZiT-Linux-${{ github.event.inputs.release_tag }}
+          path: tikzit-linux-${{ github.event.inputs.release_tag }}.AppImage
+
+  # =========================================================
+  # JOB 4: PUBLISH RELEASE (Conditional)
+  # =========================================================
+  create-release:
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    
+    # Only run this job if the "Publish" checkbox was checked
+    if: ${{ github.event.inputs.publish == 'true' }}
+    
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: TikZiT-*
+          merge-multiple: true
+
+      - name: Create Release & Upload Files
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.release_tag }}
+          name: Release ${{ github.event.inputs.release_tag }}
+          draft: false
+          prerelease: false
+          files: |
+            *.zip
+            *.dmg
+            *.AppImage
