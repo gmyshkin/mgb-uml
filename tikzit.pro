@@ -27,6 +27,10 @@ win32:RC_ICONS += images/tikzdoc.ico
 macx:ICON = images/tikzit.icns
 # linux-g++:QMAKE_CXXFLAGS += -Wsuggest-override
 
+linux-g++ {
+    QMAKE_CXX = ccache g++
+}
+
 QMAKE_INFO_PLIST = Info.plist
 
 # Qt 5.8 and above drop support for Mountain Lion
