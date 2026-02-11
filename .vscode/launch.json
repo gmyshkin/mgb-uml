@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug TikZiT",
+            "name": "Debug MGB-UML",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/tikzit",
+            "program": "${workspaceFolder}/build/mgb-uml",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/build",
@@ -22,7 +22,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build TikZiT"
+            "preLaunchTask": "Build MGB-UML"
         }
     ]
 }
