@@ -8,7 +8,7 @@ test {
     CONFIG += testcase
 }
 
-TARGET   = tikzit
+TARGET   = mgb-uml
 TEMPLATE = app
 
 isEmpty(PREFIX) {

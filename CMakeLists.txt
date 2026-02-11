@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(tikzit LANGUAGES CXX)
+project(mgb-uml LANGUAGES CXX)
 
 if (NOT QT_VER)
     set (QT_VER "Qt5")
@@ -129,7 +129,7 @@ endif()
 
 
 
-add_executable(tikzit
+add_executable(mgb-uml
     ${SOURCES}
     ${HEADERS}
     ${FORM_HEADERS}
@@ -150,4 +150,4 @@ target_link_libraries(${PROJECT_NAME}
     "${QT_VER}::Network"
     ${POPPLER_LIB})
 
-install (TARGETS tikzit DESTINATION bin)
+install (TARGETS mgb-uml DESTINATION bin)

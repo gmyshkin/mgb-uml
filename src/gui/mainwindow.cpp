@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    QSettings settings("tikzit", "tikzit");
+    QSettings settings("mgb-uml", "mgb-uml");
     _windowId = _numWindows;
     _numWindows++;
     ui->setupUi(this);
@@ -78,7 +78,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::setFont()
 {
-    QSettings settings("tikzit", "tikzit");
+    QSettings settings("mgb-uml", "mgb-uml");
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     ui->tikzSource->setTabStopDistance(20.0);
 #else
@@ -94,7 +94,7 @@ void MainWindow::setFont()
 
 void MainWindow::restorePosition()
 {
-    QSettings settings("tikzit", "tikzit");
+    QSettings settings("mgb-uml", "mgb-uml");
     QVariant geom = settings.value(QString("geometry-main-qt") + qVersion());
 
     if (geom.isValid()) {
@@ -129,7 +129,7 @@ QSplitter *MainWindow::splitter() const {
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     // store qt version in window geometry keys to avoid strange behaviour w/ multiple Qt's on one system
-    QSettings settings("tikzit", "tikzit");
+    QSettings settings("mgb-uml", "mgb-uml");
     settings.setValue(QString("geometry-main-qt") + qVersion(), saveGeometry());
     settings.setValue(QString("windowState-main-qt") + qVersion(), saveState(2));
 
@@ -193,7 +193,7 @@ void MainWindow::updateFileName()
     QString nm = _tikzDocument->shortName();
     if (nm.isEmpty()) nm = "untitled";
     if (!_tikzDocument->isClean()) nm += "*";
-    setWindowTitle(nm + " - TikZiT");
+    setWindowTitle(nm + " - MGB-UML");
 }
 
 void MainWindow::refreshTikz()
