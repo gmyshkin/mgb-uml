@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # Ensure we are in the project root
-if [ -d "build/tikzit.app" ]; then
-    mv build/tikzit.app .
+# --- FIX: Changed 'tikzit.app' to 'mgb-uml.app' ---
+if [ -d "build/mgb-uml.app" ]; then
+    mv build/mgb-uml.app .
 fi
 
-if [ ! -d "tikzit.app" ]; then
-    echo "Error: tikzit.app not found in current directory."
+if [ ! -d "mgb-uml.app" ]; then
+    echo "Error: mgb-uml.app not found in current directory."
     exit 1
 fi
 
 # Run the standard Mac deployment tool
-# -dmg : Automatically creates the DMG file (simplifies the script)
-# -verbose=1 : Shows us what is happening
-macdeployqt tikzit.app -dmg -verbose=1
+# --- FIX: Deploying on mgb-uml.app ---
+macdeployqt mgb-uml.app -dmg -verbose=1
 
 # Rename the DMG so the upload step finds it easily
-mv tikzit.dmg tikzit-macos.dmg
+mv mgb-uml.dmg mgb-uml-macos.dmg

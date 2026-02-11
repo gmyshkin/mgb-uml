@@ -6,18 +6,18 @@ wget -N https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/c
 chmod +x linuxdeploy*.AppImage
 
 # 2. Set Environment Variables
-# Tell linuxdeploy where to find QMake so it can discover plugins
 export QMAKE=/usr/bin/qmake6
 
 # 3. Generate the AppImage
-# We assume the binary is in build/tikzit (from the qmake build)
+# --- FIX: Changed 'build/tikzit' to 'build/mgb-uml' ---
 ./linuxdeploy-x86_64.AppImage \
     --appdir AppDir \
-    --executable build/tikzit \
+    --executable build/mgb-uml \
     --icon-file images/tikzit.svg \
     --desktop-file share/applications/tikzit.desktop \
     --plugin qt \
     --output appimage
 
 # 4. Rename for consistency
-mv TikZiT*.AppImage tikzit-linux.AppImage
+# --- FIX: Renaming the output file to mgb-uml ---
+mv MGB-UML*.AppImage mgb-uml-linux.AppImage
