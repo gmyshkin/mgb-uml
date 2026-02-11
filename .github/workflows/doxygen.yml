@@ -1,0 +1,68 @@
+name: Generate Doxygen Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version Number (e.g. v1.0)'
+        required: true
+        default: 'v1.0'
+
+permissions:
+  contents: read
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 1. Install Doxygen and Graphviz (for diagrams)
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y doxygen graphviz
+
+      # 2. Generate a default Doxyfile & Configure it dynamically
+      - name: Configure Doxygen
+        run: |
+          # Generate a standard default config file
+          doxygen -g Doxyfile
+          
+          # --- MODIFY SETTINGS ON THE FLY ---
+          # 1. Set Project Name
+          sed -i 's/^PROJECT_NAME           = .*/PROJECT_NAME           = "TikZiT"/' Doxyfile
+          
+          # 2. Set Version Number (from your Input)
+          sed -i 's/^PROJECT_NUMBER         = .*/PROJECT_NUMBER         = "${{ inputs.version }}"/' Doxyfile
+          
+          # 3. Tell it to look in "src" folder
+          sed -i 's|^INPUT                  = .*|INPUT                  = src|' Doxyfile
+          
+          # 4. Turn on Recursive (look in subfolders of src)
+          sed -i 's/^RECURSIVE              = .*/RECURSIVE              = YES/' Doxyfile
+          
+          # 5. Generate Diagrams (uses Graphviz)
+          sed -i 's/^HAVE_DOT               = .*/HAVE_DOT               = YES/' Doxyfile
+          sed -i 's/^UML_LOOK               = .*/UML_LOOK               = YES/' Doxyfile
+          sed -i 's/^CALL_GRAPH             = .*/CALL_GRAPH             = YES/' Doxyfile
+          sed -i 's/^CALLER_GRAPH           = .*/CALLER_GRAPH           = YES/' Doxyfile
+          
+          # 6. Silence warnings (optional, keeps log clean)
+          sed -i 's/^QUIET                  = .*/QUIET                  = YES/' Doxyfile
+
+      # 3. Run Doxygen to build the docs
+      - name: Build Documentation
+        run: doxygen Doxyfile
+
+      # 4. Zip the HTML output folder so it is easy to download
+      - name: Zip Output
+        run: zip -r doxygen-docs-${{ inputs.version }}.zip html/
+
+      # 5. Upload the Zip file as an Artifact
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Doxygen-Docs-${{ inputs.version }}
+          path: doxygen-docs-${{ inputs.version }}.zip
