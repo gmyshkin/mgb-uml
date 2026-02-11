@@ -8,14 +8,14 @@ on:
         required: true
         default: 'test-build'
       
-      # --- NEW: Checkbox to control publishing ---
+      # Checkbox to control publishing
       publish:
         description: 'Publish to GitHub Releases page?'
         type: boolean
         required: false
         default: false
 
-# --- NEW: Permission to write Releases ---
+# Permission to write Releases
 permissions:
   contents: write
 
@@ -61,16 +61,16 @@ jobs:
         shell: cmd
         run: .\deploy-win.bat
 
-      # --- VERSIONING: Rename the file ---
+      # --- VERSIONING: Rename the file (Updated for mgb-uml) ---
       - name: Rename Output
         shell: cmd
-        run: move dist\tikzit-windows.zip dist\tikzit-windows-${{ github.event.inputs.release_tag }}.zip
+        run: move dist\mgb-uml-windows.zip dist\mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-Windows-${{ github.event.inputs.release_tag }}
-          path: dist/tikzit-windows-${{ github.event.inputs.release_tag }}.zip
+          name: MGB-UML-Windows-${{ github.event.inputs.release_tag }}
+          path: dist/mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
 
   # =========================================================
   # JOB 2: MACOS
@@ -98,15 +98,15 @@ jobs:
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
-      # --- VERSIONING: Rename the file ---
+      # --- VERSIONING: Rename the file (Updated for mgb-uml) ---
       - name: Rename Output
-        run: mv tikzit-macos.dmg tikzit-macos-${{ github.event.inputs.release_tag }}.dmg
+        run: mv mgb-uml-macos.dmg mgb-uml-macos-${{ github.event.inputs.release_tag }}.dmg
 
       - name: Upload Mac Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-macOS-${{ github.event.inputs.release_tag }}
-          path: tikzit-macos-${{ github.event.inputs.release_tag }}.dmg
+          name: MGB-UML-macOS-${{ github.event.inputs.release_tag }}
+          path: mgb-uml-macos-${{ github.event.inputs.release_tag }}.dmg
 
   # =========================================================
   # JOB 3: LINUX
@@ -119,6 +119,7 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
+          # ADDED ccache HERE vvv
           sudo apt-get install -y build-essential git pkg-config wget ca-certificates \
             flex bison qmake6 \
             qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-pdf-dev \
@@ -126,7 +127,8 @@ jobs:
             libx11-xcb1 libxkbcommon-x11-0 libxrender1 \
             libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
             libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 \
-            libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1
+            libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 \
+            ccache
 
       # Fix for Qt6 renames in source code
       - name: Fix Source Code
@@ -145,15 +147,15 @@ jobs:
           chmod +x deploy-linux.sh
           ./deploy-linux.sh
 
-      # --- VERSIONING: Rename the file ---
+      # --- VERSIONING: Rename the file (Updated for mgb-uml) ---
       - name: Rename Output
-        run: mv tikzit-linux.AppImage tikzit-linux-${{ github.event.inputs.release_tag }}.AppImage
+        run: mv mgb-uml-linux.AppImage mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
 
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-Linux-${{ github.event.inputs.release_tag }}
-          path: tikzit-linux-${{ github.event.inputs.release_tag }}.AppImage
+          name: MGB-UML-Linux-${{ github.event.inputs.release_tag }}
+          path: mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
 
   # =========================================================
   # JOB 4: PUBLISH RELEASE (Conditional)
@@ -169,7 +171,7 @@ jobs:
       - name: Download All Artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: TikZiT-*
+          pattern: MGB-UML-*
           merge-multiple: true
 
       - name: Create Release & Upload Files
