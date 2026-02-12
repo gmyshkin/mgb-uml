@@ -393,7 +393,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
     // check for valid version string and capture optional RC suffix
     QRegularExpression re("^[1-9]+(\\.[0-9]+)*(-[rR][cC]([0-9]+))?$");
     QRegularExpressionMatch m;
-    m = re.match(TIKZIT_VERSION);
+    m = re.match(GIT_VERSION);
 
     // any non-RC versions are considered later than RC versions.
     int rcCurrent = (!m.captured(3).isEmpty()) ? m.captured(3).toInt() : 1000;
@@ -401,7 +401,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
     m = re.match(strLatest);
 
     if (m.hasMatch()) {
-        QVersionNumber current = QVersionNumber::fromString(TIKZIT_VERSION).normalized();
+        QVersionNumber current = QVersionNumber::fromString(GIT_VERSION).normalized();
         QVersionNumber latest = QVersionNumber::fromString(strLatest).normalized();
 
         int rcLatest = (!m.captured(3).isEmpty()) ? m.captured(3).toInt() : 1000;
@@ -415,7 +415,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
             QMessageBox::information(nullptr,
               tr("Update available"),
               "<p><b>A new version of TikZiT is available!</b></p>"
-              "<p><i>current version: " TIKZIT_VERSION "<br />"
+              "<p><i>current version: " GIT_VERSION "<br />"
               "latest version: " + strLatest + "</i></p>"
               "<p>Download it now from: "
               "<a href=\"https://tikzit.github.io\">tikzit.github.io</a>.</p>");

@@ -364,14 +364,14 @@ void MainMenu::on_actionShow_Node_Labels_triggered()
 void MainMenu::on_actionAbout_triggered()
 {
     QMessageBox::about(this,
-                       "TikZiT",
-                       "<h2><b>TikZiT</b></h2>"
-                       "<p><i>version " TIKZIT_VERSION "</i></p>"
-                       "<p>TikZiT is a GUI diagram editor for PGF/TikZ. It is licensed under the "
+                       "MGB-UML",
+                       "<h2><b>MGB-UML</b></h2>"
+                       "<p><i>version " GIT_VERSION "</i></p>"
+                       "<p>MGB-UML is a GUI diagram editor for PGF/TikZ. It is licensed under the "
                        "<a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General "
                        "Public License, version 3.0</a>.</p>"
                        "<p>For more info and updates, visit: "
-                       "<a href=\"https://tikzit.github.io\">tikzit.github.io</a></p>");
+                       "<a href=\"https://github.com/MGB-UML/mgb-uml\">MGB-UML</a></p>");
 }
 
 void MainMenu::on_actionCheck_for_updates_automatically_triggered()

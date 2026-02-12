@@ -32,7 +32,10 @@ jobs:
           
           # --- MODIFY SETTINGS ON THE FLY ---
           # 1. Set Project Name
-          sed -i 's/^PROJECT_NAME           = .*/PROJECT_NAME           = "TikZiT"/' Doxyfile
+          sed -i 's/^PROJECT_NAME           = .*/PROJECT_NAME           = "MGB-UML"/' Doxyfile
+          
+          # 2. Set Project Brief
+          sed -i 's/^PROJECT_BRIEF          = .*/PROJECT_BRIEF          = "A GUI diagram editor for PGF/TikZ"/' Doxyfile
           
           # 2. Set Version Number (from your Input)
           sed -i 's/^PROJECT_NUMBER         = .*/PROJECT_NUMBER         = "${{ inputs.version }}"/' Doxyfile

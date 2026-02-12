@@ -2,7 +2,11 @@
 
 QT += core gui widgets network pdf pdfwidgets
 
-VERSION = 2.2
+GIT_VERSION = $$(GIT_VERSION)
+isEmpty(GIT_VERSION) {
+    GIT_VERSION = "dev"
+}
+DEFINES += GIT_VERSION=\\\"$$GIT_VERSION\\\"
 
 test {
     CONFIG += testcase

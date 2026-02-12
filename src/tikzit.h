@@ -49,8 +49,6 @@
 #ifndef TIKZIT_H
 #define TIKZIT_H
 
-#define TIKZIT_VERSION "2.2"
-
 #include "mainwindow.h"
 #include "mainmenu.h"
 #include "ui_mainmenu.h"

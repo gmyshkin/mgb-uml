@@ -49,6 +49,9 @@ jobs:
           7z x poppler.zip -oppoppler-21.11.0
           powershell -Command "if (Test-Path poppler-21.11.0\poppler-21.11.0) { Move-Item poppler-21.11.0\poppler-21.11.0\* poppler-21.11.0; Remove-Item poppler-21.11.0\poppler-21.11.0 }"
 
+      - name: Set Version Environment Variable
+        run: echo "GIT_VERSION=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
+
       - name: Build with QMake
         shell: cmd
         run: |
@@ -85,6 +88,9 @@ jobs:
         with:
           version: '6.5.0'
           modules: 'qtpdf'
+
+      - name: Set Version Environment Variable
+        run: echo "GIT_VERSION=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
 
       - name: Build with QMake
         run: |
@@ -134,6 +140,9 @@ jobs:
       - name: Fix Source Code
         run: |
           sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
+
+      - name: Set Version Environment Variable
+        run: echo "GIT_VERSION=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
 
       - name: Build with QMake
         run: |
