@@ -8,14 +8,12 @@ on:
         required: true
         default: 'test-build'
       
-      # Checkbox to control publishing
       publish:
         description: 'Publish to GitHub Releases page?'
         type: boolean
         required: false
         default: false
 
-# Permission to write Releases
 permissions:
   contents: write
 
@@ -40,7 +38,6 @@ jobs:
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      # Install Dependencies (Poppler & Tools)
       - name: Install Dependencies
         shell: cmd
         run: |
@@ -49,22 +46,27 @@ jobs:
           7z x poppler.zip -oppoppler-21.11.0
           powershell -Command "if (Test-Path poppler-21.11.0\poppler-21.11.0) { Move-Item poppler-21.11.0\poppler-21.11.0\* poppler-21.11.0; Remove-Item poppler-21.11.0\poppler-21.11.0 }"
 
-      - name: Set Version Environment Variable
-        run: echo "GIT_VERSION=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
+      # --- NEW STEP: Download Portable LaTeX (TinyTeX) ---
+      - name: Download Portable LaTeX
+        shell: cmd
+        run: |
+          powershell -Command "Invoke-WebRequest https://github.com/rstudio/tinytex-releases/releases/download/daily/TinyTeX-0.zip -OutFile tinytex.zip"
+          7z x tinytex.zip -oTinyTeX
+          echo "TinyTeX downloaded and extracted."
 
       - name: Build with QMake
         shell: cmd
         run: |
           mkdir build
           cd build
-          qmake ..\tikzit.pro "CONFIG+=release"
+          :: Pass the version into the build system here
+          qmake ..\tikzit.pro "CONFIG+=release" "GIT_VERSION=${{ github.event.inputs.release_tag }}"
           nmake
 
       - name: Package (Run Script)
         shell: cmd
         run: .\deploy-win.bat
 
-      # --- VERSIONING: Rename the file (Updated for mgb-uml) ---
       - name: Rename Output
         shell: cmd
         run: move dist\mgb-uml-windows.zip dist\mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
@@ -89,14 +91,12 @@ jobs:
           version: '6.5.0'
           modules: 'qtpdf'
 
-      - name: Set Version Environment Variable
-        run: echo "GIT_VERSION=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
-
       - name: Build with QMake
         run: |
           mkdir build
           cd build
-          qmake ../tikzit.pro CONFIG+=release
+          # Pass the version into the build system here
+          qmake ../tikzit.pro CONFIG+=release "GIT_VERSION=${{ github.event.inputs.release_tag }}"
           make -j$(sysctl -n hw.ncpu)
 
       - name: Package (Run Script)
@@ -104,7 +104,6 @@ jobs:
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
-      # --- VERSIONING: Rename the file (Updated for mgb-uml) ---
       - name: Rename Output
         run: mv mgb-uml-macos.dmg mgb-uml-macos-${{ github.event.inputs.release_tag }}.dmg
 
@@ -125,7 +124,6 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          # ADDED ccache HERE vvv
           sudo apt-get install -y build-essential git pkg-config wget ca-certificates \
             flex bison qmake6 \
             qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-pdf-dev \
@@ -136,19 +134,16 @@ jobs:
             libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 \
             ccache
 
-      # Fix for Qt6 renames in source code
       - name: Fix Source Code
         run: |
           sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
-
-      - name: Set Version Environment Variable
-        run: echo "GIT_VERSION=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
 
       - name: Build with QMake
         run: |
           mkdir build
           cd build
-          qmake6 ../tikzit.pro
+          # Pass the version into the build system here
+          qmake6 ../tikzit.pro "GIT_VERSION=${{ github.event.inputs.release_tag }}"
           make -j$(nproc)
 
       - name: Package (Run Script)
@@ -156,7 +151,6 @@ jobs:
           chmod +x deploy-linux.sh
           ./deploy-linux.sh
 
-      # --- VERSIONING: Rename the file (Updated for mgb-uml) ---
       - name: Rename Output
         run: mv mgb-uml-linux.AppImage mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
 
@@ -167,13 +161,11 @@ jobs:
           path: mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
 
   # =========================================================
-  # JOB 4: PUBLISH RELEASE (Conditional)
+  # JOB 4: PUBLISH RELEASE
   # =========================================================
   create-release:
     needs: [build-windows, build-macos, build-linux]
     runs-on: ubuntu-latest
-    
-    # Only run this job if the "Publish" checkbox was checked
     if: ${{ github.event.inputs.publish == 'true' }}
     
     steps:

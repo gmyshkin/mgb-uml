@@ -366,7 +366,7 @@ void MainMenu::on_actionAbout_triggered()
     QMessageBox::about(this,
                        "MGB-UML",
                        "<h2><b>MGB-UML</b></h2>"
-                       "<p><i>version " GIT_VERSION "</i></p>"
+                       "<p><i>Version: " GIT_VERSION "</i></p>"
                        "<p>MGB-UML is a GUI diagram editor for PGF/TikZ. It is licensed under the "
                        "<a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General "
                        "Public License, version 3.0</a>.</p>"

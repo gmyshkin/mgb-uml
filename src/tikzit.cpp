@@ -31,6 +31,8 @@
 #include <QRegularExpression>
 #include <QVersionNumber>
 #include <QNetworkAccessManager>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QColorDialog>
 
 // application-level instance of Tikzit
@@ -370,7 +372,7 @@ void Tikzit::checkForUpdates(bool manual)
             this, SLOT(updateAuto(QNetworkReply*)));
     }
 
-    manager->get(QNetworkRequest(QUrl("https://tikzit.github.io/latest-version.txt")));
+    manager->get(QNetworkRequest(QUrl("https://api.github.com/repos/gmyshkin/mgb-uml/releases/latest")));
 }
 
 void Tikzit::updateAuto(QNetworkReply *reply)
@@ -387,8 +389,26 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
 {
     if (!reply->isReadable()) return;
 
-    QByteArray data = reply->read(200);
-    QString strLatest = QString::fromUtf8(data).simplified();
+    QByteArray data = reply->readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonObject obj = doc.object();
+    QString strLatest;
+
+    if (obj.contains("tag_name")) {
+        strLatest = obj["tag_name"].toString().simplified();
+        // GitHub tags can have a 'v' prefix, which we should remove
+        if (strLatest.startsWith("v")) {
+            strLatest = strLatest.mid(1);
+        }
+    } else {
+        if (manual) {
+            QMessageBox::warning(nullptr,
+              tr("Invalid response"),
+              "<p>Got invalid version response from GitHub API.</p>");
+        }
+        return;
+    }
+
 
     // check for valid version string and capture optional RC suffix
     QRegularExpression re("^[1-9]+(\\.[0-9]+)*(-[rR][cC]([0-9]+))?$");
@@ -418,7 +438,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
               "<p><i>current version: " GIT_VERSION "<br />"
               "latest version: " + strLatest + "</i></p>"
               "<p>Download it now from: "
-              "<a href=\"https://tikzit.github.io\">tikzit.github.io</a>.</p>");
+              "<a href=\"https://github.com/gmyshkin/mgb-uml/releases\">https://github.com/gmyshkin/mgb-uml/releases</a>.</p>");
         }
     } else {
         // don't complain of invalid response for auto update check
@@ -426,7 +446,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
             QMessageBox::warning(nullptr,
               tr("Invalid response"),
               "<p>Got invalid version response from "
-              "<a href=\"https://tikzit.github.io\">tikzit.github.io</a>.</p>");
+              "<a href=\"https://github.com/gmyshkin/mgb-uml/releases\">https://github.com/gmyshkin/mgb-uml/releases</a>.</p>");
         }
     }
 }

@@ -2,11 +2,13 @@
 
 QT += core gui widgets network pdf pdfwidgets
 
+# --- VERSIONING LOGIC ---
 GIT_VERSION = $$(GIT_VERSION)
 isEmpty(GIT_VERSION) {
-    GIT_VERSION = "dev"
+    GIT_VERSION = "Dev-Build"
 }
-DEFINES += GIT_VERSION=\\\"$$GIT_VERSION\\\"
+# Wrap in quotes to handle spaces safely
+DEFINES += "GIT_VERSION=\\\"$$GIT_VERSION\\\""
 
 test {
     CONFIG += testcase
@@ -29,7 +31,6 @@ INSTALLS += target share
 win32:RC_ICONS += images/tikzit.ico
 win32:RC_ICONS += images/tikzdoc.ico
 macx:ICON = images/tikzit.icns
-# linux-g++:QMAKE_CXXFLAGS += -Wsuggest-override
 
 linux-g++ {
     QMAKE_CXX = ccache g++
@@ -37,22 +38,12 @@ linux-g++ {
 
 QMAKE_INFO_PLIST = Info.plist
 
-# Qt 5.8 and above drop support for Mountain Lion
+# Qt 5.8+ support
 contains(QT_VERSION, ^5\\.[5-7].*) {
     macx:QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.8
-    #macx:QMAKE_MAC_SDK = macosx10.11
 }
 
-# The following define makes your compiler emit warnings if you use
-# any feature of Qt which as been marked as deprecated (the exact warnings
-# depend on your compiler). Please consult the documentation of the
-# deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
-
-# You can also make your code fail to compile if you use deprecated APIs.
-# In order to do so, uncomment the following line.
-# You can also select to disable deprecated APIs only up to a certain version of Qt.
-#DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 FLEXSOURCES = src/data/tikzlexer.l
 BISONSOURCES = src/data/tikzparser.y
@@ -60,74 +51,85 @@ BISONSOURCES = src/data/tikzparser.y
 include(flex.pri)
 include(bison.pri)
 
-SOURCES += src/gui/mainwindow.cpp \
-    src/data/path.cpp \
-    src/gui/pathitem.cpp \
-    src/gui/toolpalette.cpp \
-    src/gui/tikzscene.cpp \
-    src/data/graph.cpp \
-    src/data/node.cpp \
-    src/data/edge.cpp \
-    src/data/graphelementdata.cpp \
-    src/data/graphelementproperty.cpp \
-    src/gui/propertypalette.cpp \
-    src/gui/tikzview.cpp \
-    src/gui/nodeitem.cpp \
-    src/gui/edgeitem.cpp \
-    src/tikzit.cpp \
-    src/gui/commands.cpp \
-    src/data/tikzdocument.cpp \
-    src/gui/undocommands.cpp \
-    src/gui/mainmenu.cpp \
-    src/util.cpp \
-    src/gui/stylepalette.cpp \
-    src/data/tikzassembler.cpp \
-    src/data/tikzstyles.cpp \
-    src/data/style.cpp \
-    src/gui/styleeditor.cpp \
-    src/data/stylelist.cpp \
-    src/gui/previewwindow.cpp \
-    src/gui/latexprocess.cpp \
-    src/data/pdfdocument.cpp \
-    src/gui/exportdialog.cpp \
-    src/data/delimitedstringvalidator.cpp \
-    src/gui/delimitedstringitemdelegate.cpp \
-    src/gui/preferencedialog.cpp
+# --- SOURCES (Safe Format) ---
+SOURCES += src/tikzit.cpp
+SOURCES += src/util.cpp
 
-HEADERS  += src/gui/mainwindow.h \
-    src/data/path.h \
-    src/gui/pathitem.h \
-    src/gui/toolpalette.h \
-    src/gui/tikzscene.h \
-    src/data/graph.h \
-    src/data/node.h \
-    src/data/edge.h \
-    src/data/graphelementdata.h \
-    src/data/graphelementproperty.h \
-    src/gui/propertypalette.h \
-    src/data/tikzparserdefs.h \
-    src/gui/tikzview.h \
-    src/gui/nodeitem.h \
-    src/tikzit.h \
-    src/gui/edgeitem.h \
-    src/gui/commands.h \
-    src/data/tikzdocument.h \
-    src/gui/undocommands.h \
-    src/gui/mainmenu.h \
-    src/util.h \
-    src/gui/stylepalette.h \
-    src/data/tikzassembler.h \
-    src/data/tikzstyles.h \
-    src/data/style.h \
-    src/gui/styleeditor.h \
-    src/data/stylelist.h \
-    src/gui/previewwindow.h \
-    src/gui/latexprocess.h \
-    src/data/pdfdocument.h \
-    src/gui/exportdialog.h \
-    src/data/delimitedstringvalidator.h \
-    src/gui/delimitedstringitemdelegate.h \
-    src/gui/preferencedialog.h
+# GUI
+SOURCES += src/gui/mainwindow.cpp
+SOURCES += src/gui/pathitem.cpp
+SOURCES += src/gui/toolpalette.cpp
+SOURCES += src/gui/tikzscene.cpp
+SOURCES += src/gui/propertypalette.cpp
+SOURCES += src/gui/tikzview.cpp
+SOURCES += src/gui/nodeitem.cpp
+SOURCES += src/gui/edgeitem.cpp
+SOURCES += src/gui/commands.cpp
+SOURCES += src/gui/undocommands.cpp
+SOURCES += src/gui/mainmenu.cpp
+SOURCES += src/gui/stylepalette.cpp
+SOURCES += src/gui/styleeditor.cpp
+SOURCES += src/gui/previewwindow.cpp
+SOURCES += src/gui/latexprocess.cpp
+SOURCES += src/gui/exportdialog.cpp
+SOURCES += src/gui/delimitedstringitemdelegate.cpp
+SOURCES += src/gui/preferencedialog.cpp
+
+# DATA
+SOURCES += src/data/path.cpp
+SOURCES += src/data/graph.cpp
+SOURCES += src/data/node.cpp
+SOURCES += src/data/edge.cpp
+SOURCES += src/data/graphelementdata.cpp
+SOURCES += src/data/graphelementproperty.cpp
+SOURCES += src/data/tikzdocument.cpp
+SOURCES += src/data/tikzassembler.cpp
+SOURCES += src/data/tikzstyles.cpp
+SOURCES += src/data/style.cpp
+SOURCES += src/data/stylelist.cpp
+SOURCES += src/data/pdfdocument.cpp
+SOURCES += src/data/delimitedstringvalidator.cpp
+
+
+# --- HEADERS (Safe Format) ---
+HEADERS += src/tikzit.h
+HEADERS += src/util.h
+
+# GUI
+HEADERS += src/gui/mainwindow.h
+HEADERS += src/gui/pathitem.h
+HEADERS += src/gui/toolpalette.h
+HEADERS += src/gui/tikzscene.h
+HEADERS += src/gui/propertypalette.h
+HEADERS += src/gui/tikzview.h
+HEADERS += src/gui/nodeitem.h
+HEADERS += src/gui/edgeitem.h
+HEADERS += src/gui/commands.h
+HEADERS += src/gui/undocommands.h
+HEADERS += src/gui/mainmenu.h
+HEADERS += src/gui/stylepalette.h
+HEADERS += src/gui/styleeditor.h
+HEADERS += src/gui/previewwindow.h
+HEADERS += src/gui/latexprocess.h
+HEADERS += src/gui/exportdialog.h
+HEADERS += src/gui/delimitedstringitemdelegate.h
+HEADERS += src/gui/preferencedialog.h
+
+# DATA
+HEADERS += src/data/path.h
+HEADERS += src/data/graph.h
+HEADERS += src/data/node.h
+HEADERS += src/data/edge.h
+HEADERS += src/data/graphelementdata.h
+HEADERS += src/data/graphelementproperty.h
+HEADERS += src/data/tikzparserdefs.h
+HEADERS += src/data/tikzdocument.h
+HEADERS += src/data/tikzassembler.h
+HEADERS += src/data/tikzstyles.h
+HEADERS += src/data/style.h
+HEADERS += src/data/stylelist.h
+HEADERS += src/data/pdfdocument.h
+HEADERS += src/data/delimitedstringvalidator.h
 
 FORMS += src/gui/mainwindow.ui \
     src/gui/propertypalette.ui \
@@ -158,6 +160,3 @@ test {
 } else {
     SOURCES += src/main.cpp
 }
-
-
-
