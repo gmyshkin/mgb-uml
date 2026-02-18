@@ -3,7 +3,6 @@
 QT += core gui widgets network pdf pdfwidgets
 
 # --- VERSIONING LOGIC ---
-GIT_VERSION = $$(GIT_VERSION)
 isEmpty(GIT_VERSION) {
     GIT_VERSION = "Dev-Build"
 }
