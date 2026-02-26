@@ -28,6 +28,30 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 {
     _nodeStyles = new StyleList(false, this);
     _edgeStyles = new StyleList(true, this);
+
+    // --- MGB-UML HARDCODED STYLES START ---
+    
+    // 1. UML Use Case (Ellipse)
+    GraphElementData *useCaseData = new GraphElementData();
+    useCaseData->setProperty("shape", "ellipse");
+    useCaseData->setProperty("draw", "black");
+    useCaseData->setProperty("fill", "white");
+    useCaseData->setProperty("minimum width", "3cm");
+    useCaseData->setProperty("minimum height", "1.5cm");
+    useCaseData->setProperty("tikzit category", "MGB_UML_HIDDEN"); // Hides it from the default list
+    addStyle("UML Use Case", useCaseData);
+
+    // 2. UML Class (Multipart Rectangle)
+    GraphElementData *classData = new GraphElementData();
+    classData->setProperty("shape", "rectangle split");
+    classData->setProperty("rectangle split parts", "3");
+    classData->setProperty("draw", "black");
+    classData->setProperty("fill", "white");
+    classData->setProperty("align", "left");
+    classData->setProperty("tikzit category", "MGB_UML_HIDDEN"); // Hides it from the default list
+    addStyle("UML Class", classData);
+
+    // --- MGB-UML HARDCODED STYLES END ---
 }
 
 Style *TikzStyles::nodeStyle(QString name) const
@@ -83,10 +107,6 @@ void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel
     nodeModel->clear();
     edgeModel->clear();
 
-
-    //QString f = tikzit->styleFile();
-    //ui->styleFile->setText(f);
-
     QStandardItem *it;
 
     if (includeNone) {
@@ -95,19 +115,20 @@ void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel
         it->setData(noneStyle->name());
         nodeModel->appendRow(it);
         it->setTextAlignment(Qt::AlignCenter);
-        //it->setSizeHint(QSize(48,48));
     }
 
     Style *s;
     for (int i = 0; i < _nodeStyles->length(); ++i) {
         s = _nodeStyles->style(i);
-        if (category == "" || category == s->propertyWithDefault("tikzit category", "", false))
-        {
-            it = new QStandardItem(s->icon(), s->name());
-            it->setEditable(false);
-            it->setData(s->name());
-            //it->setSizeHint(QSize(48,48));
-            nodeModel->appendRow(it);
+        // Only add it if it's NOT in our hidden category
+        if (s->propertyWithDefault("tikzit category", "", false) != "MGB_UML_HIDDEN") {
+            if (category == "" || category == s->propertyWithDefault("tikzit category", "", false))
+            {
+                it = new QStandardItem(s->icon(), s->name());
+                it->setEditable(false);
+                it->setData(s->name());
+                nodeModel->appendRow(it);
+            }
         }
     }
 
@@ -123,7 +144,6 @@ void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel
         it = new QStandardItem(s->icon(), s->name());
         it->setEditable(false);
         it->setData(s->name());
-        //it->setSizeHint(QSize(48,48));
         edgeModel->appendRow(it);
     }
 }
@@ -140,14 +160,16 @@ StyleList *TikzStyles::edgeStyles() const
 
 QStringList TikzStyles::categories() const
 {
-    QMap<QString,bool> cats; // use a QMap to keep keys sorted
+    QMap<QString,bool> cats;
     cats.insert("", true);
     Style *ns;
     for (int i = 0; i < _nodeStyles->length(); ++i) {
         ns = _nodeStyles->style(i);
-        cats.insert(ns->propertyWithDefault("tikzit category", "", false), true);
+        QString cat = ns->propertyWithDefault("tikzit category", "", false);
+        if (cat != "MGB_UML_HIDDEN") {
+            cats.insert(cat, true);
+        }
     }
-    //foreach (EdgeStyle *s, _edgeStyles) cats << s->propertyWithDefault("tikzit category", "", false);
     return QStringList(cats.keys());
 }
 
@@ -177,5 +199,3 @@ void TikzStyles::addStyle(QString name, GraphElementData *data)
     if (s->isEdgeStyle()) _edgeStyles->addStyle(s);
     else _nodeStyles->addStyle(s);
 }
-
-

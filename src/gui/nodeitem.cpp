@@ -21,6 +21,7 @@
 #include "tikzscene.h"
 #include "util.h"
 #include <cmath>
+#include <algorithm>
 
 #include <QPen>
 #include <QApplication>
@@ -34,10 +35,8 @@ NodeItem::NodeItem(Node *node)
 {
     _node = node;
     setFlag(QGraphicsItem::ItemIsSelectable);
-    //setFlag(QGraphicsItem::ItemIsMovable);
-    //setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     readPos();
-	updateBounds();
+    updateBounds();
 }
 
 void NodeItem::readPos()
@@ -51,6 +50,11 @@ void NodeItem::writePos()
 }
 
 QRectF NodeItem::labelRect() const {
+    // MGB-UML: UML shapes draw their text internally. Do not draw the external yellow box.
+    if (_node->style()->shape() == "rectangle split" || _node->style()->shape() == "ellipse") {
+        return QRectF(); 
+    }
+
     QString label = replaceTexConstants(_node->label());
     QFontMetrics fm(Tikzit::LABEL_FONT);
     QRectF rect = fm.boundingRect(label);
@@ -69,6 +73,9 @@ QRectF NodeItem::outerLabelRect() const {
 
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    bool isUmlClass = (_node->style()->shape() == "rectangle split");
+    bool isUseCase = (_node->style()->shape() == "ellipse");
+
     if (_node->style()->isNone()) {
         QColor c(180,180,200);
         painter->setPen(QPen(c));
@@ -79,7 +86,7 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
         QVector<qreal> p;
         p << 1.0 << 2.0;
         pen.setDashPattern(p);
-		pen.setWidthF(2.0);
+        pen.setWidthF(2.0);
         painter->setPen(pen);
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(shape());
@@ -89,12 +96,82 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
         painter->setPen(pen);
         painter->setBrush(QBrush(_node->style()->fillColor()));
         painter->drawPath(shape());
+
+        // =================================================================
+        // MGB-UML: CUSTOM RENDERING FOR UML ELEMENTS
+        // =================================================================
+        if (isUseCase) {
+            // Draw Use Case text perfectly centered
+            painter->setPen(QPen(Qt::black));
+            painter->setFont(Tikzit::LABEL_FONT);
+            QRectF r = shape().boundingRect();
+            painter->drawText(r, Qt::AlignCenter, replaceTexConstants(_node->label()));
+        }
+        else if (isUmlClass) {
+            QRectF r = shape().boundingRect();
+            
+            // Re-parse the text to figure out where to draw the horizontal lines
+            QString label = _node->label();
+            QString part1 = label, part2 = "", part3 = "";
+            int idx2 = label.indexOf("\\nodepart{two}");
+            int idx3 = label.indexOf("\\nodepart{three}");
+
+            if (idx2 != -1) {
+                part1 = label.left(idx2).trimmed();
+                if (idx3 != -1) {
+                    part2 = label.mid(idx2 + 14, idx3 - (idx2 + 14)).trimmed();
+                    part3 = label.mid(idx3 + 16).trimmed();
+                } else {
+                    part2 = label.mid(idx2 + 14).trimmed();
+                }
+            }
+
+            // Calculate heights using font metrics so the lines match the text size
+            QFont titleFont = Tikzit::LABEL_FONT; titleFont.setBold(true);
+            QFontMetrics fmTitle(titleFont);
+            QFontMetrics fm(Tikzit::LABEL_FONT);
+            
+            // Clean up LaTeX linebreaks (\\) into actual Qt newlines (\n) for measuring/drawing
+            QString printPart1 = replaceTexConstants(part1).replace("\\\\", "\n").replace(" \\ ", "\n");
+            QString printPart2 = replaceTexConstants(part2).replace("\\\\", "\n").replace(" \\ ", "\n");
+            QString printPart3 = replaceTexConstants(part3).replace("\\\\", "\n").replace(" \\ ", "\n");
+
+            int padding = 10;
+            QRect b1 = fmTitle.boundingRect(QRect(0,0,1000,1000), Qt::AlignCenter, printPart1);
+            QRect b2 = fm.boundingRect(QRect(0,0,1000,1000), Qt::AlignLeft, printPart2);
+            
+            // Calculate where the dividing lines go dynamically
+            qreal y1 = r.top() + b1.height() + padding;
+            qreal y2 = y1 + b2.height() + padding;
+
+            // Draw the horizontal lines
+            painter->drawLine(QPointF(r.left(), y1), QPointF(r.right(), y1));
+            painter->drawLine(QPointF(r.left(), y2), QPointF(r.right(), y2));
+
+            // Draw the text inside the boxes
+            painter->setPen(QPen(Qt::black));
+
+            // Compartment 1: Class Name (Bold, Centered)
+            painter->setFont(titleFont);
+            QRectF rect1(r.left(), r.top() + (padding/2), r.width(), b1.height());
+            painter->drawText(rect1, Qt::AlignCenter, printPart1);
+
+            // Compartment 2: Attributes (Left Aligned)
+            painter->setFont(Tikzit::LABEL_FONT);
+            QRectF rect2(r.left() + 5, y1 + (padding/2), r.width() - 10, b2.height());
+            painter->drawText(rect2, Qt::AlignLeft | Qt::AlignTop, printPart2);
+
+            // Compartment 3: Methods (Left Aligned)
+            QRectF rect3(r.left() + 5, y2 + (padding/2), r.width() - 10, r.bottom() - y2);
+            painter->drawText(rect3, Qt::AlignLeft | Qt::AlignTop, printPart3);
+        }
     }
 
-    bool drawLabel = _node->label() != "";
+    // Only draw the standard yellow label box if it is NOT a UML shape
+    bool drawLabel = (_node->label() != "") && !isUmlClass && !isUseCase;
     if (scene()) {
         TikzScene *sc = static_cast<TikzScene*>(scene());
-        drawLabel= drawLabel && sc->drawNodeLabels();
+        drawLabel = drawLabel && sc->drawNodeLabels();
     }
 
     if (drawLabel) {
@@ -139,7 +216,6 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
         painter->setBrush(QBrush(QColor(150,200,255,100)));
         painter->drawPath(outline);
     }
-
 }
 
 QPainterPath NodeItem::shape() const
@@ -148,7 +224,79 @@ QPainterPath NodeItem::shape() const
     double rotate = _node->data()->property("rotate").toDouble();
     QTransform transform;
     transform.scale(GLOBAL_SCALEF, GLOBAL_SCALEF).rotate(rotate);
-	if (_node->style()->shape() == "rectangle") {
+
+    // =================================================================
+    // MGB-UML: DYNAMIC AUTO-RESIZING
+    // =================================================================
+    if (_node->style()->shape() == "rectangle split") {
+        
+        QString label = _node->label();
+        QString part1 = label, part2 = "", part3 = "";
+        int idx2 = label.indexOf("\\nodepart{two}");
+        int idx3 = label.indexOf("\\nodepart{three}");
+
+        if (idx2 != -1) {
+            part1 = label.left(idx2).trimmed();
+            if (idx3 != -1) {
+                part2 = label.mid(idx2 + 14, idx3 - (idx2 + 14)).trimmed();
+                part3 = label.mid(idx3 + 16).trimmed();
+            } else {
+                part2 = label.mid(idx2 + 14).trimmed();
+            }
+        }
+        
+        QString printPart1 = replaceTexConstants(part1).replace("\\\\", "\n").replace(" \\ ", "\n");
+        QString printPart2 = replaceTexConstants(part2).replace("\\\\", "\n").replace(" \\ ", "\n");
+        QString printPart3 = replaceTexConstants(part3).replace("\\\\", "\n").replace(" \\ ", "\n");
+
+        QFontMetrics fm(Tikzit::LABEL_FONT);
+        QFont boldFont = Tikzit::LABEL_FONT; boldFont.setBold(true);
+        QFontMetrics fmBold(boldFont);
+        
+        // Calculate required box sizes based on exact text width
+        int padding = 10;
+        QRect b1 = fmBold.boundingRect(QRect(0,0,1000,1000), Qt::AlignCenter, printPart1);
+        QRect b2 = fm.boundingRect(QRect(0,0,1000,1000), Qt::AlignLeft, printPart2);
+        QRect b3 = fm.boundingRect(QRect(0,0,1000,1000), Qt::AlignLeft, printPart3);
+        
+        int w = std::max({b1.width(), b2.width(), b3.width()}) + padding * 2;
+        int h = b1.height() + b2.height() + b3.height() + padding * 3;
+        
+        // Set minimum UML boundaries so it doesn't vanish when empty
+        if (w < 80) w = 80;
+        if (h < 60) h = 60;
+        
+        // Unscale it back because transform.map() will multiply it by GLOBAL_SCALEF
+        qreal sw = (w / 2.0) / GLOBAL_SCALEF;
+        qreal sh = (h / 2.0) / GLOBAL_SCALEF;
+        
+        QVector<QPointF> points ({
+            QPointF(-sw, -sh),
+            QPointF(-sw,  sh),
+            QPointF( sw,  sh),
+            QPointF( sw, -sh)
+        });
+        QPolygonF rect(points);
+        path.addPolygon(transform.map(rect));
+        path.closeSubpath();
+        
+    } else if (_node->style()->shape() == "ellipse") {
+        
+        // Auto-resizing for Use Case
+        QString label = replaceTexConstants(_node->label());
+        QFontMetrics fm(Tikzit::LABEL_FONT);
+        QRect b = fm.boundingRect(label);
+        
+        qreal sw = (b.width() / 2.0 + 15) / GLOBAL_SCALEF;
+        qreal sh = (b.height() / 2.0 + 10) / GLOBAL_SCALEF;
+        
+        // Minimum oval limits
+        if (sw < 0.5) sw = 0.5;
+        if (sh < 0.25) sh = 0.25;
+        
+        path.addEllipse(QPointF(0, 0), sw * GLOBAL_SCALEF, sh * GLOBAL_SCALEF);
+        
+    } else if (_node->style()->shape() == "rectangle") {
         QVector<QPointF> points ({
             QPointF(-0.2, -0.2),
             QPointF(-0.2,  0.2),
@@ -170,24 +318,22 @@ QPainterPath NodeItem::shape() const
         path.closeSubpath();
     } else {
         path.addEllipse(QPointF(0, 0), GLOBAL_SCALEF * 0.2, GLOBAL_SCALEF * 0.2);
-	}
+    }
     return path;
 }
 
-// TODO: nodeitem should sync boundingRect()-relevant stuff (label etc) explicitly,
-// to allow prepareGeometryChange()
 QRectF NodeItem::boundingRect() const
 {
-	return _boundingRect;
+    return _boundingRect;
 }
 
 void NodeItem::updateBounds()
 {
-	prepareGeometryChange();
-	QString label = _node->label();
+    prepareGeometryChange();
+    QString label = _node->label();
     QString outerLabel = _node->data()->property("label");
     QRectF rect = shape().boundingRect();
-	if (label != "") rect = rect.united(labelRect());
+    if (label != "") rect = rect.united(labelRect());
     if (outerLabel != "") rect = rect.united(outerLabelRect());
     _boundingRect = rect.adjusted(-4, -4, 4, 4);
 }
@@ -196,17 +342,3 @@ Node *NodeItem::node() const
 {
     return _node;
 }
-
-//QVariant NodeItem::itemChange(GraphicsItemChange change, const QVariant &value)
-//{
-//    if (change == ItemPositionChange) {
-//        QPointF newPos = value.toPointF();
-//        int gridSize = GLOBAL_SCALE / 8;
-//        QPointF gridPos(round(newPos.x()/gridSize)*gridSize, round(newPos.y()/gridSize)*gridSize);
-//        _node->setPoint(fromScreen(gridPos));
-//
-//        return gridPos;
-//    } else {
-//        return QGraphicsItem::itemChange(change, value);
-//    }
-//}

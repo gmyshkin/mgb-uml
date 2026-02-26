@@ -37,7 +37,9 @@ public:
         SELECT,
         VERTEX,
         EDGE,
-        CROP
+        CROP,
+        UML_USE_CASE, // <-- MGB-UML
+        UML_CLASS     // <-- MGB-UML
     };
 
     Tool currentTool() const;
@@ -48,6 +50,8 @@ private:
     QAction *vertex;
     QAction *edge;
     QAction *crop;
+    QAction *umlUseCase; // <-- MGB-UML
+    QAction *umlClass;   // <-- MGB-UML
 };
 
 #endif // TOOLPALETTE_H

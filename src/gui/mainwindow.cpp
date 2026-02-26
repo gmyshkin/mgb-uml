@@ -5,6 +5,7 @@
 #include "tikzassembler.h"
 #include "toolpalette.h"
 #include "tikzit.h"
+#include "mgbumlpalette.h" // MGB-UML
 
 #include <QDebug>
 #include <QFile>
@@ -37,18 +38,18 @@ MainWindow::MainWindow(QWidget *parent) :
     addToolBar(_toolPalette);
 
     _stylePalette = new StylePalette(this);
+    _stylePalette->setObjectName("stylePaletteDock");
+
+    _umlPalette = new mgb::UmlPalette(this); 
+    _umlPalette->setObjectName("umlPaletteDock");
 
     _tikzScene = new TikzScene(_tikzDocument, _toolPalette, _stylePalette, this);
     ui->tikzView->setScene(_tikzScene);
 
-    // TODO: check if each window should have a menu
     _menu = new MainMenu();
     _menu->setParent(this);
     setMenuBar(_menu);
 
-
-
-    // initially, the source view should be collapsed
     QList<int> sz = ui->splitter->sizes();
     sz[0] = sz[0] + sz[1];
     sz[1] = 0;
@@ -61,13 +62,15 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setFont();
 
+    // MGB-UML: Force both docks to the right side of the screen
+    addDockWidget(Qt::RightDockWidgetArea, _stylePalette);
+    addDockWidget(Qt::RightDockWidgetArea, _umlPalette); 
+
     QVariant state = settings.value(QString("windowState-main-qt") + qVersion());
     if (state.isValid()) {
         restoreState(state.toByteArray(), 2);
-    } else {
-        addDockWidget(Qt::RightDockWidgetArea, _stylePalette);
-        resizeDocks({_stylePalette}, {130}, Qt::Horizontal);
-    }
+    } 
+    resizeDocks({_stylePalette, _umlPalette}, {130, 130}, Qt::Horizontal);
 }
 
 MainWindow::~MainWindow()
@@ -100,20 +103,14 @@ void MainWindow::restorePosition()
     if (geom.isValid()) {
         restoreGeometry(geom.toByteArray());
     }
-
-
 }
 
 void MainWindow::open(QString fileName)
 {
     _tikzDocument->open(fileName);
 
-    //ui->tikzSource->setText(_tikzDocument->tikz());
-
-
     if (_tikzDocument->parseSuccess()) {
         statusBar()->showMessage("TiKZ parsed successfully", 2000);
-        //setWindowTitle("TiKZiT - " + _tikzDocument->shortName());
         _tikzScene->setTikzDocument(_tikzDocument);
         updateFileName();
     } else {
@@ -128,7 +125,6 @@ QSplitter *MainWindow::splitter() const {
 
 void MainWindow::closeEvent(QCloseEvent *event)
 {
-    // store qt version in window geometry keys to avoid strange behaviour w/ multiple Qt's on one system
     QSettings settings("mgb-uml", "mgb-uml");
     settings.setValue(QString("geometry-main-qt") + qVersion(), saveGeometry());
     settings.setValue(QString("windowState-main-qt") + qVersion(), saveState(2));
@@ -159,7 +155,6 @@ void MainWindow::changeEvent(QEvent *event)
     if (event->type() == QEvent::ActivationChange && isActiveWindow()) {
         tikzit->setActiveWindow(this);
         tikzit->setDialogStatus(false);
-        //tikzit->stylePalette()->raise();
     }
     QMainWindow::changeEvent(event);
 }
@@ -183,7 +178,6 @@ void MainWindow::setSourceLine(int line)
 {
     QTextCursor cursor(ui->tikzSource->document()->findBlockByLineNumber(line));
     cursor.movePosition(QTextCursor::EndOfLine);
-    //ui->tikzSource->moveCursor(QTextCursor::End);
     ui->tikzSource->setTextCursor(cursor);
     ui->tikzSource->setFocus();
 }
@@ -198,7 +192,6 @@ void MainWindow::updateFileName()
 
 void MainWindow::refreshTikz()
 {
-    // don't emit textChanged() when we update the tikz
     ui->tikzSource->blockSignals(true);
     ui->tikzSource->setText(_tikzDocument->tikz());
     ui->tikzSource->blockSignals(false);
@@ -233,5 +226,3 @@ void MainWindow::on_tikzSource_textChanged()
 {
     if (_tikzScene->enabled()) _tikzScene->setEnabled(false);
 }
-
-

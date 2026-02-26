@@ -21,6 +21,10 @@ namespace Ui {
 class MainWindow;
 }
 
+namespace mgb {
+class UmlPalette;
+}
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -58,6 +62,7 @@ private:
     MainMenu *_menu;
     ToolPalette *_toolPalette;
     StylePalette *_stylePalette;
+    mgb::UmlPalette *_umlPalette; // <-- MGB-UML Added this!
     Ui::MainWindow *ui;
     int _windowId;
     static int _numWindows;
