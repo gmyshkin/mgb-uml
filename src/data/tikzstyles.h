@@ -60,6 +60,9 @@ private:
     StyleList* _edgeStyles;
     QStringList _colNames;
     QVector<QColor> _cols;
+
+    // --- MGB-UML: Self-healing style injector ---
+    void injectHardcodedStyles(); 
 };
 
 #endif // PROJECT_H
