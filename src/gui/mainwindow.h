@@ -23,6 +23,7 @@ class MainWindow;
 
 namespace mgb {
 class UmlPalette;
+class FileManager;
 }
 
 class MainWindow : public QMainWindow
@@ -62,7 +63,8 @@ private:
     MainMenu *_menu;
     ToolPalette *_toolPalette;
     StylePalette *_stylePalette;
-    mgb::UmlPalette *_umlPalette; // <-- MGB-UML Added this!
+    mgb::UmlPalette *_umlPalette; 
+    mgb::FileManager *_fileManager; 
     Ui::MainWindow *ui;
     int _windowId;
     static int _numWindows;

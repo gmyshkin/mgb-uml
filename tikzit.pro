@@ -73,7 +73,8 @@ SOURCES += src/gui/latexprocess.cpp
 SOURCES += src/gui/exportdialog.cpp
 SOURCES += src/gui/delimitedstringitemdelegate.cpp
 SOURCES += src/gui/preferencedialog.cpp
-SOURCES += src/gui/mgbumlpalette.cpp
+SOURCES += src/gui/mgbUmlPalette.cpp
+SOURCES += src/gui/mgbFileManager.cpp
 
 # DATA
 SOURCES += src/data/path.cpp
@@ -114,7 +115,8 @@ HEADERS += src/gui/latexprocess.h
 HEADERS += src/gui/exportdialog.h
 HEADERS += src/gui/delimitedstringitemdelegate.h
 HEADERS += src/gui/preferencedialog.h
-HEADERS += src/gui/mgbumlpalette.h
+HEADERS += src/gui/mgbUmlPalette.h
+HEADERS += src/gui/mgbFileManager.h
 
 # DATA
 HEADERS += src/data/path.h

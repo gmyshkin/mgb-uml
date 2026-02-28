@@ -1,4 +1,4 @@
-#include "mgbumlpalette.h"
+#include "mgbUmlPalette.h"
 #include <QVBoxLayout>
 
 namespace mgb {

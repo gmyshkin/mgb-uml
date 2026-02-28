@@ -5,7 +5,8 @@
 #include "tikzassembler.h"
 #include "toolpalette.h"
 #include "tikzit.h"
-#include "mgbumlpalette.h" // MGB-UML
+#include "mgbUmlPalette.h"
+#include "mgbFileManager.h"
 
 #include <QDebug>
 #include <QFile>
@@ -33,6 +34,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setAttribute(Qt::WA_DeleteOnClose, true);
     _tikzDocument = new TikzDocument(this);
+
+    _fileManager = new mgb::FileManager(this, this);
+    connect(_tikzDocument->undoStack(), &QUndoStack::indexChanged, 
+            _fileManager, &mgb::FileManager::onAppDocumentModified);
 
     _toolPalette = new ToolPalette(this);
     addToolBar(_toolPalette);
@@ -113,6 +118,9 @@ void MainWindow::open(QString fileName)
         statusBar()->showMessage("TiKZ parsed successfully", 2000);
         _tikzScene->setTikzDocument(_tikzDocument);
         updateFileName();
+        
+        // Notify file manager to start watching this file
+        _fileManager->setMonitoredFile(_tikzDocument->fileName());
     } else {
         statusBar()->showMessage("Cannot read TiKZ source");
     }
@@ -188,6 +196,11 @@ void MainWindow::updateFileName()
     if (nm.isEmpty()) nm = "untitled";
     if (!_tikzDocument->isClean()) nm += "*";
     setWindowTitle(nm + " - MGB-UML");
+
+    // MGB-UML: Ensure we are watching the file (Crucial for "Save As")
+    if (_fileManager && !_tikzDocument->fileName().isEmpty()) {
+        _fileManager->setMonitoredFile(_tikzDocument->fileName());
+    }
 }
 
 void MainWindow::refreshTikz()
