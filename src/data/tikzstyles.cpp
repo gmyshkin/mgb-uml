@@ -29,30 +29,25 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
     _nodeStyles = new StyleList(false, this);
     _edgeStyles = new StyleList(true, this);
 
-    // Run the injector on app startup
     injectHardcodedStyles();
 }
 
 // =================================================================
-// MGB-UML: SMART STYLE INJECTOR
+// MGB-UML: PRISTINE STYLE INJECTOR
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
 {
     // 1. UML Use Case
     Style *useCaseStyle = _nodeStyles->style("UML Use Case");
     if (useCaseStyle == nullptr) {
-        // Doesn't exist in the loaded file? Create it from scratch.
         GraphElementData *data = new GraphElementData();
         data->setProperty("shape", "ellipse");
         data->setProperty("draw", "black");
         data->setProperty("fill", "white");
         data->setProperty("minimum width", "3cm");
         data->setProperty("minimum height", "1.5cm");
-        data->setProperty("tikzit category", "MGB_UML_HIDDEN");
+        data->setProperty("tikzit category", "UML Elements"); 
         addStyle("UML Use Case", data);
-    } else {
-        // Exists in the file! Respect their colors/settings, but force it hidden in UI.
-        useCaseStyle->setProperty("tikzit category", "MGB_UML_HIDDEN");
     }
 
     // 2. UML Class
@@ -64,10 +59,8 @@ void TikzStyles::injectHardcodedStyles()
         data->setProperty("draw", "black");
         data->setProperty("fill", "white");
         data->setProperty("align", "left");
-        data->setProperty("tikzit category", "MGB_UML_HIDDEN");
+        data->setProperty("tikzit category", "UML Elements");
         addStyle("UML Class", data);
-    } else {
-        classStyle->setProperty("tikzit category", "MGB_UML_HIDDEN");
     }
 }
 // =================================================================
@@ -98,16 +91,36 @@ bool TikzStyles::loadStyles(QString fileName)
         QString styleTikz = in.readAll();
         file.close();
 
+        QString cleanTikz;
+        QTextStream stream(&styleTikz);
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            
+            if (line.startsWith("\\usetikzlibrary") || 
+                line.startsWith("\\pgfkeys") || 
+                line.startsWith("\\pgfdeclarelayer") || 
+                line.startsWith("\\pgfsetlayers")) {
+                continue; 
+            }
+            
+            // MGB-UML: AUTO-HEAL INTERCEPTOR
+            if (line.startsWith("\\tikzstyle{UML Class}=") || 
+                line.startsWith("\\tikzstyle{UML Use Case}=")) {
+                continue; 
+            }
+
+            cleanTikz += line + "\n";
+        }
+
         clear();
         TikzAssembler ass(this);
-        bool success = ass.parse(styleTikz);
+        bool success = ass.parse(cleanTikz); 
         
-        // MGB-UML: After clearing and loading the user's file, ensure our hardcoded styles survive!
         injectHardcodedStyles();
+        saveStyles(fileName);
         
         return success;
     } else {
-        // Even if loading fails, restore the hardcoded styles so the app doesn't break
         injectHardcodedStyles();
         return false;
     }
@@ -127,48 +140,7 @@ bool TikzStyles::saveStyles(QString fileName)
 
 void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel *edgeModel, QString category, bool includeNone)
 {
-    nodeModel->clear();
-    edgeModel->clear();
-
-    QStandardItem *it;
-
-    if (includeNone) {
-        it = new QStandardItem(noneStyle->icon(), noneStyle->name());
-        it->setEditable(false);
-        it->setData(noneStyle->name());
-        nodeModel->appendRow(it);
-        it->setTextAlignment(Qt::AlignCenter);
-    }
-
-    Style *s;
-    for (int i = 0; i < _nodeStyles->length(); ++i) {
-        s = _nodeStyles->style(i);
-        // Only add it if it's NOT in our hidden category
-        if (s->propertyWithDefault("tikzit category", "", false) != "MGB_UML_HIDDEN") {
-            if (category == "" || category == s->propertyWithDefault("tikzit category", "", false))
-            {
-                it = new QStandardItem(s->icon(), s->name());
-                it->setEditable(false);
-                it->setData(s->name());
-                nodeModel->appendRow(it);
-            }
-        }
-    }
-
-    if (includeNone) {
-        it = new QStandardItem(noneEdgeStyle->icon(), noneEdgeStyle->name());
-        it->setEditable(false);
-        it->setData(noneEdgeStyle->name());
-        edgeModel->appendRow(it);
-    }
-
-    for (int i = 0; i < _edgeStyles->length(); ++i) {
-        s = _edgeStyles->style(i);
-        it = new QStandardItem(s->icon(), s->name());
-        it->setEditable(false);
-        it->setData(s->name());
-        edgeModel->appendRow(it);
-    }
+    // DEAD CODE: The TikZiT UI no longer uses this function!
 }
 
 StyleList *TikzStyles::nodeStyles() const
@@ -181,19 +153,33 @@ StyleList *TikzStyles::edgeStyles() const
     return _edgeStyles;
 }
 
+// =================================================================
+// MGB-UML: PERFECTED CATEGORY LIST
+// =================================================================
 QStringList TikzStyles::categories() const
 {
-    QMap<QString,bool> cats;
-    cats.insert("", true);
-    Style *ns;
+    QStringList list;
+    
+    // Safely send the word "All" to the GUI. The GUI will translate it back to "" internally.
+    list << "All"; 
+    
     for (int i = 0; i < _nodeStyles->length(); ++i) {
-        ns = _nodeStyles->style(i);
-        QString cat = ns->propertyWithDefault("tikzit category", "", false);
-        if (cat != "MGB_UML_HIDDEN") {
-            cats.insert(cat, true);
+        Style *ns = _nodeStyles->style(i);
+        QString cat = ns->propertyWithDefault("tikzit category", "", false).trimmed();
+        if (cat != "" && !list.contains(cat)) {
+            list << cat;
         }
     }
-    return QStringList(cats.keys());
+    
+    for (int i = 0; i < _edgeStyles->length(); ++i) {
+        Style *es = _edgeStyles->style(i);
+        QString cat = es->propertyWithDefault("tikzit category", "", false).trimmed();
+        if (cat != "" && !list.contains(cat)) {
+            list << cat;
+        }
+    }
+    
+    return list;
 }
 
 QString TikzStyles::tikz() const
@@ -201,14 +187,15 @@ QString TikzStyles::tikz() const
     QString str;
     QTextStream code(&str);
 
-    code << "% TiKZ style file generated by MGB-UML. You may edit this file manually,\n";
-    code << "% but some things (e.g. comments) may be overwritten. To be readable in\n";
-    code << "% MGB-UML, the only non-comment lines must be of the form:\n";
-    code << "% \\tikzstyle{NAME}=[PROPERTY LIST]\n\n";
+    code << "% =========================================================\n";
+    code << "% MGB-UML: PROTECTED STYLES WARNING\n";
+    code << "% Do NOT modify the properties of 'UML Class' or 'UML Use Case' directly.\n";
+    code << "% The app will automatically reset them to default to protect the palette.\n";
+    code << "% \n";
+    code << "% If you want a custom color or style, COPY the line and RENAME it.\n";
+    code << "% (Example: \\tikzstyle{UML Class Red}=[... fill=red ...])\n";
+    code << "% =========================================================\n\n";
 
-    // =========================================================
-    // MGB-UML: AUTOMATICALLY INJECT LAYER DEFINITIONS
-    // =========================================================
     code << "% Required TikZ Libraries\n";
     code << "\\usetikzlibrary{shapes.multipart, positioning, shapes.geometric}\n\n";
 
@@ -219,7 +206,6 @@ QString TikzStyles::tikz() const
     code << "\\pgfdeclarelayer{edgelayer}\n";
     code << "\\pgfdeclarelayer{nodelayer}\n";
     code << "\\pgfsetlayers{edgelayer,nodelayer,main}\n\n";
-    // =========================================================
 
     code << "% Node styles\n";
     code << _nodeStyles->tikz();
