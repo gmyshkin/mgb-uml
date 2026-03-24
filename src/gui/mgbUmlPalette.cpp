@@ -11,7 +11,12 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
     listWidget->setIconSize(QSize(48, 48));
     listWidget->setMovement(QListView::Static);
     listWidget->setResizeMode(QListView::Adjust);
-    listWidget->setSpacing(10);
+
+    listWidget->setFlow(QListView::TopToBottom);
+    listWidget->setWrapping(false);
+    listWidget->setWordWrap(true);
+    listWidget->setGridSize(QSize(130, 110));
+    listWidget->setSpacing(6);
     
     // Critical: Enable items to be dragged out of the widget
     listWidget->setDragEnabled(true); 
