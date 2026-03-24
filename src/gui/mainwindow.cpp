@@ -81,6 +81,7 @@ resizeDocks({_stylePalette, _umlPalette}, {130, 130}, Qt::Horizontal);
 
 // control dock heights so UML Elements starts higher
 resizeDocks({_stylePalette, _umlPalette}, {120, 260}, Qt::Vertical);
+}
 
 MainWindow::~MainWindow()
 {
