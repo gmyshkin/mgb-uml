@@ -51,8 +51,14 @@ void NodeItem::writePos()
 
 QRectF NodeItem::labelRect() const {
     // MGB-UML: UML shapes draw their text internally. Do not draw the external yellow box.
-    if (_node->style()->shape() == "rectangle split" || _node->style()->shape() == "ellipse") {
-        return QRectF(); 
+QRectF NodeItem::labelRect() const {
+    QString styleName = _node->style()->name();
+
+    if (styleName == "UML Use Case" ||
+        styleName == "UML Class" ||
+        styleName == "UML Actor" ||
+        styleName == "UML System") {
+        return QRectF();
     }
 
     QString label = replaceTexConstants(_node->label());
