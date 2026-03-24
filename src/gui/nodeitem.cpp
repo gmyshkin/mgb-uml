@@ -31,6 +31,35 @@
 #include <QFontMetrics>
 #include <QPainterPathStroker>
 
+namespace {
+
+static int umlLengthToPixels(QString raw, int fallbackPx)
+{
+    raw = raw.trimmed();
+    if (raw.isEmpty()) return fallbackPx;
+
+    bool ok = false;
+
+    if (raw.endsWith("cm")) {
+        raw.chop(2);
+        double cm = raw.toDouble(&ok);
+        if (ok) return static_cast<int>(cm * GLOBAL_SCALEF);
+    }
+
+    if (raw.endsWith("pt")) {
+        raw.chop(2);
+        double pt = raw.toDouble(&ok);
+        if (ok) return static_cast<int>(pt * 1.3333);
+    }
+
+    double plain = raw.toDouble(&ok);
+    if (ok) return static_cast<int>(plain);
+
+    return fallbackPx;
+}
+
+}
+
 NodeItem::NodeItem(Node *node)
 {
     _node = node;
@@ -351,8 +380,21 @@ QPainterPath NodeItem::shape() const
 
     QRect b = fm.boundingRect(label);
 
-    int w = std::max(b.width() + 40, 240);
-    int h = std::max(b.height() + 40, 160);
+    QString widthProp = _node->data()->property("minimum width");
+    if (widthProp.isEmpty()) {
+        widthProp = _node->style()->data()->property("minimum width");
+    }
+
+    QString heightProp = _node->data()->property("minimum height");
+    if (heightProp.isEmpty()) {
+        heightProp = _node->style()->data()->property("minimum height");
+    }
+
+    int minW = umlLengthToPixels(widthProp, 240);
+    int minH = umlLengthToPixels(heightProp, 160);
+
+    int w = std::max(b.width() + 40, minW);
+    int h = std::max(b.height() + 40, minH);
 
     qreal sw = (w / 2.0) / GLOBAL_SCALEF;
     qreal sh = (h / 2.0) / GLOBAL_SCALEF;
