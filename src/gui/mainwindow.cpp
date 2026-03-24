@@ -68,15 +68,19 @@ MainWindow::MainWindow(QWidget *parent) :
     setFont();
 
     // MGB-UML: Force both docks to the right side of the screen
-    addDockWidget(Qt::RightDockWidgetArea, _stylePalette);
-    addDockWidget(Qt::RightDockWidgetArea, _umlPalette); 
+addDockWidget(Qt::RightDockWidgetArea, _stylePalette);
+addDockWidget(Qt::RightDockWidgetArea, _umlPalette);
 
-    QVariant state = settings.value(QString("windowState-main-qt") + qVersion());
-    if (state.isValid()) {
-        restoreState(state.toByteArray(), 2);
-    } 
-    resizeDocks({_stylePalette, _umlPalette}, {130, 130}, Qt::Horizontal);
+QVariant state = settings.value(QString("windowState-main-qt") + qVersion());
+if (state.isValid()) {
+    restoreState(state.toByteArray(), 3);
 }
+
+// keep same dock width
+resizeDocks({_stylePalette, _umlPalette}, {130, 130}, Qt::Horizontal);
+
+// control dock heights so UML Elements starts higher
+resizeDocks({_stylePalette, _umlPalette}, {120, 260}, Qt::Vertical);
 
 MainWindow::~MainWindow()
 {
@@ -135,7 +139,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     QSettings settings("mgb-uml", "mgb-uml");
     settings.setValue(QString("geometry-main-qt") + qVersion(), saveGeometry());
-    settings.setValue(QString("windowState-main-qt") + qVersion(), saveState(2));
+    settings.setValue(QString("windowState-main-qt") + qVersion(), saveState(3));
 
     if (!_tikzDocument->isClean()) {
         QString nm = _tikzDocument->shortName();
