@@ -149,8 +149,3 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent)
 }
 
 } // namespace mgb
-
-    setWidget(listWidget);
-}
-
-} // namespace mgb
