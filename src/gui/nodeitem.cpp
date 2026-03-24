@@ -136,13 +136,17 @@ bool isSystem = (styleName == "UML System");
         painter->setBrush(Qt::NoBrush);
         painter->drawPath(shape());
     } else {
-        if (!isActor) {
-    QPen pen(_node->style()->strokeColor());
-    pen.setWidth(_node->style()->strokeThickness());
-    painter->setPen(pen);
+QPen pen(_node->style()->strokeColor());
+pen.setWidth(_node->style()->strokeThickness());
+painter->setPen(pen);
+
+if (isActor) {
+    painter->setBrush(Qt::NoBrush);
+} else {
     painter->setBrush(QBrush(_node->style()->fillColor()));
-    painter->drawPath(shape());
 }
+
+painter->drawPath(shape());
 
         // =================================================================
         // MGB-UML: CUSTOM RENDERING FOR UML ELEMENTS
