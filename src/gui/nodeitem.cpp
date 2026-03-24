@@ -79,8 +79,12 @@ QRectF NodeItem::outerLabelRect() const {
 
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    bool isUmlClass = (_node->style()->shape() == "rectangle split");
-    bool isUseCase = (_node->style()->shape() == "ellipse");
+    QString styleName = _node->style()->name();
+
+bool isUmlClass = (styleName == "UML Class");
+bool isUseCase = (styleName == "UML Use Case");
+bool isActor = (styleName == "UML Actor");
+bool isSystem = (styleName == "UML System");
 
     if (_node->style()->isNone()) {
         QColor c(180,180,200);
