@@ -49,16 +49,22 @@ void NodeItem::writePos()
     _node->setPoint(fromScreen(pos()));
 }
 
-QRectF NodeItem::labelRect() const {
     // MGB-UML: UML shapes draw their text internally. Do not draw the external yellow box.
 QRectF NodeItem::labelRect() const {
-    QString styleName = _node->style()->name();
+    QString shapeName = _node->style()->shape();
 
-    if (styleName == "UML Use Case" ||
-        styleName == "UML Class" ||
-        styleName == "UML Actor" ||
-        styleName == "UML System") {
+    // UML Use Case and UML Class draw their text internally
+    if (shapeName == "rectangle split" || shapeName == "ellipse" || shapeName == "uml system") {
         return QRectF();
+    }
+
+    // UML Actor draws the name below the stick figure
+    if (shapeName == "uml actor") {
+        QString label = replaceTexConstants(_node->label());
+        QFontMetrics fm(Tikzit::LABEL_FONT);
+        QRectF rect = fm.boundingRect(label);
+        rect.moveCenter(QPointF(0, GLOBAL_SCALEF * 0.95));
+        return rect.adjusted(-4, -2, 4, 2);
     }
 
     QString label = replaceTexConstants(_node->label());
@@ -119,6 +125,21 @@ bool isSystem = (styleName == "UML System");
             QRectF r = shape().boundingRect();
             painter->drawText(r, Qt::AlignCenter, replaceTexConstants(_node->label()));
         }
+            else if (isActor) {
+    painter->setPen(QPen(Qt::black));
+    painter->setFont(Tikzit::LABEL_FONT);
+    painter->drawText(labelRect(), Qt::AlignCenter, replaceTexConstants(_node->label()));
+}
+else if (isSystem) {
+    painter->setPen(QPen(Qt::black));
+    QFont titleFont = Tikzit::LABEL_FONT;
+    titleFont.setBold(true);
+    painter->setFont(titleFont);
+
+    QRectF r = shape().boundingRect();
+    QRectF titleRect(r.left() + 10, r.top() + 6, r.width() - 20, 24);
+    painter->drawText(titleRect, Qt::AlignLeft | Qt::AlignTop, replaceTexConstants(_node->label()));
+}
         else if (isUmlClass) {
             QRectF r = shape().boundingRect();
             
@@ -180,8 +201,7 @@ bool isSystem = (styleName == "UML System");
     }
 
     // Only draw the standard yellow label box if it is NOT a UML shape
-    bool drawLabel = (_node->label() != "") && !isUmlClass && !isUseCase;
-    if (scene()) {
+bool drawLabel = (_node->label() != "") && !isUmlClass && !isUseCase && !isActor && !isSystem;    if (scene()) {
         TikzScene *sc = static_cast<TikzScene*>(scene());
         drawLabel = drawLabel && sc->drawNodeLabels();
     }
@@ -307,6 +327,46 @@ QPainterPath NodeItem::shape() const
         if (sh < 0.25) sh = 0.25;
         
         path.addEllipse(QPointF(0, 0), sw * GLOBAL_SCALEF, sh * GLOBAL_SCALEF);
+        } else if (_node->style()->shape() == "uml actor") {
+
+    QPainterPath actorPath;
+    actorPath.addEllipse(QPointF(0, -0.45), 0.12, 0.12); // head
+    actorPath.moveTo(0, -0.33);
+    actorPath.lineTo(0, 0.20);                           // body
+    actorPath.moveTo(-0.22, -0.05);
+    actorPath.lineTo(0.22, -0.05);                       // arms
+    actorPath.moveTo(0, 0.20);
+    actorPath.lineTo(-0.20, 0.55);                       // left leg
+    actorPath.moveTo(0, 0.20);
+    actorPath.lineTo(0.20, 0.55);                        // right leg
+
+    path = transform.map(actorPath);
+
+} else if (_node->style()->shape() == "uml system") {
+
+    QString label = replaceTexConstants(_node->label());
+    QFont titleFont = Tikzit::LABEL_FONT;
+    titleFont.setBold(true);
+    QFontMetrics fm(titleFont);
+
+    QRect b = fm.boundingRect(label);
+
+    int w = std::max(b.width() + 40, 240);
+    int h = std::max(b.height() + 40, 160);
+
+    qreal sw = (w / 2.0) / GLOBAL_SCALEF;
+    qreal sh = (h / 2.0) / GLOBAL_SCALEF;
+
+    QVector<QPointF> points ({
+        QPointF(-sw, -sh),
+        QPointF(-sw,  sh),
+        QPointF( sw,  sh),
+        QPointF( sw, -sh)
+    });
+
+    QPolygonF rect(points);
+    path.addPolygon(transform.map(rect));
+    path.closeSubpath();
         
     } else if (_node->style()->shape() == "rectangle") {
         QVector<QPointF> points ({
