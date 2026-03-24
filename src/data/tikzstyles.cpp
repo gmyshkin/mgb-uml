@@ -67,7 +67,7 @@ void TikzStyles::injectHardcodedStyles()
     Style *actorStyle = _nodeStyles->style("UML Actor");
     if (actorStyle == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("shape", "ellipse");
+        data->setProperty("shape", "uml actor");
         data->setProperty("draw", "black");
         data->setProperty("fill", "white");
         data->setProperty("tikzit category", "UML Elements");
@@ -78,7 +78,7 @@ void TikzStyles::injectHardcodedStyles()
     Style *systemStyle = _nodeStyles->style("UML System");
     if (systemStyle == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("shape", "rectangle");
+        data->setProperty("shape", "uml system");
         data->setProperty("draw", "black");
         data->setProperty("fill", "white");
         data->setProperty("minimum width", "6cm");
