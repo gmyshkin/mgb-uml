@@ -63,6 +63,30 @@ void TikzStyles::injectHardcodedStyles()
         addStyle("UML Class", data);
     }
 }
+// 3. UML Actor
+Style *actorStyle = _nodeStyles->style("UML Actor");
+if (actorStyle == nullptr) {
+    GraphElementData *data = new GraphElementData();
+    data->setProperty("shape", "ellipse"); // placeholder for editor/export safety
+    data->setProperty("draw", "black");
+    data->setProperty("fill", "white");
+    data->setProperty("tikzit category", "UML Elements");
+    addStyle("UML Actor", data);
+}
+
+// 4. UML System
+Style *systemStyle = _nodeStyles->style("UML System");
+if (systemStyle == nullptr) {
+    GraphElementData *data = new GraphElementData();
+    data->setProperty("shape", "rectangle");
+    data->setProperty("draw", "black");
+    data->setProperty("fill", "white");
+    data->setProperty("minimum width", "6cm");
+    data->setProperty("minimum height", "4cm");
+    data->setProperty("align", "center");
+    data->setProperty("tikzit category", "UML Elements");
+    addStyle("UML System", data);
+}
 // =================================================================
 
 Style *TikzStyles::nodeStyle(QString name) const
