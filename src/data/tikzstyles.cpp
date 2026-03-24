@@ -129,9 +129,11 @@ bool TikzStyles::loadStyles(QString fileName)
             
             // MGB-UML: AUTO-HEAL INTERCEPTOR
             if (line.startsWith("\\tikzstyle{UML Class}=") || 
-                line.startsWith("\\tikzstyle{UML Use Case}=")) {
-                continue; 
-            }
+    line.startsWith("\\tikzstyle{UML Use Case}=") ||
+    line.startsWith("\\tikzstyle{UML Actor}=") ||
+    line.startsWith("\\tikzstyle{UML System}=")) {
+    continue; 
+}
 
             cleanTikz += line + "\n";
         }
