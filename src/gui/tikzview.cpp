@@ -188,13 +188,19 @@ void TikzView::dropEvent(QDropEvent *event)
         n->setPoint(fromScreen(gridPos));
 
         // 4. Determine what kind of UML node to spawn based on the text
-        if (text == "UML Use Case") {
-            n->setStyleName("UML Use Case");
-            n->setLabel("Use Case");
-        } else if (text == "UML Class") {
-            n->setStyleName("UML Class");
-            n->setLabel("ClassName \\nodepart{two} + attribute1 : type \\nodepart{three} + method1() : void");
-        }
+if (text == "UML Use Case") {
+    n->setStyleName("UML Use Case");
+    n->setLabel("Use Case");
+} else if (text == "UML Class") {
+    n->setStyleName("UML Class");
+    n->setLabel("ClassName \\nodepart{two} + attribute1 : type \\nodepart{three} + method1() : void");
+} else if (text == "UML Actor") {
+    n->setStyleName("UML Actor");
+    n->setLabel("Actor");
+} else if (text == "UML System") {
+    n->setStyleName("UML System");
+    n->setLabel("System");
+}
 
         // 5. Expand the canvas if necessary and push the undo command
         QRectF grow(gridPos.x() - GLOBAL_SCALEF, gridPos.y() - GLOBAL_SCALEF, 2 * GLOBAL_SCALEF, 2 * GLOBAL_SCALEF);
