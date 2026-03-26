@@ -102,8 +102,23 @@ void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
                 painter->drawPath(pth);
                 break;
             }
-        case Style::NoTip:
-            break;
+            case Style::OpenTriangle:
+            {
+                QPolygonF tri({
+                    toScreen(_edge->head()),
+                    toScreen(_edge->head() + ht + hLeft),
+                    toScreen(_edge->head() + ht + hRight)
+                });
+                painter->setBrush(Qt::white);
+                painter->drawPolygon(tri);
+                painter->setBrush(Qt::NoBrush);
+                break;
+            }
+            case Style::Diamond:
+            case Style::FilledDiamond:
+                break;
+            case Style::NoTip:
+                break;
         }
     }
 
@@ -130,6 +145,34 @@ void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
                 painter->drawPath(pth);
                 break;
             }
+            case Style::Diamond:
+            {
+                QPolygonF dia({
+                    toScreen(_edge->tail()),
+                    toScreen(_edge->tail() + tt + tLeft),
+                    toScreen(_edge->tail() + (tt * 2.0)),
+                    toScreen(_edge->tail() + tt + tRight)
+                });
+                painter->setBrush(Qt::white);
+                painter->drawPolygon(dia);
+                painter->setBrush(Qt::NoBrush);
+                break;
+            }
+            case Style::FilledDiamond:
+            {
+                QPolygonF dia({
+                    toScreen(_edge->tail()),
+                    toScreen(_edge->tail() + tt + tLeft),
+                    toScreen(_edge->tail() + (tt * 2.0)),
+                    toScreen(_edge->tail() + tt + tRight)
+                });
+                painter->setBrush(QBrush(pen.color()));
+                painter->drawPolygon(dia);
+                painter->setBrush(Qt::NoBrush);
+                break;
+            }
+            case Style::OpenTriangle:
+                break;
             case Style::NoTip:
                 break;
         }
