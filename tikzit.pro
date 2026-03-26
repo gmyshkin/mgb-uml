@@ -33,6 +33,7 @@ macx:ICON = images/tikzit.icns
 
 linux-g++ {
     QMAKE_CXX = ccache g++
+    QMAKE_LFLAGS += -rdynamic
 }
 
 QMAKE_INFO_PLIST = Info.plist
@@ -75,6 +76,8 @@ SOURCES += src/gui/delimitedstringitemdelegate.cpp
 SOURCES += src/gui/preferencedialog.cpp
 SOURCES += src/gui/mgbUmlPalette.cpp
 SOURCES += src/gui/mgbFileManager.cpp
+SOURCES += src/gui/mgbUmlNodeItems.cpp
+SOURCES += src/gui/mgbPluginDialog.cpp
 
 # DATA
 SOURCES += src/data/path.cpp
@@ -90,6 +93,7 @@ SOURCES += src/data/style.cpp
 SOURCES += src/data/stylelist.cpp
 SOURCES += src/data/pdfdocument.cpp
 SOURCES += src/data/delimitedstringvalidator.cpp
+SOURCES += src/data/mgbPluginManager.cpp
 
 
 # --- HEADERS (Safe Format) ---
@@ -117,6 +121,8 @@ HEADERS += src/gui/delimitedstringitemdelegate.h
 HEADERS += src/gui/preferencedialog.h
 HEADERS += src/gui/mgbUmlPalette.h
 HEADERS += src/gui/mgbFileManager.h
+HEADERS += src/gui/mgbUmlNodeItems.h
+HEADERS += src/gui/mgbPluginDialog.h
 
 # DATA
 HEADERS += src/data/path.h
@@ -133,6 +139,7 @@ HEADERS += src/data/style.h
 HEADERS += src/data/stylelist.h
 HEADERS += src/data/pdfdocument.h
 HEADERS += src/data/delimitedstringvalidator.h
+HEADERS += src/data/mgbPluginManager.h
 
 FORMS += src/gui/mainwindow.ui \
     src/gui/propertypalette.ui \

@@ -18,28 +18,30 @@
 
 #include "tikzstyles.h"
 #include "tikzassembler.h"
+#include "mgbPluginManager.h" 
 
 #include <QDebug>
 #include <QColorDialog>
 #include <QFile>
 #include <QFileInfo>
+#include <QCoreApplication>
 
 TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 {
     _nodeStyles = new StyleList(false, this);
     _edgeStyles = new StyleList(true, this);
 
+    // The PluginManager now auto-loads itself, so we just call the injector
     injectHardcodedStyles();
 }
 
 // =================================================================
-// MGB-UML: PRISTINE STYLE INJECTOR
+// MGB-UML: STYLE INJECTOR (Hardcoded + Plugins)
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
 {
-    // 1. UML Use Case
-    Style *useCaseStyle = _nodeStyles->style("UML Use Case");
-    if (useCaseStyle == nullptr) {
+    // --- 1. YOUR STABLE HARDCODED ELEMENTS ---
+    if (_nodeStyles->style("UML Use Case") == nullptr) {
         GraphElementData *data = new GraphElementData();
         data->setProperty("shape", "ellipse");
         data->setProperty("draw", "black");
@@ -50,9 +52,7 @@ void TikzStyles::injectHardcodedStyles()
         addStyle("UML Use Case", data);
     }
 
-    // 2. UML Class
-    Style *classStyle = _nodeStyles->style("UML Class");
-    if (classStyle == nullptr) {
+    if (_nodeStyles->style("UML Class") == nullptr) {
         GraphElementData *data = new GraphElementData();
         data->setProperty("shape", "rectangle split");
         data->setProperty("rectangle split parts", "3");
@@ -61,6 +61,29 @@ void TikzStyles::injectHardcodedStyles()
         data->setProperty("align", "left");
         data->setProperty("tikzit category", "UML Elements");
         addStyle("UML Class", data);
+    }
+
+    // --- 2. INJECT UNIFIED PLUGINS (Both JSON and C++) ---
+    QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
+    for (const mgb::PluginElement& p : plugins) {
+        
+        GraphElementData *data = new GraphElementData();
+        QMapIterator<QString, QString> i(p.properties);
+        while (i.hasNext()) {
+            i.next();
+            data->setProperty(i.key(), i.value());
+        }
+        data->setProperty("tikzit category", p.category);
+
+        if (p.type == "edge") {
+            if (_edgeStyles->style(p.name) == nullptr) {
+                _edgeStyles->addStyle(new Style(p.name, data));
+            }
+        } else {
+            if (_nodeStyles->style(p.name) == nullptr) {
+                _nodeStyles->addStyle(new Style(p.name, data));
+            }
+        }
     }
 }
 // =================================================================
@@ -93,6 +116,8 @@ bool TikzStyles::loadStyles(QString fileName)
 
         QString cleanTikz;
         QTextStream stream(&styleTikz);
+        QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
+
         while (!stream.atEnd()) {
             QString line = stream.readLine();
             
@@ -103,11 +128,21 @@ bool TikzStyles::loadStyles(QString fileName)
                 continue; 
             }
             
-            // MGB-UML: AUTO-HEAL INTERCEPTOR
+            // Auto-Heal: Protect Hardcoded Styles
             if (line.startsWith("\\tikzstyle{UML Class}=") || 
                 line.startsWith("\\tikzstyle{UML Use Case}=")) {
                 continue; 
             }
+
+            // Auto-Heal: Dynamically protect loaded Plugins
+            bool isPluginStyle = false;
+            for (const mgb::PluginElement& p : plugins) {
+                if (line.startsWith("\\tikzstyle{" + p.name + "}=")) {
+                    isPluginStyle = true;
+                    break;
+                }
+            }
+            if (isPluginStyle) continue;
 
             cleanTikz += line + "\n";
         }
@@ -140,7 +175,7 @@ bool TikzStyles::saveStyles(QString fileName)
 
 void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel *edgeModel, QString category, bool includeNone)
 {
-    // DEAD CODE: The TikZiT UI no longer uses this function!
+    // Handled in stylelist.cpp
 }
 
 StyleList *TikzStyles::nodeStyles() const
@@ -153,14 +188,9 @@ StyleList *TikzStyles::edgeStyles() const
     return _edgeStyles;
 }
 
-// =================================================================
-// MGB-UML: PERFECTED CATEGORY LIST
-// =================================================================
 QStringList TikzStyles::categories() const
 {
     QStringList list;
-    
-    // Safely send the word "All" to the GUI. The GUI will translate it back to "" internally.
     list << "All"; 
     
     for (int i = 0; i < _nodeStyles->length(); ++i) {
@@ -189,11 +219,10 @@ QString TikzStyles::tikz() const
 
     code << "% =========================================================\n";
     code << "% MGB-UML: PROTECTED STYLES WARNING\n";
-    code << "% Do NOT modify the properties of 'UML Class' or 'UML Use Case' directly.\n";
+    code << "% Do NOT modify the properties of core or plugin elements directly.\n";
     code << "% The app will automatically reset them to default to protect the palette.\n";
     code << "% \n";
     code << "% If you want a custom color or style, COPY the line and RENAME it.\n";
-    code << "% (Example: \\tikzstyle{UML Class Red}=[... fill=red ...])\n";
     code << "% =========================================================\n\n";
 
     code << "% Required TikZ Libraries\n";

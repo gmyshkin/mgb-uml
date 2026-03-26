@@ -32,13 +32,16 @@
 #include <delimitedstringvalidator.h>
 #include <QSettings>
 
-// --- MGB-UML: Includes for Custom Editor Dialog ---
+// --- MGB-UML: Includes for Custom Editor Dialog & Drag/Drop ---
 #include <QDialog>
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
 #include <QTextEdit>
 #include <QDialogButtonBox>
+#include <QGraphicsSceneDragDropEvent>
+#include <QMimeData>
+#include <QListWidget>
 
 
 TikzScene::TikzScene(TikzDocument *tikzDocument, ToolPalette *tools,
@@ -118,7 +121,7 @@ void TikzScene::graphReplaced()
     }
 
     foreach (Node *n, graph()->nodes()) {
-        NodeItem *ni = new NodeItem(n);
+        NodeItem *ni = NodeItem::createNode(n);
         _nodeItems.insert(n, ni);
         addItem(ni);
     }
@@ -1091,8 +1094,6 @@ void TikzScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
     }
 }
 
-// ... [Rest of TikzScene methods are identical, keeping response clean] ...
-
 bool TikzScene::drawNodeLabels() const { return _drawNodeLabels; }
 void TikzScene::setDrawNodeLabels(bool drawNodeLabels) { _drawNodeLabels = drawNodeLabels; }
 bool TikzScene::highlightTails() const { return _highlightTails && getSelectedNodes().isEmpty(); }
@@ -1223,3 +1224,58 @@ void TikzScene::refreshAdjacentEdges(QList<Node*> nodes) {
 QMap<Node*,NodeItem *> &TikzScene::nodeItems() { return _nodeItems; }
 QMap<Edge*,EdgeItem*> &TikzScene::edgeItems() { return _edgeItems; }
 QMap<Path *, PathItem *> &TikzScene::pathItems() { return _pathItems; }
+// =================================================================
+// MGB-UML: DRAG AND DROP HANDLERS
+// =================================================================
+void TikzScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event) {
+    if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist") || event->mimeData()->hasText()) {
+        event->acceptProposedAction();
+    }
+}
+
+void TikzScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event) {
+    event->acceptProposedAction();
+}
+
+void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event) {
+    QString styleName;
+
+    if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist")) {
+        QByteArray encodedData = event->mimeData()->data("application/x-qabstractitemmodeldatalist");
+        QDataStream stream(&encodedData, QIODevice::ReadOnly);
+        
+        while (!stream.atEnd()) {
+            int row, col;
+            QMap<int, QVariant> roleDataMap;
+            stream >> row >> col >> roleDataMap;
+            
+            // .trimmed() eliminates invisible hidden Qt formatting spaces
+            styleName = roleDataMap[Qt::DisplayRole].toString().trimmed(); 
+        }
+    } 
+    else if (event->mimeData()->hasText()) {
+        styleName = event->mimeData()->text().trimmed();
+    }
+
+    if (!styleName.isEmpty()) {
+        QPointF scenePos = event->scenePos();
+        QPointF gridPos(round(scenePos.x()/GRID_SEP)*GRID_SEP, round(scenePos.y()/GRID_SEP)*GRID_SEP);
+        
+        Node *n = new Node(_tikzDocument);
+        n->setName(graph()->freshNodeName());
+        n->setPoint(fromScreen(gridPos));
+        n->setStyleName(styleName); 
+        
+        if (styleName == "UML Use Case") n->setLabel("Use Case");
+        else if (styleName == "UML Class") n->setLabel("Class \\nodepart{two}  \\nodepart{three} ");
+        else n->setLabel(styleName); 
+        
+        QRectF grow(gridPos.x() - GLOBAL_SCALEF, gridPos.y() - GLOBAL_SCALEF, 2 * GLOBAL_SCALEF, 2 * GLOBAL_SCALEF);
+        QRectF newBounds = sceneRect().united(grow);
+        
+        AddNodeCommand *cmd = new AddNodeCommand(this, n, newBounds);
+        _tikzDocument->undoStack()->push(cmd);
+        
+        event->acceptProposedAction();
+    }
+}
