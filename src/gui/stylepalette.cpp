@@ -203,7 +203,7 @@ QString StylePalette::activeEdgeStyleName()
     if (i.isEmpty()) {
         return "none";
     } else {
-        return i[0].data().toString();
+        return tikzit->styles()->edgeStyles()->styleInCategory(i[0].row())->name();
     }
 }
 
