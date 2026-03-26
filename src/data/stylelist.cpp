@@ -116,10 +116,15 @@ Style *StyleList::styleInCategory(int n) const
 
 QVariant StyleList::data(const QModelIndex &index, int role) const
 {
+    Style *s = styleInCategory(index.row());
+
     if (role == Qt::DisplayRole) {
-        return QVariant(styleInCategory(index.row())->name());
+        if (_edgeStyles && s->name() == "none") {
+            return QVariant("Association");
+        }
+        return QVariant(s->name());
     } else if (role == Qt::DecorationRole) {
-        return QVariant(styleInCategory(index.row())->icon());
+        return QVariant(s->icon());
     } else {
         return QVariant();
     }
