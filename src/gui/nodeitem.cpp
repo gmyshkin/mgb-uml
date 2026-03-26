@@ -34,41 +34,36 @@
 #include <QPainterPathStroker>
 
 // =================================================================
-// THE FACTORY MANAGER (WITH TRACER DYE)
+// THE FACTORY MANAGER
 // =================================================================
 NodeItem* NodeItem::createNode(Node *node)
 {
-    qDebug() << "\n=== FACTORY TRIGGERED ===";
-    qDebug() << "Node's StyleName is:" << node->styleName();
-    
-    if (node->style() == nullptr) {
-        qDebug() << "CRITICAL: node->style() is NULL!";
-    } else {
-        qDebug() << "Node's Shape Property is:" << node->style()->shape();
-        qDebug() << "Is Style 'None'?:" << node->style()->isNone();
-    }
+    NodeItem *ni = nullptr;
 
     // 1. MGB-UML: Ask compiled C++ Plugins FIRST.
     foreach (mgb::ElementPluginInterface* plugin, mgb::PluginManager::instance().getCompiledInterfaces()) {
-        NodeItem* customNode = plugin->createCustomNode(node);
-        if (customNode != nullptr) {
-            qDebug() << "SUCCESS: Plugin intercepted the node creation!";
-            return customNode;
+        ni = plugin->createCustomNode(node);
+        if (ni != nullptr) break;
+    }
+
+    // 2. Check standard hardcoded shapes if no plugin claimed it
+    if (ni == nullptr) {
+        QString shape = node->style()->shape();
+        if (shape == "ellipse") {
+            ni = new UseCaseNodeItem(node);
+        } 
+        else if (shape == "rectangle split") {
+            ni = new ClassNodeItem(node);
+        } else {
+            ni = new NodeItem(node);
         }
     }
 
-    // 2. Check standard hardcoded shapes
-    QString shape = node->style()->shape();
-    if (shape == "ellipse") {
-        return new UseCaseNodeItem(node);
-    } 
-    else if (shape == "rectangle split") {
-        return new ClassNodeItem(node);
-    }
+    // THE CRITICAL FIX: Calculate the hitbox AFTER the subclass is fully built!
+    // This destroys the "Invisible Forcefield" and makes the whole item clickable.
+    ni->updateBounds();
     
-    // 3. Fallback
-    qDebug() << "WARNING: Falling back to generic NodeItem.";
-    return new NodeItem(node);
+    return ni;
 }
 
 NodeItem::NodeItem(Node *node)
@@ -76,7 +71,7 @@ NodeItem::NodeItem(Node *node)
     _node = node;
     setFlag(QGraphicsItem::ItemIsSelectable);
     readPos();
-    updateBounds();
+    // CRITICAL FIX: Do NOT call updateBounds() here! It causes the Virtual Constructor Trap.
 }
 
 void NodeItem::readPos() { setPos(toScreen(_node->point())); }

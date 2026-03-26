@@ -19,6 +19,13 @@ TikzView::TikzView(QWidget *parent) : QGraphicsView(parent)
     setRenderHint(QPainter::Antialiasing);
     setResizeAnchor(QGraphicsView::AnchorViewCenter);
     setBackgroundBrush(QBrush(Qt::white));
+
+    setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+
+    // === THE FAST CURSOR FIX ===
+    // Offload CPU calculations so the FullViewportUpdate doesn't drop fast mouse clicks
+    setOptimizationFlag(QGraphicsView::DontSavePainterState);
+    setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing);
     
     // --- MGB-UML: Allow things to be dropped here ---
     setAcceptDrops(true);
@@ -145,23 +152,23 @@ void TikzView::wheelEvent(QWheelEvent *event)
 
 // =========================================================================
 // MGB-UML: Drag and Drop Handoff
-// We IGNORE the events here so they pass through the View and hit the Scene!
 // =========================================================================
 
 void TikzView::dragEnterEvent(QDragEnterEvent *event)
 {
-    event->ignore(); // Pass to TikzScene
+    // Pass the event directly to the base class so it securely routes to TikzScene
     QGraphicsView::dragEnterEvent(event);
 }
 
-void TikzView::dragMoveEvent(QDragMoveEvent *event) // <--- FIXED: Changed TikzScene to TikzView
+void TikzView::dragMoveEvent(QDragMoveEvent *event) 
 {
-    event->ignore(); // Pass to TikzScene
     QGraphicsView::dragMoveEvent(event);
 }
 
 void TikzView::dropEvent(QDropEvent *event)
 {
-    event->ignore(); // Pass to TikzScene
     QGraphicsView::dropEvent(event);
+    
+    // Automatically steal window focus back so the user doesn't have to click multiple times
+    this->setFocus();
 }
