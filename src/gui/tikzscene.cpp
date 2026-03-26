@@ -43,7 +43,6 @@
 #include <QMimeData>
 #include <QListWidget>
 
-
 TikzScene::TikzScene(TikzDocument *tikzDocument, ToolPalette *tools,
                      StylePalette *styles, QObject *parent) :
     QGraphicsScene(parent), _tikzDocument(tikzDocument), _tools(tools), _styles(styles)
@@ -88,7 +87,6 @@ Graph *TikzScene::graph()
 
 void TikzScene::graphReplaced()
 {
-
     foreach (NodeItem *ni, _nodeItems) {
         removeItem(ni);
         delete ni;
@@ -789,7 +787,7 @@ void TikzScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 n->setLabel("Use Case");
             } else {
                 n->setStyleName("UML Class");
-                n->setLabel("Class \\nodepart{two}  \\nodepart{three} "); // Mostly empty default
+                n->setLabel("Class \\nodepart{two}  \\nodepart{three} ");
             }
 
             QRectF grow(gridPos.x() - GLOBAL_SCALEF, gridPos.y() - GLOBAL_SCALEF, 2 * GLOBAL_SCALEF, 2 * GLOBAL_SCALEF);
@@ -1015,7 +1013,7 @@ void TikzScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
             // =========================================================
             // MGB-UML: CUSTOM EDITOR FOR UML CLASSES
             // =========================================================
-            if (ni->node()->style()->shape() == "rectangle split") {
+            if (ni->node()->style() && ni->node()->style()->shape() == "rectangle split") {
                 QDialog dlg(views()[0]);
                 dlg.setWindowTitle("Edit UML Class");
                 dlg.setMinimumWidth(350);
@@ -1224,8 +1222,10 @@ void TikzScene::refreshAdjacentEdges(QList<Node*> nodes) {
 QMap<Node*,NodeItem *> &TikzScene::nodeItems() { return _nodeItems; }
 QMap<Edge*,EdgeItem*> &TikzScene::edgeItems() { return _edgeItems; }
 QMap<Path *, PathItem *> &TikzScene::pathItems() { return _pathItems; }
+
+
 // =================================================================
-// MGB-UML: DRAG AND DROP HANDLERS
+// MGB-UML: DRAG AND DROP HANDLERS (WITH TRACER DYE)
 // =================================================================
 void TikzScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event) {
     if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist") || event->mimeData()->hasText()) {
@@ -1238,24 +1238,25 @@ void TikzScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event) {
 }
 
 void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event) {
-    QString styleName;
-
+    qDebug() << "\n=== DROP EVENT TRIGGERED IN SCENE ===";
+    
+    QString rawName;
     if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist")) {
         QByteArray encodedData = event->mimeData()->data("application/x-qabstractitemmodeldatalist");
         QDataStream stream(&encodedData, QIODevice::ReadOnly);
-        
         while (!stream.atEnd()) {
             int row, col;
             QMap<int, QVariant> roleDataMap;
             stream >> row >> col >> roleDataMap;
-            
-            // .trimmed() eliminates invisible hidden Qt formatting spaces
-            styleName = roleDataMap[Qt::DisplayRole].toString().trimmed(); 
+            rawName = roleDataMap[Qt::DisplayRole].toString();
         }
     } 
     else if (event->mimeData()->hasText()) {
-        styleName = event->mimeData()->text().trimmed();
+        rawName = event->mimeData()->text();
     }
+
+    QString styleName = rawName.remove(QRegularExpression("[^a-zA-Z0-9_ +-]")).trimmed();
+    qDebug() << "Spawning Node:" << styleName;
 
     if (!styleName.isEmpty()) {
         QPointF scenePos = event->scenePos();
@@ -1264,10 +1265,13 @@ void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event) {
         Node *n = new Node(_tikzDocument);
         n->setName(graph()->freshNodeName());
         n->setPoint(fromScreen(gridPos));
+        
+        // Let the Factory handle it!
         n->setStyleName(styleName); 
         
         if (styleName == "UML Use Case") n->setLabel("Use Case");
-        else if (styleName == "UML Class") n->setLabel("Class \\nodepart{two}  \\nodepart{three} ");
+        else if (styleName == "UML Class" || styleName == "Plugin UML Class") 
+             n->setLabel("ClassName \\nodepart{two} + attribute1 : type \\nodepart{three} + method1() : void");
         else n->setLabel(styleName); 
         
         QRectF grow(gridPos.x() - GLOBAL_SCALEF, gridPos.y() - GLOBAL_SCALEF, 2 * GLOBAL_SCALEF, 2 * GLOBAL_SCALEF);

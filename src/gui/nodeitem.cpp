@@ -22,7 +22,7 @@
 #include "util.h"
 #include "mgbUmlNodeItems.h"
 #include "mgbPluginManager.h"
-#include "mgbPluginInterface.h" // NEW: Required so the compiler knows the C++ blueprint
+#include "mgbPluginInterface.h"
 #include <cmath>
 #include <algorithm>
 #include <QPen>
@@ -34,14 +34,31 @@
 #include <QPainterPathStroker>
 
 // =================================================================
-// THE FACTORY MANAGER
-// When a plugin or tool adds a node, this routes it to the right class!
+// THE FACTORY MANAGER (WITH TRACER DYE)
 // =================================================================
 NodeItem* NodeItem::createNode(Node *node)
 {
-    QString shape = node->style()->shape();
+    qDebug() << "\n=== FACTORY TRIGGERED ===";
+    qDebug() << "Node's StyleName is:" << node->styleName();
     
-    // 1. Check your hardcoded MGB-UML shapes
+    if (node->style() == nullptr) {
+        qDebug() << "CRITICAL: node->style() is NULL!";
+    } else {
+        qDebug() << "Node's Shape Property is:" << node->style()->shape();
+        qDebug() << "Is Style 'None'?:" << node->style()->isNone();
+    }
+
+    // 1. MGB-UML: Ask compiled C++ Plugins FIRST.
+    foreach (mgb::ElementPluginInterface* plugin, mgb::PluginManager::instance().getCompiledInterfaces()) {
+        NodeItem* customNode = plugin->createCustomNode(node);
+        if (customNode != nullptr) {
+            qDebug() << "SUCCESS: Plugin intercepted the node creation!";
+            return customNode;
+        }
+    }
+
+    // 2. Check standard hardcoded shapes
+    QString shape = node->style()->shape();
     if (shape == "ellipse") {
         return new UseCaseNodeItem(node);
     } 
@@ -49,15 +66,8 @@ NodeItem* NodeItem::createNode(Node *node)
         return new ClassNodeItem(node);
     }
     
-    // 2. Ask compiled C++ Plugins if they want to override the drawing
-    foreach (mgb::ElementPluginInterface* plugin, mgb::PluginManager::instance().getCompiledInterfaces()) {
-        NodeItem* customNode = plugin->createCustomNode(node);
-        if (customNode != nullptr) {
-            return customNode; // The plugin gave us custom C++ drawing code!
-        }
-    }
-    
     // 3. Fallback
+    qDebug() << "WARNING: Falling back to generic NodeItem.";
     return new NodeItem(node);
 }
 
@@ -104,9 +114,6 @@ void NodeItem::updateBounds()
     _boundingRect = rect.adjusted(-4, -4, 4, 4);
 }
 
-// =================================================================
-// GENERIC PAINTING (Subclasses will override this)
-// =================================================================
 void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if (_node->style()->isNone()) {
@@ -130,7 +137,6 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
         painter->drawPath(shape());
     }
 
-    // Draw the yellow label box for generic items
     bool drawLabel = (_node->label() != "");
     if (scene()) {
         TikzScene *sc = static_cast<TikzScene*>(scene());
@@ -154,7 +160,6 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     paintSelectionAndOuterLabels(painter);
 }
 
-// Protected helper so subclasses can draw highlights
 void NodeItem::paintSelectionAndOuterLabels(QPainter *painter)
 {
     if (_node->data()->hasProperty("label")) {
@@ -183,9 +188,6 @@ void NodeItem::paintSelectionAndOuterLabels(QPainter *painter)
     }
 }
 
-// =================================================================
-// GENERIC SHAPES (Subclasses will override this)
-// =================================================================
 QPainterPath NodeItem::shape() const
 {
     QPainterPath path;

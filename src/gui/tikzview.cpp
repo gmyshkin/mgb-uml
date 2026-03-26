@@ -1,7 +1,6 @@
 /*
     TikZiT - a GUI diagram editor for TikZ
     Copyright (C) 2018 Aleks Kissinger
-    ...
 */
 
 #include "tikzview.h"
@@ -145,63 +144,24 @@ void TikzView::wheelEvent(QWheelEvent *event)
 }
 
 // =========================================================================
-// MGB-UML: Drag and Drop Handlers
+// MGB-UML: Drag and Drop Handoff
+// We IGNORE the events here so they pass through the View and hit the Scene!
 // =========================================================================
 
 void TikzView::dragEnterEvent(QDragEnterEvent *event)
 {
-    // Check if it's a drag event from our QListWidget
-    if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist")) {
-        event->acceptProposedAction();
-    }
+    event->ignore(); // Pass to TikzScene
+    QGraphicsView::dragEnterEvent(event);
 }
 
-void TikzView::dragMoveEvent(QDragMoveEvent *event)
+void TikzView::dragMoveEvent(QDragMoveEvent *event) // <--- FIXED: Changed TikzScene to TikzView
 {
-    if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist")) {
-        event->acceptProposedAction();
-    }
+    event->ignore(); // Pass to TikzScene
+    QGraphicsView::dragMoveEvent(event);
 }
 
 void TikzView::dropEvent(QDropEvent *event)
 {
-    if (event->mimeData()->hasFormat("application/x-qabstractitemmodeldatalist")) {
-        
-        // 1. Decode the Qt drag-and-drop data to get the text of the item we dragged
-        QByteArray encodedData = event->mimeData()->data("application/x-qabstractitemmodeldatalist");
-        QDataStream stream(&encodedData, QIODevice::ReadOnly);
-        int r, c;
-        QMap<int, QVariant> roleDataMap;
-        stream >> r >> c >> roleDataMap;
-        QString text = roleDataMap[Qt::DisplayRole].toString();
-        
-        // 2. Get the scene and calculate where on the grid we dropped the mouse
-        TikzScene *s = static_cast<TikzScene*>(scene());
-        if (!s || !s->enabled()) return;
-
-        QPointF mousePos = mapToScene(event->position().toPoint());
-        QPointF gridPos(round(mousePos.x()/GRID_SEP)*GRID_SEP, round(mousePos.y()/GRID_SEP)*GRID_SEP);
-
-        // 3. Create the Node Data Model
-        Node *n = new Node(s->tikzDocument());
-        n->setName(s->graph()->freshNodeName());
-        n->setPoint(fromScreen(gridPos));
-
-        // 4. Determine what kind of UML node to spawn based on the text
-        if (text == "UML Use Case") {
-            n->setStyleName("UML Use Case");
-            n->setLabel("Use Case");
-        } else if (text == "UML Class") {
-            n->setStyleName("UML Class");
-            n->setLabel("ClassName \\nodepart{two} + attribute1 : type \\nodepart{three} + method1() : void");
-        }
-
-        // 5. Expand the canvas if necessary and push the undo command
-        QRectF grow(gridPos.x() - GLOBAL_SCALEF, gridPos.y() - GLOBAL_SCALEF, 2 * GLOBAL_SCALEF, 2 * GLOBAL_SCALEF);
-        QRectF newBounds = s->sceneRect().united(grow);
-
-        s->tikzDocument()->undoStack()->push(new AddNodeCommand(s, n, newBounds));
-
-        event->acceptProposedAction();
-    }
+    event->ignore(); // Pass to TikzScene
+    QGraphicsView::dropEvent(event);
 }
