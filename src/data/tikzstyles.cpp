@@ -87,6 +87,44 @@ void TikzStyles::injectHardcodedStyles()
         data->setProperty("tikzit category", "UML Elements");
         addStyle("UML System", data);
     }
+        // 5. UML Association (shown as Association in UI via stylelist.cpp)
+    Style *associationStyle = _edgeStyles->style("none");
+    if (associationStyle == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("-");
+        data->setProperty("draw", "black");
+        addStyle("none", data);
+    }
+
+    // 6. UML Generalization
+    Style *generalizationStyle = _edgeStyles->style("Generalization");
+    if (generalizationStyle == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("-");
+        data->setAtom("uml-generalization");
+        data->setProperty("draw", "black");
+        addStyle("Generalization", data);
+    }
+
+    // 7. UML Aggregation
+    Style *aggregationStyle = _edgeStyles->style("Aggregation");
+    if (aggregationStyle == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("-");
+        data->setAtom("uml-aggregation");
+        data->setProperty("draw", "black");
+        addStyle("Aggregation", data);
+    }
+
+    // 8. UML Composition
+    Style *compositionStyle = _edgeStyles->style("Composition");
+    if (compositionStyle == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("-");
+        data->setAtom("uml-composition");
+        data->setProperty("draw", "black");
+        addStyle("Composition", data);
+    }
 }
 // =================================================================
 
