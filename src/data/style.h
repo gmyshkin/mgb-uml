@@ -33,9 +33,14 @@ class Style : public QObject
 {
     Q_OBJECT
 public:
-    enum ArrowTipStyle {
-        Flat, Pointer, NoTip
-    };
+enum ArrowTipStyle {
+    Flat,
+    Pointer,
+    OpenTriangle,
+    Diamond,
+    FilledDiamond,
+    NoTip
+};
 
     enum DrawStyle {
         Solid, Dotted, Dashed
