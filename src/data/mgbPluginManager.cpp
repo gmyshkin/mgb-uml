@@ -58,7 +58,9 @@ void PluginManager::loadPlugins() {
     QStringList binaryFilters; binaryFilters << "*.dll" << "*.so" << "*.dylib";
     foreach (QFileInfo fileInfo, dir.entryInfoList(binaryFilters, QDir::Files)) {
         QString dummyError;
-        loadCompiledPlugin(fileInfo.absoluteFilePath(), dummyError);
+        if (!loadCompiledPlugin(fileInfo.absoluteFilePath(), dummyError)) {
+
+        }
     }
 
     _isLoaded = true;
@@ -73,7 +75,6 @@ bool PluginManager::loadCompiledPlugin(const QString &filePath, QString &errorMe
         if (interface) {
             _interfaces.append(interface); // STORE THE C++ INTERFACE
             _plugins.append(interface->getElements()); // STORE THE MENU DATA
-            qDebug() << "SUCCESS: Loaded compiled C++ plugin:" << interface->pluginName();
             return true;
         } else {
             errorMessage = "File is a Qt Plugin, but does not match the MGB-UML Interface.";
@@ -82,6 +83,7 @@ bool PluginManager::loadCompiledPlugin(const QString &filePath, QString &errorMe
         }
     }
     
+    // --- THE SMOKING GUN ---
     errorMessage = loader.errorString();
     return false;
 }

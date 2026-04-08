@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QFile>
 #include <QMimeData>
+#include <QDebug>
 #include "../data/mgbPluginManager.h"
 
 namespace mgb {
@@ -14,7 +15,6 @@ class PaletteListWidget : public QListWidget {
 public:
     PaletteListWidget(QWidget *parent = nullptr) : QListWidget(parent) {}
 protected:
-    // ADDED THE MISSING '&' HERE:
     QMimeData* mimeData(const QList<QListWidgetItem *> &items) const override {
         QMimeData *mime = QListWidget::mimeData(items);
         if (!items.isEmpty()) {
@@ -26,9 +26,7 @@ protected:
 };
 // =================================================================
 
-
 UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
-    // USE OUR NEW CUSTOM LIST WIDGET INSTEAD OF THE DEFAULT ONE
     listWidget = new PaletteListWidget(this);
     
     listWidget->setViewMode(QListView::IconMode);
@@ -36,25 +34,23 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
     listWidget->setMovement(QListView::Static);
     listWidget->setResizeMode(QListView::Adjust);
     listWidget->setSpacing(10);
+    listWidget->setFocusPolicy(Qt::NoFocus); // Prevents drag-delay bugs
     
     listWidget->setDragEnabled(true); 
     listWidget->setDropIndicatorShown(false);
 
-    // --- 1. ADD BASELINE HARDCODED ITEMS ---
-    QListWidgetItem *useCaseItem = new QListWidgetItem(QIcon(":/images/tikzit-tool-node.svg"), "UML Use Case");
-    useCaseItem->setToolTip("Drag to add a Use Case");
-    listWidget->addItem(useCaseItem);
-
-    QListWidgetItem *classItem = new QListWidgetItem(QIcon(":/images/tikzit-tool-node.svg"), "UML Class");
-    classItem->setToolTip("Drag to add a Class");
-    listWidget->addItem(classItem);
-
-    // --- 2. ADD USER PLUGINS (Both JSON and C++) ---
+    // --- ADD USER PLUGINS (Both JSON and C++) ---
+    // The hardcoded elements have been completely removed.
+    // The Palette relies entirely on the Master Plugin List.
     QList<PluginElement> plugins = PluginManager::instance().getLoadedPlugins();
     for (const PluginElement& p : plugins) {
-        if (p.type == "node") {
+        
+        // The forgiving string check (ignores caps and spaces)
+        if (p.type.toLower().trimmed() == "node") {
             QIcon pluginIcon;
-            if (QFile::exists(p.iconPath)) {
+            
+            // Safe fallback icon check
+            if (!p.iconPath.isEmpty() && QFile::exists(p.iconPath)) {
                 pluginIcon = QIcon(p.iconPath);
             } else {
                 pluginIcon = QIcon(":/images/tikzit-tool-node.svg"); 
@@ -63,7 +59,7 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
             QListWidgetItem *item = new QListWidgetItem(pluginIcon, p.name);
             item->setToolTip(p.tooltip);
             listWidget->addItem(item);
-        }
+                    }
     }
 
     setWidget(listWidget);

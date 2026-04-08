@@ -76,7 +76,6 @@ SOURCES += src/gui/delimitedstringitemdelegate.cpp
 SOURCES += src/gui/preferencedialog.cpp
 SOURCES += src/gui/mgbUmlPalette.cpp
 SOURCES += src/gui/mgbFileManager.cpp
-SOURCES += src/gui/mgbUmlNodeItems.cpp
 SOURCES += src/gui/mgbPluginDialog.cpp
 
 # DATA
@@ -121,7 +120,6 @@ HEADERS += src/gui/delimitedstringitemdelegate.h
 HEADERS += src/gui/preferencedialog.h
 HEADERS += src/gui/mgbUmlPalette.h
 HEADERS += src/gui/mgbFileManager.h
-HEADERS += src/gui/mgbUmlNodeItems.h
 HEADERS += src/gui/mgbPluginDialog.h
 
 # DATA

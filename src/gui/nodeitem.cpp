@@ -20,7 +20,6 @@
 #include "nodeitem.h"
 #include "tikzscene.h"
 #include "util.h"
-#include "mgbUmlNodeItems.h"
 #include "mgbPluginManager.h"
 #include "mgbPluginInterface.h"
 #include <cmath>
@@ -40,29 +39,21 @@ NodeItem* NodeItem::createNode(Node *node)
 {
     NodeItem *ni = nullptr;
 
-    // 1. MGB-UML: Ask compiled C++ Plugins FIRST.
-    foreach (mgb::ElementPluginInterface* plugin, mgb::PluginManager::instance().getCompiledInterfaces()) {
+    QList<mgb::ElementPluginInterface*> plugins = mgb::PluginManager::instance().getCompiledInterfaces();
+    // 1. Ask compiled C++ Plugins FIRST.
+    foreach (mgb::ElementPluginInterface* plugin, plugins) {
         ni = plugin->createCustomNode(node);
-        if (ni != nullptr) break;
-    }
-
-    // 2. Check standard hardcoded shapes if no plugin claimed it
-    if (ni == nullptr) {
-        QString shape = node->style()->shape();
-        if (shape == "ellipse") {
-            ni = new UseCaseNodeItem(node);
-        } 
-        else if (shape == "rectangle split") {
-            ni = new ClassNodeItem(node);
-        } else {
-            ni = new NodeItem(node);
+        if (ni != nullptr) {
+            break;
         }
     }
 
-    // THE CRITICAL FIX: Calculate the hitbox AFTER the subclass is fully built!
-    // This destroys the "Invisible Forcefield" and makes the whole item clickable.
+    // 2. If no plugin claimed this node, default to the standard circle.
+    if (ni == nullptr) {
+        ni = new NodeItem(node);
+    }
+
     ni->updateBounds();
-    
     return ni;
 }
 

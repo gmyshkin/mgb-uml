@@ -47,7 +47,6 @@ void FileManager::setMonitoredFile(const QString &filePath)
     if (!currentFile.isEmpty()) {
         watcher->addPath(currentFile);
         watcher->addPath(QFileInfo(currentFile).absolutePath()); 
-        qDebug() << "[mgbFileManager] Now watching:" << currentFile;
     }
 }
 
@@ -67,7 +66,6 @@ void FileManager::onFileChangedOnDisk(const QString &path)
     if (QFileInfo(path).isDir()) {
         if (QFile::exists(currentFile) && !watcher->files().contains(currentFile)) {
             watcher->addPath(currentFile);
-            qDebug() << "[mgbFileManager] Recovered file after VS Code save.";
             reloadTimer->start();
         }
         return;
@@ -75,7 +73,6 @@ void FileManager::onFileChangedOnDisk(const QString &path)
 
     if (path != currentFile) return;
     
-    qDebug() << "[mgbFileManager] Detected external change!";
     reloadTimer->start();
 }
 
@@ -91,7 +88,6 @@ void FileManager::executeReload()
 
         // Only reload if the code actually changed
         if (newTikz.trimmed() != mainWindow->tikzSource().trimmed()) {
-            qDebug() << "[mgbFileManager] Updating visual canvas from external edit...";
             
             bool previousSaveState = autoSaveEnabled;
             autoSaveEnabled = false; // Prevent undo stack from triggering our autosave
@@ -99,7 +95,6 @@ void FileManager::executeReload()
             if (mainWindow->tikzScene()->parseTikz(newTikz)) {
                 mainWindow->refreshTikz();
             } else {
-                qDebug() << "[mgbFileManager] Failed to parse external TikZ code.";
             }
 
             autoSaveEnabled = previousSaveState;
@@ -123,7 +118,6 @@ void FileManager::executeAutoSave()
 {
     if (currentFile.isEmpty() || !mainWindow->tikzDocument()) return;
     
-    qDebug() << "[mgbFileManager] Auto-saving changes to disk...";
     lastSaveTimer.restart(); // Reset the clock so we ignore the resulting file system events
     mainWindow->tikzDocument()->save();
 }
