@@ -62,10 +62,13 @@ ui->verticalLayout->setSpacing(4);
     ui->styleListView->setGridSize(QSize(space,space));
 
 
-    ui->edgeStyleListView->setModel(tikzit->styles()->edgeStyles());
-    ui->edgeStyleListView->setViewMode(QListView::IconMode);
-    ui->edgeStyleListView->setMovement(QListView::Static);
-    ui->edgeStyleListView->setGridSize(QSize(space,space));
+ui->edgeStyleListView->setModel(tikzit->styles()->edgeStyles());
+ui->edgeStyleListView->setViewMode(QListView::IconMode);
+ui->edgeStyleListView->setMovement(QListView::Static);
+ui->edgeStyleListView->setResizeMode(QListView::Adjust);
+ui->edgeStyleListView->setWordWrap(true);
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
+ui->edgeStyleListView->setGridSize(QSize(120, 80));
 
     reloadStyles();
 
@@ -269,6 +272,7 @@ void StylePalette::resizeEvent(QResizeEvent *event)
     bool ok;
     int space = settings.value("style-icon-spacing").toInt(&ok);
     if (!ok) space = 48;
-    ui->styleListView->setGridSize(QSize(space,space));
-    ui->edgeStyleListView->setGridSize(QSize(space,space));
+ui->styleListView->setGridSize(QSize(space,space));
+ui->edgeStyleListView->setGridSize(QSize(120, 80));
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
 }
