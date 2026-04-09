@@ -273,6 +273,6 @@ void StylePalette::resizeEvent(QResizeEvent *event)
     int space = settings.value("style-icon-spacing").toInt(&ok);
     if (!ok) space = 48;
 ui->styleListView->setGridSize(QSize(space,space));
-ui->edgeStyleListView->setGridSize(QSize(120, 80));
+ui->edgeStyleListView->setGridSize(QSize(160, 90));
 ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
 }
