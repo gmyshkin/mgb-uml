@@ -110,7 +110,7 @@ if (!_edge->path() || _edge->path()->edges().last() == _edge) {
     QPointF base = _edge->head();
 
     // tip should extend toward the target node
-    QPointF tip = _edge->head() - hBack;
+    QPointF tip = _edge->head() + hBack;
 
     QPolygonF tri({
         toScreen(tip),
