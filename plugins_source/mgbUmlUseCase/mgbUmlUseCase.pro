@@ -25,3 +25,8 @@ HEADERS += mgbUmlUseCasePlugin.h \
 # The implementation files
 SOURCES += mgbUmlUseCasePlugin.cpp \
            mgbUmlUseCaseItem.cpp
+
+# --- MACOS FIX: Tell Apple to trust the main app to provide core symbols ---
+macx {
+    QMAKE_LFLAGS += -undefined dynamic_lookup
+}
