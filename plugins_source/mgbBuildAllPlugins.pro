@@ -1,3 +1,5 @@
 TEMPLATE = subdirs
 SUBDIRS = mgbUmlUseCase \
-          mgbUmlClass
+          mgbUmlClass \
+          mgbUmlActor \
+          mgbUmlSystem 
