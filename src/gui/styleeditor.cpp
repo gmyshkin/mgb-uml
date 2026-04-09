@@ -826,7 +826,10 @@ void StyleEditor::refreshActiveStyle()
             emit _styles->edgeStyles()->dataChanged(_edgeStyleIndex, _edgeStyleIndex);
 
             // force a re-layout
-            ui->edgeStyleListView->setGridSize(QSize(space,space));
+            ui->edgeStyleListView->setResizeMode(QListView::Adjust);
+ui->edgeStyleListView->setWordWrap(true);
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
+ui->edgeStyleListView->setGridSize(QSize(120, 80));
         }
     }
 }
