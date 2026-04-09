@@ -1,5 +1,5 @@
 # CONFIG += debug
-
+DEFINES += MGB_CORE_BUILD
 QT += core gui widgets network pdf pdfwidgets
 
 # --- VERSIONING LOGIC ---

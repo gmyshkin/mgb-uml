@@ -25,8 +25,9 @@
 
 #include <QGraphicsItem>
 #include "node.h"
+#include "../mgb_api.h"
 
-class NodeItem : public QGraphicsItem
+class MGB_API NodeItem : public QGraphicsItem
 {
 public:
     NodeItem(Node *node);

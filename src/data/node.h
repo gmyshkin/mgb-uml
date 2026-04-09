@@ -21,12 +21,13 @@
 
 #include "graphelementdata.h"
 #include "style.h"
+#include "../mgb_api.h"
 
 #include <QObject>
 #include <QPointF>
 #include <QString>
 
-class Node : public QObject
+class MGB_API Node : public QObject
 {
     Q_OBJECT
 public:

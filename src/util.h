@@ -23,6 +23,8 @@
 #ifndef UTIL_H
 #define UTIL_H
 
+#include "mgb_api.h"
+
 #include <QPoint>
 #include <QString>
 #include <QColor>
@@ -50,6 +52,6 @@ qreal normaliseAngleRad (qreal rads);
 
 // strings
 void initTexConstants();
-QString replaceTexConstants(QString s);
+MGB_API QString replaceTexConstants(QString s);
 
 #endif // UTIL_H

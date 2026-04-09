@@ -30,3 +30,8 @@ SOURCES += mgbUmlClassPlugin.cpp \
 macx {
     QMAKE_LFLAGS += -undefined dynamic_lookup
 }
+
+# --- WINDOWS FIX: Link back to the main app's exported blueprints ---
+win32 {
+    LIBS += -L../../build/release -lmgb-uml
+}
