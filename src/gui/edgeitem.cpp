@@ -74,12 +74,13 @@ void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     if (!_edge->path()) painter->drawPath(path());
 
-	QPointF ht = _edge->headTangent();
-	QPointF hLeft(-ht.y(), ht.x());
-	QPointF hRight(ht.y(), -ht.x());
-	QPointF tt = _edge->tailTangent();
-	QPointF tLeft(-ht.y(), ht.x());
-	QPointF tRight(ht.y(), -ht.x());
+QPointF ht = _edge->headTangent();
+QPointF hLeft(-ht.y(), ht.x());
+QPointF hRight(ht.y(), -ht.x());
+
+QPointF tt = _edge->tailTangent();
+QPointF tLeft(-tt.y(), tt.x());
+QPointF tRight(tt.y(), -tt.x());
 
 	pen.setStyle(Qt::SolidLine);
 	painter->setPen(pen);
