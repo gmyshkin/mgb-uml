@@ -75,13 +75,14 @@ void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     if (!_edge->path()) painter->drawPath(path());
 
 QPointF ht = _edge->headTangent();
-QPointF hLeft(-ht.y(), ht.x());
-QPointF hRight(ht.y(), -ht.x());
+QPointF hBack = -ht;
+QPointF hLeft(-hBack.y(), hBack.x());
+QPointF hRight(hBack.y(), -hBack.x());
 
 QPointF tt = _edge->tailTangent();
 QPointF tLeft(-tt.y(), tt.x());
 QPointF tRight(tt.y(), -tt.x());
-
+	
 	pen.setStyle(Qt::SolidLine);
 	painter->setPen(pen);
 
@@ -90,16 +91,16 @@ QPointF tRight(tt.y(), -tt.x());
             case Style::Flat:
             {
                 painter->drawLine(
-                    toScreen(_edge->head() + hLeft),
-                    toScreen(_edge->head() + hRight));
+                    toScreen(_edge->head() + hBack + hLeft),
+                    toScreen(_edge->head() + hBack + hRight));
                 break;
             }
             case Style::Pointer:
             {
                 QPainterPath pth;
-                pth.moveTo(toScreen(_edge->head() + ht + hLeft));
+                pth.moveTo(toScreen(_edge->head() + hBack + hLeft));
                 pth.lineTo(toScreen(_edge->head()));
-                pth.lineTo(toScreen(_edge->head() + ht + hRight));
+                pth.lineTo(toScreen(_edge->head() + hBack + hRight));
                 painter->drawPath(pth);
                 break;
             }
@@ -107,8 +108,8 @@ QPointF tRight(tt.y(), -tt.x());
             {
                 QPolygonF tri({
                     toScreen(_edge->head()),
-                    toScreen(_edge->head() + ht + hLeft),
-                    toScreen(_edge->head() + ht + hRight)
+                    toScreen(_edge->head() + hBack + hLeft),
+                    toScreen(_edge->head() + hBack + hRight)
                 });
                 painter->setBrush(Qt::white);
                 painter->drawPolygon(tri);
