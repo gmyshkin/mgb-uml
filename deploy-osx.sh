@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Ensure we are in the project root
-# --- FIX: Changed 'tikzit.app' to 'mgb-uml.app' ---
 if [ -d "build/mgb-uml.app" ]; then
     mv build/mgb-uml.app .
 fi
@@ -11,8 +10,14 @@ if [ ! -d "mgb-uml.app" ]; then
     exit 1
 fi
 
+# --- NEW STEP: INJECT CUSTOM PLUGINS ---
+echo "Injecting MGB-UML Plugins into Mac Bundle..."
+mkdir -p mgb-uml.app/Contents/MacOS/plugins
+if [ -d "build/plugins" ]; then
+    cp build/plugins/* mgb-uml.app/Contents/MacOS/plugins/
+fi
+
 # Run the standard Mac deployment tool
-# --- FIX: Deploying on mgb-uml.app ---
 macdeployqt mgb-uml.app -dmg -verbose=1
 
 # Rename the DMG so the upload step finds it easily

@@ -6,17 +6,27 @@ cd mgb-uml
 mkdir icons
 
 :: --- 1. Copy Assets ---
-:: (Keeping original asset names unless you renamed the actual files on disk)
 copy ..\..\tikzfiles.reg .
 copy ..\..\images\tikzit.ico icons\
 
 :: --- 2. Copy Executable (From the build folder) ---
-:: --- FIX: Looking for mgb-uml.exe ---
 if exist ..\..\build\release\mgb-uml.exe (
     copy ..\..\build\release\mgb-uml.exe .
+) else if exist ..\..\build\mgb-uml.exe (
+    copy ..\..\build\mgb-uml.exe .
 ) else (
-    echo "ERROR: Could not find mgb-uml.exe in build\release"
+    echo "ERROR: Could not find mgb-uml.exe"
     exit /b 1
+)
+
+:: --- NEW STEP: INJECT CUSTOM PLUGINS ---
+echo Copying MGB-UML Custom Plugins...
+if exist ..\..\build\plugins (
+    xcopy /E /I /Y ..\..\build\plugins plugins
+) else if exist ..\..\build\release\plugins (
+    xcopy /E /I /Y ..\..\build\release\plugins plugins
+) else (
+    echo WARNING: Plugins folder not found!
 )
 
 :: --- 3. Copy Poppler DLLs ---
@@ -27,7 +37,6 @@ if exist ..\..\poppler-21.11.0\Library\bin (
 )
 
 :: --- 4. Run Qt Deployment Tool ---
-:: --- FIX: Deploying mgb-uml.exe ---
 windeployqt.exe --release --compiler-runtime --no-translations --no-opengl-sw --no-system-d3d-compiler .\mgb-uml.exe
 
 :: --- 5. Zip it up ---
