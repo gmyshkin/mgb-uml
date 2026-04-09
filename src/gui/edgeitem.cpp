@@ -104,18 +104,25 @@ if (!_edge->path() || _edge->path()->edges().last() == _edge) {
             painter->drawPath(pth);
             break;
         }
-        case Style::OpenTriangle:
-        {
-            QPolygonF tri({
-                toScreen(_edge->head()),
-                toScreen(_edge->head() + hBack + hLeft),
-                toScreen(_edge->head() + hBack + hRight)
-            });
-            painter->setBrush(Qt::white);
-            painter->drawPolygon(tri);
-            painter->setBrush(Qt::NoBrush);
-            break;
-        }
+ case Style::OpenTriangle:
+{
+    // _edge->head() is where the line should stop: the center of the triangle base
+    QPointF base = _edge->head();
+
+    // tip should extend toward the target node
+    QPointF tip = _edge->head() - hBack;
+
+    QPolygonF tri({
+        toScreen(tip),
+        toScreen(base + hLeft),
+        toScreen(base + hRight)
+    });
+
+    painter->setBrush(Qt::white);
+    painter->drawPolygon(tri);
+    painter->setBrush(Qt::NoBrush);
+    break;
+}
         case Style::Diamond:
         {
             QPolygonF dia({
