@@ -137,11 +137,14 @@ static qreal tipPadding(Style::ArrowTipStyle tip)
 {
     switch (tip) {
     case Style::Pointer:
+        return 0.10;
+    case Style::Flat:
+        return 0.08;
     case Style::OpenTriangle:
+        return 0.14;
     case Style::Diamond:
     case Style::FilledDiamond:
-    case Style::Flat:
-        return 0.05;
+        return 0.16;
     case Style::NoTip:
         return 0.0;
     }
