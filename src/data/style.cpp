@@ -145,7 +145,6 @@ void Style::setName(const QString &name)
 
 Style::ArrowTipStyle Style::arrowHead() const
 {
-    if (_data->atom("uml-generalization")) return OpenTriangle;
     if (_data->atom("uml-aggregation")) return Diamond;
     if (_data->atom("uml-composition")) return FilledDiamond;
     if (_data->atom("->") || _data->atom("<->") || _data->atom("|->")) return Pointer;
@@ -155,11 +154,11 @@ Style::ArrowTipStyle Style::arrowHead() const
 
 Style::ArrowTipStyle Style::arrowTail() const
 {
+    if (_data->atom("uml-generalization")) return OpenTriangle;
     if (_data->atom("<-") || _data->atom("<->") || _data->atom("<-|")) return Pointer;
     if (_data->atom("|-") || _data->atom("|->") || _data->atom("|-|")) return Flat;
     return NoTip;
 }
-
 Style::DrawStyle Style::drawStyle() const
 {
     if (_data->atom("dashed")) return Dashed;
