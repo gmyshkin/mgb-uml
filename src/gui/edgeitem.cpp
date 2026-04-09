@@ -105,7 +105,17 @@ if (!_edge->path() || _edge->path()->edges().last() == _edge) {
             break;
         }
         case Style::OpenTriangle:
+        {
+            QPolygonF tri({
+                toScreen(_edge->head()),
+                toScreen(_edge->head() + hBack + hLeft),
+                toScreen(_edge->head() + hBack + hRight)
+            });
+            painter->setBrush(Qt::white);
+            painter->drawPolygon(tri);
+            painter->setBrush(Qt::NoBrush);
             break;
+        }
         case Style::Diamond:
         {
             QPolygonF dia({
@@ -160,17 +170,6 @@ if (!_edge->path() || _edge->path()->edges().first() == _edge) {
             break;
         }
         case Style::OpenTriangle:
-        {
-            QPolygonF tri({
-                toScreen(_edge->tail()),
-                toScreen(_edge->tail() + tt + tLeft),
-                toScreen(_edge->tail() + tt + tRight)
-            });
-            painter->setBrush(Qt::white);
-            painter->drawPolygon(tri);
-            painter->setBrush(Qt::NoBrush);
-            break;
-        }
         case Style::Diamond:
         case Style::FilledDiamond:
             break;
