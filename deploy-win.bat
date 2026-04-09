@@ -29,6 +29,10 @@ if exist ..\..\build\plugins (
     echo WARNING: Plugins folder not found!
 )
 
+:: Clean up the Windows compiler scratchpad files!
+if exist plugins\*.lib del plugins\*.lib
+if exist plugins\*.exp del plugins\*.exp
+
 :: --- 3. Copy Poppler DLLs ---
 if exist ..\..\poppler-21.11.0\Library\bin (
     copy ..\..\poppler-21.11.0\Library\bin\*.dll .
