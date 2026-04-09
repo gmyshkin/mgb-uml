@@ -299,8 +299,31 @@ QIcon Style::icon() const
             break;
         }
         case Diamond:
-        case FilledDiamond:
+        {
+            QPolygonF dia({
+                QPointF(90, 50),
+                QPointF(82, 43),
+                QPointF(74, 50),
+                QPointF(82, 57)
+            });
+            painter.setBrush(Qt::white);
+            painter.drawPolygon(dia);
+            painter.setBrush(Qt::NoBrush);
             break;
+        }
+        case FilledDiamond:
+        {
+            QPolygonF dia({
+                QPointF(90, 50),
+                QPointF(82, 43),
+                QPointF(74, 50),
+                QPointF(82, 57)
+            });
+            painter.setBrush(QBrush(painter.pen().color()));
+            painter.drawPolygon(dia);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
         case NoTip:
             break;
         }
@@ -314,31 +337,7 @@ QIcon Style::icon() const
             painter.drawLine(10,40,10,60);
             break;
         case Diamond:
-        {
-            QPolygonF dia({
-                QPointF(10, 50),
-                QPointF(18, 43),
-                QPointF(26, 50),
-                QPointF(18, 57)
-            });
-            painter.setBrush(Qt::white);
-            painter.drawPolygon(dia);
-            painter.setBrush(Qt::NoBrush);
-            break;
-        }
         case FilledDiamond:
-        {
-            QPolygonF dia({
-                QPointF(10, 50),
-                QPointF(18, 43),
-                QPointF(26, 50),
-                QPointF(18, 57)
-            });
-            painter.setBrush(QBrush(painter.pen().color()));
-            painter.drawPolygon(dia);
-            painter.setBrush(Qt::NoBrush);
-            break;
-        }
         case OpenTriangle:
             break;
         case NoTip:
