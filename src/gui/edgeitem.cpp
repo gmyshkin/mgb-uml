@@ -104,7 +104,7 @@ if (!_edge->path() || _edge->path()->edges().last() == _edge) {
             painter->drawPath(pth);
             break;
         }
-case Style::OpenTriangle:
+	case Style::OpenTriangle:
 {
     QPointF tip = _edge->head() + hBack;
     QPointF baseCenter = _edge->head();
@@ -119,32 +119,34 @@ case Style::OpenTriangle:
     painter->setBrush(Qt::NoBrush);
     break;
 }
-        case Style::Diamond:
-        {
-            QPolygonF dia({
-                toScreen(_edge->head()),
-                toScreen(_edge->head() + hBack + hLeft),
-                toScreen(_edge->head() + (hBack * 2.0)),
-                toScreen(_edge->head() + hBack + hRight)
-            });
-            painter->setBrush(Qt::white);
-            painter->drawPolygon(dia);
-            painter->setBrush(Qt::NoBrush);
-            break;
-        }
-        case Style::FilledDiamond:
-        {
-            QPolygonF dia({
-                toScreen(_edge->head()),
-                toScreen(_edge->head() + hBack + hLeft),
-                toScreen(_edge->head() + (hBack * 2.0)),
-                toScreen(_edge->head() + hBack + hRight)
-            });
-            painter->setBrush(QBrush(pen.color()));
-            painter->drawPolygon(dia);
-            painter->setBrush(Qt::NoBrush);
-            break;
-        }
+case Style::Diamond:
+{
+    QPolygonF diamond({
+        toScreen(_edge->head() + hBack),
+        toScreen(_edge->head() + hLeft),
+        toScreen(_edge->head() - hBack),
+        toScreen(_edge->head() + hRight)
+    });
+
+    painter->setBrush(Qt::white);
+    painter->drawPolygon(diamond);
+    painter->setBrush(Qt::NoBrush);
+    break;
+}
+case Style::FilledDiamond:
+{
+    QPolygonF diamond({
+        toScreen(_edge->head() + hBack),
+        toScreen(_edge->head() + hLeft),
+        toScreen(_edge->head() - hBack),
+        toScreen(_edge->head() + hRight)
+    });
+
+    painter->setBrush(Qt::black);
+    painter->drawPolygon(diamond);
+    painter->setBrush(Qt::NoBrush);
+    break;
+}
         case Style::NoTip:
             break;
     }
