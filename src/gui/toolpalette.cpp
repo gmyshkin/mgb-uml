@@ -46,26 +46,18 @@ ToolPalette::ToolPalette(QWidget *parent) :
     edge   = new QAction("Add Edge (e)", this);
     edge->setIcon(QIcon(":/images/tikzit-tool-edge.svg"));
 
-    // --- MGB-UML NEW TOOLS START ---
-    umlUseCase = new QAction("Add Use Case", this);
-    umlUseCase->setIcon(QIcon(":/images/tikzit-tool-node.svg")); // TODO: Replace with custom UML icon later
 
-    umlClass = new QAction("Add Class", this);
-    umlClass->setIcon(QIcon(":/images/tikzit-tool-node.svg"));   // TODO: Replace with custom UML icon later
-    // --- MGB-UML NEW TOOLS END ---
 
 
     tools->addAction(select);
     tools->addAction(vertex);
     tools->addAction(edge);
-    tools->addAction(umlUseCase); // ADDED
-    tools->addAction(umlClass);   // ADDED
+
 
     select->setCheckable(true);
     vertex->setCheckable(true);
     edge->setCheckable(true);
-    umlUseCase->setCheckable(true); // ADDED
-    umlClass->setCheckable(true);   // ADDED
+
     
     select->setChecked(true);
 
@@ -73,11 +65,6 @@ ToolPalette::ToolPalette(QWidget *parent) :
     addAction(vertex);
     addAction(edge);
     
-    // Add a visual separator before the UML tools
-    addSeparator(); 
-    
-    addAction(umlUseCase); // ADDED
-    addAction(umlClass);   // ADDED
 }
 
 ToolPalette::Tool ToolPalette::currentTool() const
@@ -86,10 +73,7 @@ ToolPalette::Tool ToolPalette::currentTool() const
     if (a == vertex) return VERTEX;
     else if (a == edge) return EDGE;
     else if (a == crop) return CROP;
-    // --- MGB-UML NEW TOOLS START ---
-    else if (a == umlUseCase) return UML_USE_CASE;
-    else if (a == umlClass) return UML_CLASS;
-    // --- MGB-UML NEW TOOLS END ---
+
     else return SELECT;
 }
 
@@ -108,13 +92,6 @@ void ToolPalette::setCurrentTool(ToolPalette::Tool tool)
     case CROP:
         /* crop->setChecked(true); */
         break;
-    // --- MGB-UML NEW TOOLS START ---
-    case UML_USE_CASE:
-        umlUseCase->setChecked(true);
-        break;
-    case UML_CLASS:
-        umlClass->setChecked(true);
-        break;
-    // --- MGB-UML NEW TOOLS END ---
+
     }
 }
