@@ -193,8 +193,15 @@ bool TikzStyles::saveStyles(QString fileName)
     return false;
 }
 
-void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel *edgeModel, QString category, bool includeNone)
+void TikzStyles::refreshModels(QStandardItemModel *nodeModel,
+                               QStandardItemModel *edgeModel,
+                               QString category,
+                               bool includeNone)
 {
+    (void)nodeModel;
+    (void)edgeModel;
+    (void)category;
+    (void)includeNone;
     // Handled in stylelist.cpp
 }
 
