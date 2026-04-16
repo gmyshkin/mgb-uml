@@ -34,9 +34,21 @@ StylePalette::StylePalette(QWidget *parent) :
     ui(new Ui::StylePalette)
 {
     ui->setupUi(this);
-    ui->currentCategory->hide();
-    ui->styleListView->hide();
-    
+    ui->styleFile->hide();
+ui->currentCategory->hide();
+ui->styleListView->hide();
+
+// remove the top button row completely so it doesn't leave empty space
+while (QLayoutItem *item = ui->horizontalLayout_2->takeAt(0)) {
+    if (QWidget *w = item->widget()) {
+        w->hide();
+    }
+    delete item;
+}
+
+// optional: make the remaining list fill the dock better
+ui->verticalLayout->setContentsMargins(4, 4, 4, 4);
+ui->verticalLayout->setSpacing(4);
     QSettings settings("tikzit", "tikzit");
     bool ok;
     int space = settings.value("style-icon-spacing").toInt(&ok);
@@ -50,10 +62,13 @@ StylePalette::StylePalette(QWidget *parent) :
     ui->styleListView->setGridSize(QSize(space,space));
 
 
-    ui->edgeStyleListView->setModel(tikzit->styles()->edgeStyles());
-    ui->edgeStyleListView->setViewMode(QListView::IconMode);
-    ui->edgeStyleListView->setMovement(QListView::Static);
-    ui->edgeStyleListView->setGridSize(QSize(space,space));
+ui->edgeStyleListView->setModel(tikzit->styles()->edgeStyles());
+ui->edgeStyleListView->setViewMode(QListView::IconMode);
+ui->edgeStyleListView->setMovement(QListView::Static);
+ui->edgeStyleListView->setResizeMode(QListView::Adjust);
+ui->edgeStyleListView->setWordWrap(true);
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
+ui->edgeStyleListView->setGridSize(QSize(120, 80));
 
     reloadStyles();
 
@@ -191,7 +206,7 @@ QString StylePalette::activeEdgeStyleName()
     if (i.isEmpty()) {
         return "none";
     } else {
-        return i[0].data().toString();
+        return tikzit->styles()->edgeStyles()->styleInCategory(i[0].row())->name();
     }
 }
 
@@ -257,6 +272,7 @@ void StylePalette::resizeEvent(QResizeEvent *event)
     bool ok;
     int space = settings.value("style-icon-spacing").toInt(&ok);
     if (!ok) space = 48;
-    ui->styleListView->setGridSize(QSize(space,space));
-    ui->edgeStyleListView->setGridSize(QSize(space,space));
+ui->styleListView->setGridSize(QSize(space,space));
+ui->edgeStyleListView->setGridSize(QSize(160, 90));
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
 }
