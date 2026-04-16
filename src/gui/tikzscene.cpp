@@ -31,6 +31,7 @@
 #include <cmath>
 #include <delimitedstringvalidator.h>
 #include <QSettings>
+#include <QGraphicsSceneDragDropEvent>
 
 // --- MGB-UML: Includes for Custom Editor Dialog ---
 #include <QDialog>
@@ -840,7 +841,23 @@ void TikzScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
     invalidate(QRect(), QGraphicsScene::BackgroundLayer);
 }
+void TikzScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
+{
+    event->acceptProposedAction();
+    QGraphicsScene::dragEnterEvent(event);
+}
 
+void TikzScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
+{
+    event->acceptProposedAction();
+    QGraphicsScene::dragMoveEvent(event);
+}
+
+void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event)
+{
+    event->acceptProposedAction();
+    QGraphicsScene::dropEvent(event);
+}
 void TikzScene::keyReleaseEvent(QKeyEvent *event)
 {
     if (!_enabled) return;
