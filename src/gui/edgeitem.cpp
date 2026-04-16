@@ -16,236 +16,338 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
+#include "style.h"
 #include "tikzit.h"
-#include "edgeitem.h"
 
-#include <QPainterPath>
-#include <QPen>
+Style *noneStyle = new Style("none", new GraphElementData());
+Style *unknownStyle = new Style("unknown", new GraphElementData({GraphElementProperty("tikzit fill", "blue")}));
+Style *noneEdgeStyle = new Style("none", new GraphElementData({GraphElementProperty("-")}));
 
-EdgeItem::EdgeItem(Edge *edge)
+Style::Style() : _name("none")
 {
-    _edge = edge;
-    setFlag(QGraphicsItem::ItemIsSelectable);
-
-    _cp1Item = new QGraphicsEllipseItem(this);
-    _cp1Item->setParentItem(this);
-    _cp1Item->setRect(GLOBAL_SCALEF * (-0.1), GLOBAL_SCALEF * (-0.1),
-                      GLOBAL_SCALEF * 0.2, GLOBAL_SCALEF * 0.2);
-    _cp1Item->setVisible(false);
-
-    _cp2Item = new QGraphicsEllipseItem(this);
-    _cp2Item->setParentItem(this);
-    _cp2Item->setRect(GLOBAL_SCALEF * (-0.1), GLOBAL_SCALEF * (-0.1),
-                      GLOBAL_SCALEF * 0.2, GLOBAL_SCALEF * 0.2);
-    _cp2Item->setVisible(false);
-
-    readPos();
+    _data = new GraphElementData(this);
 }
 
-void EdgeItem::readPos()
+Style::Style(QString name, GraphElementData *data) : _name(name), _data(data)
 {
-    //_edge->setAttributesFromData();
-    _edge->updateControls();
-    QPainterPath path;
-
-    path.moveTo (toScreen(_edge->tail()));
-
-	if (_edge->bend() != 0 || !_edge->basicBendMode()) {
-		path.cubicTo(toScreen(_edge->cp1()),
-			toScreen(_edge->cp2()),
-			toScreen(_edge->head()));
-	}
-	else {
-		path.lineTo(toScreen(_edge->head()));
-	}
-    
-    setPath(path);
-
-    _cp1Item->setPos(toScreen(_edge->cp1()));
-    _cp2Item->setPos(toScreen(_edge->cp2()));
+    _data->setParent(this);
 }
 
-void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+bool Style::isNone() const
 {
-    //QGraphicsPathItem::paint(painter, option, widget);
-	QPen pen = _edge->style()->pen();
-	painter->setPen(pen);
-    painter->setBrush(Qt::NoBrush);
+    return _name == "none";
+}
 
-    if (!_edge->path()) painter->drawPath(path());
+GraphElementData *Style::data() const
+{
+    return _data;
+}
 
-	QPointF ht = _edge->headTangent();
-	QPointF hLeft(-ht.y(), ht.x());
-	QPointF hRight(ht.y(), -ht.x());
-	QPointF tt = _edge->tailTangent();
-	QPointF tLeft(-ht.y(), ht.x());
-	QPointF tRight(ht.y(), -ht.x());
+QString Style::name() const
+{
+    return _name;
+}
 
-	pen.setStyle(Qt::SolidLine);
-	painter->setPen(pen);
+QColor Style::strokeColor(bool tikzitOverride) const
+{
+    QString col = propertyWithDefault("draw", "black", tikzitOverride);
+    return tikzit->colorByName(col);
+}
 
-    if (!_edge->path() || _edge->path()->edges().last() == _edge) {
-        switch (_edge->style()->arrowHead()) {
-            case Style::Flat:
-            {
-                painter->drawLine(
-                    toScreen(_edge->head() + hLeft),
-                    toScreen(_edge->head() + hRight));
-                break;
-            }
-            case Style::Pointer:
-            {
-                QPainterPath pth;
-                pth.moveTo(toScreen(_edge->head() + ht + hLeft));
-                pth.lineTo(toScreen(_edge->head()));
-                pth.lineTo(toScreen(_edge->head() + ht + hRight));
-                painter->drawPath(pth);
-                break;
-            }
-        case Style::NoTip:
+QColor Style::fillColor(bool tikzitOverride) const
+{
+    QString col = propertyWithDefault("fill", "white", tikzitOverride);
+    return tikzit->colorByName(col);
+}
+
+QBrush Style::brush() const
+{
+    if (hasFill()) {
+        return QBrush(fillColor());
+    } else {
+        return Qt::NoBrush;
+    }
+}
+
+bool Style::hasFill() const
+{
+    return (propertyWithDefault("fill", "none") != "none");
+}
+
+bool Style::hasStroke() const
+{
+    if (isEdgeStyle()) return propertyWithDefault("draw", "black") != "none";
+    else return (propertyWithDefault("draw", "none") != "none");
+}
+
+QString Style::shape(bool tikzitOverride) const
+{
+    return propertyWithDefault("shape", "circle", tikzitOverride);
+}
+
+
+// TODO
+int Style::strokeThickness() const
+{
+    return 1;
+}
+
+bool Style::isEdgeStyle() const
+{
+    if (_data->atom("-")  || _data->atom("->") || _data->atom("-|") ||
+        _data->atom("<-") || _data->atom("<->") || _data->atom("<-|") ||
+        _data->atom("|-") || _data->atom("|->") || _data->atom("|-|")) return true;
+    else return false;
+}
+
+
+
+QString Style::propertyWithDefault(QString prop, QString def, bool tikzitOverride) const
+{
+    if (_data == 0) return def;
+    QString val;
+    if (tikzitOverride) {
+        val = _data->property("tikzit " + prop);
+        if (val.isNull()) val = _data->property(prop);
+    } else {
+        val = _data->property(prop);
+    }
+    if (val.isNull()) val = def;
+    return val;
+}
+
+QString Style::tikz() const
+{
+    return "\\tikzstyle{" + _name + "}=" + _data->tikz();
+}
+
+void Style::setArrowAtom(QString atom)
+{
+    _data->unsetAtom("-");
+    _data->unsetAtom("->");
+    _data->unsetAtom("-|");
+
+    _data->unsetAtom("<-");
+    _data->unsetAtom("<->");
+    _data->unsetAtom("<-|");
+
+    _data->unsetAtom("|-");
+    _data->unsetAtom("|->");
+    _data->unsetAtom("|-|");
+
+    _data->setAtom(atom);
+}
+
+void Style::setName(const QString &name)
+{
+    _name = name;
+}
+
+Style::ArrowTipStyle Style::arrowHead() const
+{
+    if (_data->atom("uml-generalization")) return OpenTriangle;
+    if (_data->atom("uml-aggregation")) return Diamond;
+    if (_data->atom("uml-composition")) return FilledDiamond;
+    if (_data->atom("->") || _data->atom("<->") || _data->atom("|->")) return Pointer;
+    if (_data->atom("-|") || _data->atom("<-|") || _data->atom("|-|")) return Flat;
+    return NoTip;
+}
+
+Style::ArrowTipStyle Style::arrowTail() const
+{
+    if (_data->atom("<-") || _data->atom("<->") || _data->atom("<-|")) return Pointer;
+    if (_data->atom("|-") || _data->atom("|->") || _data->atom("|-|")) return Flat;
+    return NoTip;
+}
+Style::DrawStyle Style::drawStyle() const
+{
+    if (_data->atom("dashed")) return Dashed;
+    if (_data->atom("dotted")) return Dotted;
+    return Solid;
+}
+
+
+QPen Style::pen() const
+{
+    if (hasStroke()) {
+        QPen p(strokeColor());
+        p.setWidthF((float)strokeThickness() * 2.0f);
+
+        QVector<qreal> pat;
+        switch (drawStyle()) {
+        case Dashed:
+            pat << 3.0 << 3.0;
+            p.setDashPattern(pat);
+            break;
+        case Dotted:
+            pat << 1.0 << 1.0;
+            p.setDashPattern(pat);
+            break;
+        case Solid:
             break;
         }
-    }
 
-    //QPen outline = QPen(Qt::red);
-    //painter->setPen(outline);
-    //painter->drawPath(_expPath);
-    //painter->setPen(pen);
-	
-    if (!_edge->path() || _edge->path()->edges().first() == _edge) {
-        switch (_edge->style()->arrowTail()) {
-            case Style::Flat:
-            {
-                painter->drawLine(
-                    toScreen(_edge->tail() + tLeft),
-                    toScreen(_edge->tail() + tRight));
-                break;
-            }
-            case Style::Pointer:
-            {
-                QPainterPath pth;
-                pth.moveTo(toScreen(_edge->tail() + tt + tLeft));
-                pth.lineTo(toScreen(_edge->tail()));
-                pth.lineTo(toScreen(_edge->tail() + tt + tRight));
-                painter->drawPath(pth);
-                break;
-            }
-            case Style::NoTip:
-                break;
-        }
-    }
-
-    if (isSelected()) {
-        QColor draw;
-        QColor draw1;
-        QColor fill;
-
-        if (_edge->basicBendMode()) {
-            draw = Qt::blue;
-            draw1 = QColor(100,100,255,100);
-            fill = QColor(200,200,255,50);
-        } else {
-            draw = Qt::darkGreen;
-            draw1 = QColor(0, 150, 0, 50);
-            fill = QColor(200,255,200,150);
-        }
-
-        painter->setPen(QPen(draw1));
-
-        qreal r = GLOBAL_SCALEF * _edge->cpDist();
-        painter->drawEllipse(toScreen(_edge->source()->point()), r, r);
-        painter->drawEllipse(toScreen(_edge->target()->point()), r, r);
-
-        painter->setPen(QPen(draw));
-        painter->setBrush(QBrush(fill));
-
-        painter->drawLine(toScreen(_edge->tail()), toScreen(_edge->cp1()));
-        painter->drawLine(toScreen(_edge->head()), toScreen(_edge->cp2()));
-
-        if (scene()) {
-            TikzScene *sc = static_cast<TikzScene*>(scene());
-
-            painter->setFont(Tikzit::LABEL_FONT);
-            QFontMetrics fm(Tikzit::LABEL_FONT);
-            QRectF rect = fm.boundingRect("<>");
-
-            if (sc->highlightHeads()) {
-                QPointF headMark(_edge->target()->point().x(), _edge->target()->point().y() + _edge->cpDist() - 0.25);
-                rect.moveCenter(toScreen(headMark));
-                painter->drawText(rect, Qt::AlignCenter, "<>");
-            } else if (sc->highlightTails()) {
-                QPointF tailMark(_edge->source()->point().x(), _edge->source()->point().y() + _edge->cpDist() - 0.25);
-                rect.moveCenter(toScreen(tailMark));
-                painter->drawText(rect, Qt::AlignCenter, "<>");
-            }
-        }
-
-        //painter->drawEllipse(toScreen(_edge->cp1()), r, r);
-        //painter->drawEllipse(toScreen(_edge->cp2()), r, r);
-
-        _cp1Item->setPen(QPen(draw));
-        _cp1Item->setBrush(QBrush(fill));
-        _cp1Item->setVisible(true);
-
-        _cp2Item->setPen(QPen(draw));
-        _cp2Item->setBrush(QBrush(fill));
-        _cp2Item->setVisible(true);
-
-        r = GLOBAL_SCALEF * 0.05;
-        painter->setPen(QPen(Qt::black));
-        painter->setBrush(QBrush(QColor(255,255,255,200)));
-        painter->drawEllipse(toScreen(_edge->mid()), r, r);
+        return p;
     } else {
-        _cp1Item->setVisible(false);
-        _cp2Item->setVisible(false);
+        return Qt::NoPen;
     }
 }
 
-QRectF EdgeItem::boundingRect() const
+QPainterPath Style::path() const
 {
-    return _boundingRect;
+    QPainterPath pth;
+    QString sh = shape();
+
+    if (sh == "rectangle") {
+        pth.addRect(-30.0f, -30.0f, 60.0f, 60.0f);
+    } else if (sh == "triangle") {
+        QVector<QPointF> points ({
+            QPointF(-30.0f,  30.0f),
+            QPointF(  0.0f, -1.414f * 15),
+            QPointF( 30.0f,  30.0f),
+        });
+
+        QPolygonF triangle(points);
+        pth.addPolygon(triangle);
+        pth.closeSubpath();
+    } else { // default is 'circle'
+        pth.addEllipse(QPointF(0.0f,0.0f), 30.0f, 30.0f);
+    }
+    return pth;
 }
 
-QPainterPath EdgeItem::shape() const
+QIcon Style::icon() const
 {
-    return _expPath;
+    if (!isEdgeStyle()) {
+        // draw an icon matching the style
+        QImage px(100,100,QImage::Format_ARGB32_Premultiplied);
+        px.fill(Qt::transparent);
+
+
+        QPainter painter(&px);
+        painter.setRenderHint(QPainter::Antialiasing);
+        QPainterPath pth = path();
+        pth.translate(50.0f, 50.0f);
+
+        if (isNone()) {
+            QColor c(180,180,200);
+            painter.setPen(QPen(c));
+            painter.setBrush(QBrush(c));
+            painter.drawEllipse(QPointF(50.0f,50.0f), 3,3);
+
+            QPen pen(QColor(180,180,220));
+            pen.setWidth(3);
+            QVector<qreal> p;
+            p << 2.0 << 2.0;
+            pen.setDashPattern(p);
+            painter.setPen(pen);
+            painter.setBrush(Qt::NoBrush);
+            painter.drawPath(pth);
+        } else {
+            painter.setPen(pen());
+            painter.setBrush(brush());
+            painter.drawPath(pth);
+        }
+
+        return QIcon(QPixmap::fromImage(px));
+    } else {
+        // draw an icon matching the style
+        QPixmap px(100,100);
+        px.fill(Qt::transparent);
+        QPainter painter(&px);
+
+//        if (_data == 0) {
+//            QPen pen(Qt::black);
+//            pen.setWidth(3);
+//        } else {
+//            painter.setPen(pen());
+//        }
+
+        QPen pn = pen();
+        painter.setPen(pn);
+
+        if (hasFill()) {
+            painter.fillRect(10,50,80,30,brush());
+        }
+
+        painter.drawLine(10, 50, 90, 50);
+
+        pn.setStyle(Qt::SolidLine);
+        painter.setPen(pn);
+
+
+
+        switch (arrowHead()) {
+        case Pointer:
+            painter.drawLine(90,50,80,40);
+            painter.drawLine(90,50,80,60);
+            break;
+        case Flat:
+            painter.drawLine(90,40,90,60);
+            break;
+        case OpenTriangle:
+        {
+            QPolygonF tri({
+                QPointF(90, 50),
+                QPointF(78, 43),
+                QPointF(78, 57)
+            });
+            painter.setBrush(Qt::white);
+            painter.drawPolygon(tri);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
+        case Diamond:
+        {
+            QPolygonF dia({
+                QPointF(90, 50),
+                QPointF(82, 43),
+                QPointF(74, 50),
+                QPointF(82, 57)
+            });
+            painter.setBrush(Qt::white);
+            painter.drawPolygon(dia);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
+        case FilledDiamond:
+        {
+            QPolygonF dia({
+                QPointF(90, 50),
+                QPointF(82, 43),
+                QPointF(74, 50),
+                QPointF(82, 57)
+            });
+            painter.setBrush(QBrush(painter.pen().color()));
+            painter.drawPolygon(dia);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
+        case NoTip:
+            break;
+        }
+
+        switch (arrowTail()) {
+        case Pointer:
+            painter.drawLine(10,50,20,40);
+            painter.drawLine(10,50,20,60);
+            break;
+        case Flat:
+            painter.drawLine(10,40,10,60);
+            break;
+        case Diamond:
+        case FilledDiamond:
+        case OpenTriangle:
+            break;
+        case NoTip:
+            break;
+        }
+
+        return QIcon(px);
+    }
 }
 
-Edge *EdgeItem::edge() const
+QString Style::category() const
 {
-    return _edge;
+    return propertyWithDefault("tikzit category", "", false);
 }
-
-QGraphicsEllipseItem *EdgeItem::cp1Item() const
-{
-    return _cp1Item;
-}
-
-QGraphicsEllipseItem *EdgeItem::cp2Item() const
-{
-    return _cp2Item;
-}
-
-QPainterPath EdgeItem::path() const
-{
-    return _path;
-}
-
-void EdgeItem::setPath(const QPainterPath &path)
-{
-	prepareGeometryChange();
-
-	_path = path;
-
-    // get the shape of the edge, and expand a bit to make selection easier
-    QPainterPathStroker stroker;
-    stroker.setWidth(8);
-    stroker.setJoinStyle(Qt::MiterJoin);
-    _expPath = stroker.createStroke(_path).simplified();
-
-    float r = GLOBAL_SCALEF * (_edge->cpDist() + 0.2);
-    _boundingRect = _path.boundingRect().adjusted(-r,-r,r,r);
-
-    update();
-}
-
