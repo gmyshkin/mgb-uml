@@ -17,8 +17,8 @@ QList<PluginElement> UmlSystemPlugin::getElements() const {
     e.properties.insert("shape", "rectangle");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "white");
-    e.properties.insert("minimum width", "5cm");
-    e.properties.insert("minimum height", "7cm");
+    e.properties.insert("minimum width", "2cm");
+    e.properties.insert("minimum height", "2cm");
     e.properties.insert("align", "center");
     
     // Standard shape, no extra libraries needed
