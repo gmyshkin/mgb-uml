@@ -911,7 +911,9 @@ void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event)
     _tikzDocument->undoStack()->push(cmd);
 
     event->acceptProposedAction();
-}e::keyReleaseEvent(QKeyEvent *event)
+}
+
+void TikzScene::keyReleaseEvent(QKeyEvent *event)
 {
     if (!_enabled) return;
 
