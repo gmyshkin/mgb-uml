@@ -564,8 +564,7 @@ void TikzScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
         break;
     case ToolPalette::VERTEX:
-    case ToolPalette::UML_USE_CASE:
-    case ToolPalette::UML_CLASS:
+
         break;
     case ToolPalette::EDGE:
         foreach (QGraphicsItem *gi, items(_mouseDownPos)) {
