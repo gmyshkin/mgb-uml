@@ -25,6 +25,7 @@
 #include <QFontMetrics>
 #include <QRegularExpression>
 #include <algorithm>
+#include <cmath>
 #include <limits>
 namespace {
 
@@ -416,7 +417,6 @@ void Edge::updateControls()
         outAngleR = std::atan2(dy, dx);
         inAngleR  = std::atan2(-dy, -dx);
     } else {
-        // self-loop defaults
         outAngleR = qDegreesToRadians((double)_outAngle);
         inAngleR  = qDegreesToRadians((double)_inAngle);
     }
@@ -427,7 +427,7 @@ void Edge::updateControls()
     _tail = pointOnNodeBoundary(_source, outAngleR) + tailDir * tipPadding(_style->arrowTail());
     _head = pointOnNodeBoundary(_target, inAngleR) + headDir * tipPadding(_style->arrowHead());
 
-    _cpDist = (almostZero(dx) && almostZero(dy)) ? _weight : std::sqrt(dx*dx + dy*dy) * _weight;
+    _cpDist = (almostZero(dx) && almostZero(dy)) ? _weight : std::sqrt(dx * dx + dy * dy) * _weight;
 
     _cp1 = QPointF(src.x() + (_cpDist * std::cos(outAngleR)),
                    src.y() + (_cpDist * std::sin(outAngleR)));
@@ -439,7 +439,6 @@ void Edge::updateControls()
     _tailTangent = bezierTangent(0.0, 0.1);
     _headTangent = bezierTangent(1.0, 0.9);
 }
-	
 
 _tail = anchorPointTowardForEdge(_source, outAngleR);
 _head = anchorPointTowardForEdge(_target, inAngleR);
