@@ -7,15 +7,23 @@ QString UmlClassPlugin::pluginName() const {
 }
 
 QList<PluginElement> UmlClassPlugin::getElements() const {
-    QList<PluginElement> elements;
     PluginElement e;
     e.name = "UML Class";
     e.type = "node";
-    e.category = "UML Basics";
-    e.tooltip = "A multi-part UML Class node";
+    e.category = "UML Elements";
+    e.tooltip = "Drag to add a Class";
+    e.iconPath = ":/icons/class_icon.png";
+    
     e.properties.insert("shape", "rectangle split");
-    elements.append(e);
-    return elements;
+    e.properties.insert("rectangle split parts", "3");
+    e.properties.insert("draw", "black");
+    e.properties.insert("fill", "white");
+    e.properties.insert("align", "left");
+    
+    // Guarantee that LaTeX includes the multipart library
+    e.properties.insert("tikz_libraries", "shapes.multipart");
+    
+    return {e};
 }
 
 QIcon UmlClassPlugin::pluginIcon() const {

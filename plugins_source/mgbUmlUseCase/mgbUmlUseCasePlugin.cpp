@@ -7,15 +7,23 @@ QString UmlUseCasePlugin::pluginName() const {
 }
 
 QList<PluginElement> UmlUseCasePlugin::getElements() const {
-    QList<PluginElement> elements;
     PluginElement e;
     e.name = "UML Use Case";
     e.type = "node";
-    e.category = "UML Basics";
-    e.tooltip = "A standard UML Use Case oval";
+    e.category = "UML Elements";
+    e.tooltip = "Drag to add a Use Case";
+    e.iconPath = ":/icons/use_case_icon.png";
+    
     e.properties.insert("shape", "ellipse");
-    elements.append(e);
-    return elements;
+    e.properties.insert("draw", "black");
+    e.properties.insert("fill", "white");
+    e.properties.insert("minimum width", "3cm");
+    e.properties.insert("minimum height", "1.5cm");
+    
+    // Guarantee that LaTeX includes the geometric library
+    e.properties.insert("tikz_libraries", "shapes.geometric");
+    
+    return {e};
 }
 
 QIcon UmlUseCasePlugin::pluginIcon() const {

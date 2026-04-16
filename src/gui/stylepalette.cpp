@@ -34,6 +34,9 @@ StylePalette::StylePalette(QWidget *parent) :
     ui(new Ui::StylePalette)
 {
     ui->setupUi(this);
+    ui->currentCategory->hide();
+    ui->styleListView->hide();
+    
     QSettings settings("tikzit", "tikzit");
     bool ok;
     int space = settings.value("style-icon-spacing").toInt(&ok);

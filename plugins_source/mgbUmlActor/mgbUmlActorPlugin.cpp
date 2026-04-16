@@ -7,15 +7,38 @@ QString UmlActorPlugin::pluginName() const {
 }
 
 QList<PluginElement> UmlActorPlugin::getElements() const {
-    QList<PluginElement> elements;
     PluginElement e;
     e.name = "UML Actor";
     e.type = "node";
-    e.category = "UML Basics";
-    e.tooltip = "A standard UML stick figure actor";
-    e.properties.insert("shape", "uml actor");
-    elements.append(e);
-    return elements;
+    e.category = "UML Elements";
+    e.tooltip = "Drag to add an Actor";
+    e.iconPath = ":/icons/actor_icon.png";
+    
+    // The standard properties
+    e.properties.insert("shape", "uml_actor");
+    e.properties.insert("draw", "black");
+    e.properties.insert("fill", "none");
+    
+    // The Trojan Horse: Teaching LaTeX
+    e.properties.insert("tikz_libraries", "arrows.meta");
+    e.properties.insert("latex_preamble", 
+        "\\pgfdeclareshape{uml_actor}{\n"
+        "  \\savedanchor\\centerpoint{\\pgfpointorigin}\n"
+        "  \\anchor{center}{\\centerpoint}\n"
+        "  \\backgroundpath{\n"
+        "    \\pgfpathcircle{\\pgfpoint{0cm}{0.5cm}}{0.2cm}\n"
+        "    \\pgfpathmoveto{\\pgfpoint{0cm}{0.3cm}}\n"
+        "    \\pgfpathlineto{\\pgfpoint{0cm}{-0.4cm}}\n"
+        "    \\pgfpathmoveto{\\pgfpoint{-0.4cm}{0.1cm}}\n"
+        "    \\pgfpathlineto{\\pgfpoint{0.4cm}{0.1cm}}\n"
+        "    \\pgfpathmoveto{\\pgfpoint{-0.3cm}{-0.9cm}}\n"
+        "    \\pgfpathlineto{\\pgfpoint{0cm}{-0.4cm}}\n"
+        "    \\pgfpathlineto{\\pgfpoint{0.3cm}{-0.9cm}}\n"
+        "  }\n"
+        "}"
+    );
+    
+    return {e};
 }
 
 QIcon UmlActorPlugin::pluginIcon() const {

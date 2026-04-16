@@ -21,6 +21,8 @@
 #include "tikzscene.h"
 #include "undocommands.h"
 #include "tikzassembler.h"
+#include <QFormLayout>
+#include <QDoubleSpinBox>
 
 #include <QPen>
 #include <QBrush>

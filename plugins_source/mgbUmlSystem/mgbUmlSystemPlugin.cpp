@@ -7,15 +7,24 @@ QString UmlSystemPlugin::pluginName() const {
 }
 
 QList<PluginElement> UmlSystemPlugin::getElements() const {
-    QList<PluginElement> elements;
     PluginElement e;
     e.name = "UML System";
     e.type = "node";
-    e.category = "UML Basics";
-    e.tooltip = "A UML System Boundary box";
-    e.properties.insert("shape", "uml system");
-    elements.append(e);
-    return elements;
+    e.category = "UML Elements";
+    e.tooltip = "Drag to add a System boundary";
+    e.iconPath = ":/icons/system_icon.png";
+    
+    e.properties.insert("shape", "rectangle");
+    e.properties.insert("draw", "black");
+    e.properties.insert("fill", "white");
+    e.properties.insert("minimum width", "5cm");
+    e.properties.insert("minimum height", "7cm");
+    e.properties.insert("align", "center");
+    
+    // Standard shape, no extra libraries needed
+    e.properties.insert("tikz_libraries", "");
+    
+    return {e};
 }
 
 QIcon UmlSystemPlugin::pluginIcon() const {

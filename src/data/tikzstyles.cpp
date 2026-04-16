@@ -36,34 +36,47 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 }
 
 // =================================================================
-// MGB-UML: STYLE INJECTOR (Hardcoded + Plugins)
+// MGB-UML: STYLE INJECTOR (Hardcoded Edges + Dynamic Plugins)
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
 {
-    // --- 1. YOUR STABLE HARDCODED ELEMENTS ---
-    if (_nodeStyles->style("UML Use Case") == nullptr) {
+    // --- 1. STABLE HARDCODED EDGES (Lines) ---
+    // CRITICAL FIX: We explicitly add to _edgeStyles so the internal 
+    // sorter doesn't accidentally misclassify custom diamonds as nodes!
+    
+    if (_edgeStyles->style("Association") == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("shape", "ellipse");
+        data->setProperty("-", ""); 
         data->setProperty("draw", "black");
-        data->setProperty("fill", "white");
-        data->setProperty("minimum width", "3cm");
-        data->setProperty("minimum height", "1.5cm");
-        data->setProperty("tikzit category", "UML Elements"); 
-        addStyle("UML Use Case", data);
+        data->setProperty("tikzit category", "UML Edges");
+        _edgeStyles->addStyle(new Style("Association", data));
+    }
+    
+    if (_edgeStyles->style("Generalization") == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setProperty("->", ""); 
+        data->setProperty("draw", "black");
+        data->setProperty("tikzit category", "UML Edges");
+        _edgeStyles->addStyle(new Style("Generalization", data));
+    }
+    
+    if (_edgeStyles->style("Aggregation") == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setProperty("-{Diamond[open]}", ""); 
+        data->setProperty("draw", "black");
+        data->setProperty("tikzit category", "UML Edges");
+        _edgeStyles->addStyle(new Style("Aggregation", data));
+    }
+    
+    if (_edgeStyles->style("Composition") == nullptr) {
+        GraphElementData *data = new GraphElementData();
+        data->setProperty("-{Diamond[fill]}", ""); 
+        data->setProperty("draw", "black");
+        data->setProperty("tikzit category", "UML Edges");
+        _edgeStyles->addStyle(new Style("Composition", data));
     }
 
-    if (_nodeStyles->style("UML Class") == nullptr) {
-        GraphElementData *data = new GraphElementData();
-        data->setProperty("shape", "rectangle split");
-        data->setProperty("rectangle split parts", "3");
-        data->setProperty("draw", "black");
-        data->setProperty("fill", "white");
-        data->setProperty("align", "left");
-        data->setProperty("tikzit category", "UML Elements");
-        addStyle("UML Class", data);
-    }
-
-    // --- 2. INJECT UNIFIED PLUGINS (Both JSON and C++) ---
+    // --- 2. INJECT UNIFIED PLUGINS ---
     QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
     for (const mgb::PluginElement& p : plugins) {
         
@@ -71,6 +84,10 @@ void TikzStyles::injectHardcodedStyles()
         QMapIterator<QString, QString> i(p.properties);
         while (i.hasNext()) {
             i.next();
+            // SECRET EXCLUSION: Do not put raw LaTeX math into the visual UI property list
+            if (i.key() == "tikz_libraries" || i.key() == "latex_preamble") {
+                continue; 
+            }
             data->setProperty(i.key(), i.value());
         }
         data->setProperty("tikzit category", p.category);
@@ -124,13 +141,16 @@ bool TikzStyles::loadStyles(QString fileName)
             if (line.startsWith("\\usetikzlibrary") || 
                 line.startsWith("\\pgfkeys") || 
                 line.startsWith("\\pgfdeclarelayer") || 
-                line.startsWith("\\pgfsetlayers")) {
+                line.startsWith("\\pgfsetlayers") ||
+                line.startsWith("%") ) { 
                 continue; 
             }
             
-            // Auto-Heal: Protect Hardcoded Styles
-            if (line.startsWith("\\tikzstyle{UML Class}=") || 
-                line.startsWith("\\tikzstyle{UML Use Case}=")) {
+            // Auto-Heal: Protect Hardcoded Edge Styles
+            if (line.startsWith("\\tikzstyle{Association}=") || 
+                line.startsWith("\\tikzstyle{Generalization}=") ||
+                line.startsWith("\\tikzstyle{Aggregation}=") ||
+                line.startsWith("\\tikzstyle{Composition}=")) {
                 continue; 
             }
 
@@ -225,8 +245,38 @@ QString TikzStyles::tikz() const
     code << "% If you want a custom color or style, COPY the line and RENAME it.\n";
     code << "% =========================================================\n\n";
 
+    // --- MGB-UML: DYNAMIC LIBRARY AND PREAMBLE EXTRACTOR ---
+    QStringList libraries = {"shapes.multipart", "positioning", "shapes.geometric", "arrows.meta"};
+    QString customPreambles = "";
+
+    QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
+    for (const mgb::PluginElement& p : plugins) {
+        
+        // 1. Extract custom libraries
+        if (p.properties.contains("tikz_libraries")) {
+            QStringList libs = p.properties.value("tikz_libraries").split(",");
+            for (QString l : libs) {
+                if (!libraries.contains(l.trimmed())) {
+                    libraries << l.trimmed();
+                }
+            }
+        }
+        
+        // 2. Extract custom \pgfdeclareshape macros
+        if (p.properties.contains("latex_preamble")) {
+            customPreambles += "% Preamble definitions for " + p.name + "\n";
+            customPreambles += p.properties.value("latex_preamble") + "\n\n";
+        }
+    }
+
     code << "% Required TikZ Libraries\n";
-    code << "\\usetikzlibrary{shapes.multipart, positioning, shapes.geometric}\n\n";
+    code << "\\usetikzlibrary{" << libraries.join(", ") << "}\n\n";
+
+    if (!customPreambles.isEmpty()) {
+        code << "% Custom Plugin Shapes & Preambles\n";
+        code << customPreambles;
+    }
+    // --------------------------------------------------------
 
     code << "% Ignore UI-specific keys\n";
     code << "\\pgfkeys{/tikz/tikzit category/.initial=}\n\n";

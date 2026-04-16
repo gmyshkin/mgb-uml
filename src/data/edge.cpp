@@ -23,6 +23,26 @@
 #include <QDebug>
 #include <QPointF>
 
+#include <QFontMetrics>
+#include <QRegularExpression>
+#include <algorithm>
+#include <limits>
+
+namespace {
+    static int umlLengthToPixelsForEdge(QString raw, int fallbackPx)
+    {
+        QString s = raw.trimmed();
+        if (s.isEmpty()) return fallbackPx;
+
+        bool ok = false;
+        if (s.endsWith("cm")) {
+            double cm = s.left(s.size() - 2).toDouble(&ok);
+            if (ok) return static_cast<int>(cm * 37.8); // standard px/cm ratio
+        }
+        return fallbackPx;
+    }
+}
+
 Edge::Edge(Node *s, Node *t, QObject *parent) :
     QObject(parent), _source(s), _target(t)
 {
