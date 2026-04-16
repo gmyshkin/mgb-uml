@@ -25,6 +25,7 @@ QList<PluginElement> UmlActorPlugin::getElements() const {
         "\\pgfdeclareshape{uml_actor}{\n"
         "  \\savedanchor\\centerpoint{\\pgfpointorigin}\n"
         "  \\anchor{center}{\\centerpoint}\n"
+        "  \\anchor{text}{\\pgfpoint{-1.5cm}{-1.2cm}}\n" // NEW: Anchors text below the feet
         "  \\backgroundpath{\n"
         "    \\pgfpathcircle{\\pgfpoint{0cm}{0.5cm}}{0.2cm}\n"
         "    \\pgfpathmoveto{\\pgfpoint{0cm}{0.3cm}}\n"
