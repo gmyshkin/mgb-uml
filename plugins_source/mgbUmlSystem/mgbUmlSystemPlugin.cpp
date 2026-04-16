@@ -32,7 +32,7 @@ QIcon UmlSystemPlugin::pluginIcon() const {
 }
 
 NodeItem* UmlSystemPlugin::createCustomNode(Node *node) const {
-    if (node->style()->shape() == "uml system" || node->styleName() == "UML System") {
+    if (node->style()->shape() == "rectangle" || node->styleName() == "UML System") {
         return new ::SystemNodeItem(node);
     }
     return nullptr; 
