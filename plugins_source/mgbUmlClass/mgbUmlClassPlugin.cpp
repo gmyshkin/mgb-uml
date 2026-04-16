@@ -37,6 +37,7 @@ QIcon UmlClassPlugin::pluginIcon() const {
 NodeItem* UmlClassPlugin::createCustomNode(Node *node) const {
     if (node->style()->shape() == "rectangle split" || node->styleName() == "UML Class") {
         return new ::ClassNodeItem(node);
+        ClassName\nodepart{two}+ attribute1 : type\nodepart{three}+ method1() : void
     }
     return nullptr; 
 }
