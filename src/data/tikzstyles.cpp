@@ -72,10 +72,6 @@ void TikzStyles::injectHardcodedStyles()
         _edgeStyles->addStyle(new Style("Composition", data));
     }
 
-    // existing plugin injection code continues here...
-}
-
-    // --- 2. INJECT UNIFIED PLUGINS ---
     QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
     for (const mgb::PluginElement &p : plugins) {
         GraphElementData *data = new GraphElementData();
