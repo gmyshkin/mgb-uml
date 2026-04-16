@@ -60,12 +60,13 @@ StyleEditor::StyleEditor(QWidget *parent) :
     ui->styleListView->setMovement(QListView::Static);
     ui->styleListView->setGridSize(QSize(space,space));
 
-    ui->edgeStyleListView->setViewMode(QListView::IconMode);
-    ui->edgeStyleListView->setMovement(QListView::Static);
-    ui->edgeStyleListView->setResizeMode(QListView::Adjust);
-    ui->edgeStyleListView->setWordWrap(true);
-    ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
-    ui->edgeStyleListView->setGridSize(QSize(160, 90));
+ui->edgeStyleListView->setViewMode(QListView::IconMode);
+ui->edgeStyleListView->setMovement(QListView::Static);
+ui->edgeStyleListView->setResizeMode(QListView::Adjust);
+ui->edgeStyleListView->setWordWrap(true);
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
+ui->edgeStyleListView->setGridSize(QSize(160, 90));
+
     connect(ui->category->lineEdit(),
             SIGNAL(editingFinished()),
             this, SLOT(categoryChanged()));
@@ -828,7 +829,10 @@ void StyleEditor::refreshActiveStyle()
             emit _styles->edgeStyles()->dataChanged(_edgeStyleIndex, _edgeStyleIndex);
 
             // force a re-layout
-            ui->edgeStyleListView->setGridSize(QSize(space,space));
+            ui->edgeStyleListView->setResizeMode(QListView::Adjust);
+ui->edgeStyleListView->setWordWrap(true);
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
+ui->edgeStyleListView->setGridSize(QSize(160, 90));
         }
     }
 }
