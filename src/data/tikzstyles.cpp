@@ -40,9 +40,9 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
 {
-    if (_edgeStyles->style("Association") == nullptr) {
+     if (_edgeStyles->style("Association") == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setAtom("-");
+        data->setAtom("->");
         data->setProperty("draw", "black");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Association", data));
