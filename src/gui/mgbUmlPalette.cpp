@@ -17,14 +17,24 @@ class PaletteListWidget : public QListWidget {
 public:
     PaletteListWidget(QWidget *parent = nullptr) : QListWidget(parent) {}
 protected:
-    QMimeData* mimeData(const QList<QListWidgetItem *> &items) const override {
-        QMimeData *mime = QListWidget::mimeData(items);
-        if (!items.isEmpty()) {
-            // Force the exact item name into the drag payload
-            mime->setText(items.first()->text()); 
-        }
-        return mime;
+QMimeData* mimeData(const QList<QListWidgetItem *> &items) const override {
+    QMimeData *mime = QListWidget::mimeData(items);
+
+    if (!items.isEmpty()) {
+        QListWidgetItem *item = items.first();
+
+        QString styleName = item->data(Qt::UserRole).toString();
+        QString defaultLabel = item->data(Qt::UserRole + 1).toString();
+
+        mime->setData("application/x-mgb-style-name", styleName.toUtf8());
+        mime->setData("application/x-mgb-default-label", defaultLabel.toUtf8());
+
+        // optional fallback for debugging
+        mime->setText(styleName);
     }
+
+    return mime;
+}
 };
 // =================================================================
 
@@ -65,9 +75,15 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
         
         // CRITICAL FIX: We MUST use elementData.name here! 
         // If we use the Plugin Name, the canvas won't know what to draw.
-        QListWidgetItem *item = new QListWidgetItem(pluginIcon, elementData.name);
-        item->setToolTip(QString("Drag to add a %1").arg(elementData.name));
-        listWidget->addItem(item);
+QListWidgetItem *item = new QListWidgetItem(pluginIcon, elementData.name);
+item->setToolTip(QString("Drag to add a %1").arg(elementData.name));
+
+// store machine-readable drag payload
+item->setData(Qt::UserRole, elementData.name);
+item->setData(Qt::UserRole + 1,
+              elementData.properties.value("default_label", elementData.name));
+
+listWidget->addItem(item);
     }
 
     setWidget(listWidget);
