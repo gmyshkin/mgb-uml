@@ -78,25 +78,17 @@ bool TikzStyles::saveStyles(QString fileName)
     return false;
 }
 
-void TikzStyles::refreshModels(QStandardItemModel *nodeModel, QStandardItemModel *edgeModel, QString category, bool includeNone)
+void TikzStyles::refreshModels(QStandardItemModel *nodeModel,
+                               QStandardItemModel *edgeModel,
+                               QString category,
+                               bool includeNone)
 {
-    nodeModel->clear();
-    edgeModel->clear();
-
-
-    //QString f = tikzit->styleFile();
-    //ui->styleFile->setText(f);
-
-    QStandardItem *it;
-
-    if (includeNone) {
-        it = new QStandardItem(noneStyle->icon(), noneStyle->name());
-        it->setEditable(false);
-        it->setData(noneStyle->name());
-        nodeModel->appendRow(it);
-        it->setTextAlignment(Qt::AlignCenter);
-        //it->setSizeHint(QSize(48,48));
-    }
+    Q_UNUSED(nodeModel);
+    Q_UNUSED(edgeModel);
+    Q_UNUSED(category);
+    Q_UNUSED(includeNone);
+    // Handled in stylelist.cpp
+}
 
     Style *s;
     for (int i = 0; i < _nodeStyles->length(); ++i) {
