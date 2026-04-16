@@ -39,42 +39,42 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 // MGB-UML: STYLE INJECTOR (Hardcoded Edges + Dynamic Plugins)
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
+
 {
-    // --- 1. STABLE HARDCODED EDGES (Lines) ---
-    // CRITICAL FIX: We explicitly add to _edgeStyles so the internal 
-    // sorter doesn't accidentally misclassify custom diamonds as nodes!
-    
     if (_edgeStyles->style("Association") == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("-", ""); 
+        data->setAtom("-");
         data->setProperty("draw", "black");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Association", data));
     }
-    
+
     if (_edgeStyles->style("Generalization") == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("->", ""); 
+        data->setAtom("uml-generalization");
         data->setProperty("draw", "black");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Generalization", data));
     }
-    
+
     if (_edgeStyles->style("Aggregation") == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("-{Diamond[open]}", ""); 
+        data->setAtom("uml-aggregation");
         data->setProperty("draw", "black");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Aggregation", data));
     }
-    
+
     if (_edgeStyles->style("Composition") == nullptr) {
         GraphElementData *data = new GraphElementData();
-        data->setProperty("-{Diamond[fill]}", ""); 
+        data->setAtom("uml-composition");
         data->setProperty("draw", "black");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Composition", data));
     }
+
+    // existing plugin injection code continues here...
+}
 
     // --- 2. INJECT UNIFIED PLUGINS ---
     QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
