@@ -40,7 +40,6 @@ NodeItem* UmlClassPlugin::createCustomNode(Node *node) const {
     }
     return nullptr;
 }
-    return nullptr; 
-}
+
 
 } // namespace mgb
