@@ -39,7 +39,6 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 // MGB-UML: STYLE INJECTOR (Hardcoded Edges + Dynamic Plugins)
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
-
 {
     if (_edgeStyles->style("Association") == nullptr) {
         GraphElementData *data = new GraphElementData();
@@ -78,18 +77,18 @@ void TikzStyles::injectHardcodedStyles()
 
     // --- 2. INJECT UNIFIED PLUGINS ---
     QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
-    for (const mgb::PluginElement& p : plugins) {
-        
+    for (const mgb::PluginElement &p : plugins) {
         GraphElementData *data = new GraphElementData();
         QMapIterator<QString, QString> i(p.properties);
+
         while (i.hasNext()) {
             i.next();
-            // SECRET EXCLUSION: Do not put raw LaTeX math into the visual UI property list
             if (i.key() == "tikz_libraries" || i.key() == "latex_preamble") {
-                continue; 
+                continue;
             }
             data->setProperty(i.key(), i.value());
         }
+
         data->setProperty("tikzit category", p.category);
 
         if (p.type == "edge") {
