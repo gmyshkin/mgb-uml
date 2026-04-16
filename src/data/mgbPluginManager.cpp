@@ -27,7 +27,7 @@ void PluginManager::loadPlugins() {
         return;
     }
 
-    // 1. Load JSON Plugins
+    // 1. Load Standalone JSON Plugins (If you still use them)
     QStringList jsonFilters; jsonFilters << "*.json";
     foreach (QFileInfo fileInfo, dir.entryInfoList(jsonFilters, QDir::Files)) {
         QFile file(fileInfo.absoluteFilePath());
@@ -54,12 +54,12 @@ void PluginManager::loadPlugins() {
         if (!plugin.name.isEmpty()) _plugins.append(plugin);
     }
 
-    // 2. Load Compiled C++ Plugins
+    // 2. Load Compiled C++ Plugins (With Baked-in JSON Metadata)
     QStringList binaryFilters; binaryFilters << "*.dll" << "*.so" << "*.dylib";
     foreach (QFileInfo fileInfo, dir.entryInfoList(binaryFilters, QDir::Files)) {
         QString dummyError;
         if (!loadCompiledPlugin(fileInfo.absoluteFilePath(), dummyError)) {
-
+            qDebug() << "Failed to load:" << fileInfo.fileName() << "-" << dummyError;
         }
     }
 
@@ -68,13 +68,29 @@ void PluginManager::loadPlugins() {
 
 bool PluginManager::loadCompiledPlugin(const QString &filePath, QString &errorMessage) {
     QPluginLoader loader(filePath);
+    
+    // =================================================================
+    // MGB-UML: LAZY METADATA "X-RAY" SCANNER
+    // Reads the baked-in JSON ID card without executing the heavy C++ code
+    // =================================================================
+    QJsonObject metaData = loader.metaData();
+    if (metaData.contains("MetaData")) {
+        QJsonObject customMeta = metaData.value("MetaData").toObject();
+        if (customMeta.contains("name")) {
+            QString humanName = customMeta.value("name").toString();
+            qDebug() << "PluginManager X-Ray Found:" << humanName;
+        }
+    }
+    // =================================================================
+
+    // Now safely load the actual C++ logic into memory
     QObject *pluginInstance = loader.instance();
     
     if (pluginInstance) {
         ElementPluginInterface *interface = qobject_cast<ElementPluginInterface*>(pluginInstance);
         if (interface) {
-            _interfaces.append(interface); // STORE THE C++ INTERFACE
-            _plugins.append(interface->getElements()); // STORE THE MENU DATA
+            _interfaces.append(interface); 
+            _plugins.append(interface->getElements()); 
             return true;
         } else {
             errorMessage = "File is a Qt Plugin, but does not match the MGB-UML Interface.";
@@ -83,7 +99,6 @@ bool PluginManager::loadCompiledPlugin(const QString &filePath, QString &errorMe
         }
     }
     
-    // --- THE SMOKING GUN ---
     errorMessage = loader.errorString();
     return false;
 }

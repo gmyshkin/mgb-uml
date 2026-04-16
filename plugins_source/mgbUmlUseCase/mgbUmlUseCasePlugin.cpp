@@ -18,6 +18,10 @@ QList<PluginElement> UmlUseCasePlugin::getElements() const {
     return elements;
 }
 
+QIcon UmlUseCasePlugin::pluginIcon() const {
+    return QIcon(":/icons/use_case_icon.png");
+}
+
 NodeItem* UmlUseCasePlugin::createCustomNode(Node *node) const {
     if (node->style()->shape() == "ellipse" || node->styleName() == "UML Use Case") {
         return new ::UseCaseNodeItem(node);

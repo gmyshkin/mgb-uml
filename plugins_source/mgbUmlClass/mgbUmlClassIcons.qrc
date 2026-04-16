@@ -1,0 +1,5 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file alias="icons/class_icon.png">class_icon.png</file>
+</qresource>
+</RCC>

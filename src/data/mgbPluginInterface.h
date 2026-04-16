@@ -22,6 +22,8 @@ public:
     // THE MAGIC: Let the C++ plugin return a custom drawing class!
     // If the plugin doesn't want to draw this specific node, it returns nullptr.
     virtual NodeItem* createCustomNode(Node *node) const = 0;
+
+    virtual QIcon pluginIcon() const = 0;
 };
 
 } // namespace mgb

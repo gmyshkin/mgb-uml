@@ -15,6 +15,10 @@ HEADERS += mgbUmlSystemPlugin.h \
 SOURCES += mgbUmlSystemPlugin.cpp \
            mgbUmlSystemItem.cpp
 
+RESOURCES += mgbUmlSystemIcons.qrc
+
+DISTFILES += mgbUmlSystem.json
+
 macx {
     QMAKE_LFLAGS += -undefined dynamic_lookup
 }

@@ -3,7 +3,9 @@
 #include <QFile>
 #include <QMimeData>
 #include <QDebug>
+#include <QIcon>
 #include "../data/mgbPluginManager.h"
+#include "../data/mgbPluginInterface.h"
 
 namespace mgb {
 
@@ -30,7 +32,7 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
     listWidget = new PaletteListWidget(this);
     
     listWidget->setViewMode(QListView::IconMode);
-    listWidget->setIconSize(QSize(48, 48));
+    listWidget->setIconSize(QSize(64, 64)); // Slightly larger icons look better in dynamic menus
     listWidget->setMovement(QListView::Static);
     listWidget->setResizeMode(QListView::Adjust);
     listWidget->setSpacing(10);
@@ -39,27 +41,33 @@ UmlPalette::UmlPalette(QWidget *parent) : QDockWidget("UML Elements", parent) {
     listWidget->setDragEnabled(true); 
     listWidget->setDropIndicatorShown(false);
 
-    // --- ADD USER PLUGINS (Both JSON and C++) ---
-    // The hardcoded elements have been completely removed.
-    // The Palette relies entirely on the Master Plugin List.
-    QList<PluginElement> plugins = PluginManager::instance().getLoadedPlugins();
-    for (const PluginElement& p : plugins) {
+    // =================================================================
+    // MGB-UML: DYNAMIC UI BUILDER
+    // Loops through all successfully loaded C++ plugins and extracts 
+    // their icon and name directly from the plugin interface.
+    // =================================================================
+    QList<ElementPluginInterface*> loadedPlugins = PluginManager::instance().getCompiledInterfaces();
+    
+    for (ElementPluginInterface* plugin : loadedPlugins) {
         
-        // The forgiving string check (ignores caps and spaces)
-        if (p.type.toLower().trimmed() == "node") {
-            QIcon pluginIcon;
-            
-            // Safe fallback icon check
-            if (!p.iconPath.isEmpty() && QFile::exists(p.iconPath)) {
-                pluginIcon = QIcon(p.iconPath);
-            } else {
-                pluginIcon = QIcon(":/images/tikzit-tool-node.svg"); 
-            }
-            
-            QListWidgetItem *item = new QListWidgetItem(pluginIcon, p.name);
-            item->setToolTip(p.tooltip);
-            listWidget->addItem(item);
-                    }
+        // Ask the plugin for the specific elements it provides
+        QList<PluginElement> elements = plugin->getElements();
+        if (elements.isEmpty()) continue;
+        
+        // Grab the actual element data (e.g., "UML Actor", "UML Class")
+        PluginElement elementData = elements.first();
+        QIcon pluginIcon = plugin->pluginIcon();
+        
+        // If the plugin forgot to provide an icon, provide a safe fallback
+        if (pluginIcon.isNull()) {
+            pluginIcon = QIcon(":/images/tikzit-tool-node.svg"); 
+        }
+        
+        // CRITICAL FIX: We MUST use elementData.name here! 
+        // If we use the Plugin Name, the canvas won't know what to draw.
+        QListWidgetItem *item = new QListWidgetItem(pluginIcon, elementData.name);
+        item->setToolTip(QString("Drag to add a %1").arg(elementData.name));
+        listWidget->addItem(item);
     }
 
     setWidget(listWidget);

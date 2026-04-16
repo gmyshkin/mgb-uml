@@ -18,6 +18,10 @@ QList<PluginElement> UmlClassPlugin::getElements() const {
     return elements;
 }
 
+QIcon UmlClassPlugin::pluginIcon() const {
+    return QIcon(":/icons/class_icon.png");
+}
+
 NodeItem* UmlClassPlugin::createCustomNode(Node *node) const {
     if (node->style()->shape() == "rectangle split" || node->styleName() == "UML Class") {
         return new ::ClassNodeItem(node);

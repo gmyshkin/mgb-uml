@@ -18,6 +18,10 @@ QList<PluginElement> UmlSystemPlugin::getElements() const {
     return elements;
 }
 
+QIcon UmlSystemPlugin::pluginIcon() const {
+    return QIcon(":/icons/system_icon.png");
+}
+
 NodeItem* UmlSystemPlugin::createCustomNode(Node *node) const {
     if (node->style()->shape() == "uml system" || node->styleName() == "UML System") {
         return new ::SystemNodeItem(node);

@@ -8,13 +8,14 @@
 namespace mgb {
 class UmlUseCasePlugin : public QObject, public ElementPluginInterface {
     Q_OBJECT
-    Q_PLUGIN_METADATA(IID ElementPluginInterface_iid)
+    Q_PLUGIN_METADATA(IID "com.mgb.Uml.ElementPluginInterface" FILE "mgbUmlUseCase.json")
     Q_INTERFACES(mgb::ElementPluginInterface)
 
 public:
     QString pluginName() const override;
     QList<PluginElement> getElements() const override;
     NodeItem* createCustomNode(Node *node) const override;
+    QIcon pluginIcon() const override;
 };
 }
 #endif

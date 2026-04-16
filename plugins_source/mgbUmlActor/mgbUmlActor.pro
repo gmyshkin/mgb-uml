@@ -15,6 +15,10 @@ HEADERS += mgbUmlActorPlugin.h \
 SOURCES += mgbUmlActorPlugin.cpp \
            mgbUmlActorItem.cpp
 
+RESOURCES += mgbUmlActorIcons.qrc
+
+DISTFILES += mgbUmlActor.json
+
 macx {
     QMAKE_LFLAGS += -undefined dynamic_lookup
 }

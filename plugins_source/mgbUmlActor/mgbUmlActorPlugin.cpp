@@ -18,6 +18,10 @@ QList<PluginElement> UmlActorPlugin::getElements() const {
     return elements;
 }
 
+QIcon UmlActorPlugin::pluginIcon() const {
+    return QIcon(":/icons/actor_icon.png");
+}
+
 NodeItem* UmlActorPlugin::createCustomNode(Node *node) const {
     if (node->style()->shape() == "uml actor" || node->styleName() == "UML Actor") {
         return new ::ActorNodeItem(node);

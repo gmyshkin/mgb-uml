@@ -26,6 +26,10 @@ HEADERS += mgbUmlClassPlugin.h \
 SOURCES += mgbUmlClassPlugin.cpp \
            mgbUmlClassItem.cpp
 
+RESOURCES += mgbUmlClassIcons.qrc
+
+DISTFILES += mgbUmlClass.json
+
 # --- MACOS FIX: Tell Apple to trust the main app to provide core symbols ---
 macx {
     QMAKE_LFLAGS += -undefined dynamic_lookup
