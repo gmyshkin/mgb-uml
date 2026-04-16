@@ -440,28 +440,7 @@ void Edge::updateControls()
     _headTangent = bezierTangent(1.0, 0.9);
 }
 
-_tail = anchorPointTowardForEdge(_source, outAngleR);
-_head = anchorPointTowardForEdge(_target, inAngleR);
 
-    // TODO: calculate head and tail properly, not just for circles
-QPointF tailDir(std::cos(outAngleR), std::sin(outAngleR));
-QPointF headDir(std::cos(inAngleR), std::sin(inAngleR));
-
-_tail = pointOnNodeBoundary(_source, outAngleR) + tailDir * tipPadding(_style->arrowTail());
-_head = pointOnNodeBoundary(_target, inAngleR) + headDir * tipPadding(_style->arrowHead());
-    // give a default distance for self-loops
-    _cpDist = (almostZero(dx) && almostZero(dy)) ? _weight : std::sqrt(dx*dx + dy*dy) * _weight;
-
-    _cp1 = QPointF(src.x() + (_cpDist * std::cos(outAngleR)),
-                   src.y() + (_cpDist * std::sin(outAngleR)));
-
-    _cp2 = QPointF(targ.x() + (_cpDist * std::cos(inAngleR)),
-                   targ.y() + (_cpDist * std::sin(inAngleR)));
-
-    _mid = bezierInterpolateFull (0.5, _tail, _cp1, _cp2, _head);
-    _tailTangent = bezierTangent(0.0, 0.1);
-    _headTangent = bezierTangent(1.0, 0.9);
-}
 
 void Edge::setAttributesFromData()
 {
