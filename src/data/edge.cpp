@@ -136,10 +136,12 @@ static QPointF anchorPointTowardForEdge(const Node *node, qreal angleR)
                    c.y() + std::sin(angleR) * 0.2);
 }
 
+
 static QPointF nodeHalfExtents(const Node *node)
+
 {
     QString shapeName = node->style()->shape();
-
+    QString styleName = node->styleName();
     if (shapeName == "rectangle split") {
         QString label = node->label();
         QString part1 = label, part2 = "", part3 = "";
@@ -190,11 +192,11 @@ static QPointF nodeHalfExtents(const Node *node)
         return QPointF(hw, hh);
     }
 
-    if (shapeName == "uml actor") {
-        return QPointF(0.22, 0.57);
-    }
+if (styleName == "UML Actor" || shapeName == "uml actor") {
+    return QPointF(0.22, 0.57);
+}
 
-    if (shapeName == "uml system") {
+if (styleName == "UML System" || shapeName == "uml system") {
         QString label = replaceTexConstants(node->label());
         QFont titleFont = Tikzit::LABEL_FONT;
         titleFont.setBold(true);
