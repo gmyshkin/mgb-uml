@@ -47,6 +47,93 @@ static int umlLengthToPixelsForEdge(QString raw, int fallbackPx)
 
     return fallbackPx;
 }
+static QSizeF rectangleHalfExtentsForEdge(const Node *node)
+{
+    QString widthProp = node->data()->property("minimum width");
+    if (widthProp.isEmpty() && node->style() && node->style()->data()) {
+        widthProp = node->style()->data()->property("minimum width");
+    }
+
+    QString heightProp = node->data()->property("minimum height");
+    if (heightProp.isEmpty() && node->style() && node->style()->data()) {
+        heightProp = node->style()->data()->property("minimum height");
+    }
+
+    int w = umlLengthToPixelsForEdge(widthProp, 120);
+    int h = umlLengthToPixelsForEdge(heightProp, 120);
+
+    // Make rectangle split match the class renderer better
+    if (node->style() && node->style()->shape() == "rectangle split") {
+        QString label = node->label();
+        QString part1 = label, part2 = "", part3 = "";
+
+        int idx2 = label.indexOf("\\nodepart{two}");
+        int idx3 = label.indexOf("\\nodepart{three}");
+
+        if (idx2 != -1) {
+            part1 = label.left(idx2).trimmed();
+            if (idx3 != -1) {
+                part2 = label.mid(idx2 + 14, idx3 - (idx2 + 14)).trimmed();
+                part3 = label.mid(idx3 + 16).trimmed();
+            } else {
+                part2 = label.mid(idx2 + 14).trimmed();
+            }
+        }
+
+        QString printPart1 = replaceTexConstants(part1).replace("\\\\", "\n").replace(" \\ ", "\n");
+        QString printPart2 = replaceTexConstants(part2).replace("\\\\", "\n").replace(" \\ ", "\n");
+        QString printPart3 = replaceTexConstants(part3).replace("\\\\", "\n").replace(" \\ ", "\n");
+
+        QFont bodyFont("Helvetica", 10);
+        QFont titleFont = bodyFont;
+        titleFont.setBold(true);
+
+        QFontMetrics fm(bodyFont);
+        QFontMetrics fmTitle(titleFont);
+
+        int padding = 10;
+
+        QRect b1 = fmTitle.boundingRect(QRect(0,0,1000,1000), Qt::AlignCenter, printPart1);
+        QRect b2 = fm.boundingRect(QRect(0,0,1000,1000), Qt::AlignLeft, printPart2);
+        QRect b3 = fm.boundingRect(QRect(0,0,1000,1000), Qt::AlignLeft, printPart3);
+
+        w = std::max(w, std::max({b1.width(), b2.width(), b3.width(), 60}) + padding * 2);
+        h = std::max(h, std::max(b1.height() + b2.height() + b3.height() + padding * 3, 40));
+    }
+
+    return QSizeF((w / 2.0) / GLOBAL_SCALEF, (h / 2.0) / GLOBAL_SCALEF);
+}
+
+static QPointF anchorPointTowardForEdge(const Node *node, qreal angleR)
+{
+    QPointF c = node->point();
+    QString shape = node->style() ? node->style()->shape() : "";
+
+    // Generic rule for rectangle-like shapes
+    if (shape == "rectangle" || shape == "rectangle split") {
+        QSizeF half = rectangleHalfExtentsForEdge(node);
+
+        qreal dx = std::cos(angleR);
+        qreal dy = std::sin(angleR);
+
+        qreal tx = std::numeric_limits<qreal>::infinity();
+        qreal ty = std::numeric_limits<qreal>::infinity();
+
+        if (!almostZero(dx)) tx = half.width() / std::abs(dx);
+        if (!almostZero(dy)) ty = half.height() / std::abs(dy);
+
+        qreal t = std::min(tx, ty);
+        return QPointF(c.x() + dx * t, c.y() + dy * t);
+    }
+
+    // Fallback for everything else
+    if (node->style() && node->style()->isNone()) {
+        return c;
+    }
+
+    return QPointF(c.x() + std::cos(angleR) * 0.2,
+                   c.y() + std::sin(angleR) * 0.2);
+}
 
 static QPointF nodeHalfExtents(const Node *node)
 {
@@ -324,20 +411,10 @@ void Edge::updateControls() {
 
     qreal outAngleR = 0.0;
     qreal inAngleR = 0.0;
+	
 
-    if (_basicBendMode) {
-        qreal angle = std::atan2(dy, dx);
-        qreal bnd = static_cast<qreal>(_bend) * (M_PI / 180.0);
-        outAngleR = angle - bnd;
-        inAngleR = M_PI + angle + bnd;
-
-        // keep _inAngle and _outAngle snapped to increments of 15 degrees
-        _outAngle = static_cast<int>(roundToNearest(15.0, outAngleR * (180.0 / M_PI)));
-        _inAngle = static_cast<int>(roundToNearest(15.0, inAngleR * (180.0 / M_PI)));
-    } else {
-        outAngleR = static_cast<qreal>(_outAngle) * (M_PI / 180.0);
-        inAngleR = static_cast<qreal>(_inAngle) * (M_PI / 180.0);
-    }
+_tail = anchorPointTowardForEdge(_source, outAngleR);
+_head = anchorPointTowardForEdge(_target, inAngleR);
 
     // TODO: calculate head and tail properly, not just for circles
 QPointF tailDir(std::cos(outAngleR), std::sin(outAngleR));
