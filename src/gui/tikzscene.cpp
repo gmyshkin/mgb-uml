@@ -680,8 +680,7 @@ void TikzScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
         break;
     case ToolPalette::VERTEX:
-    case ToolPalette::UML_USE_CASE:
-    case ToolPalette::UML_CLASS:
+
         break;
     case ToolPalette::EDGE:
         if (_drawEdgeItem->isVisible()) {
@@ -791,29 +790,7 @@ void TikzScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
             _tikzDocument->undoStack()->push(cmd);
         }
         break;
-    case ToolPalette::UML_USE_CASE:
-    case ToolPalette::UML_CLASS:
-        {
-            QPointF gridPos(round(mousePos.x()/GRID_SEP)*GRID_SEP, round(mousePos.y()/GRID_SEP)*GRID_SEP);
-            Node *n = new Node(_tikzDocument);
-            n->setName(graph()->freshNodeName());
-            n->setPoint(fromScreen(gridPos));
-            
-            if (_tools->currentTool() == ToolPalette::UML_USE_CASE) {
-                n->setStyleName("UML Use Case");
-                n->setLabel("Use Case");
-            } else {
-                n->setStyleName("UML Class");
-                n->setLabel("Class \\nodepart{two}  \\nodepart{three} "); // Mostly empty default
-            }
 
-            QRectF grow(gridPos.x() - GLOBAL_SCALEF, gridPos.y() - GLOBAL_SCALEF, 2 * GLOBAL_SCALEF, 2 * GLOBAL_SCALEF);
-            QRectF newBounds = sceneRect().united(grow);
-
-            AddNodeCommand *cmd = new AddNodeCommand(this, n, newBounds);
-            _tikzDocument->undoStack()->push(cmd);
-        }
-        break;
     case ToolPalette::EDGE:
         if (_edgeStartNodeItem != nullptr && _edgeEndNodeItem != nullptr) {
             Edge *e = new Edge(_edgeStartNodeItem->node(), _edgeEndNodeItem->node(), _tikzDocument);
@@ -914,6 +891,7 @@ void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 
 void TikzScene::keyReleaseEvent(QKeyEvent *event)
 {
+    Q_UNUSED(event);
     if (!_enabled) return;
 
     Qt::KeyboardModifiers mod = QApplication::queryKeyboardModifiers();
