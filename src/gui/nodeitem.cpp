@@ -32,6 +32,86 @@
 #include <QFontMetrics>
 #include <QPainterPathStroker>
 
+//read width/height from node properties
+namespace {
+
+static int umlLengthToPixels(QString raw, int fallbackPx)
+{
+    raw = raw.trimmed();
+    if (raw.isEmpty()) return fallbackPx;
+
+    bool ok = false;
+
+    if (raw.endsWith("cm")) {
+        raw.chop(2);
+        double cm = raw.toDouble(&ok);
+        if (ok) return static_cast<int>(cm * GLOBAL_SCALEF);
+    }
+
+    if (raw.endsWith("pt")) {
+        raw.chop(2);
+        double pt = raw.toDouble(&ok);
+        if (ok) return static_cast<int>(pt * 1.3333);
+    }
+
+    double plain = raw.toDouble(&ok);
+    if (ok) return static_cast<int>(plain);
+
+    return fallbackPx;
+}
+static QPainterPath rectanglePathFromProperties(
+    const Node *node,
+    const QTransform &transform,
+    int fallbackW,
+    int fallbackH,
+    bool fitLabel = false,
+    bool boldLabel = false)
+{
+    QString widthProp = node->data()->property("minimum width");
+    if (widthProp.isEmpty()) {
+        widthProp = node->style()->data()->property("minimum width");
+    }
+
+    QString heightProp = node->data()->property("minimum height");
+    if (heightProp.isEmpty()) {
+        heightProp = node->style()->data()->property("minimum height");
+    }
+
+    int minW = umlLengthToPixels(widthProp, fallbackW);
+    int minH = umlLengthToPixels(heightProp, fallbackH);
+
+    int w = minW;
+    int h = minH;
+
+    if (fitLabel) {
+        QString label = replaceTexConstants(node->label());
+        QFont font = Tikzit::LABEL_FONT;
+        font.setBold(boldLabel);
+        QFontMetrics fm(font);
+        QRect b = fm.boundingRect(label);
+
+        w = std::max(w, b.width() + 40);
+        h = std::max(h, b.height() + 40);
+    }
+
+    qreal sw = (w / 2.0) / GLOBAL_SCALEF;
+    qreal sh = (h / 2.0) / GLOBAL_SCALEF;
+
+    QVector<QPointF> points({
+        QPointF(-sw, -sh),
+        QPointF(-sw,  sh),
+        QPointF( sw,  sh),
+        QPointF( sw, -sh)
+    });
+
+    QPainterPath path;
+    path.addPolygon(transform.map(QPolygonF(points)));
+    path.closeSubpath();
+    return path;
+}
+
+}
+
 // =================================================================
 // THE FACTORY MANAGER
 // =================================================================
@@ -181,11 +261,9 @@ QPainterPath NodeItem::shape() const
     QTransform transform;
     transform.scale(GLOBAL_SCALEF, GLOBAL_SCALEF).rotate(rotate);
 
-    if (_node->style()->shape() == "rectangle") {
-        QVector<QPointF> points ({ QPointF(-0.2, -0.2), QPointF(-0.2,  0.2), QPointF( 0.2,  0.2), QPointF( 0.2, -0.2) });
-        path.addPolygon(transform.map(QPolygonF(points)));
-        path.closeSubpath();
-    } else if (_node->style()->shape() == "triangle") {
+if (_node->style()->shape() == "rectangle") {
+    path = rectanglePathFromProperties(_node, transform, 120, 120, false, false);
+} else if (_node->style()->shape() == "triangle") {
         QVector<QPointF> points ({ QPointF(-0.2,  0.2), QPointF( 0.0, -0.1464), QPointF( 0.2,  0.2) });
         path.addPolygon(transform.map(QPolygonF(points)));
         path.closeSubpath();
