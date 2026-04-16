@@ -19,6 +19,10 @@ QList<PluginElement> UmlClassPlugin::getElements() const {
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "white");
     e.properties.insert("align", "left");
+    e.properties.insert("default_label",
+    "Class \\nodepart{two} + attr \\nodepart{three} + method()");
+    e.properties.insert("minimum width", "3cm");
+    e.properties.insert("minimum height", "2cm");
     
     // Guarantee that LaTeX includes the multipart library
     e.properties.insert("tikz_libraries", "shapes.multipart");
