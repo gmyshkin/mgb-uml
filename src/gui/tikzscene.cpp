@@ -44,6 +44,7 @@
 #include <QDialogButtonBox>
 #include <QFormLayout>
 #include <QDoubleSpinBox>
+#include <QMimeData>
 
 
 TikzScene::TikzScene(TikzDocument *tikzDocument, ToolPalette *tools,
@@ -845,22 +846,72 @@ void TikzScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 }
 void TikzScene::dragEnterEvent(QGraphicsSceneDragDropEvent *event)
 {
-    event->acceptProposedAction();
+    if (event->mimeData() &&
+        event->mimeData()->hasFormat("application/x-mgb-style-name")) {
+        event->acceptProposedAction();
+        return;
+    }
+
     QGraphicsScene::dragEnterEvent(event);
 }
 
 void TikzScene::dragMoveEvent(QGraphicsSceneDragDropEvent *event)
 {
-    event->acceptProposedAction();
+    if (event->mimeData() &&
+        event->mimeData()->hasFormat("application/x-mgb-style-name")) {
+        event->acceptProposedAction();
+        return;
+    }
+
     QGraphicsScene::dragMoveEvent(event);
 }
 
 void TikzScene::dropEvent(QGraphicsSceneDragDropEvent *event)
 {
+    if (!(event->mimeData() &&
+          event->mimeData()->hasFormat("application/x-mgb-style-name"))) {
+        QGraphicsScene::dropEvent(event);
+        return;
+    }
+
+    QString styleName = QString::fromUtf8(
+        event->mimeData()->data("application/x-mgb-style-name"));
+
+    QString defaultLabel = QString::fromUtf8(
+        event->mimeData()->data("application/x-mgb-default-label"));
+
+    // generic style lookup: no hard-coded UML name checks
+    Style *style = tikzit->styles()->nodeStyles()->style(styleName);
+    if (!style) {
+        QGraphicsScene::dropEvent(event);
+        return;
+    }
+
+    QPointF mousePos = event->scenePos();
+    QPointF gridPos(round(mousePos.x() / GRID_SEP) * GRID_SEP,
+                    round(mousePos.y() / GRID_SEP) * GRID_SEP);
+
+    Node *n = new Node(_tikzDocument);
+    n->setName(graph()->freshNodeName());
+    n->setPoint(fromScreen(gridPos));
+    n->setStyleName(styleName);
+
+    if (!defaultLabel.isEmpty()) {
+        n->setLabel(defaultLabel);
+    }
+
+    QRectF grow(gridPos.x() - GLOBAL_SCALEF,
+                gridPos.y() - GLOBAL_SCALEF,
+                2 * GLOBAL_SCALEF,
+                2 * GLOBAL_SCALEF);
+
+    QRectF newBounds = sceneRect().united(grow);
+
+    AddNodeCommand *cmd = new AddNodeCommand(this, n, newBounds);
+    _tikzDocument->undoStack()->push(cmd);
+
     event->acceptProposedAction();
-    QGraphicsScene::dropEvent(event);
-}
-void TikzScene::keyReleaseEvent(QKeyEvent *event)
+}e::keyReleaseEvent(QKeyEvent *event)
 {
     if (!_enabled) return;
 
