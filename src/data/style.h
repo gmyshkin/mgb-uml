@@ -33,9 +33,14 @@ class MGB_API Style : public QObject
 {
     Q_OBJECT
 public:
-    enum ArrowTipStyle {
-        Flat, Pointer, NoTip, Diamond, FilledDiamond
-    };
+enum ArrowTipStyle {
+    Flat,
+    Pointer,
+    OpenTriangle,
+    NoTip,
+    Diamond,
+    FilledDiamond
+};
 
     enum DrawStyle {
         Solid, Dotted, Dashed
