@@ -439,7 +439,7 @@ void Edge::updateControls()
 
     _mid = bezierInterpolateFull(0.5, _tail, _cp1, _cp2, _head);
     _tailTangent = bezierTangent(0.0, 0.1);
-    _headTangent = bezierTangent(1.0, 0.9);
+    _headTangent = bezierTangent(0.9, 1.0);
 }
 
 
