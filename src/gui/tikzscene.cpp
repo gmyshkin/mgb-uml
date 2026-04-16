@@ -22,9 +22,11 @@
 #include "undocommands.h"
 #include "tikzassembler.h"
 
+
 #include <QPen>
 #include <QBrush>
 #include <QDebug>
+#include <QMimeData>
 #include <QClipboard>
 #include <QInputDialog>
 #include <QMessageBox>
