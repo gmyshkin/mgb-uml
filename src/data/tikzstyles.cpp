@@ -83,10 +83,10 @@ void TikzStyles::refreshModels(QStandardItemModel *nodeModel,
                                QString category,
                                bool includeNone)
 {
-    Q_UNUSED(nodeModel);
-    Q_UNUSED(edgeModel);
-    Q_UNUSED(category);
-    Q_UNUSED(includeNone);
+    (void)nodeModel;
+    (void)edgeModel;
+    (void)category;
+    (void)includeNone;
     // Handled in stylelist.cpp
 }
 
