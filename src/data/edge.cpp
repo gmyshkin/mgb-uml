@@ -426,8 +426,8 @@ void Edge::updateControls()
     QPointF tailDir(std::cos(outAngleR), std::sin(outAngleR));
     QPointF headDir(std::cos(inAngleR), std::sin(inAngleR));
 
-    _tail = pointOnNodeBoundary(_source, outAngleR) + tailDir * tipPadding(_style->arrowTail());
-    _head = pointOnNodeBoundary(_target, inAngleR) + headDir * tipPadding(_style->arrowHead());
+_tail = pointOnNodeBoundary(_source, outAngleR) - tailDir * tipPadding(_style->arrowTail());
+_head = pointOnNodeBoundary(_target, inAngleR) - headDir * tipPadding(_style->arrowHead());
 
     _cpDist = (almostZero(dx) && almostZero(dy)) ? _weight : std::sqrt(dx * dx + dy * dy) * _weight;
 
