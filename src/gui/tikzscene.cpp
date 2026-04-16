@@ -33,6 +33,9 @@
 #include <cmath>
 #include <delimitedstringvalidator.h>
 #include <QSettings>
+#include <QFormLayout>
+#include <QDoubleSpinBox>
+
 
 // --- MGB-UML: Includes for Custom Editor Dialog & Drag/Drop ---
 #include <QDialog>
@@ -1071,7 +1074,79 @@ void TikzScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
                 break; // Skip the generic editor below
             }
             // =========================================================
+                        else if (ni->node()->style()->name() == "UML System") {
+                auto cmValue = [](QString raw, double fallback) -> double {
+                    raw = raw.trimmed();
+                    if (raw.endsWith("cm")) raw.chop(2);
+                    bool ok = false;
+                    double v = raw.toDouble(&ok);
+                    return ok ? v : fallback;
+                };
 
+                QString widthProp = ni->node()->data()->property("minimum width");
+                if (widthProp.isEmpty()) {
+                    widthProp = ni->node()->style()->data()->property("minimum width");
+                }
+
+                QString heightProp = ni->node()->data()->property("minimum height");
+                if (heightProp.isEmpty()) {
+                    heightProp = ni->node()->style()->data()->property("minimum height");
+                }
+
+                QDialog dlg(views()[0]);
+                dlg.setWindowTitle("Edit UML System");
+                dlg.setMinimumWidth(300);
+
+                QVBoxLayout *layout = new QVBoxLayout(&dlg);
+                QFormLayout *form = new QFormLayout();
+
+                QLineEdit *nameEdit = new QLineEdit(ni->node()->label());
+
+                QDoubleSpinBox *widthEdit = new QDoubleSpinBox();
+                widthEdit->setRange(1.0, 30.0);
+                widthEdit->setDecimals(1);
+                widthEdit->setSingleStep(0.5);
+                widthEdit->setSuffix(" cm");
+                widthEdit->setValue(cmValue(widthProp, 6.0));
+
+                QDoubleSpinBox *heightEdit = new QDoubleSpinBox();
+                heightEdit->setRange(1.0, 30.0);
+                heightEdit->setDecimals(1);
+                heightEdit->setSingleStep(0.5);
+                heightEdit->setSuffix(" cm");
+                heightEdit->setValue(cmValue(heightProp, 4.0));
+
+                form->addRow("System name:", nameEdit);
+                form->addRow("Width:", widthEdit);
+                form->addRow("Height:", heightEdit);
+                layout->addLayout(form);
+
+                QDialogButtonBox *btn = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+                layout->addWidget(btn);
+                connect(btn, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+                connect(btn, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+
+                if (dlg.exec() == QDialog::Accepted) {
+                    ni->node()->setLabel(nameEdit->text().trimmed());
+
+                    ni->node()->data()->setProperty(
+                        "minimum width",
+                        QString::number(widthEdit->value(), 'f', 1) + "cm"
+                    );
+
+                    ni->node()->data()->setProperty(
+                        "minimum height",
+                        QString::number(heightEdit->value(), 'f', 1) + "cm"
+                    );
+
+                    ni->updateBounds();
+                    refreshSceneBounds();
+                    _tikzDocument->refreshTikz();
+                    invalidate();
+                }
+
+                break;
+            }
             QInputDialog *d = new QInputDialog(views()[0]);
             d->setLabelText(tr("Label:"));
             d->setTextValue(ni->node()->label());
