@@ -96,8 +96,13 @@ bool Style::isEdgeStyle() const
 {
     if (_data->atom("-")  || _data->atom("->") || _data->atom("-|") ||
         _data->atom("<-") || _data->atom("<->") || _data->atom("<-|") ||
-        _data->atom("|-") || _data->atom("|->") || _data->atom("|-|")) return true;
-    else return false;
+        _data->atom("|-") || _data->atom("|->") || _data->atom("|-|") ||
+        _data->atom("uml-generalization") ||
+        _data->atom("uml-aggregation") ||
+        _data->atom("uml-composition")) {
+        return true;
+    }
+    return false;
 }
 
 
