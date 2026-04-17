@@ -104,10 +104,11 @@ if (!_edge->path() || _edge->path()->edges().last() == _edge) {
             painter->drawPath(pth);
             break;
         }
-	case Style::OpenTriangle:
+case Style::OpenTriangle:
 {
-    QPointF tip = _edge->head() + hBack;
-    QPointF baseCenter = _edge->head();
+    QPointF tip = _edge->head();
+    QPointF baseCenter = _edge->head() + hBack;
+
     QPolygonF tri({
         toScreen(tip),
         toScreen(baseCenter + hLeft),
