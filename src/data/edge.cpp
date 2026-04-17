@@ -217,7 +217,10 @@ if (styleName == "UML System" || shapeName == "uml system") {
         return QPointF((w / 2.0) / GLOBAL_SCALEF, (h / 2.0) / GLOBAL_SCALEF);
     }
 
-    if (shapeName == "rectangle") return QPointF(0.2, 0.2);
+    if (shapeName == "rectangle") {
+    QSizeF half = rectangleHalfExtentsForEdge(node);
+    return QPointF(half.width(), half.height());
+}
     if (shapeName == "triangle") return QPointF(0.2, 0.2);
 
     return QPointF(0.2, 0.2);
