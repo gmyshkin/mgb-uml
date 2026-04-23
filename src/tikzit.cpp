@@ -39,7 +39,7 @@
 Tikzit *tikzit;
 
 // font to use for node labels
-QFont Tikzit::LABEL_FONT("Courrier", 9);
+QFont Tikzit::LABEL_FONT("Helvetica", 10);
 
 Tikzit::Tikzit() : _styleFile("[no styles]"), _activeWindow(nullptr)
 {
@@ -70,7 +70,15 @@ void Tikzit::init()
     _styleFile = "";
     _styleFilePath = "";
     QString styleFile = settings.value("previous-tikzstyles-file").toString();
-    if (!styleFile.isEmpty()) loadStyles(styleFile);
+    if (!styleFile.isEmpty()) {
+        QFileInfo fi(styleFile);
+        if (!fi.exists()) {
+            // File doesn't exist, clear the setting silently
+            settings.remove("previous-tikzstyles-file");
+        } else {
+            loadStyles(styleFile, true); // Load silently on startup
+        }
+    }
 
     QVariant check = settings.value("check-for-updates");
     if (check.isNull()) {
@@ -87,7 +95,14 @@ void Tikzit::init()
     setCheckForUpdates(check.toBool());
 
     if (check.toBool()) {
-        checkForUpdates(false);
+        // Only do automatic check if this is not the first time checking
+        QVariant hasCheckedBefore = settings.value("has-checked-for-updates");
+        if (hasCheckedBefore.toBool()) {
+            checkForUpdates(false);
+        } else {
+            // Mark that we've checked at least once
+            settings.setValue("has-checked-for-updates", true);
+        }
     }
 
     _preview = new PreviewWindow();
@@ -290,7 +305,7 @@ void Tikzit::openTikzStyles() {
     }
 }
 
-bool Tikzit::loadStyles(QString fileName)
+bool Tikzit::loadStyles(QString fileName, bool silent)
 {
     QFileInfo fi(fileName);
     if (fi.exists()) {
@@ -306,16 +321,19 @@ bool Tikzit::loadStyles(QString fileName)
             }
             return true;
         } else {
-            QMessageBox::warning(nullptr,
-                "Bad style file.",
-                "Bad style file: '" + fileName + "'. Check the file is properly formatted and try to load it again.");
+            if (!silent) {
+                QMessageBox::warning(nullptr,
+                    "Bad style file.",
+                    "Bad style file: '" + fileName + "'. Check the file is properly formatted and try to load it again.");
+            }
             return false;
         }
 
     } else {
-        //settings.setValue("previous-tikzstyles-file", "");
-        QMessageBox::warning(nullptr,
-            "Style file not found.", "Could not open style file: '" + fileName + "'.");
+        if (!silent) {
+            QMessageBox::warning(nullptr,
+                "Style file not found.", "Could not open style file: '" + fileName + "'.");
+        }
         return false;
     }
 }
@@ -595,5 +613,4 @@ void Tikzit::quit()
     //_stylePalette->close();
     QApplication::quit();
 }
-
 

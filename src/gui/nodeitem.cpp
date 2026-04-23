@@ -211,13 +211,6 @@ void NodeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     if (drawLabel) {
         QRectF rect = labelRect();
-        QPen pen(QColor(200,0,0,120));
-        QVector<qreal> d; d << 2.0 << 2.0;
-        pen.setDashPattern(d);
-        painter->setPen(pen);
-        painter->setBrush(QBrush(QColor(255,255,100,120)));
-        painter->drawRect(rect);
-
         painter->setPen(QPen(Qt::black));
         painter->setFont(Tikzit::LABEL_FONT);
         painter->drawText(rect, Qt::AlignCenter, replaceTexConstants(_node->label()));
@@ -232,12 +225,6 @@ void NodeItem::paintSelectionAndOuterLabels(QPainter *painter)
         QString label = replaceTexConstants(_node->data()->property("label"));
         label.replace(QRegularExpression("^[^:]*:"), "");
         QRectF rect = outerLabelRect();
-        QPen pen(QColor(0,0,200,120));
-        QVector<qreal> d; d << 2.0 << 2.0;
-        pen.setDashPattern(d);
-        painter->setPen(pen);
-        painter->setBrush(QBrush(QColor(100,255,255,120)));
-        painter->drawRect(rect);
         painter->setPen(QPen(Qt::black));
         painter->setFont(Tikzit::LABEL_FONT);
         painter->drawText(rect, Qt::AlignCenter, label);

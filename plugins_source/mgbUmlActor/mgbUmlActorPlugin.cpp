@@ -18,6 +18,8 @@ QList<PluginElement> UmlActorPlugin::getElements() const {
     e.properties.insert("shape", "uml_actor");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "none");
+    e.properties.insert("font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
+    e.properties.insert("line width", "0.6pt");
     
     // The Trojan Horse: Teaching LaTeX
     e.properties.insert("tikz_libraries", "arrows.meta");

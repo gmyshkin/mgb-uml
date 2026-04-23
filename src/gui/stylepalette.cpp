@@ -34,18 +34,19 @@ StylePalette::StylePalette(QWidget *parent) :
     ui(new Ui::StylePalette)
 {
     ui->setupUi(this);
-    ui->styleFile->hide();
+    //ui->styleFile->hide();
 ui->currentCategory->hide();
 ui->styleListView->hide();
 
 // remove the top button row completely so it doesn't leave empty space
+/*
 while (QLayoutItem *item = ui->horizontalLayout_2->takeAt(0)) {
     if (QWidget *w = item->widget()) {
         w->hide();
     }
     delete item;
 }
-
+*/
 // optional: make the remaining list fill the dock better
 ui->verticalLayout->setContentsMargins(4, 4, 4, 4);
 ui->verticalLayout->setSpacing(4);

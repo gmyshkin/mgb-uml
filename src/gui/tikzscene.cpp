@@ -124,7 +124,7 @@ void TikzScene::graphReplaced()
     }
 
     foreach (Node *n, graph()->nodes()) {
-        NodeItem *ni = new NodeItem(n);
+        NodeItem *ni = NodeItem::createNode(n);
         _nodeItems.insert(n, ni);
         addItem(ni);
     }

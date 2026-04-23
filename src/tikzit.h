@@ -127,7 +127,7 @@ public:
 
     void newTikzStyles();
     void openTikzStyles();
-    bool loadStyles(QString fileName);
+    bool loadStyles(QString fileName, bool silent = false);
     void showStyleEditor();
     TikzStyles *styles() const;
     QString styleFile() const;

@@ -25,7 +25,6 @@
 #include <QDebug>
 #include <algorithm>
 
-
 Graph::Graph(QObject *parent) : QObject(parent)
 {
     _data = new GraphElementData(this);
@@ -203,17 +202,18 @@ QString Graph::tikz()
     QTextStream code(&str);
     int line = 0;
 
-    code << "\\begin{tikzpicture}";
+    code << "\\begin{tikzpicture}[baseline=-0.25em,scale=0.5";
     if (!_data->isEmpty()) {
         QString dataStr = _data->tikz();
-        code << "[" << dataStr.mid(1, dataStr.length() - 2) << "]";
+        code << "," << dataStr.mid(1, dataStr.length() - 2);
     }
-    code << "\n";
+    code << "]\n";
+    line++;
     if (hasBbox()) {
         code << "\t\\path [use as bounding box] ("
-             << floatToString(_bbox.topLeft().x()) << "," << floatToString(_bbox.topLeft().y())
+             << _bbox.topLeft().x() << "," << _bbox.topLeft().y()
              << ") rectangle ("
-             << floatToString(_bbox.bottomRight().x()) << "," << floatToString(_bbox.bottomRight().y())
+             << _bbox.bottomRight().x() << "," << _bbox.bottomRight().y()
              << ");\n";
         line++;
     }

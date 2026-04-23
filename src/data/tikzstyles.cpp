@@ -25,6 +25,30 @@
 #include <QFile>
 #include <QFileInfo>
 #include <QCoreApplication>
+#include <QStringList>
+
+namespace {
+
+QString sanitizeStyleSource(const QString &styleTikz)
+{
+    QStringList styleLines;
+    const QStringList lines = styleTikz.split('\n');
+
+    for (const QString &line : lines) {
+        const QString trimmed = line.trimmed();
+        if (trimmed.startsWith("\\tikzstyle")) {
+            styleLines << trimmed;
+        }
+    }
+
+    if (!styleLines.isEmpty()) {
+        return styleLines.join("\n") + "\n";
+    }
+
+    return styleTikz;
+}
+
+}
 
 TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 {
@@ -44,6 +68,7 @@ void TikzStyles::injectHardcodedStyles()
         GraphElementData *data = new GraphElementData();
         data->setAtom("->");
         data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Association", data));
     }
@@ -52,6 +77,7 @@ void TikzStyles::injectHardcodedStyles()
         GraphElementData *data = new GraphElementData();
         data->setAtom("uml-generalization");
         data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Generalization", data));
     }
@@ -60,6 +86,7 @@ void TikzStyles::injectHardcodedStyles()
         GraphElementData *data = new GraphElementData();
         data->setAtom("uml-aggregation");
         data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Aggregation", data));
     }
@@ -68,6 +95,7 @@ void TikzStyles::injectHardcodedStyles()
         GraphElementData *data = new GraphElementData();
         data->setAtom("uml-composition");
         data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
         _edgeStyles->addStyle(new Style("Composition", data));
     }
@@ -123,53 +151,21 @@ bool TikzStyles::loadStyles(QString fileName)
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream in(&file);
-        QString styleTikz = in.readAll();
+        QString styleTikz = sanitizeStyleSource(in.readAll());
         file.close();
-
-        QString cleanTikz;
-        QTextStream stream(&styleTikz);
-        QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
-
-        while (!stream.atEnd()) {
-            QString line = stream.readLine();
-            
-            if (line.startsWith("\\usetikzlibrary") || 
-                line.startsWith("\\pgfkeys") || 
-                line.startsWith("\\pgfdeclarelayer") || 
-                line.startsWith("\\pgfsetlayers") ||
-                line.startsWith("%") ) { 
-                continue; 
-            }
-            
-            // Auto-Heal: Protect Hardcoded Edge Styles
-            if (line.startsWith("\\tikzstyle{Association}=") || 
-                line.startsWith("\\tikzstyle{Generalization}=") ||
-                line.startsWith("\\tikzstyle{Aggregation}=") ||
-                line.startsWith("\\tikzstyle{Composition}=")) {
-                continue; 
-            }
-
-            // Auto-Heal: Dynamically protect loaded Plugins
-            bool isPluginStyle = false;
-            for (const mgb::PluginElement& p : plugins) {
-                if (line.startsWith("\\tikzstyle{" + p.name + "}=")) {
-                    isPluginStyle = true;
-                    break;
-                }
-            }
-            if (isPluginStyle) continue;
-
-            cleanTikz += line + "\n";
-        }
 
         clear();
         TikzAssembler ass(this);
-        bool success = ass.parse(cleanTikz); 
+        bool success = ass.parse(styleTikz);
         
-        injectHardcodedStyles();
-        saveStyles(fileName);
-        
-        return success;
+        if (success) {
+            injectHardcodedStyles();
+            // Don't save - just load what's there
+            return true;
+        } else {
+            injectHardcodedStyles();
+            return false;
+        }
     } else {
         injectHardcodedStyles();
         return false;
@@ -281,6 +277,9 @@ QString TikzStyles::tikz() const
     // --------------------------------------------------------
 
     code << "% Ignore UI-specific keys\n";
+    code << "\\pgfkeys{/tikz/tikzit fill/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit draw/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit shape/.initial=}\n";
     code << "\\pgfkeys{/tikz/tikzit category/.initial=}\n\n";
 
     code << "% Layer definitions\n";

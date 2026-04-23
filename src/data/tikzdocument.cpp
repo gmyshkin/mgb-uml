@@ -84,6 +84,12 @@ void TikzDocument::open(QString fileName)
     _tikz = in.readAll();
     file.close();
 
+    // Load the associated .tikzstyles file
+    QString stylesFile = fi.absolutePath() + "/" + fi.baseName() + ".tikzstyles";
+    if (QFile(stylesFile).exists()) {
+        tikzit->loadStyles(stylesFile, true);
+    }
+
     Graph *oldGraph = _graph;
     Graph *newGraph = new Graph(this);
     TikzAssembler ass(newGraph);
