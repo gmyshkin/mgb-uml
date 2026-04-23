@@ -17,8 +17,8 @@ QList<PluginElement> UmlSystemPlugin::getElements() const {
     e.properties.insert("shape", "uml system");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "white");
-    e.properties.insert("minimum width", "2cm");
-    e.properties.insert("minimum height", "2cm");
+    e.properties.insert("minimum width", "4cm");
+    e.properties.insert("minimum height", "6cm");
     e.properties.insert("font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
     e.properties.insert("line width", "0.6pt");
 
