@@ -5,7 +5,7 @@
 #include <QFontMetrics>
 #include <algorithm>
 
-#define GLOBAL_SCALEF 50.0
+static constexpr qreal UML_SCALEF = 40.0;
 const QFont MGB_LABEL_FONT("Helvetica", 10);
 
 // Helper function to convert width/height properties to pixels
@@ -17,7 +17,7 @@ static int umlLengthToPixels(QString raw, int fallbackPx) {
     if (raw.endsWith("cm")) {
         raw.chop(2);
         double cm = raw.toDouble(&ok);
-        if (ok) return static_cast<int>(cm * GLOBAL_SCALEF);
+        if (ok) return static_cast<int>(cm * UML_SCALEF);
     }
     if (raw.endsWith("pt")) {
         raw.chop(2);
@@ -59,8 +59,8 @@ QPainterPath SystemNodeItem::shape() const {
     int w = std::max(b.width() + 40, minW);
     int h = std::max(b.height() + 40, minH);
 
-    qreal sw = (w / 2.0) / GLOBAL_SCALEF;
-    qreal sh = (h / 2.0) / GLOBAL_SCALEF;
+    qreal sw = (w / 2.0) / UML_SCALEF;
+    qreal sh = (h / 2.0) / UML_SCALEF;
 
     QVector<QPointF> points ({
         QPointF(-sw, -sh),
@@ -71,7 +71,7 @@ QPainterPath SystemNodeItem::shape() const {
 
     double rotate = _node->data()->property("rotate").toDouble();
     QTransform transform;
-    transform.scale(GLOBAL_SCALEF, GLOBAL_SCALEF).rotate(rotate);
+    transform.scale(UML_SCALEF, UML_SCALEF).rotate(rotate);
 
     path.addPolygon(transform.map(QPolygonF(points)));
     path.closeSubpath();

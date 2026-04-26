@@ -192,7 +192,7 @@ static QPointF nodeHalfExtents(const Node *node)
         return QPointF(hw, hh);
     }
 
-if (styleName == "UML Actor" || shapeName == "uml actor") {
+if (styleName == "UML Actor" || shapeName == "uml actor" || shapeName == "uml_actor") {
     return QPointF(0.22, 0.57);
 }
 

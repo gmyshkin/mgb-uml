@@ -18,8 +18,11 @@ QList<PluginElement> UmlActorPlugin::getElements() const {
     e.properties.insert("shape", "uml_actor");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "none");
+    e.properties.insert("align", "center");
     e.properties.insert("font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
     e.properties.insert("line width", "0.6pt");
+    e.properties.insert("inner sep", "0pt");
+    e.properties.insert("outer sep", "0pt");
     
     // The Trojan Horse: Teaching LaTeX
     e.properties.insert("tikz_libraries", "arrows.meta");
@@ -27,7 +30,7 @@ QList<PluginElement> UmlActorPlugin::getElements() const {
         "\\pgfdeclareshape{uml_actor}{\n"
         "  \\savedanchor\\centerpoint{\\pgfpointorigin}\n"
         "  \\anchor{center}{\\centerpoint}\n"
-        "  \\anchor{text}{\\pgfpoint{-1.5cm}{-1.2cm}}\n" // NEW: Anchors text below the feet
+        "  \\anchor{text}{\\pgfpoint{0cm}{-1.25cm}}\n"
         "  \\backgroundpath{\n"
         "    \\pgfpathcircle{\\pgfpoint{0cm}{0.5cm}}{0.2cm}\n"
         "    \\pgfpathmoveto{\\pgfpoint{0cm}{0.3cm}}\n"
@@ -49,7 +52,9 @@ QIcon UmlActorPlugin::pluginIcon() const {
 }
 
 NodeItem* UmlActorPlugin::createCustomNode(Node *node) const {
-    if (node->style()->shape() == "uml actor" || node->styleName() == "UML Actor") {
+    if (node->style()->shape() == "uml actor" ||
+        node->style()->shape() == "uml_actor" ||
+        node->styleName() == "UML Actor") {
         return new ::ActorNodeItem(node);
     }
     return nullptr; 

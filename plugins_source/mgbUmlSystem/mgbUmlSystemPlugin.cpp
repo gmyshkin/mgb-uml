@@ -19,8 +19,11 @@ QList<PluginElement> UmlSystemPlugin::getElements() const {
     e.properties.insert("fill", "white");
     e.properties.insert("minimum width", "4cm");
     e.properties.insert("minimum height", "6cm");
-    e.properties.insert("font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
+    e.properties.insert("align", "left");
+    e.properties.insert("font", "\\bfseries\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
     e.properties.insert("line width", "0.6pt");
+    e.properties.insert("inner sep", "0pt");
+    e.properties.insert("outer sep", "0pt");
 
     e.properties.insert("tikz_libraries", "");
     e.properties.insert("latex_preamble",
@@ -40,8 +43,8 @@ QList<PluginElement> UmlSystemPlugin::getElements() const {
         "  \\inheritbackgroundpath[from=rectangle]\n"
         "  \\anchor{text}{\n"
         "    \\pgf@process{\\northwest}\n"
-        "    \\advance\\pgf@x by 10pt\n"
-        "    \\advance\\pgf@y by -16pt\n"
+        "    \\advance\\pgf@x by 0.25cm\n"
+        "    \\advance\\pgf@y by -0.15cm\n"
         "  }\n"
         "}\n"
         "\\makeatother");
@@ -54,7 +57,9 @@ QIcon UmlSystemPlugin::pluginIcon() const {
 }
 
 NodeItem* UmlSystemPlugin::createCustomNode(Node *node) const {
-    if (node->style()->shape() == "rectangle" || node->styleName() == "UML System") {
+    if (node->style()->shape() == "rectangle" ||
+        node->style()->shape() == "uml system" ||
+        node->styleName() == "UML System") {
         return new ::SystemNodeItem(node);
     }
     return nullptr; 

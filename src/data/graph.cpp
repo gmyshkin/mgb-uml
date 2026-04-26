@@ -25,6 +25,125 @@
 #include <QDebug>
 #include <algorithm>
 
+namespace {
+
+QString nodePropertyWithStyleDefault(Node *node, const QString &key, const QString &fallback)
+{
+    QString value = node->data()->property(key);
+    if (value.isEmpty() && node->style() && node->style()->data()) {
+        value = node->style()->data()->property(key);
+    }
+    return value.isEmpty() ? fallback : value;
+}
+
+QString nodeDrawOptions(Node *node, const QString &shape, const QString &fallbackWidth, const QString &fallbackHeight)
+{
+    QStringList options;
+    options << "draw=" + nodePropertyWithStyleDefault(node, "draw", "black");
+    options << "fill=" + nodePropertyWithStyleDefault(node, "fill", "white");
+    options << "line width=" + nodePropertyWithStyleDefault(node, "line width", "0.6pt");
+    options << "minimum width=" + nodePropertyWithStyleDefault(node, "minimum width", fallbackWidth);
+    options << "minimum height=" + nodePropertyWithStyleDefault(node, "minimum height", fallbackHeight);
+    options << "inner sep=0pt";
+    options << "outer sep=0pt";
+    options << "shape=" + shape;
+    return "[" + options.join(", ") + "]";
+}
+
+QString nodeFontOption(Node *node, const QString &fallback)
+{
+    return "font={" + nodePropertyWithStyleDefault(node, "font", fallback) + "}";
+}
+
+QStringList umlClassParts(const QString &label)
+{
+    QStringList parts;
+    QString part1 = label;
+    QString part2;
+    QString part3;
+
+    int idx2 = label.indexOf("\\nodepart{two}");
+    int idx3 = label.indexOf("\\nodepart{three}");
+
+    if (idx2 != -1) {
+        part1 = label.left(idx2).trimmed();
+        if (idx3 != -1) {
+            part2 = label.mid(idx2 + 14, idx3 - (idx2 + 14)).trimmed();
+            part3 = label.mid(idx3 + 16).trimmed();
+        } else {
+            part2 = label.mid(idx2 + 14).trimmed();
+        }
+    }
+
+    parts << part1 << part2 << part3;
+    return parts;
+}
+
+void writeUmlSystemNode(QTextStream &code, Node *node)
+{
+    code << "\t\t\\node " << nodeDrawOptions(node, "rectangle", "4cm", "6cm")
+         << " (" << node->name() << ") at ("
+         << floatToString(node->point().x()) << ", "
+         << floatToString(node->point().y()) << ") {};\n";
+
+    code << "\t\t\\node [anchor=north west, align=left, inner sep=0pt, outer sep=0pt, "
+         << nodeFontOption(node, "\\bfseries\\sffamily\\fontsize{10pt}{12pt}\\selectfont")
+         << "] at ([xshift=0.25cm,yshift=-0.15cm]" << node->name() << ".north west) {"
+         << node->label() << "};\n";
+}
+
+void writeUmlClassNode(QTextStream &code, Node *node)
+{
+    QStringList parts = umlClassParts(node->label());
+    QString stroke = nodePropertyWithStyleDefault(node, "draw", "black");
+    QString lineWidth = nodePropertyWithStyleDefault(node, "line width", "0.6pt");
+    QString font = nodePropertyWithStyleDefault(node, "font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
+
+    code << "\t\t\\node " << nodeDrawOptions(node, "rectangle", "3cm", "2cm")
+         << " (" << node->name() << ") at ("
+         << floatToString(node->point().x()) << ", "
+         << floatToString(node->point().y()) << ") {};\n";
+
+    code << "\t\t\\draw [draw=" << stroke << ", line width=" << lineWidth << "] "
+         << "([yshift=-0.60cm]" << node->name() << ".north west) -- "
+         << "([yshift=-0.60cm]" << node->name() << ".north east);\n";
+
+    code << "\t\t\\draw [draw=" << stroke << ", line width=" << lineWidth << "] "
+         << "([yshift=-1.10cm]" << node->name() << ".north west) -- "
+         << "([yshift=-1.10cm]" << node->name() << ".north east);\n";
+
+    code << "\t\t\\node [anchor=north, align=center, inner sep=0pt, outer sep=0pt, "
+         << "font={\\bfseries" << font << "}] at ([yshift=-0.18cm]" << node->name()
+         << ".north) {" << parts.value(0) << "};\n";
+
+    code << "\t\t\\node [anchor=north west, align=left, inner sep=0pt, outer sep=0pt, "
+         << "font={" << font << "}] at ([xshift=0.12cm,yshift=-0.72cm]" << node->name()
+         << ".north west) {" << parts.value(1) << "};\n";
+
+    code << "\t\t\\node [anchor=north west, align=left, inner sep=0pt, outer sep=0pt, "
+         << "font={" << font << "}] at ([xshift=0.12cm,yshift=-1.22cm]" << node->name()
+         << ".north west) {" << parts.value(2) << "};\n";
+}
+
+int writeCustomUmlNode(QTextStream &code, Node *node)
+{
+    if (!node->style()) return 0;
+
+    if (node->styleName() == "UML System" || node->style()->shape() == "uml system") {
+        writeUmlSystemNode(code, node);
+        return 2;
+    }
+
+    if (node->styleName() == "UML Class") {
+        writeUmlClassNode(code, node);
+        return 6;
+    }
+
+    return 0;
+}
+
+}
+
 
 Graph::Graph(QObject *parent) : QObject(parent)
 {
@@ -226,6 +345,12 @@ QString Graph::tikz()
     Node *n;
     foreach (n, _nodes) {
         n->setTikzLine(line);
+        int customLines = writeCustomUmlNode(code, n);
+        if (customLines > 0) {
+            line += customLines;
+            continue;
+        }
+
         code << "\t\t\\node ";
 
         if (!n->data()->isEmpty())

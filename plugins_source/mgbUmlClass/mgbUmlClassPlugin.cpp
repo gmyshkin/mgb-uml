@@ -21,6 +21,9 @@ QList<PluginElement> UmlClassPlugin::getElements() const {
     e.properties.insert("align", "left");
     e.properties.insert("font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
     e.properties.insert("line width", "0.6pt");
+    e.properties.insert("inner sep", "0pt");
+    e.properties.insert("outer sep", "0pt");
+    e.properties.insert("rectangle split part align", "{center,left,left}");
     e.properties.insert("default_label",
     "Class \\nodepart{two} + attr \\nodepart{three} + method()");
     e.properties.insert("minimum width", "3cm");

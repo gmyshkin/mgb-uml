@@ -48,6 +48,30 @@ QString sanitizeStyleSource(const QString &styleTikz)
     return styleTikz;
 }
 
+void applyProtectedStyle(StyleList *list, const QString &name, GraphElementData *defaults)
+{
+    Style *existing = list->style(name);
+    if (existing == nullptr) {
+        list->addStyle(new Style(name, defaults));
+        return;
+    }
+
+    GraphElementData *target = existing->data();
+    const QVector<GraphElementProperty> currentProps = target->properties();
+    for (const GraphElementProperty &prop : currentProps) {
+        if (prop.atom()) target->unsetAtom(prop.key());
+        else target->unsetProperty(prop.key());
+    }
+
+    const QVector<GraphElementProperty> defaultProps = defaults->properties();
+    for (const GraphElementProperty &prop : defaultProps) {
+        if (prop.atom()) target->setAtom(prop.key());
+        else target->setProperty(prop.key(), prop.value());
+    }
+
+    delete defaults;
+}
+
 }
 
 TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
@@ -64,40 +88,40 @@ TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 // =================================================================
 void TikzStyles::injectHardcodedStyles()
 {
-     if (_edgeStyles->style("Association") == nullptr) {
+     {
         GraphElementData *data = new GraphElementData();
         data->setAtom("->");
         data->setProperty("draw", "black");
         data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
-        _edgeStyles->addStyle(new Style("Association", data));
+        applyProtectedStyle(_edgeStyles, "Association", data);
     }
 
-    if (_edgeStyles->style("Generalization") == nullptr) {
+    {
         GraphElementData *data = new GraphElementData();
         data->setAtom("uml-generalization");
         data->setProperty("draw", "black");
         data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
-        _edgeStyles->addStyle(new Style("Generalization", data));
+        applyProtectedStyle(_edgeStyles, "Generalization", data);
     }
 
-    if (_edgeStyles->style("Aggregation") == nullptr) {
+    {
         GraphElementData *data = new GraphElementData();
         data->setAtom("uml-aggregation");
         data->setProperty("draw", "black");
         data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
-        _edgeStyles->addStyle(new Style("Aggregation", data));
+        applyProtectedStyle(_edgeStyles, "Aggregation", data);
     }
 
-    if (_edgeStyles->style("Composition") == nullptr) {
+    {
         GraphElementData *data = new GraphElementData();
         data->setAtom("uml-composition");
         data->setProperty("draw", "black");
         data->setProperty("line width", "0.6pt");
         data->setProperty("tikzit category", "UML Edges");
-        _edgeStyles->addStyle(new Style("Composition", data));
+        applyProtectedStyle(_edgeStyles, "Composition", data);
     }
 
     QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
@@ -116,13 +140,9 @@ void TikzStyles::injectHardcodedStyles()
         data->setProperty("tikzit category", p.category);
 
         if (p.type == "edge") {
-            if (_edgeStyles->style(p.name) == nullptr) {
-                _edgeStyles->addStyle(new Style(p.name, data));
-            }
+            applyProtectedStyle(_edgeStyles, p.name, data);
         } else {
-            if (_nodeStyles->style(p.name) == nullptr) {
-                _nodeStyles->addStyle(new Style(p.name, data));
-            }
+            applyProtectedStyle(_nodeStyles, p.name, data);
         }
     }
 }
@@ -160,7 +180,9 @@ bool TikzStyles::loadStyles(QString fileName)
         
         if (success) {
             injectHardcodedStyles();
-            // Don't save - just load what's there
+            // Persist the canonicalized style file so external LaTeX compilers
+            // see the same plugin-backed styles the app is rendering with.
+            saveStyles(fileName);
             return true;
         } else {
             injectHardcodedStyles();
@@ -269,6 +291,10 @@ QString TikzStyles::tikz() const
 
     code << "% Required TikZ Libraries\n";
     code << "\\usetikzlibrary{" << libraries.join(", ") << "}\n\n";
+    code << "% Match app font metrics more closely in external LaTeX compilers\n";
+    code << "\\IfFileExists{helvet.sty}{\\usepackage[scaled=1.0]{helvet}}{}\n";
+    code << "% Match the app's default visible canvas scale more closely\n";
+    code << "\\tikzset{every picture/.style={baseline=-0.25em,scale=1,transform shape}}\n\n";
 
     if (!customPreambles.isEmpty()) {
         code << "% Custom Plugin Shapes & Preambles\n";

@@ -4,14 +4,14 @@
 #include <QFont>
 #include <QFontMetrics>
 
-#define GLOBAL_SCALEF 50.0
+static constexpr qreal UML_SCALEF = 40.0;
 const QFont MGB_LABEL_FONT("Helvetica", 10);
 
 QRectF ActorNodeItem::labelRect() const {
     QString label = replaceTexConstants(_node->label());
     QFontMetrics fm(MGB_LABEL_FONT);
     QRectF rect = fm.boundingRect(label);
-    rect.moveCenter(QPointF(0, GLOBAL_SCALEF * 0.95));
+    rect.moveCenter(QPointF(0, UML_SCALEF * 0.95));
     return rect.adjusted(-4, -2, 4, 2);
 }
 
@@ -32,7 +32,7 @@ QPainterPath ActorNodeItem::shape() const {
 
     double rotate = _node->data()->property("rotate").toDouble();
     QTransform transform;
-    transform.scale(GLOBAL_SCALEF, GLOBAL_SCALEF).rotate(rotate);
+    transform.scale(UML_SCALEF, UML_SCALEF).rotate(rotate);
     
     path = transform.map(actorPath);
     return path;
