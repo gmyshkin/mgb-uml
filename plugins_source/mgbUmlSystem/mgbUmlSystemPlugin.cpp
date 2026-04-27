@@ -1,4 +1,36 @@
 #include "mgbUmlSystemPlugin.h"
+#include "../../src/data/node.h"
+#include "../../src/data/style.h"
+#include "../../src/util.h"
+
+#include <QTextStream>
+
+namespace {
+
+QString propertyWithStyleDefault(Node *node, const QString &key, const QString &fallback)
+{
+    QString value = node->data()->property(key);
+    if (value.isEmpty() && node->style() && node->style()->data()) {
+        value = node->style()->data()->property(key);
+    }
+    return value.isEmpty() ? fallback : value;
+}
+
+QString nodeDrawOptions(Node *node)
+{
+    QStringList options;
+    options << "draw=" + propertyWithStyleDefault(node, "draw", "black");
+    options << "fill=" + propertyWithStyleDefault(node, "fill", "white");
+    options << "line width=" + propertyWithStyleDefault(node, "line width", "0.6pt");
+    options << "minimum width=" + propertyWithStyleDefault(node, "minimum width", "4cm");
+    options << "minimum height=" + propertyWithStyleDefault(node, "minimum height", "6cm");
+    options << "inner sep=0pt";
+    options << "outer sep=0pt";
+    options << "shape=rectangle";
+    return "[" + options.join(", ") + "]";
+}
+
+}
 
 namespace mgb {
 
@@ -63,6 +95,26 @@ NodeItem* UmlSystemPlugin::createCustomNode(Node *node) const {
         return new ::SystemNodeItem(node);
     }
     return nullptr; 
+}
+
+bool UmlSystemPlugin::writeTikzNode(QTextStream &code, Node *node, int *emittedLines) const {
+    if (!(node->styleName() == "UML System" || node->style()->shape() == "uml system")) {
+        if (emittedLines) *emittedLines = 0;
+        return false;
+    }
+
+    QString x = floatToString(node->point().x());
+    QString y = floatToString(node->point().y());
+    QString font = propertyWithStyleDefault(node, "font", "\\bfseries\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
+
+    code << "\t\t\\node " << nodeDrawOptions(node)
+         << " (" << node->name() << ") at (" << x << ", " << y << ") {};\n";
+    code << "\t\t\\node [anchor=north west, align=left, inner sep=0pt, outer sep=0pt, font={"
+         << font << "}] at ([xshift=0.25cm,yshift=-0.15cm]" << node->name()
+         << ".north west) {" << node->label() << "};\n";
+
+    if (emittedLines) *emittedLines = 2;
+    return true;
 }
 
 } // namespace mgb

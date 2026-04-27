@@ -6,6 +6,7 @@
 
 class Node;
 class NodeItem;
+class QTextStream;
 
 namespace mgb {
 
@@ -22,6 +23,14 @@ public:
     // THE MAGIC: Let the C++ plugin return a custom drawing class!
     // If the plugin doesn't want to draw this specific node, it returns nullptr.
     virtual NodeItem* createCustomNode(Node *node) const = 0;
+
+    // Let plugins emit TikZ that matches their custom Qt drawing. Return true
+    // when the plugin handled the node; emittedLines should include every line
+    // written so source line tracking remains useful.
+    virtual bool writeTikzNode(QTextStream &, Node *, int *emittedLines) const {
+        if (emittedLines) *emittedLines = 0;
+        return false;
+    }
 
     virtual QIcon pluginIcon() const = 0;
 };

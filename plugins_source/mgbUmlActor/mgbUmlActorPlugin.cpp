@@ -1,4 +1,22 @@
 #include "mgbUmlActorPlugin.h"
+#include "../../src/data/node.h"
+#include "../../src/data/style.h"
+#include "../../src/util.h"
+
+#include <QTextStream>
+
+namespace {
+
+QString propertyWithStyleDefault(Node *node, const QString &key, const QString &fallback)
+{
+    QString value = node->data()->property(key);
+    if (value.isEmpty() && node->style() && node->style()->data()) {
+        value = node->style()->data()->property(key);
+    }
+    return value.isEmpty() ? fallback : value;
+}
+
+}
 
 namespace mgb {
 
@@ -58,6 +76,38 @@ NodeItem* UmlActorPlugin::createCustomNode(Node *node) const {
         return new ::ActorNodeItem(node);
     }
     return nullptr; 
+}
+
+bool UmlActorPlugin::writeTikzNode(QTextStream &code, Node *node, int *emittedLines) const {
+    if (!(node->styleName() == "UML Actor" || node->style()->shape() == "uml_actor")) {
+        if (emittedLines) *emittedLines = 0;
+        return false;
+    }
+
+    QString x = floatToString(node->point().x());
+    QString y = floatToString(node->point().y());
+    QString stroke = propertyWithStyleDefault(node, "draw", "black");
+    QString lineWidth = propertyWithStyleDefault(node, "line width", "0.6pt");
+    QString font = propertyWithStyleDefault(node, "font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
+    QString draw = "draw=" + stroke + ", line width=" + lineWidth;
+
+    code << "\t\t\\coordinate (" << node->name() << ") at (" << x << ", " << y << ");\n";
+    code << "\t\t\\draw [" << draw << "] (" << node->name()
+         << ") ++(0,0.45) circle [radius=0.12cm];\n";
+    code << "\t\t\\draw [" << draw << "] (" << node->name()
+         << ") ++(0,0.33) -- ++(0,-0.53);\n";
+    code << "\t\t\\draw [" << draw << "] (" << node->name()
+         << ") ++(-0.22,0.05) -- ++(0.44,0);\n";
+    code << "\t\t\\draw [" << draw << "] (" << node->name()
+         << ") ++(0,-0.20) -- ++(-0.20,-0.35);\n";
+    code << "\t\t\\draw [" << draw << "] (" << node->name()
+         << ") ++(0,-0.20) -- ++(0.20,-0.35);\n";
+    code << "\t\t\\node [align=center, anchor=north, inner sep=0pt, outer sep=0pt, font={"
+         << font << "}] at ([yshift=-0.80cm]" << node->name() << ") {"
+         << node->label() << "};\n";
+
+    if (emittedLines) *emittedLines = 7;
+    return true;
 }
 
 } // namespace mgb
