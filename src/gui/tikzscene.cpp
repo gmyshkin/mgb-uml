@@ -446,15 +446,6 @@ void TikzScene::refreshZIndices()
 {
     qreal z = 0.0;
 
-    // 1. UML System at the very back
-    foreach (Node *n, graph()->nodes()) {
-        if (n->style() && n->style()->name() == "UML System") {
-            nodeItems()[n]->setZValue(z);
-            z += 1.0;
-        }
-    }
-
-    // 2. edges
     foreach (Edge *e, graph()->edges()) {
         if (e->path() && e == e->path()->edges().first()) {
             pathItems()[e->path()]->setZValue(z);
@@ -465,12 +456,9 @@ void TikzScene::refreshZIndices()
         z += 1.0;
     }
 
-    // 3. all other nodes on top
     foreach (Node *n, graph()->nodes()) {
-        if (!(n->style() && n->style()->name() == "UML System")) {
-            nodeItems()[n]->setZValue(z);
-            z += 1.0;
-        }
+        nodeItems()[n]->setZValue(z);
+        z += 1.0;
     }
 }
 
@@ -915,6 +903,16 @@ void TikzScene::keyPressEvent(QKeyEvent *event)
     Qt::KeyboardModifiers mod = QApplication::queryKeyboardModifiers();
 
     if (mod & Qt::ControlModifier) {
+        if (event->key() == Qt::Key_BracketRight) {
+            reorderSelection(true);
+            event->accept();
+            return;
+        } else if (event->key() == Qt::Key_BracketLeft) {
+            reorderSelection(false);
+            event->accept();
+            return;
+        }
+
         QSet<Node*> selNodes;
         QSet<Edge*> selEdges;
         getSelection(selNodes, selEdges);
