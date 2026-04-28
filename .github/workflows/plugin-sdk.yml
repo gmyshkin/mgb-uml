@@ -1,0 +1,57 @@
+name: Build Plugin SDK
+
+on:
+  workflow_dispatch:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  package-sdk:
+    name: Package SDK (${{ matrix.sdk_name }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            sdk_name: linux
+            archive: mgb-uml-plugin-sdk-linux.tar.gz
+          - os: windows-latest
+            sdk_name: windows
+            archive: mgb-uml-plugin-sdk-windows.zip
+          - os: macos-latest
+            sdk_name: macos
+            archive: mgb-uml-plugin-sdk-macos.tar.gz
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Package SDK
+        shell: bash
+        run: |
+          mkdir -p dist
+          python scripts/package_sdk.py \
+            --platform "${{ matrix.sdk_name }}" \
+            --output "dist/${{ matrix.archive }}"
+
+      - name: Upload SDK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.archive }}
+          path: dist/${{ matrix.archive }}
+          if-no-files-found: error
+
+      - name: Attach SDK to GitHub Release
+        if: github.event_name == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/${{ matrix.archive }}

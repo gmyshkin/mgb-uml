@@ -1,0 +1,6 @@
+{
+  "name": "Basic Node Plugin",
+  "version": "1.0",
+  "author": "MGB-UML SDK",
+  "description": "Minimal example plugin for third-party developers"
+}
