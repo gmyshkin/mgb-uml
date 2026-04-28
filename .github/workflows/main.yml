@@ -19,7 +19,18 @@ jobs:
     # --- FIX 1: Add ccache to dependencies ---
     - name: Install Qt and Tools
       run: |
-        sudo apt-get update
+          sudo apt-get update
+          sudo apt-get install -y equivs qt6-pdf-dev
+          equivs-control libqt6pdf6-dev
+          sed -i 's/^Package:.*/Package: libqt6pdf6-dev/' libqt6pdf6-dev
+          sed -i 's/^Description:.*/Description: compatibility alias for qt6-pdf-dev/' libqt6pdf6-dev
+          equivs-build libqt6pdf6-dev
+          sudo dpkg -i libqt6pdf6-dev_1.0_all.deb
+          equivs-control libqt6pdfwidgets6-dev
+          sed -i 's/^Package:.*/Package: libqt6pdfwidgets6-dev/' libqt6pdfwidgets6-dev
+          sed -i 's/^Description:.*/Description: compatibility alias for qt6-pdf-dev/' libqt6pdfwidgets6-dev
+          equivs-build libqt6pdfwidgets6-dev
+          sudo dpkg -i libqt6pdfwidgets6-dev_1.0_all.deb
         sudo apt-get install -y build-essential qt6-base-dev qt6-tools-dev-tools libqt6pdf6-dev libqt6pdfwidgets6-dev libqt6svg6-dev ccache
 
     # 1. Run Python Tests
