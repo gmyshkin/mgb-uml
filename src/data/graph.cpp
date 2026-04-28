@@ -18,12 +18,33 @@
 
 #include "graph.h"
 #include "util.h"
+#include "mgbPluginInterface.h"
+#include "mgbPluginManager.h"
 
 #include <QTextStream>
 #include <QSet>
 #include <QtAlgorithms>
 #include <QDebug>
 #include <algorithm>
+
+namespace {
+
+bool writePluginTikzNode(QTextStream &code, Node *node, int *emittedLines)
+{
+    QList<mgb::ElementPluginInterface*> plugins =
+        mgb::PluginManager::instance().getCompiledInterfaces();
+    foreach (mgb::ElementPluginInterface *plugin, plugins) {
+        if (plugin->writeTikzNode(code, node, emittedLines)) {
+            return true;
+        }
+    }
+
+    if (emittedLines) *emittedLines = 0;
+    return false;
+}
+
+}
+
 
 Graph::Graph(QObject *parent) : QObject(parent)
 {
@@ -202,13 +223,17 @@ QString Graph::tikz()
     QTextStream code(&str);
     int line = 0;
 
-    code << "\\begin{tikzpicture}" << _data->tikz() << "\n";
-    line++;
+    code << "\\begin{tikzpicture}";
+    if (!_data->isEmpty()) {
+        QString dataStr = _data->tikz();
+        code << "[" << dataStr.mid(1, dataStr.length() - 2) << "]";
+    }
+    code << "\n";
     if (hasBbox()) {
         code << "\t\\path [use as bounding box] ("
-             << _bbox.topLeft().x() << "," << _bbox.topLeft().y()
+             << floatToString(_bbox.topLeft().x()) << "," << floatToString(_bbox.topLeft().y())
              << ") rectangle ("
-             << _bbox.bottomRight().x() << "," << _bbox.bottomRight().y()
+             << floatToString(_bbox.bottomRight().x()) << "," << floatToString(_bbox.bottomRight().y())
              << ");\n";
         line++;
     }
@@ -221,6 +246,12 @@ QString Graph::tikz()
     Node *n;
     foreach (n, _nodes) {
         n->setTikzLine(line);
+        int customLines = 0;
+        if (writePluginTikzNode(code, n, &customLines)) {
+            line += customLines;
+            continue;
+        }
+
         code << "\t\t\\node ";
 
         if (!n->data()->isEmpty())
@@ -351,7 +382,6 @@ Graph *Graph::copyOfSubgraphWithNodes(QSet<Node *> nds)
 {
     Graph *g = new Graph();
     g->setData(_data->copy());
-    g->data()->setAtom("tikzfig");
     QMap<Node*,Node*> nodeTable;
     foreach (Node *n, nodes()) {
         if (nds.contains(n)) {

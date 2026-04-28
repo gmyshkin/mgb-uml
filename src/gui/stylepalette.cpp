@@ -34,6 +34,22 @@ StylePalette::StylePalette(QWidget *parent) :
     ui(new Ui::StylePalette)
 {
     ui->setupUi(this);
+    //ui->styleFile->hide();
+ui->currentCategory->hide();
+ui->styleListView->hide();
+
+// remove the top button row completely so it doesn't leave empty space
+/*
+while (QLayoutItem *item = ui->horizontalLayout_2->takeAt(0)) {
+    if (QWidget *w = item->widget()) {
+        w->hide();
+    }
+    delete item;
+}
+*/
+// optional: make the remaining list fill the dock better
+ui->verticalLayout->setContentsMargins(4, 4, 4, 4);
+ui->verticalLayout->setSpacing(4);
     QSettings settings("tikzit", "tikzit");
     bool ok;
     int space = settings.value("style-icon-spacing").toInt(&ok);
@@ -47,15 +63,18 @@ StylePalette::StylePalette(QWidget *parent) :
     ui->styleListView->setGridSize(QSize(space,space));
 
 
-    ui->edgeStyleListView->setModel(tikzit->styles()->edgeStyles());
-    ui->edgeStyleListView->setViewMode(QListView::IconMode);
-    ui->edgeStyleListView->setMovement(QListView::Static);
-    ui->edgeStyleListView->setGridSize(QSize(space,space));
+ui->edgeStyleListView->setModel(tikzit->styles()->edgeStyles());
+ui->edgeStyleListView->setViewMode(QListView::IconMode);
+ui->edgeStyleListView->setMovement(QListView::Static);
+ui->edgeStyleListView->setResizeMode(QListView::Adjust);
+ui->edgeStyleListView->setWordWrap(true);
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
+ui->edgeStyleListView->setGridSize(QSize(120, 80));
 
     reloadStyles();
 
     connect(ui->styleListView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT( nodeStyleDoubleClicked(const QModelIndex&)) );
-	connect(ui->edgeStyleListView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(edgeStyleDoubleClicked(const QModelIndex&)));
+    connect(ui->edgeStyleListView, SIGNAL(doubleClicked(const QModelIndex &)), this, SLOT(edgeStyleDoubleClicked(const QModelIndex&)));
 }
 
 StylePalette::~StylePalette()
@@ -74,11 +93,11 @@ void StylePalette::reloadStyles()
     QString cat = ui->currentCategory->currentText();
     ui->currentCategory->clear();
 
-	// TODO: styleFile() should return invalid string if no style file loaded
+    // TODO: styleFile() should return invalid string if no style file loaded
     if (f != "[no styles]") {
-		ui->currentCategory->addItems(tikzit->styles()->categories());
-		ui->currentCategory->setCurrentText(cat);
-	}
+        ui->currentCategory->addItems(tikzit->styles()->categories());
+        ui->currentCategory->setCurrentText(cat);
+    }
 
     clearNodeStyle();
     clearEdgeStyle();
@@ -183,13 +202,13 @@ QString StylePalette::activeNodeStyleName()
 
 QString StylePalette::activeEdgeStyleName()
 {
-	const QModelIndexList i = ui->edgeStyleListView->selectionModel()->selectedIndexes();
+    const QModelIndexList i = ui->edgeStyleListView->selectionModel()->selectedIndexes();
 
-	if (i.isEmpty()) {
-		return "none";
-	} else {
-		return i[0].data().toString();
-	}
+    if (i.isEmpty()) {
+        return "none";
+    } else {
+        return tikzit->styles()->edgeStyles()->styleInCategory(i[0].row())->name();
+    }
 }
 
 void StylePalette::nodeStyleDoubleClicked(const QModelIndex &)
@@ -232,16 +251,20 @@ void StylePalette::on_buttonRefreshTikzstyles_clicked()
 
 void StylePalette::on_currentCategory_currentTextChanged(const QString &cat)
 {
-    //tikzit->styles()->refreshModels(_nodeModel, _edgeModel, cat);
-    tikzit->styles()->nodeStyles()->setCategory(cat);
+    // ==============================================================
+    // MGB-UML: UI FILTER INTERCEPTOR
+    // Convert the visual "All" tab back into the backend's universal 
+    // empty string "" so the filter knows to show everything!
+    // ==============================================================
+    QString backendCat = cat;
+    if (cat == "All") {
+        backendCat = ""; 
+    }
+
+    tikzit->styles()->nodeStyles()->setCategory(backendCat);
+    tikzit->styles()->edgeStyles()->setCategory(backendCat);
     clearNodeStyle();
 }
-
-//void StylePalette::on_buttonApplyNodeStyle_clicked()
-//{
-//    if (tikzit->activeWindow() != 0) tikzit->activeWindow()->tikzScene()->applyActiveStyleToNodes();
-//}
-
 
 void StylePalette::resizeEvent(QResizeEvent *event)
 {
@@ -250,6 +273,7 @@ void StylePalette::resizeEvent(QResizeEvent *event)
     bool ok;
     int space = settings.value("style-icon-spacing").toInt(&ok);
     if (!ok) space = 48;
-    ui->styleListView->setGridSize(QSize(space,space));
-    ui->edgeStyleListView->setGridSize(QSize(space,space));
+ui->styleListView->setGridSize(QSize(space,space));
+ui->edgeStyleListView->setGridSize(QSize(160, 90));
+ui->edgeStyleListView->setTextElideMode(Qt::ElideNone);
 }

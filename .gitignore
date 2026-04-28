@@ -39,3 +39,4 @@ dist
 win32-deps
 .env
 
+latex_documentation/

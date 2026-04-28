@@ -16,6 +16,23 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v3
 
+    # --- FIX 1: Add ccache to dependencies ---
+    - name: Install Qt and Tools
+      run: |
+          sudo apt-get update
+          sudo apt-get install -y equivs qt6-pdf-dev
+          equivs-control libqt6pdf6-dev
+          sed -i 's/^Package:.*/Package: libqt6pdf6-dev/' libqt6pdf6-dev
+          sed -i 's/^Description:.*/Description: compatibility alias for qt6-pdf-dev/' libqt6pdf6-dev
+          equivs-build libqt6pdf6-dev
+          sudo dpkg -i libqt6pdf6-dev_1.0_all.deb
+          equivs-control libqt6pdfwidgets6-dev
+          sed -i 's/^Package:.*/Package: libqt6pdfwidgets6-dev/' libqt6pdfwidgets6-dev
+          sed -i 's/^Description:.*/Description: compatibility alias for qt6-pdf-dev/' libqt6pdfwidgets6-dev
+          equivs-build libqt6pdfwidgets6-dev
+          sudo dpkg -i libqt6pdfwidgets6-dev_1.0_all.deb
+        sudo apt-get install -y build-essential qt6-base-dev qt6-tools-dev-tools libqt6pdf6-dev libqt6pdfwidgets6-dev libqt6svg6-dev ccache
+
     # 1. Run Python Tests
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -28,17 +45,16 @@ jobs:
     - name: Run Tests
       run: pytest tests/deployment/ --junitxml=test-results.xml
 
-    # 2. Compile LaTeX (To prove it works)
+    # 2. Compile LaTeX
     - name: Compile LaTeX Report
       uses: xu-cheng/latex-action@v2
       with:
         root_file: itManual.tex
         working_directory: latex_documentation/
-        # We keep 'continue on error' just in case, but try to fix the spaces!
         args: -pdf -file-line-error -interaction=nonstopmode -f
       continue-on-error: true
 
-    # 3. Upload Artifacts (So you can download the PDF from GitHub)
+    # 3. Upload Artifacts
     - name: Upload PDF
       uses: actions/upload-artifact@v4
       with:

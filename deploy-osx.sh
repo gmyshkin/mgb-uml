@@ -1,30 +1,24 @@
-# deploy the Mac app bundle. Note the bin/ directory
-# of Qt should be in your PATH
+#!/bin/bash
 
-# copy in libraries and set (most) library paths
-macdeployqt tikzit.app
+# Ensure we are in the project root
+if [ -d "build/mgb-uml.app" ]; then
+    mv build/mgb-uml.app .
+fi
 
-# macdeployqt doesn't fix the path to libpoppler for some reason, so we do it by hand
-cd tikzit.app/Contents/Frameworks
+if [ ! -d "mgb-uml.app" ]; then
+    echo "Error: mgb-uml.app not found in current directory."
+    exit 1
+fi
 
-# POPPLER_CPP=`ls libpoppler-cpp*`
-# POPPLER_PATH=`otool -L $POPPLER_CPP | sed -n 's!.*\(/usr.*\(libpoppler\..*dylib\)\).*!\1!p'`
-# POPPLER_LIB=`otool -L $POPPLER_CPP | sed -n 's!.*\(/usr.*\(libpoppler\..*dylib\)\).*!\2!p'`
+# --- NEW STEP: INJECT CUSTOM PLUGINS ---
+echo "Injecting MGB-UML Plugins into Mac Bundle..."
+mkdir -p mgb-uml.app/Contents/MacOS/plugins
+if [ -d "build/plugins" ]; then
+    cp build/plugins/* mgb-uml.app/Contents/MacOS/plugins/
+fi
 
-# echo "Found $POPPLER_CPP and $POPPLER_LIB"
+# Run the standard Mac deployment tool
+macdeployqt mgb-uml.app -dmg -verbose=1
 
-# if [ "$POPPLER_PATH" != "" ]; then
-#   echo "Replacing $POPPLER_PATH with relative path..."
-#   install_name_tool -id "@executable_path/../Frameworks/$POPPLER_LIB" $POPPLER_LIB
-#   install_name_tool -change $POPPLER_PATH "@executable_path/../Frameworks/$POPPLER_LIB" $POPPLER_CPP
-# else
-#   echo "Poppler already has relative path, so nothing to do."
-# fi
-
-
-cd ../../..
-
-# create DMG
-hdiutil create -volname TikZiT -srcfolder tikzit.app -ov -format UDZO tikzit.dmg
-
-
+# Rename the DMG so the upload step finds it easily
+mv mgb-uml.dmg mgb-uml-macos.dmg

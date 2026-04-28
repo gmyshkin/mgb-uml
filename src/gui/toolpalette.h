@@ -37,7 +37,7 @@ public:
         SELECT,
         VERTEX,
         EDGE,
-        CROP
+        CROP,
     };
 
     Tool currentTool() const;

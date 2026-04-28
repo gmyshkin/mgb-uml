@@ -74,67 +74,115 @@ void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     if (!_edge->path()) painter->drawPath(path());
 
-	QPointF ht = _edge->headTangent();
-	QPointF hLeft(-ht.y(), ht.x());
-	QPointF hRight(ht.y(), -ht.x());
-	QPointF tt = _edge->tailTangent();
-	QPointF tLeft(-ht.y(), ht.x());
-	QPointF tRight(ht.y(), -ht.x());
+QPointF ht = _edge->headTangent();
+QPointF hBack = -ht;
+QPointF hLeft(-hBack.y(), hBack.x());
+QPointF hRight(hBack.y(), -hBack.x());
 
+QPointF tt = _edge->tailTangent();
+QPointF tLeft(-tt.y(), tt.x());
+QPointF tRight(tt.y(), -tt.x());
+	
 	pen.setStyle(Qt::SolidLine);
 	painter->setPen(pen);
 
-    if (!_edge->path() || _edge->path()->edges().last() == _edge) {
-        switch (_edge->style()->arrowHead()) {
-            case Style::Flat:
-            {
-                painter->drawLine(
-                    toScreen(_edge->head() + hLeft),
-                    toScreen(_edge->head() + hRight));
-                break;
-            }
-            case Style::Pointer:
-            {
-                QPainterPath pth;
-                pth.moveTo(toScreen(_edge->head() + ht + hLeft));
-                pth.lineTo(toScreen(_edge->head()));
-                pth.lineTo(toScreen(_edge->head() + ht + hRight));
-                painter->drawPath(pth);
-                break;
-            }
-        case Style::NoTip:
+if (!_edge->path() || _edge->path()->edges().last() == _edge) {
+    switch (_edge->style()->arrowHead()) {
+        case Style::Flat:
+        {
+            painter->drawLine(
+                toScreen(_edge->head() + hBack + hLeft),
+                toScreen(_edge->head() + hBack + hRight));
             break;
         }
-    }
+        case Style::Pointer:
+        {
+            QPainterPath pth;
+            pth.moveTo(toScreen(_edge->head() + hBack + hLeft));
+            pth.lineTo(toScreen(_edge->head()));
+            pth.lineTo(toScreen(_edge->head() + hBack + hRight));
+            painter->drawPath(pth);
+            break;
+        }
+case Style::OpenTriangle:
+{
+    QPointF tip = _edge->head();
+    QPointF baseCenter = _edge->head() + hBack;
 
+    QPolygonF tri({
+        toScreen(tip),
+        toScreen(baseCenter + hLeft),
+        toScreen(baseCenter + hRight)
+    });
+
+    painter->setBrush(Qt::white);
+    painter->drawPolygon(tri);
+    painter->setBrush(Qt::NoBrush);
+    break;
+}
+case Style::Diamond:
+{
+    QPolygonF diamond({
+        toScreen(_edge->head() + hBack),
+        toScreen(_edge->head() + hLeft),
+        toScreen(_edge->head() - hBack),
+        toScreen(_edge->head() + hRight)
+    });
+
+    painter->setBrush(Qt::white);
+    painter->drawPolygon(diamond);
+    painter->setBrush(Qt::NoBrush);
+    break;
+}
+case Style::FilledDiamond:
+{
+    QPolygonF diamond({
+        toScreen(_edge->head() + hBack),
+        toScreen(_edge->head() + hLeft),
+        toScreen(_edge->head() - hBack),
+        toScreen(_edge->head() + hRight)
+    });
+
+    painter->setBrush(Qt::black);
+    painter->drawPolygon(diamond);
+    painter->setBrush(Qt::NoBrush);
+    break;
+}
+        case Style::NoTip:
+            break;
+    }
+}
     //QPen outline = QPen(Qt::red);
     //painter->setPen(outline);
     //painter->drawPath(_expPath);
     //painter->setPen(pen);
 	
-    if (!_edge->path() || _edge->path()->edges().first() == _edge) {
-        switch (_edge->style()->arrowTail()) {
-            case Style::Flat:
-            {
-                painter->drawLine(
-                    toScreen(_edge->tail() + tLeft),
-                    toScreen(_edge->tail() + tRight));
-                break;
-            }
-            case Style::Pointer:
-            {
-                QPainterPath pth;
-                pth.moveTo(toScreen(_edge->tail() + tt + tLeft));
-                pth.lineTo(toScreen(_edge->tail()));
-                pth.lineTo(toScreen(_edge->tail() + tt + tRight));
-                painter->drawPath(pth);
-                break;
-            }
-            case Style::NoTip:
-                break;
+if (!_edge->path() || _edge->path()->edges().first() == _edge) {
+    switch (_edge->style()->arrowTail()) {
+        case Style::Flat:
+        {
+            painter->drawLine(
+                toScreen(_edge->tail() + tLeft),
+                toScreen(_edge->tail() + tRight));
+            break;
         }
+        case Style::Pointer:
+        {
+            QPainterPath pth;
+            pth.moveTo(toScreen(_edge->tail() + tt + tLeft));
+            pth.lineTo(toScreen(_edge->tail()));
+            pth.lineTo(toScreen(_edge->tail() + tt + tRight));
+            painter->drawPath(pth);
+            break;
+        }
+        case Style::OpenTriangle:
+        case Style::Diamond:
+        case Style::FilledDiamond:
+            break;
+        case Style::NoTip:
+            break;
     }
-
+}
     if (isSelected()) {
         QColor draw;
         QColor draw1;

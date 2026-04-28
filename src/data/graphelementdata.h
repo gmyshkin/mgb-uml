@@ -26,6 +26,7 @@
 #define GRAPHELEMENTDATA_H
 
 #include "graphelementproperty.h"
+#include "../mgb_api.h"
 
 #include <QAbstractItemModel>
 #include <QString>
@@ -33,7 +34,7 @@
 #include <QModelIndex>
 #include <QVector>
 
-class GraphElementData : public QAbstractItemModel
+class MGB_API GraphElementData : public QAbstractItemModel
 {
     Q_OBJECT
 public:

@@ -49,8 +49,6 @@
 #ifndef TIKZIT_H
 #define TIKZIT_H
 
-#define TIKZIT_VERSION "2.2"
-
 #include "mainwindow.h"
 #include "mainmenu.h"
 #include "ui_mainmenu.h"
@@ -129,7 +127,7 @@ public:
 
     void newTikzStyles();
     void openTikzStyles();
-    bool loadStyles(QString fileName);
+    bool loadStyles(QString fileName, bool silent = false);
     void showStyleEditor();
     TikzStyles *styles() const;
     QString styleFile() const;

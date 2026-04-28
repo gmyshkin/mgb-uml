@@ -37,34 +37,34 @@ ToolPalette::ToolPalette(QWidget *parent) :
 
     tools  = new QActionGroup(this);
 
-    // select = new QAction(QIcon(":/images/Inkscape_icons_edit_select_all.svg"), "Select");
-    // vertex = new QAction(QIcon(":/images/Inkscape_icons_draw_ellipse.svg"), "Add Vertex");
-    // edge   = new QAction(QIcon(":/images/Inkscape_icons_draw_path.svg"), "Add Edge");
-    // crop   = new QAction(QIcon(":/images/crop.svg"), "Bounding Box");
-
     select = new QAction("Select (s)", this);
     select->setIcon(QIcon(":/images/tikzit-tool-select.svg"));
+    
     vertex = new QAction("Add Vertex (v)", this);
     vertex->setIcon(QIcon(":/images/tikzit-tool-node.svg"));
+    
     edge   = new QAction("Add Edge (e)", this);
     edge->setIcon(QIcon(":/images/tikzit-tool-edge.svg"));
+
+
 
 
     tools->addAction(select);
     tools->addAction(vertex);
     tools->addAction(edge);
-    //tools->addAction(crop);
+
 
     select->setCheckable(true);
     vertex->setCheckable(true);
     edge->setCheckable(true);
-    //crop->setCheckable(true);
+
+    
     select->setChecked(true);
 
     addAction(select);
     addAction(vertex);
     addAction(edge);
-    //addAction(crop);
+    
 }
 
 ToolPalette::Tool ToolPalette::currentTool() const
@@ -73,6 +73,7 @@ ToolPalette::Tool ToolPalette::currentTool() const
     if (a == vertex) return VERTEX;
     else if (a == edge) return EDGE;
     else if (a == crop) return CROP;
+
     else return SELECT;
 }
 
@@ -91,6 +92,6 @@ void ToolPalette::setCurrentTool(ToolPalette::Tool tool)
     case CROP:
         /* crop->setChecked(true); */
         break;
+
     }
 }
-

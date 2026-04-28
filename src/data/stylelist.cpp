@@ -80,7 +80,13 @@ int StyleList::numInCategory() const
 {
     int c = 0;
     foreach (Style *s, _styles) {
-        if (_category == "" || s->isNone() || s->category() == _category) {
+        // ==============================================================
+        // MGB-UML: STRICT FILTERING
+        // Removed the forced 's->isNone()' override. 
+        // If _category == "", it naturally shows everything.
+        // Otherwise, it strictly matches the category, blocking the blank node!
+        // ==============================================================
+        if (_category == "" || s->category() == _category) {
             ++c;
         }
     }
@@ -91,7 +97,11 @@ int StyleList::nthInCategory(int n) const
 {
     int c = 0;
     for (int j = 0; j < _styles.length(); ++j) {
-        if (_category == "" || _styles[j]->isNone() || _styles[j]->category() == _category) {
+        // ==============================================================
+        // MGB-UML: STRICT FILTERING
+        // Removed the forced '_styles[j]->isNone()' override.
+        // ==============================================================
+        if (_category == "" || _styles[j]->category() == _category) {
             if (c == n) return j;
             else ++c;
         }

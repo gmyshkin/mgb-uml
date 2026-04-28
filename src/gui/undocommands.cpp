@@ -148,7 +148,7 @@ void DeleteCommand::undo()
         Node *n = it.value();
         n->attachStyle(); // in case styles have changed
         _scene->graph()->addNode(n, it.key());
-        NodeItem *ni = new NodeItem(n);
+        NodeItem *ni = NodeItem::createNode(n);
         _scene->nodeItems().insert(n, ni);
         _scene->addItem(ni);
         if (_selNodes.contains(n)) ni->setSelected(true);
@@ -217,7 +217,7 @@ void AddNodeCommand::redo()
 {
     _node->attachStyle(); // do for every redo, in case styles have changed
     _scene->graph()->addNode(_node);
-    NodeItem *ni = new NodeItem(_node);
+    NodeItem *ni = NodeItem::createNode(_node);
     _scene->nodeItems().insert(_node, ni);
     _scene->addItem(ni);
 
@@ -436,7 +436,7 @@ void PasteCommand::redo()
 
     foreach (Node *n, _graph->nodes()) {
         n->attachStyle(); // in case styles have changed
-        NodeItem *ni = new NodeItem(n);
+        NodeItem *ni = NodeItem::createNode(n);
         _scene->nodeItems().insert(n, ni);
         _scene->addItem(ni);
         ni->setSelected(true);

@@ -19,10 +19,14 @@
 #include "mainmenu.h"
 #include "preferencedialog.h"
 #include "tikzit.h"
+#include "mgbPluginDialog.h" // NEW: Required for the Plugin Manager UI
 
 #include <QDebug>
 #include <QSettings>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QCoreApplication>
+#include <QDir>
 
 MainMenu::MainMenu()
 {
@@ -36,6 +40,74 @@ MainMenu::MainMenu()
     }
 
     updateRecentFiles();
+
+    // =====================================================================
+    // MGB-UML: DYNAMIC PLUGIN MENU INSTALLER & MANAGER
+    // =====================================================================
+    QMenu *pluginMenu = new QMenu(tr("&Plugins"), this);
+    QAction *loadPluginAct = new QAction(tr("Install New Plugin..."), this);
+    QAction *managePluginAct = new QAction(tr("Manage Plugins..."), this);
+
+    pluginMenu->addAction(loadPluginAct);
+    pluginMenu->addAction(managePluginAct);
+    
+    // Try to insert it right before the "Help" menu for a native look
+    QAction *helpAction = nullptr;
+    foreach(QAction *a, this->actions()) {
+        if (a->text().contains("Help")) helpAction = a;
+    }
+    if (helpAction) this->insertMenu(helpAction, pluginMenu);
+    else this->addMenu(pluginMenu); // Fallback to end of the bar
+
+    // 1. The Install Action Lambda
+    connect(loadPluginAct, &QAction::triggered, this, [this]() {
+        QString filter = "MGB Plugins (*.dll *.so *.dylib *.json)";
+        QString filePath = QFileDialog::getOpenFileName(this, tr("Select Plugin File"), "", filter);
+        
+        if (filePath.isEmpty()) return;
+
+        // Find the app's secret plugin directory
+        QString pluginDir = QCoreApplication::applicationDirPath() + "/plugins";
+        QDir dir;
+        if (!dir.exists(pluginDir)) dir.mkpath(pluginDir);
+
+        QFileInfo fi(filePath);
+        QString destPath = pluginDir + "/" + fi.fileName();
+
+        // Copy the main plugin file over
+        if (QFile::exists(destPath)) QFile::remove(destPath);
+        if (!QFile::copy(filePath, destPath)) {
+            QMessageBox::critical(this, "Error", "Could not copy plugin file. Check permissions.");
+            return;
+        }
+
+        // If it's a JSON plugin, prompt them for their custom icon!
+        if (fi.suffix().toLower() == "json") {
+            if (QMessageBox::question(this, "Upload Icon", "Would you like to upload a custom SVG/PNG icon for this plugin?") == QMessageBox::Yes) {
+                QString iconPath = QFileDialog::getOpenFileName(this, tr("Select Icon"), "", "Images (*.svg *.png)");
+                if (!iconPath.isEmpty()) {
+                    QFileInfo iconFi(iconPath);
+                    QString iconDest = pluginDir + "/" + iconFi.fileName();
+                    if (QFile::exists(iconDest)) QFile::remove(iconDest);
+                    QFile::copy(iconPath, iconDest);
+                }
+            }
+        }
+
+        // NEW CUSTOM SUCCESS DIALOG (Fixes the screenshot bug!)
+        QMessageBox msgBox(this);
+        msgBox.setWindowTitle("Installation Complete");
+        msgBox.setText("<h2>Plugin Successfully Added!</h2><p><b>" + fi.fileName() + "</b> has been installed.</p><p>You must restart MGB-UML to see it in your palette.</p>");
+        msgBox.setIcon(QMessageBox::Information);
+        msgBox.exec();
+    });
+
+    // 2. The Manage Action Lambda
+    connect(managePluginAct, &QAction::triggered, this, [this]() {
+        mgbPluginDialog dlg(this);
+        dlg.exec();
+    });
+    // =====================================================================
 }
 
 void MainMenu::addDocks(QMenu *m)
@@ -57,7 +129,6 @@ void MainMenu::updateRecentFiles()
     ui.menuOpen_Recent->clear();
 
     QStringList recentFiles = settings.value("recent-files").toStringList();
-    //qDebug() << "update:" << recentFiles;
 
     QAction *action;
     foreach (QString f, recentFiles) {
@@ -89,7 +160,6 @@ void MainMenu::on_actionOpen_triggered()
 
 void MainMenu::on_actionClose_triggered()
 {
-    // Close dialog if it is active.
     if (tikzit->dialogStatus()) {
         tikzit->previewWindow()->close();
     } else if (tikzit->activeWindow() != 0) {
@@ -289,7 +359,6 @@ void MainMenu::on_actionJump_to_Selection_triggered()
 {
     MainWindow *win = tikzit->activeWindow();
     if (win != 0) {
-        //qDebug() << "jump to selection on line:" << win->tikzScene()->lineNumberForSelection();
         QList<int> sz = win->splitter()->sizes();
         if (sz[1] == 0) {
             sz[1] = 200;
@@ -364,14 +433,14 @@ void MainMenu::on_actionShow_Node_Labels_triggered()
 void MainMenu::on_actionAbout_triggered()
 {
     QMessageBox::about(this,
-                       "TikZiT",
-                       "<h2><b>TikZiT</b></h2>"
-                       "<p><i>version " TIKZIT_VERSION "</i></p>"
-                       "<p>TikZiT is a GUI diagram editor for PGF/TikZ. It is licensed under the "
+                       "MGB-UML",
+                       "<h2><b>MGB-UML</b></h2>"
+                       "<p><i>Version: " GIT_VERSION "</i></p>"
+                       "<p>MGB-UML is a GUI diagram editor for PGF/TikZ. It is licensed under the "
                        "<a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General "
                        "Public License, version 3.0</a>.</p>"
                        "<p>For more info and updates, visit: "
-                       "<a href=\"https://tikzit.github.io\">tikzit.github.io</a></p>");
+                       "<a href=\"https://github.com/MGB-UML/mgb-uml\">MGB-UML</a></p>");
 }
 
 void MainMenu::on_actionCheck_for_updates_automatically_triggered()

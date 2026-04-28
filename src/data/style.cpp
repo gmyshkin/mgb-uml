@@ -96,8 +96,13 @@ bool Style::isEdgeStyle() const
 {
     if (_data->atom("-")  || _data->atom("->") || _data->atom("-|") ||
         _data->atom("<-") || _data->atom("<->") || _data->atom("<-|") ||
-        _data->atom("|-") || _data->atom("|->") || _data->atom("|-|")) return true;
-    else return false;
+        _data->atom("|-") || _data->atom("|->") || _data->atom("|-|") ||
+        _data->atom("uml-generalization") ||
+        _data->atom("uml-aggregation") ||
+        _data->atom("uml-composition")) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -145,6 +150,9 @@ void Style::setName(const QString &name)
 
 Style::ArrowTipStyle Style::arrowHead() const
 {
+    if (_data->atom("uml-generalization")) return OpenTriangle;
+    if (_data->atom("uml-aggregation")) return Diamond;
+    if (_data->atom("uml-composition")) return FilledDiamond;
     if (_data->atom("->") || _data->atom("<->") || _data->atom("|->")) return Pointer;
     if (_data->atom("-|") || _data->atom("<-|") || _data->atom("|-|")) return Flat;
     return NoTip;
@@ -156,7 +164,6 @@ Style::ArrowTipStyle Style::arrowTail() const
     if (_data->atom("|-") || _data->atom("|->") || _data->atom("|-|")) return Flat;
     return NoTip;
 }
-
 Style::DrawStyle Style::drawStyle() const
 {
     if (_data->atom("dashed")) return Dashed;
@@ -283,6 +290,44 @@ QIcon Style::icon() const
         case Flat:
             painter.drawLine(90,40,90,60);
             break;
+        case OpenTriangle:
+        {
+            QPolygonF tri({
+                QPointF(90, 50),
+                QPointF(78, 43),
+                QPointF(78, 57)
+            });
+            painter.setBrush(Qt::white);
+            painter.drawPolygon(tri);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
+        case Diamond:
+        {
+            QPolygonF dia({
+                QPointF(90, 50),
+                QPointF(82, 43),
+                QPointF(74, 50),
+                QPointF(82, 57)
+            });
+            painter.setBrush(Qt::white);
+            painter.drawPolygon(dia);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
+        case FilledDiamond:
+        {
+            QPolygonF dia({
+                QPointF(90, 50),
+                QPointF(82, 43),
+                QPointF(74, 50),
+                QPointF(82, 57)
+            });
+            painter.setBrush(QBrush(painter.pen().color()));
+            painter.drawPolygon(dia);
+            painter.setBrush(Qt::NoBrush);
+            break;
+        }
         case NoTip:
             break;
         }
@@ -295,10 +340,13 @@ QIcon Style::icon() const
         case Flat:
             painter.drawLine(10,40,10,60);
             break;
+        case Diamond:
+        case FilledDiamond:
+        case OpenTriangle:
+            break;
         case NoTip:
             break;
         }
-
 
         return QIcon(px);
     }

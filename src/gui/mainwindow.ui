@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>untitled - TikZiT</string>
+   <string>untitled - MGB-UML</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="sizePolicy">

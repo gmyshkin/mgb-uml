@@ -1,35 +1,34 @@
 /*
     TikZiT - a GUI diagram editor for TikZ
     Copyright (C) 2018 Aleks Kissinger
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "tikzview.h"
 #include "tikzit.h"
+#include "tikzscene.h"
+#include "undocommands.h"
+#include "node.h"
 
 #include <QDebug>
 #include <QScrollBar>
 #include <QSettings>
+#include <QDataStream>
 
 TikzView::TikzView(QWidget *parent) : QGraphicsView(parent)
 {
     setRenderHint(QPainter::Antialiasing);
     setResizeAnchor(QGraphicsView::AnchorViewCenter);
-    //setDragMode(QGraphicsView::RubberBandDrag);
-
     setBackgroundBrush(QBrush(Qt::white));
+
+    setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+
+    // === THE FAST CURSOR FIX ===
+    // Offload CPU calculations so the FullViewportUpdate doesn't drop fast mouse clicks
+    setOptimizationFlag(QGraphicsView::DontSavePainterState);
+    setOptimizationFlag(QGraphicsView::DontAdjustForAntialiasing);
+    
+    // --- MGB-UML: Allow things to be dropped here ---
+    setAcceptDrops(true);
 
     _scale = 2.5f;
     scale(2.5, 2.5);
@@ -57,14 +56,10 @@ void TikzView::drawBackground(QPainter *painter, const QRectF &rect)
 {
     QSettings settings("tikzit", "tikzit");
     QGraphicsView::drawBackground(painter, rect);
-    // draw a gray background if disabled
     TikzScene *sc = static_cast<TikzScene*>(scene());
     if (!sc->enabled()) painter->fillRect(rect, QBrush(QColor(240,240,240)));
 
-    // draw the grid
-
     QPen pen1;
-    //pen1.setWidthF(0.5);
     pen1.setCosmetic(true);
     pen1.setColor(settings.value("grid-color-minor", QColor(250,250,255)).value<QColor>());
 
@@ -155,3 +150,25 @@ void TikzView::wheelEvent(QWheelEvent *event)
     }
 }
 
+// =========================================================================
+// MGB-UML: Drag and Drop Handoff
+// =========================================================================
+
+void TikzView::dragEnterEvent(QDragEnterEvent *event)
+{
+    // Pass the event directly to the base class so it securely routes to TikzScene
+    QGraphicsView::dragEnterEvent(event);
+}
+
+void TikzView::dragMoveEvent(QDragMoveEvent *event) 
+{
+    QGraphicsView::dragMoveEvent(event);
+}
+
+void TikzView::dropEvent(QDropEvent *event)
+{
+    QGraphicsView::dropEvent(event);
+    
+    // Automatically steal window focus back so the user doesn't have to click multiple times
+    this->setFocus();
+}

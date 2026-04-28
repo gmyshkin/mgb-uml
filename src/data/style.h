@@ -19,8 +19,8 @@
 #ifndef STYLE_H
 #define STYLE_H
 
-
 #include "graphelementdata.h"
+#include "../mgb_api.h"
 
 #include <QObject>
 #include <QColor>
@@ -29,13 +29,18 @@
 #include <QPainterPath>
 #include <QIcon>
 
-class Style : public QObject
+class MGB_API Style : public QObject
 {
     Q_OBJECT
 public:
-    enum ArrowTipStyle {
-        Flat, Pointer, NoTip
-    };
+enum ArrowTipStyle {
+    Flat,
+    Pointer,
+    OpenTriangle,
+    NoTip,
+    Diamond,
+    FilledDiamond
+};
 
     enum DrawStyle {
         Solid, Dotted, Dashed

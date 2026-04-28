@@ -18,22 +18,139 @@
 
 #include "tikzstyles.h"
 #include "tikzassembler.h"
+#include "mgbPluginManager.h" 
 
 #include <QDebug>
 #include <QColorDialog>
 #include <QFile>
 #include <QFileInfo>
+#include <QCoreApplication>
+#include <QStringList>
+
+namespace {
+
+QString sanitizeStyleSource(const QString &styleTikz)
+{
+    QStringList styleLines;
+    const QStringList lines = styleTikz.split('\n');
+
+    for (const QString &line : lines) {
+        const QString trimmed = line.trimmed();
+        if (trimmed.startsWith("\\tikzstyle")) {
+            styleLines << trimmed;
+        }
+    }
+
+    if (!styleLines.isEmpty()) {
+        return styleLines.join("\n") + "\n";
+    }
+
+    return styleTikz;
+}
+
+void applyProtectedStyle(StyleList *list, const QString &name, GraphElementData *defaults)
+{
+    Style *existing = list->style(name);
+    if (existing == nullptr) {
+        list->addStyle(new Style(name, defaults));
+        return;
+    }
+
+    GraphElementData *target = existing->data();
+    const QVector<GraphElementProperty> currentProps = target->properties();
+    for (const GraphElementProperty &prop : currentProps) {
+        if (prop.atom()) target->unsetAtom(prop.key());
+        else target->unsetProperty(prop.key());
+    }
+
+    const QVector<GraphElementProperty> defaultProps = defaults->properties();
+    for (const GraphElementProperty &prop : defaultProps) {
+        if (prop.atom()) target->setAtom(prop.key());
+        else target->setProperty(prop.key(), prop.value());
+    }
+
+    delete defaults;
+}
+
+}
 
 TikzStyles::TikzStyles(QObject *parent) : QObject(parent)
 {
     _nodeStyles = new StyleList(false, this);
     _edgeStyles = new StyleList(true, this);
+
+    // The PluginManager now auto-loads itself, so we just call the injector
+    injectHardcodedStyles();
 }
+
+// =================================================================
+// MGB-UML: STYLE INJECTOR (Hardcoded Edges + Dynamic Plugins)
+// =================================================================
+void TikzStyles::injectHardcodedStyles()
+{
+     {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("->");
+        data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
+        data->setProperty("tikzit category", "UML Edges");
+        applyProtectedStyle(_edgeStyles, "Association", data);
+    }
+
+    {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("uml-generalization");
+        data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
+        data->setProperty("tikzit category", "UML Edges");
+        applyProtectedStyle(_edgeStyles, "Generalization", data);
+    }
+
+    {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("uml-aggregation");
+        data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
+        data->setProperty("tikzit category", "UML Edges");
+        applyProtectedStyle(_edgeStyles, "Aggregation", data);
+    }
+
+    {
+        GraphElementData *data = new GraphElementData();
+        data->setAtom("uml-composition");
+        data->setProperty("draw", "black");
+        data->setProperty("line width", "0.6pt");
+        data->setProperty("tikzit category", "UML Edges");
+        applyProtectedStyle(_edgeStyles, "Composition", data);
+    }
+
+    QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
+    for (const mgb::PluginElement &p : plugins) {
+        GraphElementData *data = new GraphElementData();
+        QMapIterator<QString, QString> i(p.properties);
+
+        while (i.hasNext()) {
+            i.next();
+            if (i.key() == "tikz_libraries" || i.key() == "latex_preamble") {
+                continue;
+            }
+            data->setProperty(i.key(), i.value());
+        }
+
+        data->setProperty("tikzit category", p.category);
+
+        if (p.type == "edge") {
+            applyProtectedStyle(_edgeStyles, p.name, data);
+        } else {
+            applyProtectedStyle(_nodeStyles, p.name, data);
+        }
+    }
+}
+// =================================================================
 
 Style *TikzStyles::nodeStyle(QString name) const
 {
     Style *s = _nodeStyles->style(name);
-
     return (s == nullptr) ? unknownStyle : s;
 }
 
@@ -42,7 +159,6 @@ Style *TikzStyles::edgeStyle(QString name) const
     Style *s = _edgeStyles->style(name);
     return (s == nullptr) ? noneEdgeStyle : s;
 }
-
 
 void TikzStyles::clear()
 {
@@ -55,13 +171,25 @@ bool TikzStyles::loadStyles(QString fileName)
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly)) {
         QTextStream in(&file);
-        QString styleTikz = in.readAll();
+        QString styleTikz = sanitizeStyleSource(in.readAll());
         file.close();
 
         clear();
         TikzAssembler ass(this);
-        return ass.parse(styleTikz);
+        bool success = ass.parse(styleTikz);
+        
+        if (success) {
+            injectHardcodedStyles();
+            // Persist the canonicalized style file so external LaTeX compilers
+            // see the same plugin-backed styles the app is rendering with.
+            saveStyles(fileName);
+            return true;
+        } else {
+            injectHardcodedStyles();
+            return false;
+        }
     } else {
+        injectHardcodedStyles();
         return false;
     }
 }
@@ -90,36 +218,6 @@ void TikzStyles::refreshModels(QStandardItemModel *nodeModel,
     // Handled in stylelist.cpp
 }
 
-    Style *s;
-    for (int i = 0; i < _nodeStyles->length(); ++i) {
-        s = _nodeStyles->style(i);
-        if (category == "" || category == s->propertyWithDefault("tikzit category", "", false))
-        {
-            it = new QStandardItem(s->icon(), s->name());
-            it->setEditable(false);
-            it->setData(s->name());
-            //it->setSizeHint(QSize(48,48));
-            nodeModel->appendRow(it);
-        }
-    }
-
-    if (includeNone) {
-        it = new QStandardItem(noneEdgeStyle->icon(), noneEdgeStyle->name());
-        it->setEditable(false);
-        it->setData(noneEdgeStyle->name());
-        edgeModel->appendRow(it);
-    }
-
-    for (int i = 0; i < _edgeStyles->length(); ++i) {
-        s = _edgeStyles->style(i);
-        it = new QStandardItem(s->icon(), s->name());
-        it->setEditable(false);
-        it->setData(s->name());
-        //it->setSizeHint(QSize(48,48));
-        edgeModel->appendRow(it);
-    }
-}
-
 StyleList *TikzStyles::nodeStyles() const
 {
     return _nodeStyles;
@@ -132,15 +230,26 @@ StyleList *TikzStyles::edgeStyles() const
 
 QStringList TikzStyles::categories() const
 {
-    QMap<QString,bool> cats; // use a QMap to keep keys sorted
-    cats.insert("", true);
-    Style *ns;
+    QStringList list;
+    list << "All"; 
+    
     for (int i = 0; i < _nodeStyles->length(); ++i) {
-        ns = _nodeStyles->style(i);
-        cats.insert(ns->propertyWithDefault("tikzit category", "", false), true);
+        Style *ns = _nodeStyles->style(i);
+        QString cat = ns->propertyWithDefault("tikzit category", "", false).trimmed();
+        if (cat != "" && !list.contains(cat)) {
+            list << cat;
+        }
     }
-    //foreach (EdgeStyle *s, _edgeStyles) cats << s->propertyWithDefault("tikzit category", "", false);
-    return QStringList(cats.keys());
+    
+    for (int i = 0; i < _edgeStyles->length(); ++i) {
+        Style *es = _edgeStyles->style(i);
+        QString cat = es->propertyWithDefault("tikzit category", "", false).trimmed();
+        if (cat != "" && !list.contains(cat)) {
+            list << cat;
+        }
+    }
+    
+    return list;
 }
 
 QString TikzStyles::tikz() const
@@ -148,10 +257,61 @@ QString TikzStyles::tikz() const
     QString str;
     QTextStream code(&str);
 
-    code << "% TiKZ style file generated by TikZiT. You may edit this file manually,\n";
-    code << "% but some things (e.g. comments) may be overwritten. To be readable in\n";
-    code << "% TikZiT, the only non-comment lines must be of the form:\n";
-    code << "% \\tikzstyle{NAME}=[PROPERTY LIST]\n\n";
+    code << "% =========================================================\n";
+    code << "% MGB-UML: PROTECTED STYLES WARNING\n";
+    code << "% Do NOT modify the properties of core or plugin elements directly.\n";
+    code << "% The app will automatically reset them to default to protect the palette.\n";
+    code << "% \n";
+    code << "% If you want a custom color or style, COPY the line and RENAME it.\n";
+    code << "% =========================================================\n\n";
+
+    // --- MGB-UML: DYNAMIC LIBRARY AND PREAMBLE EXTRACTOR ---
+    QStringList libraries = {"shapes.multipart", "positioning", "shapes.geometric", "arrows.meta"};
+    QString customPreambles = "";
+
+    QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
+    for (const mgb::PluginElement& p : plugins) {
+        
+        // 1. Extract custom libraries
+        if (p.properties.contains("tikz_libraries")) {
+            QStringList libs = p.properties.value("tikz_libraries").split(",");
+            for (QString l : libs) {
+                if (!libraries.contains(l.trimmed())) {
+                    libraries << l.trimmed();
+                }
+            }
+        }
+        
+        // 2. Extract custom \pgfdeclareshape macros
+        if (p.properties.contains("latex_preamble")) {
+            customPreambles += "% Preamble definitions for " + p.name + "\n";
+            customPreambles += p.properties.value("latex_preamble") + "\n\n";
+        }
+    }
+
+    code << "% Required TikZ Libraries\n";
+    code << "\\usetikzlibrary{" << libraries.join(", ") << "}\n\n";
+    code << "% Match app font metrics more closely in external LaTeX compilers\n";
+    code << "\\IfFileExists{helvet.sty}{\\usepackage[scaled=1.0]{helvet}}{}\n";
+    code << "% Match the app's default visible canvas scale more closely\n";
+    code << "\\tikzset{every picture/.style={baseline=-0.25em,scale=1,transform shape}}\n\n";
+
+    if (!customPreambles.isEmpty()) {
+        code << "% Custom Plugin Shapes & Preambles\n";
+        code << customPreambles;
+    }
+    // --------------------------------------------------------
+
+    code << "% Ignore UI-specific keys\n";
+    code << "\\pgfkeys{/tikz/tikzit fill/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit draw/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit shape/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit category/.initial=}\n\n";
+
+    code << "% Layer definitions\n";
+    code << "\\pgfdeclarelayer{edgelayer}\n";
+    code << "\\pgfdeclarelayer{nodelayer}\n";
+    code << "\\pgfsetlayers{edgelayer,nodelayer,main}\n\n";
 
     code << "% Node styles\n";
     code << _nodeStyles->tikz();
@@ -169,5 +329,3 @@ void TikzStyles::addStyle(QString name, GraphElementData *data)
     if (s->isEdgeStyle()) _edgeStyles->addStyle(s);
     else _nodeStyles->addStyle(s);
 }
-
-

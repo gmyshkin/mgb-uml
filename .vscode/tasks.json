@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build TikZiT",
+            "label": "Build MGB-UML",
             "type": "shell",
             "command": "/usr/bin/make",
             "args": ["-j$(nproc)"],
@@ -13,13 +13,13 @@
             "problemMatcher": ["$gcc"]
         },
         {
-            "label": "Run TikZiT",
+            "label": "Run MGB-UML",
             "type": "shell",
-            "command": "./tikzit",
+            "command": "./mgb-uml",
             "options": {
                 "cwd": "${workspaceFolder}/build"
             },
-            "dependsOn": "Build TikZiT", 
+            "dependsOn": "Build MGB-UML", 
             "group": {
                 "kind": "build",
                 "isDefault": true

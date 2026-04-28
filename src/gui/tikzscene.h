@@ -39,6 +39,7 @@
 #include <QVector>
 #include <QGraphicsEllipseItem>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsSceneDragDropEvent>
 
 class TikzScene : public QGraphicsScene
 {
@@ -58,7 +59,7 @@ public:
     void reloadStyles();
     //void refreshSceneBounds();
     void applyActiveStyleToNodes();
-	void applyActiveStyleToEdges();
+    void applyActiveStyleToEdges();
     void deleteSelectedItems();
     void copyToClipboard();
     void cutToClipboard();
@@ -108,6 +109,12 @@ protected:
     void keyReleaseEvent(QKeyEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) override;
+
+    // NEW: Drag and Drop Handlers
+    void dragEnterEvent(QGraphicsSceneDragDropEvent *event) override;
+    void dragMoveEvent(QGraphicsSceneDragDropEvent *event) override;
+    void dropEvent(QGraphicsSceneDragDropEvent *event) override;
+
 private:
     TikzDocument *_tikzDocument;
     ToolPalette *_tools;

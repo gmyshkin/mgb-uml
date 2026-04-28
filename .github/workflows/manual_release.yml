@@ -5,12 +5,21 @@ on:
     inputs:
       release_tag:
         description: 'Tag name for release (e.g. v2.2.0)'
-        required: false
+        required: true
         default: 'test-build'
+      
+      publish:
+        description: 'Publish to GitHub Releases page?'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
 
 jobs:
   # =========================================================
-  # JOB 1: WINDOWS (Using QMake)
+  # JOB 1: WINDOWS
   # =========================================================
   build-windows:
     runs-on: windows-latest
@@ -24,40 +33,53 @@ jobs:
           host: 'windows'
           target: 'desktop'
           arch: 'win64_msvc2019_64'
+          modules: 'qtpdf'
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
 
-      # Download Poppler (Still required for Windows because of the deploy script)
-      - name: Download Poppler Dependency
-        shell: powershell
+      - name: Install Dependencies
+        shell: cmd
         run: |
-          Invoke-WebRequest -Uri "https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip" -OutFile "poppler.zip"
-          Expand-Archive -Path "poppler.zip" -DestinationPath "."
-          Rename-Item -Path "poppler-21.11.0-0" -NewName "poppler-21.11.0"
+          choco install winflexbison3 7zip
+          powershell -Command "Invoke-WebRequest https://github.com/oschwartz10612/poppler-windows/releases/download/v21.11.0-0/Release-21.11.0-0.zip -OutFile poppler.zip"
+          7z x poppler.zip -oppoppler-21.11.0
+          powershell -Command "if (Test-Path poppler-21.11.0\poppler-21.11.0) { Move-Item poppler-21.11.0\poppler-21.11.0\* poppler-21.11.0; Remove-Item poppler-21.11.0\poppler-21.11.0 }"
 
+    
       - name: Build with QMake
         shell: cmd
         run: |
           mkdir build
           cd build
-          qmake ..\tikzit.pro "CONFIG+=release"
+          :: Pass the version into the build system here
+          qmake ..\tikzit.pro "CONFIG+=release" "GIT_VERSION=${{ github.event.inputs.release_tag }}"
           nmake
 
-      - name: Package
+      # --- NEW STEP: BUILD PLUGINS (WINDOWS) ---
+      - name: Build Plugins
         shell: cmd
         run: |
-          choco install 7zip
-          .\deploy-win.bat
+          cd plugins_source
+          qmake mgbBuildAllPlugins.pro
+          nmake
+
+      - name: Package (Run Script)
+        shell: cmd
+        run: .\deploy-win.bat
+
+      - name: Rename Output
+        shell: cmd
+        run: move dist\mgb-uml-windows.zip dist\mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-Windows
-          path: dist/tikzit.zip
+          name: MGB-UML-Windows-${{ github.event.inputs.release_tag }}
+          path: dist/mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
 
   # =========================================================
-  # JOB 2: MACOS (Using QMake)
+  # JOB 2: MACOS
   # =========================================================
   build-macos:
     runs-on: macos-latest
@@ -68,27 +90,39 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           version: '6.5.0'
+          modules: 'qtpdf'
 
       - name: Build with QMake
         run: |
           mkdir build
           cd build
-          qmake ../tikzit.pro CONFIG+=release
+          # Pass the version into the build system here
+          qmake ../tikzit.pro CONFIG+=release "GIT_VERSION=${{ github.event.inputs.release_tag }}"
           make -j$(sysctl -n hw.ncpu)
 
-      - name: Package
+      # --- NEW STEP: BUILD PLUGINS (MACOS) ---
+      - name: Build Plugins
+        run: |
+          cd plugins_source
+          qmake mgbBuildAllPlugins.pro
+          make -j$(sysctl -n hw.ncpu)
+
+      - name: Package (Run Script)
         run: |
           chmod +x deploy-osx.sh
           ./deploy-osx.sh
 
+      - name: Rename Output
+        run: mv mgb-uml-macos.dmg mgb-uml-macos-${{ github.event.inputs.release_tag }}.dmg
+
       - name: Upload Mac Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-macOS
-          path: tikzit.dmg
+          name: MGB-UML-macOS-${{ github.event.inputs.release_tag }}
+          path: mgb-uml-macos-${{ github.event.inputs.release_tag }}.dmg
 
   # =========================================================
-  # JOB 3: LINUX (Using QMake - No hacks)
+  # JOB 3: LINUX
   # =========================================================
   build-linux:
     runs-on: ubuntu-22.04
@@ -97,38 +131,73 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          apt-get update
-          apt-get install -y build-essential git pkg-config wget ca-certificates \
+          sudo apt-get update
+          sudo apt-get install -y build-essential git pkg-config wget ca-certificates \
             flex bison qmake6 \
             qt6-base-dev qt6-tools-dev qt6-tools-dev-tools qt6-pdf-dev \
             libqt6svg6-dev libpoppler-dev \
             libx11-xcb1 libxkbcommon-x11-0 libxrender1 \
             libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 \
             libxcb-randr0 libxcb-render-util0 libxcb-shape0 libxcb-shm0 \
-            libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1
+            libxcb-sync1 libxcb-xfixes0 libxcb-xinerama0 libxcb-xkb1 \
+            ccache
+
+      - name: Fix Source Code
+        run: |
+          sed -i 's/pagePointSize/pageSize/g' src/data/pdfdocument.cpp
 
       - name: Build with QMake
         run: |
           mkdir build
           cd build
-          qmake6 ../tikzit.pro
+          # Pass the version into the build system here
+          qmake6 ../tikzit.pro "GIT_VERSION=${{ github.event.inputs.release_tag }}"
           make -j$(nproc)
 
-      - name: Package (AppImage)
+      # --- NEW STEP: BUILD PLUGINS (LINUX) ---
+      - name: Build Plugins
         run: |
-          # Setup LinuxDeploy
-          wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-          wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage
-          chmod +x linuxdeploy*.AppImage
+          cd plugins_source
+          qmake6 mgbBuildAllPlugins.pro
+          make -j$(nproc)
 
-          # Tell it where qmake is
-          export QMAKE=/usr/bin/qmake6
-          
-          # Create the final single-file executable
-          ./linuxdeploy-x86_64.AppImage --appdir AppDir --executable build/tikzit --icon share/tikzit.svg --desktop-file share/tikzit.desktop --plugin qt --output appimage
+      - name: Package (Run Script)
+        run: |
+          chmod +x deploy-linux.sh
+          ./deploy-linux.sh
+
+      - name: Rename Output
+        run: mv mgb-uml-linux.AppImage mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
 
       - name: Upload Linux Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: TikZiT-Linux
-          path: TikZiT*.AppImage
+          name: MGB-UML-Linux-${{ github.event.inputs.release_tag }}
+          path: mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
+
+  # =========================================================
+  # JOB 4: PUBLISH RELEASE
+  # =========================================================
+  create-release:
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.publish == 'true' }}
+    
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: MGB-UML-*
+          merge-multiple: true
+
+      - name: Create Release & Upload Files
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.event.inputs.release_tag }}
+          name: Release ${{ github.event.inputs.release_tag }}
+          draft: false
+          prerelease: false
+          files: |
+            *.zip
+            *.dmg
+            *.AppImage

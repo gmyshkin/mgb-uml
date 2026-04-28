@@ -23,30 +23,39 @@
 #ifndef NODEITEM_H
 #define NODEITEM_H
 
-#include "node.h"
-
-#include <QObject>
 #include <QGraphicsItem>
-#include <QPainterPath>
-#include <QRectF>
+#include "node.h"
+#include "../mgb_api.h"
 
-class NodeItem : public QGraphicsItem
+class MGB_API NodeItem : public QGraphicsItem
 {
 public:
     NodeItem(Node *node);
+    virtual ~NodeItem() = default;
+
+    // The Factory Method
+    static NodeItem* createNode(Node *node);
+
+    // Public getters and setters (This fixes your undo command errors!)
+    Node *node() const;
     void readPos();
     void writePos();
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *) override;
-    QPainterPath shape() const override;
-    QRectF boundingRect() const override;
-	void updateBounds();
-    Node *node() const;
+    void updateBounds();
 
-private:
-    Node *_node;
-    QRectF labelRect() const;
+    QRectF boundingRect() const override;
     QRectF outerLabelRect() const;
-	QRectF _boundingRect;
+    
+    // Virtual methods that our subclasses will override
+    virtual QRectF labelRect() const;
+    virtual QPainterPath shape() const override;
+    virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+
+protected:
+    // Helper function for subclasses
+    void paintSelectionAndOuterLabels(QPainter *painter);
+
+    Node *_node;
+    QRectF _boundingRect;
 };
 
 #endif // NODEITEM_H

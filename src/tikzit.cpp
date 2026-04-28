@@ -31,13 +31,15 @@
 #include <QRegularExpression>
 #include <QVersionNumber>
 #include <QNetworkAccessManager>
+#include <QJsonDocument>
+#include <QJsonObject>
 #include <QColorDialog>
 
 // application-level instance of Tikzit
 Tikzit *tikzit;
 
 // font to use for node labels
-QFont Tikzit::LABEL_FONT("Courrier", 9);
+QFont Tikzit::LABEL_FONT("Helvetica", 10);
 
 Tikzit::Tikzit() : _styleFile("[no styles]"), _activeWindow(nullptr)
 {
@@ -68,7 +70,15 @@ void Tikzit::init()
     _styleFile = "";
     _styleFilePath = "";
     QString styleFile = settings.value("previous-tikzstyles-file").toString();
-    if (!styleFile.isEmpty()) loadStyles(styleFile);
+    if (!styleFile.isEmpty()) {
+        QFileInfo fi(styleFile);
+        if (!fi.exists()) {
+            // File doesn't exist, clear the setting silently
+            settings.remove("previous-tikzstyles-file");
+        } else {
+            loadStyles(styleFile, true); // Load silently on startup
+        }
+    }
 
     QVariant check = settings.value("check-for-updates");
     if (check.isNull()) {
@@ -85,7 +95,14 @@ void Tikzit::init()
     setCheckForUpdates(check.toBool());
 
     if (check.toBool()) {
-        checkForUpdates(false);
+        // Only do automatic check if this is not the first time checking
+        QVariant hasCheckedBefore = settings.value("has-checked-for-updates");
+        if (hasCheckedBefore.toBool()) {
+            checkForUpdates(false);
+        } else {
+            // Mark that we've checked at least once
+            settings.setValue("has-checked-for-updates", true);
+        }
     }
 
     _preview = new PreviewWindow();
@@ -288,7 +305,7 @@ void Tikzit::openTikzStyles() {
     }
 }
 
-bool Tikzit::loadStyles(QString fileName)
+bool Tikzit::loadStyles(QString fileName, bool silent)
 {
     QFileInfo fi(fileName);
     if (fi.exists()) {
@@ -304,16 +321,19 @@ bool Tikzit::loadStyles(QString fileName)
             }
             return true;
         } else {
-            QMessageBox::warning(nullptr,
-                "Bad style file.",
-                "Bad style file: '" + fileName + "'. Check the file is properly formatted and try to load it again.");
+            if (!silent) {
+                QMessageBox::warning(nullptr,
+                    "Bad style file.",
+                    "Bad style file: '" + fileName + "'. Check the file is properly formatted and try to load it again.");
+            }
             return false;
         }
 
     } else {
-        //settings.setValue("previous-tikzstyles-file", "");
-        QMessageBox::warning(nullptr,
-            "Style file not found.", "Could not open style file: '" + fileName + "'.");
+        if (!silent) {
+            QMessageBox::warning(nullptr,
+                "Style file not found.", "Could not open style file: '" + fileName + "'.");
+        }
         return false;
     }
 }
@@ -370,7 +390,7 @@ void Tikzit::checkForUpdates(bool manual)
             this, SLOT(updateAuto(QNetworkReply*)));
     }
 
-    manager->get(QNetworkRequest(QUrl("https://tikzit.github.io/latest-version.txt")));
+    manager->get(QNetworkRequest(QUrl("https://api.github.com/repos/gmyshkin/mgb-uml/releases/latest")));
 }
 
 void Tikzit::updateAuto(QNetworkReply *reply)
@@ -387,13 +407,31 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
 {
     if (!reply->isReadable()) return;
 
-    QByteArray data = reply->read(200);
-    QString strLatest = QString::fromUtf8(data).simplified();
+    QByteArray data = reply->readAll();
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    QJsonObject obj = doc.object();
+    QString strLatest;
+
+    if (obj.contains("tag_name")) {
+        strLatest = obj["tag_name"].toString().simplified();
+        // GitHub tags can have a 'v' prefix, which we should remove
+        if (strLatest.startsWith("v")) {
+            strLatest = strLatest.mid(1);
+        }
+    } else {
+        if (manual) {
+            QMessageBox::warning(nullptr,
+              tr("Invalid response"),
+              "<p>Got invalid version response from GitHub API.</p>");
+        }
+        return;
+    }
+
 
     // check for valid version string and capture optional RC suffix
     QRegularExpression re("^[1-9]+(\\.[0-9]+)*(-[rR][cC]([0-9]+))?$");
     QRegularExpressionMatch m;
-    m = re.match(TIKZIT_VERSION);
+    m = re.match(GIT_VERSION);
 
     // any non-RC versions are considered later than RC versions.
     int rcCurrent = (!m.captured(3).isEmpty()) ? m.captured(3).toInt() : 1000;
@@ -401,7 +439,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
     m = re.match(strLatest);
 
     if (m.hasMatch()) {
-        QVersionNumber current = QVersionNumber::fromString(TIKZIT_VERSION).normalized();
+        QVersionNumber current = QVersionNumber::fromString(GIT_VERSION).normalized();
         QVersionNumber latest = QVersionNumber::fromString(strLatest).normalized();
 
         int rcLatest = (!m.captured(3).isEmpty()) ? m.captured(3).toInt() : 1000;
@@ -415,10 +453,10 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
             QMessageBox::information(nullptr,
               tr("Update available"),
               "<p><b>A new version of TikZiT is available!</b></p>"
-              "<p><i>current version: " TIKZIT_VERSION "<br />"
+              "<p><i>current version: " GIT_VERSION "<br />"
               "latest version: " + strLatest + "</i></p>"
               "<p>Download it now from: "
-              "<a href=\"https://tikzit.github.io\">tikzit.github.io</a>.</p>");
+              "<a href=\"https://github.com/gmyshkin/mgb-uml/releases\">https://github.com/gmyshkin/mgb-uml/releases</a>.</p>");
         }
     } else {
         // don't complain of invalid response for auto update check
@@ -426,7 +464,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
             QMessageBox::warning(nullptr,
               tr("Invalid response"),
               "<p>Got invalid version response from "
-              "<a href=\"https://tikzit.github.io\">tikzit.github.io</a>.</p>");
+              "<a href=\"https://github.com/gmyshkin/mgb-uml/releases\">https://github.com/gmyshkin/mgb-uml/releases</a>.</p>");
         }
     }
 }
@@ -575,5 +613,4 @@ void Tikzit::quit()
     //_stylePalette->close();
     QApplication::quit();
 }
-
 
