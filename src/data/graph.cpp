@@ -217,7 +217,7 @@ void Graph::clearBbox() {
     _bbox = QRectF(0,0,0,0);
 }
 
-QString Graph::tikz()
+QString Graph::tikz(bool usePluginTikzNodes)
 {
     QString str;
     QTextStream code(&str);
@@ -246,10 +246,12 @@ QString Graph::tikz()
     Node *n;
     foreach (n, _nodes) {
         n->setTikzLine(line);
-        int customLines = 0;
-        if (writePluginTikzNode(code, n, &customLines)) {
-            line += customLines;
-            continue;
+        if (usePluginTikzNodes) {
+            int customLines = 0;
+            if (writePluginTikzNode(code, n, &customLines)) {
+                line += customLines;
+                continue;
+            }
         }
 
         code << "\t\t\\node ";
@@ -425,9 +427,9 @@ Graph *Graph::copyOfSubgraphWithNodes(QSet<Node *> nds)
 
 void Graph::insertGraph(Graph *graph)
 {
-    QMap<Node*,Node*> nodeTable;
     foreach (Node *n, graph->nodes()) addNode(n);
     foreach (Edge *e, graph->edges()) addEdge(e);
+    foreach (Path *p, graph->paths()) addPath(p);
 }
 
 void Graph::reflectNodes(QSet<Node*> nds, bool horizontal)
