@@ -4,6 +4,25 @@ This changelog tracks MGB-UML releases. TikZiT is the upstream project that
 MGB-UML is based on, so TikZiT itself is treated as the baseline rather than an
 MGB-UML release.
 
+## v1.1.1 - Release SDK and updater fixes
+
+### Changed
+
+- Updated the Manual Build & Release workflow so publishing a release also
+  packages the Linux, Windows, and macOS Plugin SDK archives and uploads them
+  to the same GitHub Release.
+- Improved the automatic update checker to normalize version tags with or
+  without a leading `v` before comparing versions.
+- Updated update-checker wording from TikZiT to MGB-UML.
+
+### Fixed
+
+- Fixed SDK archives not being attached when a GitHub Release is created by the
+  manual release workflow.
+- Fixed false update notifications when the installed app version is tagged with
+  a leading `v`, such as `v1.1.0`, and GitHub reports `1.1.0` after
+  normalization.
+
 ## v1.1.0 - Plugin architecture, UML plugins, and release polish
 
 ### Added

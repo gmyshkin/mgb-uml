@@ -190,6 +190,21 @@ void showChangelog(QWidget *parent)
         rather than an MGB-UML release.
         </p>
 
+        <h2>v1.1.1 - Release SDK and updater fixes</h2>
+
+        <h3>Changed</h3>
+        <ul>
+          <li>Manual Build &amp; Release now packages Linux, Windows, and macOS Plugin SDK archives and uploads them to the same GitHub Release.</li>
+          <li>The automatic update checker normalizes version tags with or without a leading <code>v</code> before comparing versions.</li>
+          <li>Update-checker wording now says MGB-UML instead of TikZiT.</li>
+        </ul>
+
+        <h3>Fixed</h3>
+        <ul>
+          <li>SDK archives not being attached when a GitHub Release is created by the manual release workflow.</li>
+          <li>False update notifications when the installed app version is tagged with a leading <code>v</code>, such as <code>v1.1.0</code>, and GitHub reports <code>1.1.0</code> after normalization.</li>
+        </ul>
+
         <h2>v1.1.0 - Plugin architecture, UML plugins, and release polish</h2>
 
         <h3>Added</h3>

@@ -182,10 +182,51 @@ jobs:
           path: mgb-uml-linux-${{ github.event.inputs.release_tag }}.AppImage
 
   # =========================================================
-  # JOB 4: PUBLISH RELEASE
+  # JOB 4: PLUGIN SDKS
+  # =========================================================
+  package-sdk:
+    name: Package SDK (${{ matrix.sdk_name }})
+    needs: [build-windows, build-macos, build-linux]
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.publish == 'true' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - sdk_name: linux
+            archive: mgb-uml-plugin-sdk-linux.tar.gz
+          - sdk_name: windows
+            archive: mgb-uml-plugin-sdk-windows.zip
+          - sdk_name: macos
+            archive: mgb-uml-plugin-sdk-macos.tar.gz
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Package SDK
+        run: |
+          mkdir -p dist
+          python scripts/package_sdk.py \
+            --platform "${{ matrix.sdk_name }}" \
+            --output "dist/${{ matrix.archive }}"
+
+      - name: Upload SDK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MGB-UML-Plugin-SDK-${{ matrix.sdk_name }}-${{ github.event.inputs.release_tag }}
+          path: dist/${{ matrix.archive }}
+          if-no-files-found: error
+
+  # =========================================================
+  # JOB 5: PUBLISH RELEASE
   # =========================================================
   create-release:
-    needs: [build-windows, build-macos, build-linux]
+    needs: [build-windows, build-macos, build-linux, package-sdk]
     runs-on: ubuntu-latest
     if: ${{ github.event.inputs.publish == 'true' }}
     
@@ -211,5 +252,6 @@ jobs:
           prerelease: false
           files: |
             *.zip
+            *.tar.gz
             *.dmg
             *.AppImage

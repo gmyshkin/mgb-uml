@@ -38,6 +38,19 @@
 // application-level instance of Tikzit
 Tikzit *tikzit;
 
+namespace {
+
+QString normalizedVersionTag(QString version)
+{
+    version = version.simplified();
+    if (version.startsWith("v", Qt::CaseInsensitive)) {
+        version = version.mid(1);
+    }
+    return version;
+}
+
+}
+
 // font to use for node labels
 QFont Tikzit::LABEL_FONT("Helvetica", 10);
 
@@ -84,7 +97,7 @@ void Tikzit::init()
     if (check.isNull()) {
         int resp = QMessageBox::question(nullptr,
           tr("Check for updates"),
-          tr("Would you like TikZiT to check for updates automatically?"
+          tr("Would you like MGB-UML to check for updates automatically?"
              " (You can always change this later in the Help menu.)"),
           QMessageBox::Yes | QMessageBox::Default,
           QMessageBox::No,
@@ -413,11 +426,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
     QString strLatest;
 
     if (obj.contains("tag_name")) {
-        strLatest = obj["tag_name"].toString().simplified();
-        // GitHub tags can have a 'v' prefix, which we should remove
-        if (strLatest.startsWith("v")) {
-            strLatest = strLatest.mid(1);
-        }
+        strLatest = normalizedVersionTag(obj["tag_name"].toString());
     } else {
         if (manual) {
             QMessageBox::warning(nullptr,
@@ -431,7 +440,8 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
     // check for valid version string and capture optional RC suffix
     QRegularExpression re("^[1-9]+(\\.[0-9]+)*(-[rR][cC]([0-9]+))?$");
     QRegularExpressionMatch m;
-    m = re.match(GIT_VERSION);
+    QString strCurrent = normalizedVersionTag(GIT_VERSION);
+    m = re.match(strCurrent);
 
     // any non-RC versions are considered later than RC versions.
     int rcCurrent = (!m.captured(3).isEmpty()) ? m.captured(3).toInt() : 1000;
@@ -439,7 +449,7 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
     m = re.match(strLatest);
 
     if (m.hasMatch()) {
-        QVersionNumber current = QVersionNumber::fromString(GIT_VERSION).normalized();
+        QVersionNumber current = QVersionNumber::fromString(strCurrent).normalized();
         QVersionNumber latest = QVersionNumber::fromString(strLatest).normalized();
 
         int rcLatest = (!m.captured(3).isEmpty()) ? m.captured(3).toInt() : 1000;
@@ -452,8 +462,8 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
             if (rcLatest != 1000) strLatest += "-rc" + QString::number(rcLatest);
             QMessageBox::information(nullptr,
               tr("Update available"),
-              "<p><b>A new version of TikZiT is available!</b></p>"
-              "<p><i>current version: " GIT_VERSION "<br />"
+              "<p><b>A new version of MGB-UML is available!</b></p>"
+              "<p><i>current version: " + strCurrent + "<br />"
               "latest version: " + strLatest + "</i></p>"
               "<p>Download it now from: "
               "<a href=\"https://github.com/gmyshkin/mgb-uml/releases\">https://github.com/gmyshkin/mgb-uml/releases</a>.</p>");
@@ -613,4 +623,3 @@ void Tikzit::quit()
     //_stylePalette->close();
     QApplication::quit();
 }
-
