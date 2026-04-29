@@ -43,7 +43,7 @@ qreal roundToNearest(qreal stepSize, qreal val);
 qreal radiansToDegrees (qreal radians);
 bool almostZero(qreal f);
 bool almostEqual(qreal f1, qreal f2);
-QString floatToString(qreal f);
+MGB_API QString floatToString(qreal f);
 
 // angles
 qreal degreesToRadians(qreal degrees);
