@@ -17,6 +17,163 @@
 */
 
 #include "mainmenu.h"
+
+#include <QAction>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QMenu>
+#include <QTextBrowser>
+#include <QVBoxLayout>
+
+namespace {
+
+void showBeginnerGuide(QWidget *parent)
+{
+    QDialog dialog(parent);
+    dialog.setWindowTitle(QObject::tr("Beginner Guide"));
+    dialog.resize(860, 680);
+
+    QTextBrowser *guide = new QTextBrowser(&dialog);
+    guide->setOpenExternalLinks(true);
+    guide->setHtml(QObject::tr(R"(
+        <h1>MGB-UML Beginner Guide</h1>
+
+        <h2>What you build in this app</h2>
+        <p>
+        MGB-UML helps you draw UML diagrams and export them as TikZ/LaTeX.
+        The canvas view is for arranging the diagram visually. The exported
+        <code>.tikz</code> and <code>.tikzstyles</code> files are what LaTeX
+        uses when you compile the final document.
+        </p>
+
+        <h2>Start a diagram</h2>
+        <table border="1" cellspacing="0" cellpadding="10" width="100%">
+          <tr>
+            <td width="25%" align="center"><b>Palette</b><br/>Drag UML elements from here</td>
+            <td width="50%" align="center"><b>Canvas</b><br/>Arrange actors, systems, classes, and use cases</td>
+            <td width="25%" align="center"><b>Menus</b><br/>Save, export, reorder, and compile</td>
+          </tr>
+        </table>
+        <p>
+        The palette is where you choose UML pieces, the canvas is where you
+        build the diagram, and the menus contain file, edit, reorder, and help
+        actions.
+        </p>
+        <ol>
+          <li>Create or open a TikZ diagram file.</li>
+          <li>Use the UML palette to drag elements onto the canvas.</li>
+          <li>Common starting elements are <b>UML System</b>, <b>UML Actor</b>,
+              <b>UML Use Case</b>, and <b>UML Class</b>.</li>
+          <li>Move elements by dragging them. Select an element first when you
+              want to edit, delete, or reorder it.</li>
+        </ol>
+
+        <h2>Use case diagrams</h2>
+        <p>
+        Use case diagrams show who uses a system and what they can do with it.
+        A typical use case diagram has:
+        </p>
+        <ul>
+          <li><b>UML System</b>: the large boundary box for the application or service.</li>
+          <li><b>UML Actor</b>: a person or outside system that interacts with it.</li>
+          <li><b>UML Use Case</b>: an oval describing a goal, such as
+              <i>Log in</i>, <i>Create Account</i>, or <i>Export Diagram</i>.</li>
+          <li><b>Association</b>: a line connecting an actor to the use case they perform.</li>
+        </ul>
+        <p>
+        Put the system box behind the use cases, then place actors outside the
+        boundary and use cases inside or near the boundary depending on the
+        diagram style you want.
+        </p>
+
+        <h2>Class diagrams</h2>
+        <p>
+        Class diagrams describe objects in your system. A UML class usually has
+        three sections:
+        </p>
+        <ul>
+          <li><b>Class name</b>: the top section.</li>
+          <li><b>Attributes</b>: data stored by the class, such as
+              <code>+ name</code> or <code>- id</code>.</li>
+          <li><b>Methods</b>: behavior, such as <code>+ save()</code> or
+              <code>- validate()</code>.</li>
+        </ul>
+        <p>
+        The symbols <code>+</code>, <code>-</code>, and <code>#</code> usually
+        mean public, private, and protected.
+        </p>
+
+        <h2>Edit labels and details</h2>
+        <p>
+        Double-click a UML element to edit its text or properties. For class
+        diagrams, add attributes and methods on separate lines so the class box
+        can grow cleanly. For long use case or actor names, keep the wording
+        readable; the app and LaTeX export will size supported UML elements to
+        keep text inside their shapes.
+        </p>
+
+        <h2>Layering: bring to front and send to back</h2>
+        <p>
+        If shapes overlap, select one or more elements and use:
+        </p>
+        <ul>
+          <li><b>Edit &gt; Reorder &gt; Bring to Front</b> or <code>Ctrl+]</code>.</li>
+          <li><b>Edit &gt; Reorder &gt; Send to Back</b> or <code>Ctrl+[</code>.</li>
+        </ul>
+        <p>
+        A common use is sending a UML System box to the back, then bringing
+        actors, classes, and use cases to the front.
+        </p>
+
+        <h2>Export and compile with LaTeX</h2>
+        <ol>
+          <li>Save the diagram. This writes the <code>.tikz</code> file.</li>
+          <li>Make sure the matching <code>.tikzstyles</code> file is saved in
+              the same folder. It contains the UML/plugin styles that LaTeX needs.</li>
+          <li>In your LaTeX document, include the styles and diagram:
+              <pre>\\input{mydiagram.tikzstyles}
+\\begin{document}
+\\input{mydiagram.tikz}
+\\end{document}</pre>
+          </li>
+          <li>Compile with a normal LaTeX engine such as <code>pdflatex</code>,
+              <code>xelatex</code>, or your editor's build button.</li>
+        </ol>
+
+        <h2>If the LaTeX result looks different</h2>
+        <p>
+        LaTeX is not drawing a screenshot of the app. It rebuilds the diagram
+        from TikZ commands, fonts, sizes, and plugin style definitions. If the
+        compiled version looks wrong, check these first:
+        </p>
+        <ul>
+          <li>The <code>.tikzstyles</code> file is in the same folder and up to date.</li>
+          <li>Your LaTeX document inputs the correct styles file before the diagram.</li>
+          <li>The plugin that created the element is installed in MGB-UML and its
+              exported style/preamble is present in the styles file.</li>
+          <li>Save the diagram again after editing text or adding UML elements.</li>
+        </ul>
+
+        <h2>Good beginner habits</h2>
+        <ul>
+          <li>Start with the biggest container, such as the UML System box.</li>
+          <li>Name actors and use cases with short, readable phrases.</li>
+          <li>Use alignment and spacing to make relationships easy to follow.</li>
+          <li>Save and compile early, then keep checking the PDF as the diagram grows.</li>
+        </ul>
+    )"));
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
+    QObject::connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    layout->addWidget(guide);
+    layout->addWidget(buttons);
+
+    dialog.exec();
+}
+
+} // namespace
 #include "preferencedialog.h"
 #include "tikzit.h"
 #include "mgbPluginDialog.h" // NEW: Required for the Plugin Manager UI
@@ -428,6 +585,11 @@ void MainMenu::on_actionShow_Node_Labels_triggered()
         tikzit->activeWindow()->tikzScene()->setDrawNodeLabels(ui.actionShow_Node_Labels->isChecked());
         tikzit->activeWindow()->tikzScene()->invalidate();
     }
+}
+
+void MainMenu::on_actionBeginner_Guide_triggered()
+{
+    showBeginnerGuide(this);
 }
 
 void MainMenu::on_actionAbout_triggered()
