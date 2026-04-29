@@ -173,6 +173,109 @@ void showBeginnerGuide(QWidget *parent)
     dialog.exec();
 }
 
+void showChangelog(QWidget *parent)
+{
+    QDialog dialog(parent);
+    dialog.setWindowTitle(QObject::tr("Changelog"));
+    dialog.resize(860, 680);
+
+    QTextBrowser *changelog = new QTextBrowser(&dialog);
+    changelog->setOpenExternalLinks(true);
+    changelog->setHtml(QObject::tr(R"(
+        <h1>MGB-UML Changelog</h1>
+
+        <p>
+        This changelog tracks MGB-UML releases. TikZiT is the upstream project
+        that MGB-UML is based on, so TikZiT itself is treated as the baseline
+        rather than an MGB-UML release.
+        </p>
+
+        <h2>v1.1.0 - Plugin architecture, UML plugins, and release polish</h2>
+
+        <h3>Added</h3>
+        <ul>
+          <li>Compiled plugin architecture for custom MGB-UML elements.</li>
+          <li>Plugins menu with plugin installation and plugin management actions.</li>
+          <li>Built-in UML plugins for UML Actor, UML Class, UML System, and UML Use Case.</li>
+          <li>Plugin-backed palette metadata, icons, tooltips, categories, and default TikZ style properties.</li>
+          <li>Custom Qt rendering for UML plugin nodes so the editor view matches UML shapes more closely.</li>
+          <li>Custom TikZ export hooks for plugin nodes so LaTeX output can match editor rendering.</li>
+          <li>Plugin geometry hints for edge attachment around custom node shapes.</li>
+          <li>MGB-UML Plugin SDK with headers, documentation, geometry guidance, and a basic node plugin template.</li>
+          <li>Plugin SDK GitHub Actions workflow.</li>
+          <li>Beginner Guide entry under Help.</li>
+          <li>Developer and upstream TikZiT attribution in the About dialog.</li>
+          <li>Direct keyboard handling for Cut, Copy, and Paste in the diagram scene.</li>
+          <li>Regression test for parser-friendly editable TikZ serialization of UML clipboard content.</li>
+          <li>Changelog entry to Help tab.</li>
+        </ul>
+
+        <h3>Changed</h3>
+        <ul>
+          <li>UML element creation now uses drag-and-drop style metadata instead of hard-coded palette tool cases.</li>
+          <li>Graph export can use plugin custom TikZ, while clipboard copy can request editable parser-friendly TikZ nodes.</li>
+          <li>Improved edge routing and anchor calculation for rectangle, ellipse, actor, system, class, and plugin-defined shapes.</li>
+          <li>Improved UML Class, UML System, UML Actor, and UML Use Case sizing and label handling in the editor and TikZ export.</li>
+          <li>Windows, macOS, and Linux release workflows now build plugins as part of the release process.</li>
+          <li>Windows workflow artifacts now extract directly to the app folder instead of containing another zip file.</li>
+          <li>The release publish job creates the Windows release zip only at the GitHub Release publishing step.</li>
+          <li>Shared core API symbols needed by Windows plugins are exported, including <code>floatToString</code>.</li>
+          <li>Automatic update checker URL points to MGB-UML instead of TikZiT.</li>
+        </ul>
+
+        <h3>Fixed</h3>
+        <ul>
+          <li>Copy, Cut, and Paste for UML elements by copying editable TikZ node data instead of plugin-rendered drawing commands.</li>
+          <li>Cut places copied content on the clipboard before selected items are removed.</li>
+          <li>Pasted path data is included when inserting copied graph fragments.</li>
+          <li>Pasted UML selections are visibly reselected after paste.</li>
+          <li>Windows release plugin linking for plugins that use shared utility functions from the core app.</li>
+          <li>Packaged Windows builds include custom plugins and remove compiler scratch files from the plugin folder.</li>
+        </ul>
+
+        <h2>v1.0.0 - Initial MGB-UML release</h2>
+
+        <h3>Added</h3>
+        <ul>
+          <li>Forked TikZiT into MGB-UML as a UML-focused PGF/TikZ diagram editor.</li>
+          <li>Rebranded the application name, executable, icons, update links, and release metadata for MGB-UML.</li>
+          <li>MGB-UML palette for UML-oriented diagram creation.</li>
+          <li>Initial UML element support, including UML classes and use cases.</li>
+          <li>UML-oriented styling support through injected TikZ styles.</li>
+          <li>UML edge styling support, including generalization, aggregation, and composition-style edge behavior.</li>
+          <li>MGB-UML-specific file management helpers.</li>
+          <li>Bring-to-front and send-to-back ordering for overlapping diagram elements.</li>
+          <li>Release automation for Windows, macOS, and Linux builds.</li>
+          <li>Generated API documentation and documentation publishing workflow.</li>
+          <li>Docker-related development and deployment files.</li>
+          <li>Project version metadata.</li>
+        </ul>
+
+        <h3>Changed</h3>
+        <ul>
+          <li>Updated the build from the upstream TikZiT baseline for the MGB-UML target.</li>
+          <li>Updated editor behavior and palette flow around UML diagram workflows.</li>
+          <li>Updated PDF/TikZ handling and style generation for MGB-UML diagrams.</li>
+          <li>Updated menu text, app metadata, and repository links for the MGB-UML project.</li>
+        </ul>
+
+        <h3>Fixed</h3>
+        <ul>
+          <li>Early MGB-UML packaging paths for the renamed executable.</li>
+          <li>Release scripts package MGB-UML assets instead of the original TikZiT executable naming.</li>
+        </ul>
+    )"));
+
+    QDialogButtonBox *buttons = new QDialogButtonBox(QDialogButtonBox::Close, &dialog);
+    QObject::connect(buttons, &QDialogButtonBox::rejected, &dialog, &QDialog::reject);
+
+    QVBoxLayout *layout = new QVBoxLayout(&dialog);
+    layout->addWidget(changelog);
+    layout->addWidget(buttons);
+
+    dialog.exec();
+}
+
 } // namespace
 #include "preferencedialog.h"
 #include "tikzit.h"
@@ -592,6 +695,11 @@ void MainMenu::on_actionBeginner_Guide_triggered()
     showBeginnerGuide(this);
 }
 
+void MainMenu::on_actionChangelog_triggered()
+{
+    showChangelog(this);
+}
+
 void MainMenu::on_actionAbout_triggered()
 {
     QMessageBox::about(this,
@@ -601,8 +709,13 @@ void MainMenu::on_actionAbout_triggered()
                        "<p>MGB-UML is a GUI diagram editor for PGF/TikZ. It is licensed under the "
                        "<a href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General "
                        "Public License, version 3.0</a>.</p>"
+                       "<p>MGB-UML was created by Gleb Myshkin, Bowen Jiang, and Matthew Smith "
+                       "from Stevens Institute of Technology.</p>"
+                       "<p>MGB-UML is based on the open-source TikZiT project by Aleks Kissinger "
+                       "and contributors. Original TikZiT copyright and GPL license notices are "
+                       "preserved in this distribution.</p>"
                        "<p>For more info and updates, visit: "
-                       "<a href=\"https://github.com/MGB-UML/mgb-uml\">MGB-UML</a></p>");
+                       "<a href=\"https://github.com/gmyshkin/mgb-uml\">MGB-UML</a></p>");
 }
 
 void MainMenu::on_actionCheck_for_updates_automatically_triggered()

@@ -72,11 +72,17 @@ jobs:
         shell: cmd
         run: move dist\mgb-uml-windows.zip dist\mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
 
+      - name: Prepare Windows Artifact Folder
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path dist\artifact | Out-Null
+          Copy-Item -Recurse -Force dist\mgb-uml dist\artifact\mgb-uml
+
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MGB-UML-Windows-${{ github.event.inputs.release_tag }}
-          path: dist/mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip
+          path: dist/artifact
 
   # =========================================================
   # JOB 2: MACOS
@@ -189,6 +195,12 @@ jobs:
         with:
           pattern: MGB-UML-*
           merge-multiple: true
+
+      - name: Package Windows Release Asset
+        run: |
+          if [ -d mgb-uml ]; then
+            zip -r "mgb-uml-windows-${{ github.event.inputs.release_tag }}.zip" mgb-uml
+          fi
 
       - name: Create Release & Upload Files
         uses: softprops/action-gh-release@v1

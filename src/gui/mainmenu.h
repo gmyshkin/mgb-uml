@@ -92,6 +92,7 @@ public slots:
     // Help
     void on_actionAbout_triggered();
     void on_actionBeginner_Guide_triggered();
+    void on_actionChangelog_triggered();
     void on_actionCheck_for_updates_automatically_triggered();
     void on_actionCheck_now_triggered();
 };

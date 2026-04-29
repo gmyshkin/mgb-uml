@@ -123,6 +123,7 @@
     <string>Help</string>
    </property>
     <addaction name="actionBeginner_Guide"/>
+    <addaction name="actionChangelog"/>
     <addaction name="separator"/>
     <addaction name="actionAbout"/>
    <addaction name="separator"/>
@@ -374,6 +375,11 @@
   <action name="actionBeginner_Guide">
    <property name="text">
     <string>Beginner &amp;Guide</string>
+   </property>
+  </action>
+  <action name="actionChangelog">
+   <property name="text">
+    <string>&amp;Changelog</string>
    </property>
   </action>
   <action name="actionAbout">
