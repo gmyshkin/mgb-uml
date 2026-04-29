@@ -113,6 +113,7 @@ QList<PluginElement> UmlClassPlugin::getElements() const {
     e.iconPath = ":/icons/class_icon.png";
     
     e.properties.insert("shape", "rectangle split");
+    e.properties.insert("tikzit edge shape", "rectangle");
     e.properties.insert("rectangle split parts", "3");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "white");

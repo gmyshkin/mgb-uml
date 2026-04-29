@@ -50,8 +50,6 @@ public slots:
     void on_actionUndo_triggered();
     void on_actionRedo_triggered();
     void on_actionCut_triggered();
-    void on_actionCopy_triggered();
-    void on_actionPaste_triggered();
     void on_actionDelete_triggered();
     void on_actionSelect_All_triggered();
     void on_actionDeselect_All_triggered();
@@ -61,6 +59,8 @@ public slots:
     void on_actionRotateCCW_triggered();
     void on_actionBring_to_Front_triggered();
     void on_actionSend_to_Back_triggered();
+    void on_actionCopy_triggered();
+    void on_actionPaste_triggered();
     void on_actionExtendUp_triggered();
     void on_actionExtendDown_triggered();
     void on_actionExtendLeft_triggered();

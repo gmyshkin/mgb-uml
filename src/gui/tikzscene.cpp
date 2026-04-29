@@ -19,6 +19,7 @@
 #include "tikzit.h"
 #include "util.h"
 #include "tikzscene.h"
+#include <QApplication>
 #include "undocommands.h"
 #include "tikzassembler.h"
 
@@ -29,6 +30,11 @@
 #include <QMimeData>
 #include <QClipboard>
 #include <QInputDialog>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QAction>
 #include <QMessageBox>
 #include <cmath>
 #include <delimitedstringvalidator.h>
@@ -449,9 +455,9 @@ void TikzScene::refreshZIndices()
     foreach (Edge *e, graph()->edges()) {
         if (e->path() && e == e->path()->edges().first()) {
             pathItems()[e->path()]->setZValue(z);
-            edgeItems()[e]->setZValue(z + 0.1);
+            edgeItems()[e]->setZValue(10000 + z + 0.1);
         } else {
-            edgeItems()[e]->setZValue(z);
+            edgeItems()[e]->setZValue(10000 + z);
         }
         z += 1.0;
     }
@@ -903,6 +909,21 @@ void TikzScene::keyPressEvent(QKeyEvent *event)
     Qt::KeyboardModifiers mod = QApplication::queryKeyboardModifiers();
 
     if (mod & Qt::ControlModifier) {
+        if (event->key() == Qt::Key_C || event->key() == Qt::Key_V) {
+            const char *actionName = event->key() == Qt::Key_C ? "actionCopy" : "actionPaste";
+            QWidget *owner = views().isEmpty() ? nullptr : views().first()->window();
+        QAction *action = owner == nullptr ? nullptr : owner->findChild<QAction *>(actionName);
+        if (action == nullptr && qApp->activeWindow() != nullptr) {
+            action = qApp->activeWindow()->findChild<QAction *>(actionName);
+        }
+            if (action != nullptr) {
+            action->setEnabled(true);
+            action->trigger();
+                event->accept();
+                return;
+            }
+        }
+
         if (event->key() == Qt::Key_BracketRight) {
             reorderSelection(true);
             event->accept();
@@ -1058,6 +1079,44 @@ void TikzScene::keyPressEvent(QKeyEvent *event)
 
 void TikzScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    QGraphicsItem *clickedItem = itemAt(event->scenePos(), QTransform());
+    EdgeItem *edgeItem = dynamic_cast<EdgeItem *>(clickedItem);
+    if (edgeItem != nullptr && edgeItem->edge() != nullptr) {
+        Edge *edge = edgeItem->edge();
+        QDialog dlg;
+        dlg.setWindowTitle(tr("Edit UML Multiplicities"));
+
+        QFormLayout form(&dlg);
+        QLineEdit sourceMultiplicity(edge->data()->property("tikzit source multiplicity"));
+        QLineEdit targetMultiplicity(edge->data()->property("tikzit target multiplicity"));
+        sourceMultiplicity.setPlaceholderText(tr("Example: 1, 0..1, 1..*"));
+        targetMultiplicity.setPlaceholderText(tr("Example: *, 0..*, 1"));
+
+        form.addRow(tr("Source end"), &sourceMultiplicity);
+        form.addRow(tr("Target end"), &targetMultiplicity);
+
+        QDialogButtonBox buttons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+        form.addRow(&buttons);
+        connect(&buttons, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+        connect(&buttons, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+
+        if (dlg.exec() == QDialog::Accepted) {
+            const QString sourceText = sourceMultiplicity.text().trimmed();
+            const QString targetText = targetMultiplicity.text().trimmed();
+
+            if (sourceText.isEmpty()) edge->data()->unsetProperty("tikzit source multiplicity");
+            else edge->data()->setProperty("tikzit source multiplicity", sourceText);
+
+            if (targetText.isEmpty()) edge->data()->unsetProperty("tikzit target multiplicity");
+            else edge->data()->setProperty("tikzit target multiplicity", targetText);
+
+            edgeItem->update();
+            update();
+        }
+        event->accept();
+        return;
+    }
+
     if (!_enabled) return;
 
     QPointF mousePos = event->scenePos();

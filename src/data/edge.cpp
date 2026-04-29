@@ -27,6 +27,7 @@
 #include <algorithm>
 #include <cmath>
 #include <limits>
+#include <limits>
 namespace {
 
 static int umlLengthToPixelsForEdge(QString raw, int fallbackPx)
@@ -111,7 +112,9 @@ static QPointF anchorPointTowardForEdge(const Node *node, qreal angleR)
     QString shape = node->style() ? node->style()->shape() : "";
 
     // Generic rule for rectangle-like shapes
-    if (shape == "rectangle" || shape == "rectangle split") {
+    if (shape == "rectangle" || shape == "rectangle split" ||
+        node->data()->property("tikzit edge shape") == "rectangle" ||
+        node->style()->propertyWithDefault("tikzit edge shape", "", false) == "rectangle") {
         QSizeF half = rectangleHalfExtentsForEdge(node);
 
         qreal dx = std::cos(angleR);
@@ -181,7 +184,9 @@ static QPointF nodeHalfExtents(const Node *node)
         return QPointF((w / 2.0) / GLOBAL_SCALEF, (h / 2.0) / GLOBAL_SCALEF);
     }
 
-    if (shapeName == "ellipse") {
+    if (shapeName == "ellipse" ||
+        node->data()->property("tikzit edge shape") == "ellipse" ||
+        node->style()->propertyWithDefault("tikzit edge shape", "", false) == "ellipse") {
         QString label = replaceTexConstants(node->label());
         QFontMetrics fm(Tikzit::LABEL_FONT);
         QRect b = fm.boundingRect(label);
@@ -196,7 +201,8 @@ if (styleName == "UML Actor" || shapeName == "uml actor" || shapeName == "uml_ac
     return QPointF(0.22, 0.57);
 }
 
-if (styleName == "UML System" || shapeName == "uml system") {
+    if (node->data()->property("tikzit edge shape") == "rectangle" ||
+        node->style()->propertyWithDefault("tikzit edge shape", "", false) == "rectangle") {
         QString label = replaceTexConstants(node->label());
         QFont titleFont = Tikzit::LABEL_FONT;
         titleFont.setBold(true);
@@ -530,13 +536,87 @@ void Edge::updateData()
 }
 
 
+static qreal pluginEdgeDimension(const QString &raw)
+{
+    QString value = raw.trimmed();
+    if (value.isEmpty()) return 0.0;
+
+    qreal factor = 1.0;
+    if (value.endsWith("cm")) {
+        value.chop(2);
+    } else if (value.endsWith("mm")) {
+        value.chop(2);
+        factor = 0.1;
+    } else if (value.endsWith("pt")) {
+        value.chop(2);
+        factor = 1.0 / 28.45;
+    }
+
+    bool ok = false;
+    const qreal parsed = value.trimmed().toDouble(&ok);
+    return ok ? parsed * factor : 0.0;
+}
+
+static QString pluginEdgeShape(const Node *node)
+{
+    if (node == nullptr || node->style() == nullptr) return QString();
+
+    QString shape = node->data()->property("tikzit edge shape").trimmed();
+    if (shape.isEmpty()) {
+        shape = node->style()->propertyWithDefault("tikzit edge shape", "", false).trimmed();
+    }
+    return shape;
+}
+
+static QPointF pluginEdgeAnchorPoint(const Node *node, const QPointF &center, const QPointF &toward)
+{
+    const QString shape = pluginEdgeShape(node);
+    if (shape.isEmpty()) return center;
+
+    const qreal width = pluginEdgeDimension(node->style()->propertyWithDefault("tikzit edge width", "", false));
+    const qreal height = pluginEdgeDimension(node->style()->propertyWithDefault("tikzit edge height", "", false));
+    if (width <= 0.0 || height <= 0.0) return center;
+
+    const QPointF delta = toward - center;
+    if (qFuzzyIsNull(delta.x()) && qFuzzyIsNull(delta.y())) return center;
+
+    const qreal rx = width / 2.0;
+    const qreal ry = height / 2.0;
+
+    if (shape == "ellipse") {
+        const qreal denom = std::sqrt((delta.x() * delta.x()) / (rx * rx) +
+                                      (delta.y() * delta.y()) / (ry * ry));
+        return denom > 0.0 ? center + delta / denom : center;
+    }
+
+    if (shape == "rectangle") {
+        const qreal tx = qFuzzyIsNull(delta.x()) ? std::numeric_limits<qreal>::max() : rx / std::abs(delta.x());
+        const qreal ty = qFuzzyIsNull(delta.y()) ? std::numeric_limits<qreal>::max() : ry / std::abs(delta.y());
+        return center + delta * std::min(tx, ty);
+    }
+
+    return center;
+}
+
 QPointF Edge::head() const
 {
+    if (_target != nullptr) {
+        QPointF pluginAnchor = pluginEdgeAnchorPoint(_target, _head, _tail);
+        if (pluginAnchor != _head) return pluginAnchor;
+        QPointF d = _head - _tail;
+        return anchorPointTowardForEdge(_target, std::atan2(d.y(), d.x()) + M_PI);
+    }
     return _head;
 }
 
 QPointF Edge::tail() const
 {
+    if (_source != nullptr) {
+        QPointF pluginAnchor = pluginEdgeAnchorPoint(_source, _tail, _head);
+        if (pluginAnchor != _tail) return pluginAnchor;
+        QPointF d = _head - _tail;
+        return anchorPointTowardForEdge(_source, std::atan2(d.y(), d.x()));
+    }
     return _tail;
 }
 
