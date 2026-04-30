@@ -467,6 +467,12 @@ void Tikzit::updateReply(QNetworkReply *reply, bool manual)
               "latest version: " + strLatest + "</i></p>"
               "<p>Download it now from: "
               "<a href=\"https://github.com/gmyshkin/mgb-uml/releases\">https://github.com/gmyshkin/mgb-uml/releases</a>.</p>");
+        } else if (manual) {
+            QMessageBox::information(nullptr,
+              tr("MGB-UML is up to date"),
+              "<p><b>You are using the latest version of MGB-UML.</b></p>"
+              "<p><i>current version: " + strCurrent + "<br />"
+              "latest version: " + strLatest + "</i></p>");
         }
     } else {
         // don't complain of invalid response for auto update check

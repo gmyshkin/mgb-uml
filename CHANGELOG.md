@@ -13,6 +13,8 @@ MGB-UML release.
   to the same GitHub Release.
 - Improved the automatic update checker to normalize version tags with or
   without a leading `v` before comparing versions.
+- Changed Help > Check now to show an explicit up-to-date message when the
+  installed app is already on the latest release.
 - Updated update-checker wording from TikZiT to MGB-UML.
 
 ### Fixed

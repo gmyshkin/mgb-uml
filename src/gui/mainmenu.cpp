@@ -196,6 +196,7 @@ void showChangelog(QWidget *parent)
         <ul>
           <li>Manual Build &amp; Release now packages Linux, Windows, and macOS Plugin SDK archives and uploads them to the same GitHub Release.</li>
           <li>The automatic update checker normalizes version tags with or without a leading <code>v</code> before comparing versions.</li>
+          <li>Help &gt; Check now shows an explicit up-to-date message when the installed app is already on the latest release.</li>
           <li>Update-checker wording now says MGB-UML instead of TikZiT.</li>
         </ul>
 
