@@ -266,7 +266,7 @@ QString TikzStyles::tikz() const
     code << "% =========================================================\n\n";
 
     // --- MGB-UML: DYNAMIC LIBRARY AND PREAMBLE EXTRACTOR ---
-    QStringList libraries = {"shapes.multipart", "positioning", "shapes.geometric", "arrows.meta"};
+    QStringList libraries = {"shapes.multipart", "positioning", "shapes.geometric", "arrows.meta", "decorations.markings"};
     QString customPreambles = "";
 
     QList<mgb::PluginElement> plugins = mgb::PluginManager::instance().getLoadedPlugins();
@@ -306,7 +306,12 @@ QString TikzStyles::tikz() const
     code << "\\pgfkeys{/tikz/tikzit fill/.initial=}\n";
     code << "\\pgfkeys{/tikz/tikzit draw/.initial=}\n";
     code << "\\pgfkeys{/tikz/tikzit shape/.initial=}\n";
-    code << "\\pgfkeys{/tikz/tikzit category/.initial=}\n\n";
+    code << "\\pgfkeys{/tikz/tikzit category/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit edge shape/.initial=}\n\n";
+    code << "\\pgfkeys{/tikz/tikzit edge width/.initial=}\n";
+    code << "\\pgfkeys{/tikz/tikzit edge height/.initial=}\n\n";
+    code << "\\tikzset{tikzit source multiplicity/.style={postaction={decorate,decoration={markings,mark=at position 0.08 with {\\pgftransformresetnontranslations\\node[draw=none,fill=none,inner sep=1pt,yshift=4pt,font=\\sffamily\\fontsize{8pt}{10pt}\\selectfont] {#1};}}}}}\n";
+    code << "\\tikzset{tikzit target multiplicity/.style={postaction={decorate,decoration={markings,mark=at position 0.92 with {\\pgftransformresetnontranslations\\node[draw=none,fill=none,inner sep=1pt,yshift=4pt,font=\\sffamily\\fontsize{8pt}{10pt}\\selectfont] {#1};}}}}}\n\n";
 
     code << "% Layer definitions\n";
     code << "\\pgfdeclarelayer{edgelayer}\n";

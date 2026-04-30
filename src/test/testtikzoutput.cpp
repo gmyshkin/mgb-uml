@@ -2,6 +2,7 @@
 #include "graphelementproperty.h"
 #include "graphelementdata.h"
 #include "graph.h"
+#include "node.h"
 #include "tikzassembler.h"
 
 #include <QTest>
@@ -78,6 +79,33 @@ void TestTikzOutput::graphFromTikz()
     QVERIFY2(res, "parsed successfully");
     QVERIFY2(g->tikz() == tikz, "produced matching tikz");
 
+    delete g;
+}
+
+void TestTikzOutput::graphEditableTikzUsesParserFriendlyNodes()
+{
+    Graph *g = new Graph();
+    Node *n = new Node();
+    n->setName("0");
+    n->setStyleName("UML Actor");
+    n->setPoint(QPointF(1.25, -2.5));
+    n->setLabel("User");
+    g->addNode(n);
+
+    QString tikz = g->tikz(false);
+
+    QVERIFY2(tikz.contains("\\node [style=UML Actor]"),
+             "editable TikZ keeps UML nodes in parser-friendly node form");
+
+    Graph *parsed = new Graph();
+    TikzAssembler ass(parsed);
+    QVERIFY2(ass.parse(tikz), "editable TikZ parses back into the graph model");
+    QCOMPARE(parsed->nodes().size(), 1);
+    QCOMPARE(parsed->nodes()[0]->styleName(), QString("UML Actor"));
+    QCOMPARE(parsed->nodes()[0]->label(), QString("User"));
+    QCOMPARE(parsed->nodes()[0]->point(), QPointF(1.25, -2.5));
+
+    delete parsed;
     delete g;
 }
 

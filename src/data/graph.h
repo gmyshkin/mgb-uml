@@ -83,7 +83,7 @@ public:
      */
     QRectF realBbox();
 
-    QString tikz();
+    QString tikz(bool usePluginTikzNodes = true);
 
     /*!
      * \brief copyOfSubgraphWithNodes produces a copy of the full subgraph

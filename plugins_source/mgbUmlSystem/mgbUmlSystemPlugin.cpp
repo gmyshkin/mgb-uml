@@ -47,6 +47,9 @@ QList<PluginElement> UmlSystemPlugin::getElements() const {
     e.iconPath = ":/icons/system_icon.png";
     
     e.properties.insert("shape", "uml system");
+    e.properties.insert("tikzit edge shape", "rectangle");
+    e.properties.insert("tikzit edge width", "5.0cm");
+    e.properties.insert("tikzit edge height", "6.0cm");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "white");
     e.properties.insert("minimum width", "4cm");

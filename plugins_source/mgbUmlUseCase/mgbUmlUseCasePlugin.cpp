@@ -67,6 +67,9 @@ QList<PluginElement> UmlUseCasePlugin::getElements() const {
     e.iconPath = ":/icons/use_case_icon.png";
     
     e.properties.insert("shape", "ellipse");
+    e.properties.insert("tikzit edge shape", "ellipse");
+    e.properties.insert("tikzit edge width", "2.8cm");
+    e.properties.insert("tikzit edge height", "1.1cm");
     e.properties.insert("draw", "black");
     e.properties.insert("fill", "white");
     e.properties.insert("font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");

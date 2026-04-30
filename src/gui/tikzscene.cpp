@@ -19,6 +19,7 @@
 #include "tikzit.h"
 #include "util.h"
 #include "tikzscene.h"
+#include <QApplication>
 #include "undocommands.h"
 #include "tikzassembler.h"
 
@@ -28,7 +29,14 @@
 #include <QDebug>
 #include <QMimeData>
 #include <QClipboard>
+#include <QGuiApplication>
+#include <QKeySequence>
 #include <QInputDialog>
+#include <QDialog>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QLineEdit>
+#include <QAction>
 #include <QMessageBox>
 #include <cmath>
 #include <delimitedstringvalidator.h>
@@ -449,9 +457,9 @@ void TikzScene::refreshZIndices()
     foreach (Edge *e, graph()->edges()) {
         if (e->path() && e == e->path()->edges().first()) {
             pathItems()[e->path()]->setZValue(z);
-            edgeItems()[e]->setZValue(z + 0.1);
+            edgeItems()[e]->setZValue(10000 + z + 0.1);
         } else {
-            edgeItems()[e]->setZValue(z);
+            edgeItems()[e]->setZValue(10000 + z);
         }
         z += 1.0;
     }
@@ -898,11 +906,41 @@ void TikzScene::keyReleaseEvent(QKeyEvent *event)
 
 void TikzScene::keyPressEvent(QKeyEvent *event)
 {
+    if (!_enabled) return;
+
+    if (event->matches(QKeySequence::Copy)) {
+        copyToClipboard();
+        event->accept();
+        return;
+    } else if (event->matches(QKeySequence::Cut)) {
+        cutToClipboard();
+        event->accept();
+        return;
+    } else if (event->matches(QKeySequence::Paste)) {
+        pasteFromClipboard();
+        event->accept();
+        return;
+    }
+
     bool capture = false;
 
     Qt::KeyboardModifiers mod = QApplication::queryKeyboardModifiers();
 
     if (mod & Qt::ControlModifier) {
+        if (event->key() == Qt::Key_C) {
+            copyToClipboard();
+            event->accept();
+            return;
+        } else if (event->key() == Qt::Key_X) {
+            cutToClipboard();
+            event->accept();
+            return;
+        } else if (event->key() == Qt::Key_V) {
+            pasteFromClipboard();
+            event->accept();
+            return;
+        }
+
         if (event->key() == Qt::Key_BracketRight) {
             reorderSelection(true);
             event->accept();
@@ -1058,6 +1096,44 @@ void TikzScene::keyPressEvent(QKeyEvent *event)
 
 void TikzScene::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
+    QGraphicsItem *clickedItem = itemAt(event->scenePos(), QTransform());
+    EdgeItem *edgeItem = dynamic_cast<EdgeItem *>(clickedItem);
+    if (edgeItem != nullptr && edgeItem->edge() != nullptr) {
+        Edge *edge = edgeItem->edge();
+        QDialog dlg;
+        dlg.setWindowTitle(tr("Edit UML Multiplicities"));
+
+        QFormLayout form(&dlg);
+        QLineEdit sourceMultiplicity(edge->data()->property("tikzit source multiplicity"));
+        QLineEdit targetMultiplicity(edge->data()->property("tikzit target multiplicity"));
+        sourceMultiplicity.setPlaceholderText(tr("Example: 1, 0..1, 1..*"));
+        targetMultiplicity.setPlaceholderText(tr("Example: *, 0..*, 1"));
+
+        form.addRow(tr("Source end"), &sourceMultiplicity);
+        form.addRow(tr("Target end"), &targetMultiplicity);
+
+        QDialogButtonBox buttons(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+        form.addRow(&buttons);
+        connect(&buttons, &QDialogButtonBox::accepted, &dlg, &QDialog::accept);
+        connect(&buttons, &QDialogButtonBox::rejected, &dlg, &QDialog::reject);
+
+        if (dlg.exec() == QDialog::Accepted) {
+            const QString sourceText = sourceMultiplicity.text().trimmed();
+            const QString targetText = targetMultiplicity.text().trimmed();
+
+            if (sourceText.isEmpty()) edge->data()->unsetProperty("tikzit source multiplicity");
+            else edge->data()->setProperty("tikzit source multiplicity", sourceText);
+
+            if (targetText.isEmpty()) edge->data()->unsetProperty("tikzit target multiplicity");
+            else edge->data()->setProperty("tikzit target multiplicity", targetText);
+
+            edgeItem->update();
+            update();
+        }
+        event->accept();
+        return;
+    }
+
     if (!_enabled) return;
 
     QPointF mousePos = event->scenePos();
@@ -1271,24 +1347,63 @@ void TikzScene::deleteSelectedItems() {
     _tikzDocument->undoStack()->endMacro();
 }
 void TikzScene::copyToClipboard() {
-    Graph *g = graph()->copyOfSubgraphWithNodes(getSelectedNodes());
-    QGuiApplication::clipboard()->setText(g->tikz());
+    QSet<Node*> selNodes;
+    QSet<Edge*> selEdges;
+    getSelection(selNodes, selEdges);
+
+    foreach (Edge *e, selEdges) {
+        selNodes << e->source();
+        selNodes << e->target();
+    }
+
+    if (selNodes.isEmpty()) return;
+
+    Graph *g = graph()->copyOfSubgraphWithNodes(selNodes);
+    QString tikz = g->tikz(false);
+
+    QMimeData *mime = new QMimeData();
+    mime->setText(tikz);
+    mime->setData("application/x-mgb-uml-tikz-selection", tikz.toUtf8());
+    QGuiApplication::clipboard()->setMimeData(mime);
+
     delete g;
 }
 void TikzScene::cutToClipboard() { copyToClipboard(); deleteSelectedItems(); }
 void TikzScene::pasteFromClipboard() {
-    QString tikz = QGuiApplication::clipboard()->text();
+    const QMimeData *mime = QGuiApplication::clipboard()->mimeData();
+    QString tikz;
+
+    if (mime && mime->hasFormat("application/x-mgb-uml-tikz-selection")) {
+        tikz = QString::fromUtf8(mime->data("application/x-mgb-uml-tikz-selection"));
+    } else {
+        tikz = QGuiApplication::clipboard()->text();
+    }
+
     Graph *g = new Graph(); TikzAssembler ass(g);
     if (ass.parse(tikz) && !g->nodes().isEmpty()) {
         g->renameApart(graph());
-        QRectF srcRect = g->realBbox(); QRectF tgtRect = graph()->realBbox();
-        QPointF shift(tgtRect.right() - srcRect.left(), 0.0);
-        if (shift.x() > 0) {
-            foreach (Node *n, g->nodes()) n->setPoint(n->point() + shift);
-        }
+        QPointF shift(0.5, -0.5);
+        foreach (Node *n, g->nodes()) n->setPoint(n->point() + shift);
+
+        QVector<Node*> pastedNodes = g->nodes();
+        QVector<Edge*> pastedEdges = g->edges();
+
         PasteCommand *cmd = new PasteCommand(this, g);
         _tikzDocument->undoStack()->push(cmd);
+
+        deselectAll();
+        foreach (Node *n, pastedNodes) {
+            if (_nodeItems.contains(n)) _nodeItems[n]->setSelected(true);
+        }
+        foreach (Edge *e, pastedEdges) {
+            if (_edgeItems.contains(e)) _edgeItems[e]->setSelected(true);
+        }
+        refreshSceneBounds();
+        invalidate();
+        return;
     }
+
+    delete g;
 }
 void TikzScene::selectAllNodes() {
     foreach (NodeItem *ni, _nodeItems.values()) ni->setSelected(true);

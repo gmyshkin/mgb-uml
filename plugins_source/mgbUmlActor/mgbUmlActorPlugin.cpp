@@ -27,6 +27,7 @@ QString UmlActorPlugin::pluginName() const {
 QList<PluginElement> UmlActorPlugin::getElements() const {
     PluginElement e;
     e.name = "UML Actor";
+    e.properties.insert("tikzit edge shape", "rectangle");
     e.type = "node";
     e.category = "UML Elements";
     e.tooltip = "Drag to add an Actor";

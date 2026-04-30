@@ -19,6 +19,44 @@
 #include "tikzit.h"
 #include "edgeitem.h"
 
+#include <QFontMetrics>
+#include <QColor>
+#include <QPainter>
+#include <QPainterPath>
+#include <cmath>
+
+namespace {
+
+void drawMultiplicityLabel(QPainter *painter, const QPointF &lineStart, const QPointF &lineEnd, qreal percent, const QString &text)
+{
+    const QString label = text.trimmed();
+    if (label.isEmpty()) return;
+
+    QPointF line = lineEnd - lineStart;
+    const qreal len = std::sqrt(line.x() * line.x() + line.y() * line.y());
+    if (len <= 0.001) return;
+
+    line /= len;
+    QPointF normal(-line.y(), line.x());
+    if (normal.y() > 0) normal = -normal;
+    normal *= 0.4;
+    const QPointF pos = lineStart + (lineEnd - lineStart) * percent + normal * 30.0;
+    QFont font = painter->font();
+    font.setPointSize(8);
+    painter->setFont(font);
+
+    QFontMetrics fm(font);
+    QRectF rect = fm.boundingRect(label).adjusted(-4, -2, 4, 2);
+    rect.moveCenter(pos + QPointF(0, -2));
+
+    painter->save();
+    painter->setPen(Qt::black);
+    painter->drawText(rect, Qt::AlignCenter, label);
+    painter->restore();
+}
+
+} // namespace
+
 #include <QPainterPath>
 #include <QPen>
 
@@ -67,6 +105,9 @@ void EdgeItem::readPos()
 
 void EdgeItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    drawMultiplicityLabel(painter, toScreen(_edge->tail()), toScreen(_edge->head()), 0.08, _edge->data()->property("tikzit source multiplicity"));
+    drawMultiplicityLabel(painter, toScreen(_edge->tail()), toScreen(_edge->head()), 0.92, _edge->data()->property("tikzit target multiplicity"));
+
     //QGraphicsPathItem::paint(painter, option, widget);
 	QPen pen = _edge->style()->pen();
 	painter->setPen(pen);
@@ -296,4 +337,3 @@ void EdgeItem::setPath(const QPainterPath &path)
 
     update();
 }
-

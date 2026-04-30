@@ -12,6 +12,7 @@ private slots:
     void graphBbox();
     void graphEmpty();
     void graphFromTikz();
+    void graphEditableTikzUsesParserFriendlyNodes();
 };
 
 #endif // TESTTIKZOUTPUT_H
