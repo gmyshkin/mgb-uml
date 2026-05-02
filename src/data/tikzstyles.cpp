@@ -316,7 +316,7 @@ QString TikzStyles::tikz() const
     code << "% Layer definitions\n";
     code << "\\pgfdeclarelayer{edgelayer}\n";
     code << "\\pgfdeclarelayer{nodelayer}\n";
-    code << "\\pgfsetlayers{edgelayer,nodelayer,main}\n\n";
+    code << "\\pgfsetlayers{nodelayer,edgelayer,main}\n\n";
 
     code << "% Node styles\n";
     code << _nodeStyles->tikz();

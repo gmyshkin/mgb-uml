@@ -28,6 +28,8 @@ QList<PluginElement> UmlActorPlugin::getElements() const {
     PluginElement e;
     e.name = "UML Actor";
     e.properties.insert("tikzit edge shape", "rectangle");
+    e.properties.insert("tikzit edge width", "0.7cm");
+    e.properties.insert("tikzit edge height", "1.15cm");
     e.type = "node";
     e.category = "UML Elements";
     e.tooltip = "Drag to add an Actor";
@@ -92,7 +94,9 @@ bool UmlActorPlugin::writeTikzNode(QTextStream &code, Node *node, int *emittedLi
     QString font = propertyWithStyleDefault(node, "font", "\\sffamily\\fontsize{10pt}{12pt}\\selectfont");
     QString draw = "draw=" + stroke + ", line width=" + lineWidth;
 
-    code << "\t\t\\coordinate (" << node->name() << ") at (" << x << ", " << y << ");\n";
+    code << "\t\t\\node [draw=none, fill=none, shape=rectangle, minimum width=0.7cm, "
+         << "minimum height=1.15cm, inner sep=0pt, outer sep=0pt] ("
+         << node->name() << ") at (" << x << ", " << y << ") {};\n";
     code << "\t\t\\draw [" << draw << "] (" << node->name()
          << ") ++(0,0.45) circle [radius=0.12cm];\n";
     code << "\t\t\\draw [" << draw << "] (" << node->name()
