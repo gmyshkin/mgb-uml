@@ -195,6 +195,7 @@ void showChangelog(QWidget *parent)
         <h3>Fixed</h3>
         <ul>
           <li>Fixed Lines not appearing in Latex Compiled PDF files if inside/on-top of UML System.</li>
+          <li>Aggregation, Generalization, and Composition arrowheads now appear when Latex Compiled.</li>
         </ul>
 
         <h2>v1.1.1 - Release SDK and updater fixes</h2>

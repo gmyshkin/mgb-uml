@@ -313,6 +313,11 @@ QString TikzStyles::tikz() const
     code << "\\tikzset{tikzit source multiplicity/.style={postaction={decorate,decoration={markings,mark=at position 0.08 with {\\pgftransformresetnontranslations\\node[draw=none,fill=none,inner sep=1pt,yshift=4pt,font=\\sffamily\\fontsize{8pt}{10pt}\\selectfont] {#1};}}}}}\n";
     code << "\\tikzset{tikzit target multiplicity/.style={postaction={decorate,decoration={markings,mark=at position 0.92 with {\\pgftransformresetnontranslations\\node[draw=none,fill=none,inner sep=1pt,yshift=4pt,font=\\sffamily\\fontsize{8pt}{10pt}\\selectfont] {#1};}}}}}\n\n";
 
+    code << "% UML edge arrowheads\n";
+    code << "\\tikzset{uml-generalization/.style={-{Triangle[open,length=3.2mm,width=3.2mm]}}}\n";
+    code << "\\tikzset{uml-aggregation/.style={-{Diamond[open,length=3.2mm,width=3.2mm]}}}\n";
+    code << "\\tikzset{uml-composition/.style={-{Diamond[length=3.2mm,width=3.2mm]}}}\n\n";
+
     code << "% Layer definitions\n";
     code << "\\pgfdeclarelayer{edgelayer}\n";
     code << "\\pgfdeclarelayer{nodelayer}\n";

@@ -9,6 +9,7 @@ MGB-UML release.
 ### Fixed
 
 - Fixed Lines not appearing in Latex Compiled PDF files if inside/on-top of UML System.
+- Aggregation, Generalization, and Composition arrowheads now appear when Latex Compiled.
 
 ## v1.1.1 - Release SDK and updater fixes
 
