@@ -190,6 +190,15 @@ void showChangelog(QWidget *parent)
         rather than an MGB-UML release.
         </p>
 
+        <h2>v1.1.2 - Bug Fixes</h2>
+
+        <h3>Fixed</h3>
+        <ul>
+          <li>Fixed Lines not appearing in Latex Compiled PDF files if inside/on-top of UML System.</li>
+          <li>Aggregation, Generalization, and Composition arrowheads now appear when Latex Compiled.</li>
+          <li>Open and Open Recent now reopen saved UML/plugin TikZ files by preserving an editable MGB-UML snapshot while keeping the LaTeX-oriented compiled output.</li>
+        </ul>
+
         <h2>v1.1.1 - Release SDK and updater fixes</h2>
 
         <h3>Changed</h3>

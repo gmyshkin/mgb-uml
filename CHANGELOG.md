@@ -4,6 +4,15 @@ This changelog tracks MGB-UML releases. TikZiT is the upstream project that
 MGB-UML is based on, so TikZiT itself is treated as the baseline rather than an
 MGB-UML release.
 
+## v1.1.2 - Bug Fixes
+
+### Fixed
+
+- Fixed Lines not appearing in Latex Compiled PDF files if inside/on-top of UML System.
+- Aggregation, Generalization, and Composition arrowheads now appear when Latex Compiled.
+- Fixed Open and Open Recent for saved UML/plugin TikZ files by preserving an
+  editable MGB-UML snapshot while keeping the LaTeX-oriented compiled output.
+
 ## v1.1.1 - Release SDK and updater fixes
 
 ### Changed

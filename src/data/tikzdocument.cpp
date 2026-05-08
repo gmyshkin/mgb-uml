@@ -22,11 +22,239 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QRegularExpression>
+#include <QStringList>
 
 #include "tikzit.h"
 #include "tikzdocument.h"
 #include "tikzassembler.h"
 #include "mainwindow.h"
+
+namespace {
+
+const QString EDITABLE_BEGIN = "% MGB-UML editable TikZ begin";
+const QString EDITABLE_END = "% MGB-UML editable TikZ end";
+const QString EDITABLE_PREFIX = "% MGB-UML editable TikZ: ";
+
+QString editableSnapshotFromTikz(const QString &tikz)
+{
+    QStringList editableLines;
+    bool inEditableBlock = false;
+
+    const QStringList lines = tikz.split('\n');
+    for (const QString &line : lines) {
+        const QString trimmed = line.trimmed();
+        if (trimmed == EDITABLE_BEGIN) {
+            editableLines.clear();
+            inEditableBlock = true;
+            continue;
+        }
+
+        if (trimmed == EDITABLE_END) {
+            return editableLines.join("\n") + "\n";
+        }
+
+        if (inEditableBlock && line.startsWith(EDITABLE_PREFIX)) {
+            editableLines << line.mid(EDITABLE_PREFIX.length());
+        }
+    }
+
+    return QString();
+}
+
+QString tikzWithEditableSnapshot(const QString &compiledTikz, const QString &editableTikz)
+{
+    QString out;
+    QTextStream stream(&out);
+
+    stream << EDITABLE_BEGIN << "\n";
+    const QStringList lines = editableTikz.split('\n');
+    for (const QString &line : lines) {
+        stream << EDITABLE_PREFIX << line << "\n";
+    }
+    stream << EDITABLE_END << "\n\n";
+    stream << compiledTikz;
+    stream.flush();
+
+    return out;
+}
+
+QString tikzNodeLabelFromLine(const QString &line)
+{
+    int start = line.indexOf(") {");
+    if (start < 0) return QString();
+
+    QString label = line.mid(start + 3).trimmed();
+    if (label.endsWith("};")) label.chop(2);
+    return label;
+}
+
+QString recoveredNodeLine(const QString &style, const QString &name,
+                          const QString &x, const QString &y,
+                          const QString &label)
+{
+    return "\t\t\\node [style=" + style + "] (" + name + ") at (" +
+           x + ", " + y + ") {" + label + "};";
+}
+
+QString recoverRenderedPluginTikz(const QString &tikz)
+{
+    struct RenderedNode {
+        QString name;
+        QString x;
+        QString y;
+        QString style;
+        QString label;
+        int line = -1;
+    };
+
+    QString beginLine = "\\begin{tikzpicture}";
+    QStringList bboxLines;
+    QStringList simpleNodeLines;
+    QStringList edgeStatements;
+    QList<RenderedNode> recoveredNodes;
+    QSet<QString> recoveredNames;
+
+    const QStringList lines = tikz.split('\n');
+    QRegularExpression beginRe("^\\s*\\\\begin\\{tikzpicture\\}.*$");
+    QRegularExpression renderedNodeRe("^\\s*\\\\node\\s+\\[([^\\]]*)\\]\\s+\\(([^\\)]+)\\)\\s+at\\s+\\(([-+0-9.]+)\\s*,\\s*([-+0-9.]+)\\)\\s+\\{\\}\\s*;\\s*$");
+    QRegularExpression simpleNodeRe("^\\s*\\\\node\\s+(\\[[^\\]]*\\]\\s+)?\\(([^\\)]+)\\)\\s+at\\s+\\(([-+0-9.]+)\\s*,\\s*([-+0-9.]+)\\)\\s+\\{.*\\}\\s*;\\s*$");
+
+    for (int i = 0; i < lines.size(); ++i) {
+        const QString line = lines[i];
+        if (beginRe.match(line).hasMatch()) {
+            beginLine = line.trimmed();
+        }
+
+        if (line.contains("use as bounding box")) {
+            bboxLines << line;
+        }
+
+        QRegularExpressionMatch renderedMatch = renderedNodeRe.match(line);
+        if (renderedMatch.hasMatch()) {
+            const QString options = renderedMatch.captured(1);
+            const QString name = renderedMatch.captured(2);
+            const QString x = renderedMatch.captured(3);
+            const QString y = renderedMatch.captured(4);
+
+            int end = i + 1;
+            while (end < lines.size() &&
+                   !renderedNodeRe.match(lines[end]).hasMatch() &&
+                   !lines[end].contains("\\end{pgfonlayer}")) {
+                ++end;
+            }
+
+            QString style;
+            QString label;
+            QString classTitle;
+            QStringList classBodies;
+
+            for (int j = i + 1; j < end; ++j) {
+                const QString blockLine = lines[j];
+                if (blockLine.contains("circle [radius=0.12cm]")) {
+                    style = "UML Actor";
+                }
+                if (blockLine.contains(" ellipse [x radius=")) {
+                    style = "UML Use Case";
+                }
+                if (blockLine.contains(name + ".north)")) {
+                    classTitle = tikzNodeLabelFromLine(blockLine);
+                } else if (blockLine.contains(name + ".north west)")) {
+                    classBodies << tikzNodeLabelFromLine(blockLine);
+                } else if (blockLine.contains("[yshift=-0.80cm]" + name + ")")) {
+                    label = tikzNodeLabelFromLine(blockLine);
+                } else if (style == "UML Use Case" && blockLine.contains("\\node") && blockLine.contains(" at (" + x + ", " + y + ")")) {
+                    label = tikzNodeLabelFromLine(blockLine);
+                }
+            }
+
+            if (!classTitle.isEmpty()) {
+                style = "UML Class";
+                label = classTitle + " \\nodepart{two} " + classBodies.value(0) +
+                        " \\nodepart{three} " + classBodies.value(1);
+            } else if (style.isEmpty() && classBodies.size() == 1) {
+                style = "UML System";
+                label = classBodies[0];
+            } else if (style.isEmpty() && options.contains("shape=ellipse")) {
+                style = "UML Use Case";
+            }
+
+            if (!style.isEmpty()) {
+                RenderedNode node;
+                node.name = name;
+                node.x = x;
+                node.y = y;
+                node.style = style;
+                node.label = label;
+                node.line = i;
+                recoveredNodes << node;
+                recoveredNames.insert(name);
+                i = end - 1;
+            }
+            continue;
+        }
+
+        QRegularExpressionMatch simpleMatch = simpleNodeRe.match(line);
+        if (simpleMatch.hasMatch() && !line.contains("draw=none")) {
+            simpleNodeLines << line;
+        }
+    }
+
+    for (int i = 0; i < lines.size(); ++i) {
+        QString statement = lines[i];
+        if (!statement.trimmed().startsWith("\\draw")) continue;
+
+        while (!statement.contains(";") && i + 1 < lines.size()) {
+            ++i;
+            statement += "\n" + lines[i];
+        }
+
+        if (statement.contains(" to ")) {
+            edgeStatements << statement;
+        }
+    }
+
+    if (recoveredNodes.isEmpty() && simpleNodeLines.isEmpty() && edgeStatements.isEmpty()) {
+        return QString();
+    }
+
+    QString recovered;
+    QTextStream stream(&recovered);
+    stream << beginLine << "\n";
+    for (const QString &bbox : bboxLines) stream << bbox << "\n";
+
+    if (!recoveredNodes.isEmpty() || !simpleNodeLines.isEmpty()) {
+        stream << "\t\\begin{pgfonlayer}{nodelayer}\n";
+        for (const RenderedNode &node : recoveredNodes) {
+            stream << recoveredNodeLine(node.style, node.name, node.x, node.y, node.label) << "\n";
+        }
+        for (const QString &line : simpleNodeLines) {
+            QRegularExpressionMatch simpleMatch = simpleNodeRe.match(line);
+            if (!simpleMatch.hasMatch() || !recoveredNames.contains(simpleMatch.captured(2))) {
+                stream << line << "\n";
+            }
+        }
+        stream << "\t\\end{pgfonlayer}\n";
+    }
+
+    if (!edgeStatements.isEmpty()) {
+        stream << "\t\\begin{pgfonlayer}{edgelayer}\n";
+        for (const QString &edge : edgeStatements) stream << edge << "\n";
+        stream << "\t\\end{pgfonlayer}\n";
+    }
+
+    stream << "\\end{tikzpicture}\n";
+    stream.flush();
+    return recovered;
+}
+
+bool parseIntoGraph(Graph *graph, const QString &tikz)
+{
+    TikzAssembler ass(graph);
+    return ass.parse(tikz);
+}
+
+} // namespace
 
 TikzDocument::TikzDocument(QObject *parent) : QObject(parent)
 {
@@ -90,10 +318,29 @@ void TikzDocument::open(QString fileName)
         tikzit->loadStyles(stylesFile, true);
     }
 
+    QString parseTikz = editableSnapshotFromTikz(_tikz);
+    if (parseTikz.isEmpty()) parseTikz = _tikz;
+
     Graph *oldGraph = _graph;
     Graph *newGraph = new Graph(this);
-    TikzAssembler ass(newGraph);
-    if (ass.parse(_tikz)) {
+    bool parsed = parseIntoGraph(newGraph, parseTikz);
+
+    if (!parsed && parseTikz != _tikz) {
+        newGraph->deleteLater();
+        newGraph = new Graph(this);
+        parsed = parseIntoGraph(newGraph, _tikz);
+    }
+
+    if (!parsed) {
+        QString recoveredTikz = recoverRenderedPluginTikz(_tikz);
+        if (!recoveredTikz.isEmpty()) {
+            newGraph->deleteLater();
+            newGraph = new Graph(this);
+            parsed = parseIntoGraph(newGraph, recoveredTikz);
+        }
+    }
+
+    if (parsed) {
         _graph = newGraph;
         oldGraph->deleteLater();
         foreach (Node *n, _graph->nodes()) n->attachStyle();
@@ -137,7 +384,7 @@ bool TikzDocument::save() {
 
         if (file.open(QIODevice::WriteOnly)) {
             QTextStream stream(&file);
-            stream << _tikz;
+            stream << tikzWithEditableSnapshot(_tikz, _graph->tikz(false));
             file.close();
             setClean();
             addToRecentFiles();
