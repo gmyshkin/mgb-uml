@@ -1,71 +1,144 @@
+# MGB-UML
 
-# TikZiT
+MGB-UML is a desktop diagram editor for creating UML-style diagrams that export
+to PGF/TikZ. It is based on TikZiT, but focuses the editor, palette, styling,
+and release packaging around UML workflows.
 
-TikZiT is a graphical tool for rapidly creating graphs and string diagrams using PGF/TikZ. It was used, for example, to make all of the 2500+ diagrams in <a href="http://cambridge.org/pqp">this book</a>.
+The app keeps TikZiT's editable `.tikz` document model while adding UML-focused
+tools such as classes, systems, actors, use cases, and UML edge styles. Diagrams
+can be edited visually, copied and pasted as editable graph fragments, and
+exported for LaTeX documents.
 
-## Building on Windows
+## Features
 
-TiKZiT can be built in Windows using Qt Creator (part of <a href="http://doc.qt.io/qt-5/windows-support.html">Qt for Windows</a>) or from the command line. In either case, it is recommended you compile with <a href="http://www.mingw.org/">mingw32</a>, which is included in the official Qt distribution. There is no reason, in principle, that you couldn't use mingw64 or MSVC, but these haven't been tested.
+- Visual editing for TikZ-backed diagrams.
+- UML palette entries for common UML elements.
+- UML edge styles including generalization, aggregation, and composition.
+- Plugin support for custom diagram elements.
+- Plugin-aware TikZ export so app rendering and LaTeX output stay aligned.
+- Plugin SDK with headers, documentation, and a basic node plugin template.
+- Cross-platform Qt application packaging for Linux, Windows, and macOS.
 
-In addition to Qt itself, TikZiT needs flex/bison, <a href="https://poppler.freedesktop.org/">Poppler</a> (with Qt bindings), and <a href="https://www.openssl.org/">OpenSSL</a>. For flex/bison, the simplest way to install this is to download <a href="https://github.com/lexxmark/winflexbison">WinFlexBison</a>, then make sure both are in your `%Path%` so the build tools can find them. Alternatively, you can install it via <a href="https://chocolatey.org">Chocolatey</a>, via:
+## Repository Layout
 
-    > choco install winflexbison
+- `src/` - application source code.
+- `plugins_source/` - built-in plugin source code.
+- `plugins/` - runtime plugin directory used by local builds.
+- `sdk/` - plugin SDK, documentation, and templates.
+- `share/` - packaged shared resources.
+- `tests/` - test and deployment test documentation.
+- `images/` - application icons and image assets.
 
-For convenience, I have packaged up some headers and pre-built DLLs to take care of the Poppler and OpenSSL dependencies in a single shot. If you wish to use these, download <a href="http://tikzit.github.io/download/win32-deps.zip">win32-deps.zip</a> and extract it into the source folder before building. At this point, you should be able to open `tikzit.pro` in Qt Creator and build the project. If you wish to build from the command line, make sure `mingw32-make.exe` is in your `%Path%`. For the version that comes with Qt, this is in `C:\Qt\Tools\mingw530_32\bin`. Then, from the command prompt, run:
+## Requirements
 
-    > C:\Qt\5.XX.X\mingw53_32\bin\qtenv2.bat
-    > cd \path\to\tikzit
-    > qmake -r
-    > mingw32-make
+MGB-UML is a Qt Widgets application. For local development you need:
 
-To get a portable directory, you can then (optionally) run:
+- C++ compiler with C++17 support.
+- Qt with Core, Gui, Widgets, Network, Pdf, and PdfWidgets modules.
+- flex and bison.
+- Poppler development libraries where PDF preview/export support requires them.
+- make or another build tool supported by your Qt installation.
 
-    > deploy-win.bat
-
-
+The qmake project file is currently the primary build entry point.
 
 ## Building on Linux
 
-This should be buildable in Linux using a "standard" dev setup (gcc, flex, bison, make) as well as Qt. It has been most recently tested with Qt 6.2. First <a href="https://www.qt.io/">Install Qt</a> and add the `$QTDIR/bin` to your `PATH`. The other dependencies should be available via your package manager, e.g. on Ubuntu 22.04 run:
+On Ubuntu-like systems, install the usual compiler and Qt development packages,
+plus flex, bison, and Poppler:
 
-    sudo apt install flex bison libpoppler-dev libpoppler-cpp-dev libgl1-mesa-dev
+```sh
+sudo apt install build-essential qtbase5-dev qtpdf5-dev flex bison \
+  libpoppler-dev libpoppler-cpp-dev libgl1-mesa-dev
+```
 
-After that, building is:
+Then build the app:
 
-    qmake -r
-    make
+```sh
+qmake -r tikzit.pro
+make
+```
 
-To get a portable directory, you can then (optionally) run:
+The local executable is named `mgb-uml`.
 
-    ./deploy-linux.sh
+To create a portable Linux package, run:
 
-Building on other distributions should be similar. For Qt setup, you can find instructions for <a href="https://wiki.qt.io/Install_Qt_5_on_openSUSE">openSUSE</a> and <a href="https://wiki.archlinux.org/index.php/qt">Arch Linux</a> on the Qt wiki.
+```sh
+./deploy-linux.sh
+```
 
+## Building on Windows
 
-## Building on MacOS
+Install Qt for Windows with a compatible compiler, then install flex and bison.
+WinFlexBison is the usual option on Windows; make sure the tools are available
+on your `Path`.
 
-You'll need developer tools, Qt5, and Poppler (with Qt bindings) installed. You can install these via Homebrew with the following commands:
+From a Qt command prompt:
 
-    brew install qt5
-    brew install poppler --with-qt
+```bat
+qmake -r tikzit.pro
+mingw32-make
+```
 
-This doesn't add Qt binaries to the `$PATH` by default, so you may wish to either run:
+To create a portable Windows folder, run:
 
-    brew link --force qt5
+```bat
+deploy-win.bat
+```
 
-or add `/usr/local/opt/qt/bin` to your `$PATH`. Once this is done, TikZiT can be built from the command line via:
+## Building on macOS
 
-    qmake -r
-    make
+Install Qt, developer tools, flex, bison, and Poppler. With Homebrew, the exact
+package names depend on the Qt version you are using, but a typical setup is:
 
-To bundle the required libraries into `tikzit.app` and create a `.dmg` file, you can additionally run:
+```sh
+brew install qt flex bison poppler
+```
 
-    ./deploy-osx.sh
+Make sure Qt's `bin` directory is on your `PATH`, then build:
 
+```sh
+qmake -r tikzit.pro
+make
+```
 
-On older systems (pre-10.11), you can build with Qt 5.6, which <a href="http://doc.qt.io/qt-5/supported-platforms-and-configurations.html">claims</a> to support Mac OS as far back as Mountain Lion. It is installable via <a href="https://www.macports.org">MacPorts</a>:
+To bundle the app, run:
 
-    sudo port -N -k install qt56
-    export PATH=/opt/local/libexec/qt5/bin:$PATH
+```sh
+./deploy-osx.sh
+```
 
-I have only tested this with TikZiT 2.0, so to install Poppler (required by TikZiT >= 2.1), you are on your own.
+## Tests
+
+The qmake project includes a test configuration:
+
+```sh
+qmake -config test tikzit.pro
+make
+./UnitTests
+```
+
+## Plugins and SDK
+
+MGB-UML supports compiled Qt plugins for custom diagram elements. Plugins can
+add palette entries, custom editor rendering, geometry hints for edge attachment,
+and custom TikZ output.
+
+Start with the SDK docs:
+
+- `sdk/README.md`
+- `sdk/docs/PLUGIN_DEVELOPMENT.md`
+- `sdk/PLUGIN_GEOMETRY_HINTS.md`
+- `sdk/templates/basic-node-plugin/`
+
+Compiled plugins should be copied into the `plugins` directory next to the app
+executable, then the app should be restarted.
+
+## Attribution
+
+MGB-UML is based on TikZiT, a graphical tool for rapidly creating graphs and
+string diagrams using PGF/TikZ. The original TikZiT project remains the upstream
+foundation for the editor and TikZ document model.
+
+## License
+
+This project follows the license included in `COPYING`.
